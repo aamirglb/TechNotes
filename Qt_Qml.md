@@ -23,3 +23,8 @@ These *property animations* apply smooth movements by interpolating values betwe
 
 **Qt Quick States** are property configurations where a property may have different values to reflect different states. State changes introduce abrupt property changes; animations smooth transitions to produce visually appealing state changes. The **Transition** type can contain animation types to interpolate property changes caused by state changes.
 
+```cpp
+QVariant variant = QVariant::fromValue<QColor>(QColor(Qt::red));
+QColor color = variant.value<QColor>(); // read back
+qDebug() << variant.typeName(); // QColor
+```
