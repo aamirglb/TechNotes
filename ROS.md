@@ -313,35 +313,35 @@ It is not possible, using the standard `roscpp` interface, to run multiple disti
 
 int main(int argc, char *argv[]) {
     // Initialize ROS system and become a node
-	ros::init(argc, argv, "publish_velocity");
-	ros::NodeHandle nh;
+    ros::init(argc, argv, "publish_velocity");
+    ros::NodeHandle nh;
 
     // Create a publisher object
-	ros::Publisher pub = nh.advertise<geometry_msgs::Twist>(
-			"turtle1/cmd_vel", 1000);
+    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>(
+            "turtle1/cmd_vel", 1000);
 
     // Seed random number generator
-	srand(time(0));
+    srand(time(0));
 
     // Loop at 2Hz until the node is shut down
-	ros::Rate rate(2);
-	while(ros::ok()) {
+    ros::Rate rate(2);
+    while(ros::ok()) {
         // Create and fill message.
-		geometry_msgs::Twist msg;
-		msg.linear.x = double(rand())/double(RAND_MAX);
-		msg.angular.z = 2 * double(rand())/double(RAND_MAX) - 1;
+        geometry_msgs::Twist msg;
+        msg.linear.x = double(rand())/double(RAND_MAX);
+        msg.angular.z = 2 * double(rand())/double(RAND_MAX) - 1;
 
         // Publish the message
-		pub.publish(msg);
+        pub.publish(msg);
 
         // Send a message to rosout with the details
-		ROS_INFO_STREAM("Sending random velocity command: " 
-				<< "linear = " << msg.linear.x
-				<< " angular = " << msg.angular.z);
+        ROS_INFO_STREAM("Sending random velocity command: " 
+                << "linear = " << msg.linear.x
+                << " angular = " << msg.angular.z);
 
         // Wait until it's time for another iteration.
-		rate.sleep();
-	}
+        rate.sleep();
+    }
 }
 ```
 
@@ -357,6 +357,59 @@ If your program rapidly publishes more messages than the queue can hold, the old
 ROS client library is smart enough to know when the publisher and subscriber nodes are part of the same underlying *process*. In these cases, the message is delivered directly to the subscriber, without using any network transport. This feature is very important for making **nodelets** that is, multiple nodes that can be dynamically loaded into a single process efficient.
 
 If you want to publish messages on multiple topics from the same node, you’ll need to create a separate ros::Publisher object for each topic. Creating the publisher is an expensive operation, so it’s a usually bad idea to create a new `ros::Publisher` object each time you want to publish a message.
+
+fields with array types—shown with square brackets by `rosmsg show` are realized as STL vectors in C++ code.
+
+```cpp
+ROS_INFO_STREAM( " Sending random velocity command: "
+<< "linear=" << msg.linear.x
+<< "angular=" << msg.angular.z) ;
+```
+The `ros::Rate` object controls how rapidly the loop runs. The parameter in its constructor is in units of Hz, that is, in cycles per second.
+
+The advantage of `ros::Rate` object over `sleep` or `usleep` approach is that `ros::Rate` can account for the time consumed by other parts of the loop. If real work of the loop takes longer than the requested rate, the delay induced by sleep() can be reduced to zero.
+
+```cmake
+find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs)
+```
+ROS will only execute our callback function when we give it explicit permission to do so. Two different ways to accomplish this: `ros::spinOnce()` and `ros::spin()`.
+
+### Subscriber Example
+
+```cpp
+#include <ros/ros.h>
+#include <turtlesim/Pose.h>
+#include <iomanip>
+
+void poseMessageReceived(const turtlesim::Pose& msg) {
+    ROS_INFO_STREAM(std::setprecision(2) << std::fixed 
+            << "position = (" << msg.x << ", " << msg.y << ")"
+            << " direction = " << msg.theta);
+}
+
+int main(int argc, char *argv[]) {
+    ros::init(argc, argv, "subscribe_to_pose");
+    ros::NodeHandle nh;
+
+    ros::Subscriber sub = nh.subscribe("turtle1/pose", 
+        1000, 
+        &poseMessageReceived);
+    ros::spin();
+}
+```
+
+## Log Messages
+
+ROS provides a rich logging system that includes different **log messages**. In ROS, log messages are classified into five groups called **severity levels**
+1. DEBUG: ROS_DEBUG_STREAM
+1. INFO:  ROS_INFO_STREAM
+1. WARN:  ROS_WARN_STREAM
+1. ERROR: ROS_ERROR_STREAM
+1. FATAL: ROS_FATAL_STREAM
+
+Page-63
+
+
 
 ### Common ROS Commands
 ```bash
