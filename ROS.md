@@ -1,25 +1,27 @@
 # Robot Operating System (ROS)
 Programming Robots with ROS
 
-ROS, the Robot Operating System, is an open source framework for getting robots to do things.
+* ROS, the Robot Operating System, is an open source framework for getting robots to do things.
 
-ROS consists of number of parts
-1. A set of **drivers** that let you read data from sensors and send commands to motors and other actuators, in an abstracted, well-defined format.
-2. A large and growing collection of fundamental **robotics algorithms** that allow you to build maps of the world, navigate around it, represent and interpret sensor data, plan
-motions, manipulate objects, and do a lot of other stuff.
-3. All of the **computational infrastructure** that allows you to move data around. ROS is inherently *distributed* and allows you to split the workload across multiple computers seamlessly.
-4. A large set of **tools** that make it easy to visualize the state of the robot and the algorithms
+* ROS consists of number of parts
+    1. A set of **drivers** that let you read data from sensors and send commands to motors and other actuators, in an abstracted, well-defined format.
 
-Knowing something about the underlying mathematics used by robotics, such as *coordinate transforms* and *kinematic chains*
+    2. A large and growing collection of fundamental **robotics algorithms** that allow you to build maps of the world, navigate around it, represent and interpret sensor data, plan motions, manipulate objects, and do a lot of other stuff.
 
-The **Robot Operating System (ROS)** is a framework for writing robot software. It is a collection of *tools, libraries, and conventions* that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms.
+    3. All of the **computational infrastructure** that allows you to move data around. ROS is inherently *distributed* and allows you to split the workload across multiple computers seamlessly.
 
-ROS software modules can be written in any language for which a **client library** has been written. At the time of writing, client libraries exist for *C++, Python, LISP, Java,
-JavaScript, MATLAB, Ruby, Haskell, R, Julia*, and others.
+    4. A large set of **tools** that make it easy to visualize the state of the robot and the algorithms
 
-ROS client libraries communicate with one another by following a convention that describes how messages are *“flattened”* or *“serialized”* before being transmitted over the network.
+* Knowing something about the underlying mathematics used by robotics, such as *coordinate transforms* and *kinematic chains*
+
+* The **Robot Operating System (ROS)** is a framework for writing robot software. It is a collection of *tools, libraries, and conventions* that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms.
+
+* ROS software modules can be written in any language for which a **client library** has been written. At the time of writing, client libraries exist for *C++, Python, LISP, Java, JavaScript, MATLAB, Ruby, Haskell, R, Julia*, and others.
+
+* ROS client libraries communicate with one another by following a convention that describes how messages are *“flattened”* or *“serialized”* before being transmitted over the network.
 
 ### Installing ROS
+
 ```bash
 $ sudo sh -c \
 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > \
@@ -33,22 +35,21 @@ $ echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
 $ source ~/.bashrc
 ```
 
-A ROS graph *node* (POSIX processes) represents a software module that is sending or receiving messages, and a ROS graph *edge* (TCP connections) represents a stream of messages between two nodes.
+* A ROS graph *node* (POSIX processes) represents a software module that is sending or receiving messages, and a ROS graph *edge* (TCP connections) represents a stream of messages between two nodes.
 
-`roscore` is a service that provides connection information to nodes so that they can transmit messages to one another.
+* `roscore` is a service that provides connection information to nodes so that they can transmit messages to one another.
 
-The ROS architecture is a hybrid between a classical client/server system and a fully distributed one, due to the presence of a central roscore that provides a name service for the peer-to-peer
-message streams.
+* The ROS architecture is a hybrid between a classical client/server system and a fully distributed one, due to the presence of a central roscore that provides a name service for the peer-to-peer message streams.
 
-When a ROS node starts up, it expects its process to have an environment variable named `ROS_MASTER_URI`.
+* When a ROS node starts up, it expects its process to have an environment variable named `ROS_MASTER_URI`.
 
-`roscore` also provides a *parameter server*, which is used extensively by ROS nodes for configuration. There is a simple command-line tool to interact with the parameter server: `rosparam`.
+* `roscore` also provides a *parameter server*, which is used extensively by ROS nodes for configuration. There is a simple command-line tool to interact with the parameter server: `rosparam`.
 
-`catkin` is the ROS build system: the set of tools that ROS uses to generate executable programs, libraries, scripts, and  interfaces that other code can use.
+* `catkin` is the ROS build system: the set of tools that ROS uses to generate executable programs, libraries, scripts, and  interfaces that other code can use.
 
-`catkin` comprises a set of CMake macros and custom Python scripts to provide extra functionality on top of the normal CMake workflow.
+* `catkin` comprises a set of CMake macros and custom Python scripts to provide extra functionality on top of the normal CMake workflow.
 
-A workspace is simply a set of directories in which a related set of ROS code lives.
+* A workspace is simply a set of directories in which a related set of ROS code lives.
 
 ```bash
 $ source /opt/ros/indigo/setup.bash
@@ -59,67 +60,68 @@ $ cd ~/catkin_ws
 $ catkin_make
 ```
 
-The `catkin_init_workspace` command creates a CMakeLists.txt file for you in the src directory.
+* The `catkin_init_workspace` command creates a CMakeLists.txt file for you in the src directory.
 
-`catkin_make` will make two new directories: *build* and *devel*.
+* `catkin_make` will make two new directories: *build* and *devel*.
 
-If you open a new shell (or Linux terminal), you have to source the setup.bash file for the workspace you want to work with.
+* If you open a new shell (or Linux terminal), you have to source the setup.bash file for the workspace you want to work with.
 
-ROS software is organized into *packages*, each of which contains some combination of code, data, and documentation.
+* ROS software is organized into *packages*, each of which contains some combination of code, data, and documentation.
 
-Packages sit inside workspaces, in the src directory. Each package directory must include a *CMakeLists.txt* file and a *package.xml* file that describes the contents of the package and how catkin should interact with it.
+* Packages sit inside workspaces, in the src directory. Each package directory must include a *CMakeLists.txt* file and a *package.xml* file that describes the contents of the package and how catkin should interact with it.
 
 ```bash
 $ cd ~/catkin_ws/src
 $ catkin_create_pkg my_awesome_code rospy
 ```
 
-The `catkin_create_pkg` command makes a directory with the same name as the new package (my_awesome_code) with a CMakeLists.txt file, a package.xml file, and a src directory in it.
+* The `catkin_create_pkg` command makes a directory with the same name as the new package (my_awesome_code) with a CMakeLists.txt file, a package.xml file, and a src directory in it.
 
-To automate chasing long paths in filesystems, ROS provides a
+* To automate chasing long paths in filesystems, ROS provides a
 command-line utility called `rosrun` that will search a package for the requested program and pass it any parameters supplied on the command line.
 
 ```bash
 $ rosrun PACKAGE EXECUTABLE [ARGS]
 ```
 
-command-line tool `rostopic`, which is an extremely useful tool for introspecting running ROS systems.
+* command-line tool `rostopic`, which is an extremely useful tool for introspecting running ROS systems.
 
-`rqt_graph` is the Qt-based graph visualizer.
+* `rqt_graph` is the Qt-based graph visualizer.
 
-Typical ROS development follows the pattern of an *anonymous*
-publish/subscribe system: nodes generally do not receive or use any details about the identity or function of the peer nodes, where their inbound messages are coming from, or where they are going.
+* Typical ROS development follows the pattern of an *anonymous* publish/subscribe system: nodes generally do not receive or use any details about the identity or function of the peer nodes, where their inbound messages are coming from, or where they are going.
 
-ROS includes a tool for starting collections of nodes, called `roslaunch`.
+* ROS includes a tool for starting collections of nodes, called `roslaunch`.
 
-ROS uses the forward slash (/) to delimit namespaces. In ROS, any string in a program that defines a name can be *remapped* at runtime.
+* ROS uses the forward slash (/) to delimit namespaces. In ROS, any string in a program that defines a name can be *remapped* at runtime.
 
-ROS provides a standard syntax to remap names when starting nodes on the command line.
+* ROS provides a standard syntax to remap names when starting nodes on the command line.
 ```bash
 # Remap image topic to right/image topic
 $ ./image_view image:=right/image
 ```
 
-Pushing a node into a namespace can be accomplished with a special `__ns` namespace-remapping syntax (note the double underscore).
+* Pushing a node into a namespace can be accomplished with a special `__ns` 
+
+* namespace-remapping syntax (note the double underscore).
 ```bash
 # Launch camera into the namespace right
 $ ./camera __ns:=right
 ```
 
-If the same node is launched twice, `roscore` directs the older node to exit to make way for the newer instance of the node.
+* If the same node is launched twice, `roscore` directs the older node to exit to make way for the newer instance of the node.
 
-To change the name of a node on the command line, the special `__name` remapping syntax can be used.
+* To change the name of a node on the command line, the special `__name` remapping syntax can be used.
 ```bash
 $ ./talker __name:=talker1
 $ ./talker __name:=talker2
 ```
 
-`roslaunch` is a command-line tool designed to automate the launching of collections of ROS nodes.
+* `roslaunch` is a command-line tool designed to automate the launching of collections of ROS nodes.
 ```bash
 $ roslaunch PACKAGE LAUNCH_FILE
 ```
 
-Launch files are XML files that describe a collection of nodes along with their topic remappings and parameters.
+* Launch files are XML files that describe a collection of nodes along with their topic remappings and parameters.
 
 ```xml
 <launch>
@@ -130,37 +132,34 @@ Launch files are XML files that describe a collection of nodes along with their 
 </launch>
 ```
 
-One of the most useful features of roslaunch is that it closes all
-of its nodes when Ctrl-C is pressed in the console containing roslaunch.
+* One of the most useful features of `roslaunch` is that it closes all of its nodes when `Ctrl-C` is pressed in the console containing roslaunch.
 
-we need to pick for each component a coordinate frame of reference, or *origin*.
+* we need to pick for each component a coordinate frame of reference, or *origin*.
 
-In our 3D world, a **position** is a vector of three numbers
+* In our 3D world, a **position** is a vector of three numbers
 (x, y, z) that describe how far we have translated along each axis, with respect to some origin. Similarly, an **orientation** is a vector of three numbers (roll, pitch, yaw) that describe how far we have rotated about each axis, again with respect to some origin. Taken together, a (position, orientation) pair is called a **pose**. This kind of pose, which varies in six dimensions (three for translation plus three for rotation) is sometimes called a **6D pose**.
 
-This system is implemented in the tf (short for transform) package, which is extremely widely used throughout ROS software.
+* This system is implemented in the tf (short for transform) package, which is extremely widely used throughout ROS software.
 
-A **topic** is a name for a stream of messages with a defined type.
+* A **topic** is a name for a stream of messages with a defined type.
 
-Before nodes start to transmit data over topics, they must first announce, or *advertise*, both the topic name and the types of
-messages that are going to be sent. Then they can start to send, or publish, the actual data on the topic.
+* Before nodes start to transmit data over topics, they must first announce, or *advertise*, both the topic name and the types of messages that are going to be sent. Then they can start to send, or publish, the actual data on the topic.
 
-In ROS, all messages on the same topic must be of the same data type.
+* In ROS, all messages on the same topic must be of the same data type.
 
-we’re using a message from another package, we have to tell the ROS build system about this by adding a dependency to our package.xml file:
+* we’re using a message from another package, we have to tell the ROS build system about this by adding a dependency to our package.xml file:
 ```xml
 <depend package="std_msgs" />
 ```
 
 ## A Gentle Introduction to ROS
 
-ROS is not a real operating system. It is a *meta operating system* that provides some operating system functionalities. These functionalities include *multithreading*, *low-level device control*, *package management*, and *hardware abstraction*. ROS 
+* ROS is not a real operating system. It is a *meta operating system* that provides some operating system functionalities. These functionalities include *multithreading*, *low-level device control*, *package management*, and *hardware abstraction*. ROS 
 also provides tools and libraries for obtaining, building, writing, and running code across multiple computers.
 
-Major versions of ROS are called **distributions**, and are named using adjectives that start with successive letters of the alphabet.
+* Major versions of ROS are called **distributions**, and are named using adjectives that start with successive letters of the alphabet.
 
-Older, pre-groovy distributions used a build system called
-`rosbuild`, but more recent versions have begun to replace rosbuild with a new build system called `catkin`.
+* Older, pre-groovy distributions used a build system called `rosbuild`, but more recent versions have begun to replace rosbuild with a new build system called `catkin`.
 
 ```bash
 # Install ROS packages
@@ -176,12 +175,11 @@ sudo rosdep init
 rosdep update
 ```
 
-`rosdep` is a tool for checking and installing package dependencies in an OS-independent way.
+* `rosdep` is a tool for checking and installing package dependencies in an OS-independent way.
 
-`rosinstall` tool's job is to install ROS software from source.
+* `rosinstall` tool's job is to install ROS software from source.
 
-ROS relies on a few environment variables to locate the
-files it needs. To set these environment variables, you’ll need to execute the `setup.bash` script that ROS provides, using this command:
+* ROS relies on a few environment variables to locate the files it needs. To set these environment variables, you’ll need to execute the `setup.bash` script that ROS provides, using this command:
 ```bash
 source /opt/ros/indigo/setup.bash
 
@@ -189,73 +187,73 @@ source /opt/ros/indigo/setup.bash
 export | grep ROS
 ```
 
-`setup.bash` script defines bash functions to implement a few commands, including `roscd` and `rosls`. These functions are defined in the `rosbash` package.
+* `setup.bash` script defines bash functions to implement a few commands, including `roscd` and `rosls`. These functions are defined in the `rosbash` package.
 
 ```bash
 roscore
 rosrun turtlesim turtlesim_node
 rosrun turtlesim turtle_teleop_key
 ```
-ROS provides client libraries for these languages, meaning the programmer can get ROS functionalities in the languages mentioned.
 
-ROS has implemented popular robotics algorithms such as [PID](http://wiki.ros.org/pid), [SLAM (Simultaneous Localization and Mapping)](http://wiki.ros.org/gmapping); and path planners such as A*, [Dijkstra](http://wiki.ros.org/global_planner), and [AMCL(Adaptive Monte Carlo Localization)](http://wiki.ros.org/amcl).
+* ROS provides client libraries for these languages, meaning the programmer can get ROS functionalities in the languages mentioned.
 
-[Rviz](http://wiki.ros.org/rviz) tool is used for visualization with cameras, laser scanners, inertial measurement units, and so forth. For working with robot simulations, there are simulators such as **Gazebo**.
+* ROS has implemented popular robotics algorithms such as [PID](http://wiki.ros.org/pid), [SLAM (Simultaneous Localization and Mapping)](http://wiki.ros.org/gmapping); and path planners such as A*, [Dijkstra](http://wiki.ros.org/global_planner), and [AMCL(Adaptive Monte Carlo Localization)](http://wiki.ros.org/amcl).
 
-A project called ROS 2.0 is developing a much better version of the existing ROS in terms of security and real-time processing.
+* [Rviz](http://wiki.ros.org/rviz) tool is used for visualization with cameras, laser scanners, inertial measurement units, and so forth. For working with robot simulations, there are simulators such as **Gazebo**.
 
-Basically, ROS is a framework to communicate between two programs or process.
+* A project called ROS 2.0 is developing a much better version of the existing ROS in terms of security and real-time processing.
 
-**Node** is the ROS term for an executable that is connected to the ROS network. 
+* Basically, ROS is a framework to communicate between two programs or process.
 
-These messages are sent through a message bus or path called *ROS topics*.
+* **Node** is the ROS term for an executable that is connected to the ROS network. 
 
-The ROS file system includes packages, meta packages, package manifests, repositories, message types, and services types.
+* These messages are sent through a message bus or path called *ROS topics*.
 
-ROS packages are the individual units, or the atomic units, of ROS software. All source code, data files, build files, dependencies, and other files are organized in packages.
+* The ROS file system includes packages, meta packages, package manifests, repositories, message types, and services types.
 
-A ROS meta package groups a set of similar packages for a specific application.
+* ROS packages are the individual units, or the atomic units, of ROS software. All source code, data files, build files, dependencies, and other files are organized in packages.
 
-A package manifest is an *XML* file placed inside a ROS package. It has all the primary information of a ROS package, including the name of the package, description, author, dependencies, and so forth. 
+* A ROS meta package groups a set of similar packages for a specific application.
 
-A ROS repository is a collection of ROS packages that share a common version control system.
+* A package manifest is an *XML* file placed inside a ROS package. It has all the primary information of a ROS package, including the name of the package, description, author, dependencies, and so forth. 
 
-The ROS Service has Request/Reply mechanism.
+* A ROS repository is a collection of ROS packages that share a common version control system.
 
-When we run `roscore` command in the terminal, it starts the **ROS master**, the **parameter server**, and a **logging node**.
+* The ROS Service has Request/Reply mechanism.
+
+* When we run `roscore` command in the terminal, it starts the **ROS master**, the **parameter server**, and a **logging node**.
 
 ```bash
 sudo apt-get install ros-<distro>-ros-tutorials
 ```
 
-For most packages using the new catkin build system; compiled executables are not stored in the package directory, but in a separate standardized directory hierarchy. For packages installed by `apt-get`, this hierarchy is rooted at `/opt/ros/indigo`.
+* For most packages using the new catkin build system; compiled executables are not stored in the package directory, but in a separate standardized directory hierarchy. For packages installed by `apt-get`, this hierarchy is rooted at `/opt/ros/indigo`.
 
-In ROS, there is a build system for compiling ROS packages. The name of the build system is [catkin](http://wiki.ros.org/catkin). catkin is a custom build system made from the CMake build system and Python scripting. 
+* In ROS, there is a build system for compiling ROS packages. The name of the build system is [catkin](http://wiki.ros.org/catkin). catkin is a custom build system made from the CMake build system and Python scripting. 
 
-**out-of-source compilation** is one of the primary changes
-introduced by `catkin` in the groovy distribution of ROS.
+* **out-of-source compilation** is one of the primary changes introduced by `catkin` in the groovy distribution of ROS.
 
-A running instance of a ROS program is called a **node**.
+* A running instance of a ROS program is called a **node**.
 
-The `/rosout` node is a special node that is started automatically by `roscore`. Its purpose is somewhat similar to the standard output (i.e. std::cout).
+* The `/rosout` node is a special node that is started automatically by `roscore`. Its purpose is somewhat similar to the standard output (i.e. std::cout).
 
-**node names** are not necessarily the same as the names of the executables underlying those nodes.
+* **node names** are not necessarily the same as the names of the executables underlying those nodes.
 
-There is a built-in message package in ROS called `std_msgs` that has a message definition of standard data types, such as `int`, `float`, `string`, and so forth.
+* There is a built-in message package in ROS called `std_msgs` that has a message definition of standard data types, such as `int`, `float`, `string`, and so forth.
 
-The output of `rosnode info` is a list of topics for which that node is a publisher or subscriber, the services offered by node etc.
+* The output of `rosnode info` is a list of topics for which that node is a publisher or subscriber, the services offered by node etc.
 
-Messages in ROS are organized into named *topics*. The idea is that a node that wants to share information will **publish** messages on the appropriate topic or topics; a node that
-wants to receive information will **subscribe** to the topic or topics that it’s interested in.
+* Messages in ROS are organized into named *topics*. The idea is that a node that wants to share information will **publish** messages on the appropriate topic or topics; a node that wants to receive information will **subscribe** to the topic or topics that it’s interested in.
 
-The **message type of a topic** tells you what information is included in each message on that topic, and how that information is organized.
+* The **message type of a topic** tells you what information is included in each message on that topic, and how that information is organized.
 
-A common is `std_msgs/Header`, which contains some basic sequence, timestamp, and coordinate frame information.
+* A common is `std_msgs/Header`, which contains some basic sequence, timestamp, and coordinate frame information.
 
-`sensor_msgs/NavSatFix` contains arrays with fixed length.
+* `sensor_msgs/NavSatFix` contains arrays with fixed length.
 
-An alternative is to give single parameter specifying all of the fields as a single YAML (a recursive acronym for “YAML Ain’t Markup Language” Í 24 ) dictionary. 
+* An alternative is to give single parameter specifying all of the fields as a single `YAML` (a recursive acronym for “YAML Ain’t Markup Language”) dictionary. 
 ```bash
+# publish message using rostopic
 rostopic pub /turtle1/cmd_vel geometry_msgs/Twist "linear:
     x: 2.0
     y: 0.0
@@ -266,30 +264,27 @@ angular:
     z: 0.0"
 ```
 
-In ROS every message type belongs to a specific package. Message type names always contain a slash, and the part before the slash is the name of the containing package.
+* In ROS every message type belongs to a specific package. Message type names always contain a slash, and the part before the slash is the name of the containing package.
 
-ROS does provide a mechanism, called **services**, for slightly more direct, one-to-one communication.
+* ROS does provide a mechanism, called **services**, for slightly more direct, one-to-one communication.
 
-make the robot model in ROS, which is called URDF
-(Unified Robot Description Format)
+* make the robot model in ROS, which is called URDF (Unified Robot Description Format)
 
-The URDF is basically an XML file that has XML tags to represent a
-joint and a link (http://wiki.ros.org/urdf). Another representation
+* The URDF is basically an XML file that has XML tags to represent a joint and a link (http://wiki.ros.org/urdf). Another representation
 of URDF is called Xacro
 
 ### Writing ROS Programs
-Packages created should live together in a directory called
-a **workspace**.
 
-ROS’s catkin build system attempts to build all of the packages in a workspace at once.
+* Packages created should live together in a directory called a **workspace**.
 
-The three-layered directory structure; a workspace directory, containing a src directory, containing a package directory; is required by catkin build system.
+* ROS’s catkin build system attempts to build all of the packages in a workspace at once.
 
-ROS package names follow a naming convention that allows only lowercase letters, digits, and underscores.
+* The three-layered directory structure; a workspace directory, containing a src directory, containing a package directory; is required by catkin build system.
+
+* ROS package names follow a naming convention that allows only lowercase letters, digits, and underscores.
 
 ```cpp
-// This i s a ROS version of the standard " hello , world"
-// program.
+// This is a ROS version of the standard " hello , world" program.
 // This header defines the standard ROS classes.
 #include <ros/rosh.h>
 
@@ -303,9 +298,9 @@ ros::NodeHandle nh;
 // Send some output as a log message.
 ROS_INFO_STREAM("Hello, ROS!");
 ```
-It is not possible, using the standard `roscpp` interface, to run multiple distinct nodes within a single program.
+* It is not possible, using the standard `roscpp` interface, to run multiple distinct nodes within a single program.
 
-#### Publisher Example
+### Publisher Example
 ```cpp
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h> // For geometry_msg::Twist
@@ -345,34 +340,35 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-The work of actually publishing the messages is done by an
-object of class ros::Publisher.
+* The work of actually publishing the messages is done by an object of class ros::Publisher.
 
 ```cpp
     ros::Publisher pub = node_handle.advertise<msg_type>(
         topic_name, queue_zie);
 ```
-If your program rapidly publishes more messages than the queue can hold, the oldest unsent messages will be discarded.
+* If your program rapidly publishes more messages than the queue can hold, the oldest unsent messages will be discarded.
 
-ROS client library is smart enough to know when the publisher and subscriber nodes are part of the same underlying *process*. In these cases, the message is delivered directly to the subscriber, without using any network transport. This feature is very important for making **nodelets** that is, multiple nodes that can be dynamically loaded into a single process efficient.
+* ROS client library is smart enough to know when the publisher and subscriber nodes are part of the same underlying *process*. In these cases, the message is delivered directly to the subscriber, without using any network transport. This feature is very important for making **nodelets** that is, multiple nodes that can be dynamically loaded into a single process efficient.
 
-If you want to publish messages on multiple topics from the same node, you’ll need to create a separate ros::Publisher object for each topic. Creating the publisher is an expensive operation, so it’s a usually bad idea to create a new `ros::Publisher` object each time you want to publish a message.
+* If you want to publish messages on multiple topics from the same node, you’ll need to create a separate ros::Publisher object for each topic. Creating the publisher is an expensive operation, so it’s a usually bad idea to create a new `ros::Publisher` object each time you want to publish a message.
 
-fields with array types—shown with square brackets by `rosmsg show` are realized as STL vectors in C++ code.
+* fields with array types—shown with square brackets by `rosmsg show` are realized as STL vectors in C++ code.
 
 ```cpp
 ROS_INFO_STREAM( " Sending random velocity command: "
 << "linear=" << msg.linear.x
 << "angular=" << msg.angular.z) ;
 ```
-The `ros::Rate` object controls how rapidly the loop runs. The parameter in its constructor is in units of Hz, that is, in cycles per second.
 
-The advantage of `ros::Rate` object over `sleep` or `usleep` approach is that `ros::Rate` can account for the time consumed by other parts of the loop. If real work of the loop takes longer than the requested rate, the delay induced by sleep() can be reduced to zero.
+* The `ros::Rate` object controls how rapidly the loop runs. The parameter in its constructor is in units of Hz, that is, in cycles per second.
+
+* The advantage of `ros::Rate` object over `sleep` or `usleep` approach is that `ros::Rate` can account for the time consumed by other parts of the loop. If real work of the loop takes longer than the requested rate, the delay induced by sleep() can be reduced to zero.
 
 ```cmake
 find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs)
 ```
-ROS will only execute our callback function when we give it explicit permission to do so. Two different ways to accomplish this: `ros::spinOnce()` and `ros::spin()`.
+
+* ROS will only execute our callback function when we give it explicit permission to do so. Two different ways to accomplish this: `ros::spinOnce()` and `ros::spin()`.
 
 ### Subscriber Example
 
@@ -400,14 +396,85 @@ int main(int argc, char *argv[]) {
 
 ## Log Messages
 
-ROS provides a rich logging system that includes different **log messages**. In ROS, log messages are classified into five groups called **severity levels**
-1. DEBUG: ROS_DEBUG_STREAM
-1. INFO:  ROS_INFO_STREAM
-1. WARN:  ROS_WARN_STREAM
-1. ERROR: ROS_ERROR_STREAM
-1. FATAL: ROS_FATAL_STREAM
+* ROS provides a rich logging system that includes different **log messages**. In ROS, log messages are classified into five groups called **severity levels**
+    1. DEBUG: ROS_DEBUG_STREAM
+    1. INFO:  ROS_INFO_STREAM
+    1. WARN:  ROS_WARN_STREAM
+    1. ERROR: ROS_ERROR_STREAM
+    1. FATAL: ROS_FATAL_STREAM
 
-Page-63
+* If you prefer a `printf`-style interface instead of C++ style streams, there are also macros whose names omit the `_STREAM` suffix. 
+
+```cpp
+ROS_INFO("position=(%0.2f,%0.2f) direction=%0.2f",
+msg.x, msg.y, msg.theta);
+```
+
+* Generating one-time log messages
+
+```cpp
+ROS_DEBUG_STREAM_ONCE(message);
+ROS_INFO_STREAM_ONCE(message);
+ROS_WARN_STREAM_ONCE(message);
+ROS_ERROR_STREAM_ONCE(message);
+ROS_FATAL_STREAM_ONCE(message);
+```
+
+* Generating throttled log messages, macros for throttling the rate at which given log message appear. *interval* specifies the minimum amount of time, that must pass between successive instances of the given log message.
+
+```cpp
+ROS_DEBUG_STREAM_THROTTLE(interval, message);
+ROS_INFO_STREAM_THROTTLE(interval, message);
+ROS_WARN_STREAM_THROTTLE(interval, message);
+ROS_ERROR_STREAM_THROTTLE(interval, message);
+ROS_FATAL_STREAM_THROTTLE(interval, message);
+```
+
+* ROS inserts ANSI color codes **(ˆ[[0m)** into its output, even if the output is not being directed to a terminal. To view a file containing these sorts of codes, try a command like this:
+
+```bash
+less -r file
+```
+
+* every log message is also published on the topic /rosout. The message type of this topic is `rosgraph_msgs/Log`.
+
+```bash
+rosmsg show rosgraph_msgs/Log
+rostopic echo /rosout # see messages 
+rqt_console # GUI to show log messages
+∼/.ros/log/run_id/rosout.log
+```
+
+* each node provide a service called `set_logger_level`.
+
+* Internally, ROS uses a library called `log4cxx` to implement its logging features.
+
+* Nodes, topics, services, and parameters are collectively referred to as **graph resources**. Every graph resource is identified by a short string called a **graph resource name**.
+
+* If no default namespace is set, ROS uses global namespace (/). The best and most common method set different default namespace for a node or group of nodes is to use `ns` attributes in a launch file.
+
+* Most ROS programs accept a command line parameter called `__ns`.
+
+```bash
+__ns:=default-namespace # cmd line argument
+export ROS_NAMESPACE=default-namespace # shell env variable
+```
+
+* real value of relative names is that they make it easier to build complicated systems by composing smaller parts.
+
+* when writing nodes, it’s recommended to avoid using global names, except in the unusual situations where there is a very good reason to use them.
+
+* **Private** names begin with tilde (~), instead of using current default namespace, private names use the name of their node as a namespace.
+
+* **Anonymous names** make it easier to obey the rule that each node must have a unique name.
+
+```cpp
+ros::init(argc, argv, base_name, ros::init_options::AnonymouseName);
+```
+
+* ROS provides a mechanism for starting the master and many nodes all at once, using a file called a **launch file**.
+
+* It is also possible to use launch files that are not part of any package.
 
 
 
@@ -482,6 +549,26 @@ roswtf
 
 # creat new ROS package, run in workspace/src directory
 catkin_create_pkg <package-name>
+
+# get current run_id of the session
+rosparam get /run_id
+
+# check amount of disk space bu logs
+rosclean check 
+
+# remove all existing logs
+rosclean purge
+
+# Change log level of a node
+rosservice call /node-name/set_logger_level ros.package-name level
+
+rosservice call /log_throttled/set_logger_level ros.agitr [DEBUG | INFO | WARN | ERROR | FATAL]
+
+rqt_logger_level # GUI tool to set logger level
+
+roslaunch <package-name> <launch-file-name>
+
+
 
 rostopic type /turtle1/cmd_vel
 

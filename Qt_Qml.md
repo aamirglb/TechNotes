@@ -28,3 +28,14 @@ QVariant variant = QVariant::fromValue<QColor>(QColor(Qt::red));
 QColor color = variant.value<QColor>(); // read back
 qDebug() << variant.typeName(); // QColor
 ```
+
+Any QObject-derived class can be registered as a qml type or injected into the QML context.
+
+Injection of a c++ object into the qml context, making it a global object accessible to the qml engine.
+
+Registering your c++ object as a type in QML
+`qmlRegisterType()`
+`qmlRegisterInterface()`
+`qmlRegisterUncreatableType()`
+`qmlRegisterSingletonType()`
+
