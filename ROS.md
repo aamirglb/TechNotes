@@ -476,6 +476,111 @@ ros::init(argc, argv, base_name, ros::init_options::AnonymouseName);
 
 * It is also possible to use launch files that are not part of any package.
 
+### Launch file 
+```xml
+<launch>
+    <node 
+        pkg="pakage-name"
+        type="executable-name"
+        name="node-name"
+    />
+</launch>
+```
+
+* A node element has three required attributes: `pkg`, `type` (same as two command line arguments to `rosrun`) and `name`.
+
+* To use an anonymous name from within a launch file, use
+an `anon` substitution for the name attribute, like this:
+`name="$(anon base_name)"`
+
+* Force `roslaunch` to display output from all of its nodes on the screen, using the `--screen` command-line option
+```bash
+    roslaunch --screen <pkg-name> <launch-file-name>    
+```
+
+* `respawn="true"`: restart node when it is terminates prematurely.
+
+* `required="true"`: terminate all other active nodes if this node is terminated.
+
+* For nodes that rely on console input, retai a separate terminals for the node using `launch-prefix`.
+
+```
+    launch-prefix="command-prefix"
+    launch-prefix="xterm -e" as as
+    xterm -e rosrun turtlesim turtle_teleop_key
+```
+
+* Other usage of `launch-prefix` is for debugging (via gdb or valgrind) or for lowering the scheduling priority of a process (via `nice`).
+
+* `xterm` command starts a simple terminal window. The -e argument tells xterm to execute the remainder of its command line inside itself, in lieu of a new interactive shell.
+
+* The usual way to set the default namespace for a node; a process called **pushing down** into a namespace; is to use a launch file, and assign the `ns` attribute in its node element.
+
+### Remapping names
+* To remap a name when starting a node from the command line, give the original name and new name, separated by a :=, somewhere on the command line.
+
+```bash
+    rosrun turtlesim turtlesim_node turtle/pose:=tim
+    rosrun image_view image_view image:=/camera/image
+```
+
+* To remap names within a launch file, use remap element
+```xml
+    <remap from="original-name" to="new-name" />
+
+    <node pkg="turtlesim" type="turtlesim_node" name="turtlesim" >
+        <remap from="turtle1/pose" to="tim" />
+    </node>
+```
+* To include the contents of another launch file, including all of its nodes and parameters, use an include element: 
+```xml
+<include file="path-to-launch-file" />
+<include file="$(find package-name)/launch-file-name" />
+<include file="path-to-launch-file" ns="namespace" />
+```
+
+* To help make launch files configurable, `roslaunch` supports **launch arguments**, also called **arguments** or even **args**, which function somewhat like local variables in an executable program.
+```bash
+roslaunch package-name launch-file-name arg-name:=arg-value
+```
+
+```xml
+<arg name="arg-name" />
+<arg name="arg-name" default="arg-value" />
+<arg name="arg-name" value="arg-value" />
+
+<include file="path-to-launch-file">
+    <arg name="arg-name" value="arg-value" />
+    <arg name="arg-name" value="$(arg arg-name)" />
+</include>
+```
+
+* A command line argument can override a `default` but not a `value`.
+
+* You can use an arguments value using an `arg` substituation. Anywhere this substitution appears, `roslaunch` will replace it with the value of the given argument.
+
+```
+$(arg arg-name)
+```
+
+* Groups can push several nodes into the same namespace. Also group can conditionally enable or disable nodes.
+
+```xml
+<group ns="namespace">
+</group>
+
+<group if="0-or-1">
+</group>
+
+<group unless="1-or-0">
+</group>
+```
+
+* To ask roslaunch to set a parameter value, use a param element.
+```xml
+<param name="param-name" value="param-value" />
+``` 
+* To see the services offered by one particular node, use the `rosnode info` command.
 
 
 ### Common ROS Commands
@@ -566,9 +671,23 @@ rosservice call /log_throttled/set_logger_level ros.agitr [DEBUG | INFO | WARN |
 
 rqt_logger_level # GUI tool to set logger level
 
+# launch a launch file
 roslaunch <package-name> <launch-file-name>
 
+# list all existing parameters
+rosparam list
+rosparam get param_name # get value of param
+rosparam set param_name param_value
 
+# Store all parameters in YAML format to file
+rosparam dump filename namespace
+rosparam load filename namespace
+
+# list currently active services
+rosservice list
+
+# To see which node offers given service
+rosservice node service-name
 
 rostopic type /turtle1/cmd_vel
 
