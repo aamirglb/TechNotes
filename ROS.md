@@ -582,6 +582,23 @@ $(arg arg-name)
 ``` 
 * To see the services offered by one particular node, use the `rosnode info` command.
 
+* To determine the service data type of a service use the command `rosservice info service-name`
+
+* To get details about service data types use command `rossrv show service-data-type-name`
+
+* To call a service from command line `rosservice call service-name request-content`
+
+```bash
+rosservice call /spawn 2 2 0 Mikey
+# set turtle pen to green 
+rosservice call /sim2/turtle1/set_pen 0 255 0 3 0
+```
+
+* With `rosbag`, we can record the messages published on one or more topics to a file, and then later replay those messages.
+
+* The term **bag file** refers to a specially formatted file that stores timestamped ROS messages. The `rosbag` command can be used both to record and to replay bag files.
+
+* **Gazebo** is a high-fidelity robot simulator. Using Gazebo, we can define the characteristics of both our robot (or robots) and the world, and interact with that robot, via ROS, in the same way that we would interact with the real thing.
 
 ### Common ROS Commands
 ```bash
@@ -689,13 +706,16 @@ rosservice list
 # To see which node offers given service
 rosservice node service-name
 
-rostopic type /turtle1/cmd_vel
-
-rosparam list
-roslaunch
-catkin_make
-catkin_make install
-catkin_create_pkg ros_package_name package_dependencies
+# create bag file
+rosbag record -O filename.bag topic-names
+# record messages on every topic currently published
+rosbag record -a
+# enable compression in the bag file
+rosbag record -j
+# replay bag file
+rosbag play filename.bag
+# Inspect a bag file
+rosbag info filename.bag
 ```
 
 *Deep Neural Networks (dnn)* module. This module supports a number of deep learning frameworks, including `Caffe`, `TensorFlow`, and `Torch/PyTorch`.
