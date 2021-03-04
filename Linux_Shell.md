@@ -116,3 +116,36 @@ The `config` file must be readable and writable only by the user and not accessi
 $ touch ~/.ssh/config
 $ chmod 600 ~/.ssh/config
 ```
+### Secure Transfer Files using SCP
+SCP (secure copy) allows to securely copy files and directories between two locations.
+
+```bash
+scp [options] source destination
+```
+
+SCP options <br>
+`-P`: Remote host ssh port
+`-p`: Preserve file modification and access time
+`-q`: Suppress progress meter and non-error messages
+`-C`: Force `scp` to compress the data
+`-r`: copy directories recursively
+
+```bash
+# Copy local file to remote
+$ scp file.txt remote_username@10.10.0.2:/remote/directory
+
+# Save file with different name
+$ scp file.txt remote_username@10.10.0.2:/remote/directory/newfilename.txt
+
+# if remote is listening on different port
+$ scp -P 2322 file.txt remote_username@10.10.0.2:/remote/directory
+
+# Copy dirctory
+$ scp -r /local/directory remote_username@10.10.0.2:/remote/directory
+
+# Copy remote file to local system
+$ scp remote_username@10.10.0.2:/remote/file.txt /local/directory
+
+# Copy file between two remote systems
+$ scp user1@host1.com:/files/file.txt user2@host2.com:/files
+```
