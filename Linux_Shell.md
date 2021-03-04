@@ -83,3 +83,36 @@ find /home/aamir -xtype l
 # delete broken symlink
 find /home/aamir -xtype l -delete
 ```
+### Secure Shell (SSH) server installation
+SSH is a cryptographic network protocol used for a secure connection between a client and a server.
+
+```bash
+$ sudo apt update
+$ sudo apt install openssh-server -y
+
+# verify that installation is successful
+$ sudo systemctl status ssh
+
+# Allow Uncomplicated Firewall(UFW) firewall 
+$ sudo ufw allow ssh
+
+# connect to ssh server
+$ ssh user_name@ip_address
+```
+
+To determine the public IP address of the machine you’re trying to SSH to, simply visit the following URL: `https://api.ipify.org`
+
+```bash
+# To disable SSH
+$ sudo systemctl stop ssh
+
+# To start again
+$ sudo systemctl start ssh
+```
+OpenSSH client-side configuration file is `config` is stored in `.ssh` directory under user's home directory.
+The `config` file must be readable and writable only by the user and not accessible by others:
+
+```bash
+$ touch ~/.ssh/config
+$ chmod 600 ~/.ssh/config
+```
