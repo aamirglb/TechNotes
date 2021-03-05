@@ -1,5 +1,14 @@
 # Bash Shell
 
+<font size=4>
+Table Of Contents <br>
+
+[1. Symbolic Links](#<font-color="orange">-1.-symbolic-links-</font>) <br>
+[2. Secure Shell (SSH)](#<font-color="orange">-2.-secure-shell-(ssh)-server-installation</font>) <br>
+[3. Using SCP](#<font-color="orange">-3.-secure-transfer-files-using-scp-</font>) <br>
+[4. find Command](#<font-color="orange">4.-find-command</font>) <br>
+</font>
+
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
 * Different shells
     1. **sh** - Bourne Shell
@@ -46,7 +55,10 @@ $ set -o emacs
 customize the readline default key bindings by adding your own
 bindings in a `~/.inputrc` File. Global default file is `/etc/inputrc`.
 
-### Symlink in Linux
+---
+## <font color="orange"> 1. Symbolic Links </font>
+---
+
 * A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer.
 
 * A **hard link** cannot be created for a folder or file in a different file system.
@@ -83,7 +95,10 @@ find /home/aamir -xtype l
 # delete broken symlink
 find /home/aamir -xtype l -delete
 ```
-### Secure Shell (SSH) server installation
+---
+## <font color="orange"> 2. Secure Shell (SSH) Server Installation</font>
+---
+
 SSH is a cryptographic network protocol used for a secure connection between a client and a server.
 
 ```bash
@@ -116,7 +131,10 @@ The `config` file must be readable and writable only by the user and not accessi
 $ touch ~/.ssh/config
 $ chmod 600 ~/.ssh/config
 ```
-### Secure Transfer Files using SCP
+---
+## <font color="orange"> 3. Secure Transfer Files Using SCP </font>
+---
+
 SCP (secure copy) allows to securely copy files and directories between two locations.
 
 ```bash
@@ -149,3 +167,44 @@ $ scp remote_username@10.10.0.2:/remote/file.txt /local/directory
 # Copy file between two remote systems
 $ scp user1@host1.com:/files/file.txt user2@host2.com:/files
 ```
+
+---
+## <font color="orange">4. find command</font>
+---
+
+* `find` command can be used to find files by **permission, users, groups, file type, date, size** and other possible criteria.
+
+```bash
+# find files in current working directory
+$ find . -name test.txt
+$ find /home -name test.txt
+
+# ignore case
+$ find /home -iname test.txt
+
+# find directories
+$ find / -type d -name Test
+
+# find files
+$ find . -type f -name test.cpp
+
+# find all cpp files
+$ find . -type f -name "*.cpp"
+
+# find file with 777 permission
+$ find . -type f -perm 0777 -print
+
+# without 777 permission 
+$ find / -type f ! -perm 777
+
+# find read only files
+$ find . -perm /u=r
+
+# find all executable file
+$ find . -perm /a=x
+
+# find all 777 and chmod to 644
+$ find / -type f -perm 0777 -print -exec chmod 644 {} \;
+```
+TBD: https://www.tecmint.com/35-practical-examples-of-linux-find-command/
+What are files with SGID bit and Sticky bit?? SUID files
