@@ -24,3 +24,22 @@ $ git checkout tags/<tag> -b <branch>
 # inspect the state of branch
 $ git log --oneline --graph
 ```
+
+### Git delete branch
+Git will not let you delete the branch you are currently on so you must make sure to checkout a branch that you are NOT deleting. 
+```bash
+// delete branch locally
+git branch -d localBranchName
+
+// delete branch remotely
+git push origin --delete remoteBranchName
+```
+
+The `-d` option will delete the branch only if it has already been pushed and merged with the remote branch. Use `-D` instead if you want to force the branch to be deleted, even if it hasn't been pushed or merged yet.
+
+```bash
+# 
+git fetch -p
+```
+
+The `-p` flag means "prune". After fetching, branches which no longer exist on the remote will be deleted.
