@@ -55,6 +55,56 @@ $ set -o emacs
 customize the readline default key bindings by adding your own
 bindings in a `~/.inputrc` File. Global default file is `/etc/inputrc`.
 
+Search command history by pressing **Ctrl+R**
+Repeat previous command: **!!** or **!-1**
+In emacs mode, press **Ctlr+P**
+Execute command that starts with specific word: **!<word-start>**
+Clear history: **history -c**
+Get command from previous argument to current command: **!!:$**
+Get first argument from previous command: **!^**
+Substitue specific argument: **!cp:2**
+
+```bash
+# display timestamp with history command
+$ export HISTTIMEFORMAT='%F %T '
+$ history | more
+
+# control history size is HISTSIZE in ~/.bash_profile
+HISTSIZE=450
+HISTFILESIZE=450
+
+# change history file name using HISTFILE in ~/.bash_profile
+HISTFILE=/root/.mycommands
+
+# Eliminate consecutive repeated history entires
+$ export HISTCONTROL=ignoredups
+
+# Erase duplicate across history
+$ export HISTCONTROL=erasedups
+
+# force history not to remember command
+$ export HISTCONTROL=ignorespace
+
+# Ignore specific command from history
+$ export HISTIGNORE="pwd:ls:ls -ltr:"
+
+# disable history
+$ export HISTSIZE=0
+```
+
+By default history is stored in `~/.bash_history`
+
+| Command       | Description |
+| ------------- | ----------- |
+| !!            | Repeats the previous command       |
+| !10           | Repeat the 10 th command from the history        |
+| !-2           | Repeat the 2 nd command (from the last) from the history        |
+| !string       | Repeat the command that starts with “string” from the history        |
+| !?string      | Repeat the command that contains the word “string” from the history        |
+| ^str1^str2^   | Substitute str1 in the previous command with str2 and execute it        |
+| !!:$          | Gets the last argument from the previous command        |
+| !string:n     | Gets the nth argument from the command that starts with “string” from the history.        |
+
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
 ---
