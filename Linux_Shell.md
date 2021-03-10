@@ -213,7 +213,7 @@ CA NY UT TX
 | $!        | PID of most recently executed background process |
 | $?        | Exit status of most recently executed command |
 | $-        | All options set using bash set builtin command |
-| $_        | Gives last argument to previous command |
+| $_        | Gives last argument to previous command. At the shell startup, it gives absolute filename of the shell script being executed. |
 
 ```bash
 # display all parameters using following single line code-snippet
@@ -235,7 +235,44 @@ $ done
 
 * `shift` command moves the arguments (positional parameters) to the left by n positions. If no argument is specified, the argument will be moved by 1.
 
+* `echo -n` Do not output trailing newline
+* `echo -e` Enable interpretation of backslash escapes
 
+* single quotes '', will not expand variable values, i.e $ symbol will be treated as a literal value.
+
+* Declare variables using `typeset` and `declare` builtins. `typeset` is deprecated.
+
+```bash
+# declare integer
+$ declare -i variablename
+
+# readonly variable
+$ declare -r variablename
+
+# array
+$ declare -a array
+
+# associative array
+$ declare -A array
+```
+
+* Inside shell script use `let` for arithmetic expressions.
+```bash
+# both are same, no need to have $ on RHS
+let total=total+3
+let total=$total+3
+```
+
+* `((expression))` tells bash to evaluate contents as an expression. This is very much like `let`. However within (()), you can use spaces. (()) allows pre- and post- increment/decrement:
+```bash
+$ ((total++))
+$ ((total--))
+$ ((++total))
+```
+
+* `expr` is a unix command (not a bash builtin) which can be used to evaluate an expression.
+
+* Bash does not understand floating point arithmetic. It treats numbers containing a decimal point as strings.
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
 ---
