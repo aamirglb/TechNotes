@@ -14,8 +14,29 @@ $ git config --global user.name "Your Name"
 ### Git Tags
 Tags are reference points in the repository. Tags are usually used as references for release versions.
 Tags are Git objects meaning that **they can be checkout out** like a branch or a commit.
+Git has the ability to tag specific points in a repository’s history as being important.
+
+Git supports two types of tags: **lightweight** and **annotated**.
+A *lightweight tag* is very much like a branch that doesn’t change; iit’s just a pointer to a specific commit.
+
+*Annotated tags*, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, email, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). It’s generally recommended that you create annotated tags so you can have all this information.
 
 ```bash
+# list tags
+$ git tag
+
+# search for tags that match a particular pattern. 
+$ git tag -l "v1.8.5*"
+
+# create an annotated tag
+$ git tag -a v1.0.0 -m "GCS SW v1.0.0"
+
+# push only one tag to remote
+$ git push <repo-name> <tag-name>
+
+# push all tags to remote
+$ git push --tags <repo-name>
+
 # fetch latest tags from remote repository
 # git fetch --all --tags
 
