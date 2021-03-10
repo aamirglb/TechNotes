@@ -105,6 +105,137 @@ By default history is stored in `~/.bash_history`
 | !!:$          | Gets the last argument from the previous command        |
 | !string:n     | Gets the nth argument from the command that starts with “string” from the history.        |
 
+```bash
+# find all files that changed within last 24 hours
+$ find / -ctime -1 > /tmp/changed-file-list.txt &
+
+# suspend current job
+$ find / -ctime -1 > /tmp/changed-file-list.txt
+$ bg
+$ %2 &
+
+# view all background jobs
+$ jobs
+
+# move background job to foreground
+$ fg
+
+# kill background job using kill %job-number
+$ kill %2
+
+# username - hostname - full path of CWD
+$ export PS1="\u@\h \w$ "
+
+$ export PS2="continue-> "
+```
+
+```bash
+# dark blue prompt
+$ export PS1="\e[1;34m\u@\h \w$ \e[m"
+```
+* \e[ - indicates begining of color prompt
+* x;ym - indicate color code
+* \e[m - indicate end of color prompt
+
+Color codes:
+* Black 0;30
+* Blue  0;34
+* Green 0;32
+* Cyan  0;36
+* Red   0;31
+* Purple 0;35
+* Brown  0;33
+Replace 0 with 1 for dark color
+
+Another way is to use following color codes:
+* Black \033[30m
+* Blue \033[34m
+* Green \033[32m
+* Cyan \033[36m
+* Red \033[31m
+* Purple \033[35m
+* Brown \033[33m
+
+Sequence of execution of bash startup files
+* `/etc/profile` -> execute next step
+* `~/.bash_profile` -> end
+* `~/.bash_login` -> end
+* `~/.profile` -> end
+
+`~/.bashrc` is not directly executed by bash. However, `~/.bash_profile` typically execute `~/.bashrc`.
+
+```bash
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+```
+
+when concatenate the value of a variable with another value, use the `${}` referencing form.
+
+`/etc/profile` checks all `*.sh` file under `/etc/profile.d` and executes them.
+
+"$VAR" - If quoted, it is considered as one word
+ $VAR  - iF not quoted, it will be split into multiple words
+
+```bash
+states="CA NY UT TX"
+for i in $states; do
+    echo $i
+done
+Output
+------
+CA
+NY
+UT
+
+for i in "$states"; do
+    echo $i
+done
+Output
+------
+CA NY UT TX
+ ``` 
+
+ * Executing a shell script like `./script.sh` will spawn a new bash shell and it executes the script.
+
+ * Positional parameters are of the form `$1` to `$N`. When N is more than single digit, it must be enclosed in braces like `${N}`.
+ $1, $2 ... ${10}, ${11}
+
+| Command   | Description |
+| --------- | ----------- |
+| $0        | Script Name       |
+| $1        | First parameter   |
+| $2        | Second parameter  |
+| $*        | All parameters    |
+| $@        | All parameters    |
+| $#        | Total number of parameters |
+| $$        | PID of the shell |
+| $!        | PID of most recently executed background process |
+| $?        | Exit status of most recently executed command |
+| $-        | All options set using bash set builtin command |
+| $_        | Gives last argument to previous command |
+
+```bash
+# display all parameters using following single line code-snippet
+printf '"%b"\n' "$@" | cat -n
+```
+
+`$*` and `$@` are same except when double quoted.
+"$*" is converted to "${1}x${2}x${3}x..."
+
+```bash
+# get range of parameters ${@:$start:$count}
+$ start=2
+$ count=3
+$ ${@:$start:$count}
+$ for i in "${@:$start:$count}"; do
+$    echo $i
+$ done
+```
+
+* `shift` command moves the arguments (positional parameters) to the left by n positions. If no argument is specified, the argument will be moved by 1.
+
+
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
 ---
