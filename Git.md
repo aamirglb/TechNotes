@@ -33,6 +33,7 @@ $ git tag -a v1.0.0 -m "GCS SW v1.0.0"
 
 # push only one tag to remote
 $ git push <repo-name> <tag-name>
+$ git push origin v1.0.1
 
 # push all tags to remote
 $ git push --tags <repo-name>
