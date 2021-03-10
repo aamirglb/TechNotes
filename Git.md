@@ -64,3 +64,18 @@ git fetch -p
 ```
 
 The `-p` flag means "prune". After fetching, branches which no longer exist on the remote will be deleted.
+
+### Git Large File Storage (LFS) Extension
+How to use git LFS to store large files (>100 MB).
+
+```bash
+sudo apt-get install git-lfs
+cd ~/gcs_sw_binary/
+git lfs install --local
+git lfs track "*.AppImage"
+git add .gitattributes
+git add QGroundControl.AppImage
+git commit -m "GCS SW version v1.0.0"
+git push origin main
+
+```
