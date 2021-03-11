@@ -273,6 +273,79 @@ $ ((++total))
 * `expr` is a unix command (not a bash builtin) which can be used to evaluate an expression.
 
 * Bash does not understand floating point arithmetic. It treats numbers containing a decimal point as strings.
+
+### Number Comparison
+
+| Operator   | Description |
+| ---------  | ----------- |
+| -eq        | Equal to       |
+| -ne        | Not Equal to   |
+| -gt        | Greater than       |
+| -ge        | Greater than or equal to   |
+| -lt        | Less than       |
+| -le        | Less than or equal to   |
+
+### String Comparison
+| Operator   | Description |
+| ---------  | ----------- |
+| =        | Equal to       |
+| ==        | Equal to   |
+| !=        | Not Equal to       |
+| <        |    |
+| >        |        |
+| -z        | Zero byte? Is string empty?   |
+| -n        | Not empty?   |
+
+
+```
+if [ conditional express ]; then
+    statement1
+    statement2
+else
+    statement3
+fi
+
+if [ conditional express ]; then
+    statement1
+    statement2
+elif [ conditional expression2 ]; then
+    statement3
+else
+    statement4
+fi
+```
+
+* In a shell
+    * 0 means last command executed successfully
+    * 1 means last command execution failed
+
+### File Test Operators
+| Operator   | Description |
+| ---------  | ----------- |
+| -e        | File exists       |
+| -f        | It's a regular file   |
+| -d        | It's a directory       |
+| -b        | It's a block device   |
+| -c        | It's a character device       |
+| -s        | File is not empty   |
+| -p        | It's a pipe   |
+| -S        | It's a socket      |
+| -h        | It's a symbolic link   |
+| -t        | Check if FD is opened in terminal       |
+| -r        | File read permission   |
+| -w        |        |
+| -x        |  |
+| -u        | suid set on the file   |
+| -g        | sgid set on the file       |
+| -k        |  Sticky bit set on file  |
+| -O        | You own the file       |
+| -G        | File group id and my group id are same   |
+| -N        | fiel got modified since last read   |
+| f1 -nt f2        | f1 newer than f2       |
+| f1 -ot f2        | f1 is older than f2   |
+| f1 -ef f2        | Both files are hard linked to same file       |
+
+
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
 ---
