@@ -370,20 +370,73 @@ fi
 * [[]] - Extended Test Command is an advanced variation of []
     * Allows pattern matching
     * =~ regular expresison matching
-```
+```bash
     if [[ $name ~= ^b ]]; 
 ```
 
-```
+```bash
 for varname in list
 do
     commands ##Body of the loop
+done
+
+# loop through files and directories
+cd ~
+for item in *
+do
+    echo "Item $((i++)) : $item"
 done
 ```
 
 * If list is missing from for statement, bash uses positional parameters that were passed into the shell.
 
+```bash
+# Use range of numbers using brace expansion
+for num in {1..10}
 
+# Range of number with increment
+for num in {1..10..2}
+
+# Bash for loop using C syntax
+for (( expr1; expr2; expr3 ))
+do
+    commands
+done
+```
+
+```bash
+# While loop
+while expression
+do
+    commands
+done
+
+# until loop
+until expression
+do
+    commands #body of the loop
+done
+```
+
+* bash until loop is useful as a way of waiting for certain events to occur.
+
+```bash
+case var in
+pattern1 )
+    command1
+    command2
+    ...
+    ;;
+pattern2 )
+    command3
+    command4
+    ...
+    ;;
+esac
+```
+* Each set of command in case statement should end with two semi-colons (;;)
+
+* case terminator can be `;;`, `;&` and `;;&`
 
 
 
