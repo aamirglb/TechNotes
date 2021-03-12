@@ -345,6 +345,48 @@ fi
 | f1 -ot f2        | f1 is older than f2   |
 | f1 -ef f2        | Both files are hard linked to same file       |
 
+* **-a** does 'and' comparison inside conditional expression
+* **-o** does 'or' comparison inside conditional expression
+* **!** is a logical NOT
+* **&&** is used to execute sequence of commands only when previous command is successfully executed with a return status of zero.
+* **||** execute exactly one command in a sequence of commands.
+
+```bash
+if [ $total -ge 50 -a $total -le 100 ]; then
+if [ "$input" == "apple" -o "$input" == "orange" ]; then
+
+passwd=/etc/passwd
+group=/etc/group
+
+if [ -f $passwd ] && x=`wc -l $passwd|awk '{print $1}'` && \
+   [ -f $group ] && y=`wc -l $group|awk '{print $1}'` && let total=$x+$y
+then 
+    echo "Total Lines in $passwd and $group files are: $total"
+fi
+
+[ -f /.datafile ] || touch /.datafile
+```
+
+* [[]] - Extended Test Command is an advanced variation of []
+    * Allows pattern matching
+    * =~ regular expresison matching
+```
+    if [[ $name ~= ^b ]]; 
+```
+
+```
+for varname in list
+do
+    commands ##Body of the loop
+done
+```
+
+* If list is missing from for statement, bash uses positional parameters that were passed into the shell.
+
+
+
+
+
 
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
