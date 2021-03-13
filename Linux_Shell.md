@@ -438,8 +438,34 @@ esac
 
 * case terminator can be `;;`, `;&` and `;;&`
 
+* Bash has a formatted print command `printf`
 
+```bash
+read -a arrayname
+read -p prompt
+read -s # This doesn't echo the value as you enter
+read -t 10 # read waits for 10 sec and times out
+read -N 5  # return after reading exactly 5 char
+read -r    # read \ literally 
+read       # if no variable, store value in $REPLY internal variable
+```
 
+* The bash shell has a hash table where the commands you execute are stored. When you execute the same command next time, bash won't search the PATH variable, instead it will pick up the command from the hash table and run it.
+
+* Use `type` command to identify the type of a particular command. A command can be an alias, a shell builtin, a shell keyword, or an external program.
+
+```bash
+type lw
+type pwd
+```
+
+* `ulimit` control the amount of resources that can be assigned to processes that are started by bash shell.
+```bash
+# view all current limits
+ulimit -a
+```
+
+* `shopt` stands for shell options. View all shell options and their current status.
 
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
