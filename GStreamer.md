@@ -144,3 +144,28 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
  * `audiotestsrc` produces a synthetic tone. `wavescope` consumes an audio signal and renders a waveform as if it was an oscilloscope.
 
  * The element used to inject application data into a GStreamer pipeline is `appsrc` and used to extract GStreamer data back to the application is `appsink`.
+
+ * `appsrc` and `appsink` are so versatile that they offer their own API, which can be accessed by linking against the `gstreamer-app` library.
+
+ * Data travels through a GStreamer pipeline in chunks called _buffers_.
+
+ * `GstDiscoverer` is a utility object found in the `pbutils` library (Plug-in Base utilities) that accepts a URI or list of URIs, and returns information about them. It can work in synchronous or asynchronous modes.
+
+ * `gst-discoverer-1.0` tool is an application that only displays data, but does not perform any playback.
+
+ * `gst-launch-1.0` tool accepts a textual description of a pipeline, instantiates it, and sets it to the PLAYING state. It allows you to quickly check if a given pipeline works, before going through the actual implementation using GStreamer API calls.
+
+ ```
+ gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
+
+ gst-launch-1.0 videotestsrc pattern=11 ! videoconvert ! autovideosink
+
+ gst-launch-1.0 videotestsrc ! videoconvert ! tee name=t ! queue ! autovideosink t. ! queue ! autovideosink
+
+ gst-launch-1.0 souphttpsrc location=https://www.freedesktop.org/software/gstreamer-sdk/data/media/sintel_trailer-480p.webm ! matroskademux name=d d.video_0 ! matroskamux ! filesink location=sintel_video.mkv
+
+ ```
+
+ * A `tee` copies to each of its output pads everything coming through its input pad.
+
+* `filesink` location property specifies the name of the file.
