@@ -80,3 +80,97 @@ git commit -m "GCS SW version v1.0.0"
 git push origin main
 
 ```
+
+* `Gitolite` tool allows you to setup git hosting on a central server, with fine-grained access control and many more powerful features.
+
+```bash
+$ git init --bare new_repo.git
+
+# git status short (-s, --short)
+$ git status -s
+
+# -a, --all: take all changes to the tracked files
+$ git commit -a -m "message"
+
+$ git config --global user.name "Aamir"
+$ git config --global user.email "aamir@aamir.com"
+
+# show log
+$ git log
+
+$ git diff
+
+# always use rename and copy detection
+$ git config --global diff.renames copies
+
+$ git mv random.c src/random.c
+
+# bring in changes from remote repo
+$ git pull
+
+$ git show
+
+$ git tag -a -m "random v0.1" v0.1
+$ git tag --list
+$ git log -1 --decorate --abbrev-commit
+$ git push origin tag v0.1
+
+$ git mergetool
+
+# git diff statistics
+$ git diff --stat
+
+# undo changes to a file
+$ git checkout -- rand.c
+
+# create a branch and switch to it
+$ git checkout -b better-random
+
+# same as above
+$ git branch better-random
+$ git checkout better-random
+
+$ git push --set-upstream origin better-random
+
+# show changes exclusive to better-random branch
+$ git log HEAD..origin/better-random
+
+# undo an unpublished merge
+$ git reset --hard @{1} 
+# or go to previous (pre-merge) commit
+```
+
+* `~/.gitconfig` file contains information that will be used to identify commits in log. Either create `.gitconfig` file or use `git config` command from command line. 
+
+* `.git` directory contains entire repository in Git internal format, and some repository-specific administrative information. `getrepository-layout (5)` manpage.
+
+* A Git version identifier is a SHA-1 hash. 
+
+* To setup a branch as private, needs to configure the server with hooks.
+
+* **Directed Acyclic Graph (DAG)** of revisions. The structure that Git uses to represent the possible non-linear history of a project is called a Directed Acyclic graph (DAG).
+
+* A directed graph is a data structure from computer science (and mathematics)
+composed of nodes (vertices) that are connected with directed edges (arrows). A
+directed graph is acyclic if it doesn't contain any cycles.
+
+* The DAG of revisions uses following representation:
+    1. **Nodes**: Each node represenet one revision of a project. These objects are called **commits**.
+    2. **Directed Edges**: Each edge is based on relationship between two revisions. The arrow goes from a later **child** revision to an earlier **parent** revision.
+
+* DAG of revisions is laid out _left-to-right_ (root nodes on the left, leaves on the right) or _bottom-to-top_ (the most recent revisions on top).
+
+* There are two special type of nodes in any DAG:
+    1. **Root node**: Nodes (revisions) that have no parents.. There is at least one root node in DAG of revisions, which represents initial version of project.
+    2. **Leaf node**: Nodes that have no children (no incoming edges). there is at least one such node. Usually, each leaf in DAG of revisions has a branch head pointing to it.
+
+* Both branches and tags, sometimes called references (refs) together, have the
+same meaning (the same representation) within the DAG of revisions.
+
+* A **tag** is a symbolic name (for example, v1.3-rc3 ) for a given revision. It always points to the same object; it does not change.
+
+* A **branch** is a symbolic name for the line of development. The most recent commit
+(leaf revision) on such a line of development is referred to as the top or tip of the
+branch, or branch head, or just a branch.
+
+* Git stored _branches_ and _tags_ in files inside .git administrative area, in the `.git/refs/heads/` and `.git/refs/tags/` directories, respectively.
