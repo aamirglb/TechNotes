@@ -617,6 +617,12 @@ $ find . -perm /a=x
 
 # find all 777 and chmod to 644
 $ find / -type f -perm 0777 -print -exec chmod 644 {} \;
+
+# find files by size
+$ find / -size +100MB
+
+$ find . -type f ! -name "*.*" | xargs -o rm
+$ find . -type f ! -name "*.*" -exec rm {} \;
 ```
 TBD: https://www.tecmint.com/35-practical-examples-of-linux-find-command/
 What are files with SGID bit and Sticky bit?? SUID files
