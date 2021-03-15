@@ -1,0 +1,25 @@
+smpte (0) – SMPTE 100%% color bars
+snow (1) – Random (television snow)
+black (2) – 100%% Black
+white (3) – 100%% White
+red (4) – Red
+green (5) – Green
+blue (6) – Blue
+checkers-1 (7) – Checkers 1px
+checkers-2 (8) – Checkers 2px
+checkers-4 (9) – Checkers 4px
+checkers-8 (10) – Checkers 8px
+circular (11) – Circular
+blink (12) – Blink
+smpte75 (13) – SMPTE 75%% color bars
+zone-plate (14) – Zone plate
+gamut (15) – Gamut checkers
+chroma-zone-plate (16) – Chroma zone plate
+solid-color (17) – Solid color
+ball (18) – Moving ball
+smpte100 (19) – SMPTE 100%% color bars
+bar (20) – Bar
+pinwheel (21) – Pinwheel
+spokes (22) – Spokes
+gradient (23) – Gradient
+colors (24) – Colors
