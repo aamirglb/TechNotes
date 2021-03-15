@@ -467,6 +467,21 @@ ulimit -a
 
 * `shopt` stands for shell options. View all shell options and their current status.
 
+* `truncate` is a command line utility that can be found in most Linux distros. It is used to shrink the size of a file to a desired size. 
+
+* The truncation process basically removes all the contents of the file. It does not however remove the file itself, but it leaves it on the disk as a zero byte file. This allows the file to re-used or be continually used by other programs while keeping the overall size in check. This process is also referred to as **“zero out a file”** or to **“empty a file“**. The truncation process also will preserve the inode of the file.
+
+* **noclobber** is a feature in Linux which is used to prevent accidental overwriting of files. If noclobber is set or enabled on your system, the above I/O redirection methods will throw an error. 
+
+```
+$ truncate -s 0 /var/log/syslog
+
+# Empty file using I/O redirection
+$ > /var/log/syslog
+
+$ cp /dev/null /var/log/syslog
+$ cat /dev/null > /var/log/syslog
+```
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
 ---
