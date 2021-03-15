@@ -1,5 +1,7 @@
 # GStreamer
 
+[Work Related](#work-related)
+
 * Gstreamer is a multi-platform, modular, open-source, **media streaming framework**.
 
 * GStreamer framework uses **GObject** and **GLib** libraries.
@@ -169,3 +171,16 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
  * A `tee` copies to each of its output pads everything coming through its input pad.
 
 * `filesink` location property specifies the name of the file.
+
+## Work Related
+```
+gst-launch-1.0 -v videotestsrc \
+! video/x-raw,format=I420,width=640,height=480,framerate=30/1,is-live=1 \
+! textoverlay text="Cam-1" valignment=top halignment=left font-desc="Sans, 22" shaded-background=true \
+! timeoverlay valignment=bottom halignment=center shaded-background=true \
+! videoconvert \
+! x264enc \
+! h264parse \
+! rtph264pay \
+! udpsink host=127.0.0.1 port=5000
+```
