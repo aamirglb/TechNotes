@@ -174,36 +174,21 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 
 ### GStreamer Test Patterns
 
-| Command       | Description |
--------------------------------
-
-| Name              |  Pattern    |
-|-------------------|-------------|
-| smpte             | ![smpte](images/smpte.png) |
-| snow              | ![snow](images/snow.png) |
-| black             | ![black](images/black.png) |
-| white             | ![white](images/white.png) |
-| red               | ![red](images/red.png) |
-| green             | ![green](images/green.png) |
-| blue              | ![blue](images/blue.png) |
-| checkers-1        | ![checkers-1](images/checkers-1.png) |
-| checkers-2        | ![checkers-2](images/checkers-2.png) |
-| checkers-4        | ![checkers-4](images/checkers-4.png) |
-| checkers-8        | ![checkers-8](images/checkers-8.png) |
-| circular          | ![circular](images/circular.png) |
-| blink             | ![blink](images/blink.png) |
-| smpte75           | ![smpte75](images/smpte75.png) |
-| zone-plate        | ![zone-plate](images/zone-plate.png) |
-| gamut             | ![gamut](images/gamut.png) |
-| chroma-zone-plate | ![chroma-zone-plate](images/chroma-zone-plate.png) |
-| solid-color       | ![solid-color](images/solid-color.png) |
-| ball              | ![ball](images/ball.png) |
-| smpte100          | ![smpte100](images/smpte100.png) |
-| bar               | ![bar](images/bar.png) |
-| pinwheel          | ![pinwheel](images/pinwheel.png) |
-| spokes            | ![spokes](images/spokes.png) |
-| gradient          | ![gradient](images/gradient.png) |
-| colors            | ![colors](images/colors.png) |
+| Name              |  Pattern    |   Name   | Pattern |
+|-------------------|-------------|----------|----------
+| smpte             | ![](images/smpte.png) | snow              | ![](images/snow.png) |
+| black             | ![](images/black.png) | white             | ![](images/white.png) |
+| red               | ![](images/red.png)     | green             | ![](images/green.png) |
+| blue              | ![](images/blue.png)   | checkers-1        | ![](images/checkers-1.png) |
+| checkers-2        | ![](images/checkers-2.png) | checkers-4        | ![](images/checkers-4.png) |
+| checkers-8        | ![](images/checkers-8.png) | circular          | ![](images/circular.png) |
+| blink             | ![](images/blink.png)           | smpte75           | ![](images/smpte75.png) |
+| zone-plate        | ![](images/zone-plate.png) | gamut             | ![](images/gamut.png) |
+| chroma-zone-plate | ![](images/chroma-zone-plate.png) | solid-color       | ![](images/solid-color.png) |
+| ball              | ![](images/ball.png) | smpte100          | ![](images/smpte100.png) |
+| bar               | ![](images/bar.png)   | pinwheel            | ![](images/pinwheel.png) |
+| spokes            | ![](images/spokes.png) | gradient          | ![](images/gradient.png) |
+| colors            | ![](images/colors.png) |
 
 
 ## Work Related
