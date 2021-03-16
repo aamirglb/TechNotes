@@ -2,7 +2,6 @@
     Program to generate all test pattern using videotestsrc.
     For compiling:
     $ gcc pattern_gen.c -o pattern_gen `pkg-config --cflags --libs gstreamer-1.0`
-
     For generating all pattern using the following shell command
     $ for i in {0..24}; do ./pattern_gen $i; done
 */
@@ -52,6 +51,7 @@ int main(int argc, char *argv[]) {
         pattern = atoi(argv[1]);
     }
 
+    // sprintf(filename, "pattern-%02d.png", pattern);
     sprintf(filename, "%s.png", pattern_names[pattern]);
 
     gst_init(&argc, &argv);
@@ -84,10 +84,15 @@ int main(int argc, char *argv[]) {
     /* Modify source's properties */
     // g_object_set(source, "pattern", 0, NULL);
     g_object_set(source, "pattern", pattern, NULL);
+    // Generate only one frame
+    g_object_set(source, "num-buffers", 1, NULL);
+
     g_object_set(sink, "location", filename, NULL);
 
+    char text[50];
+    sprintf(text, "%s=%d", pattern_names[pattern], pattern);
     g_object_set(G_OBJECT(overlay), 
-        "text", pattern_names[pattern],
+        "text", text,
         "font-desc", "Sans, 24",
         "shaded-background", TRUE,
         "valignment", 1,
@@ -102,8 +107,10 @@ int main(int argc, char *argv[]) {
     }
 
     bus = gst_element_get_bus(pipeline);
-    msg = gst_bus_timed_pop_filtered(bus, 100 * GST_MSECOND,
+    msg = gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE,
         GST_MESSAGE_ERROR | GST_MESSAGE_EOS);
+    // msg = gst_bus_timed_pop_filtered(bus, 100 * GST_MSECOND,
+    //     GST_MESSAGE_ERROR | GST_MESSAGE_EOS);
 
     if(msg != NULL) {
         GError *err;
