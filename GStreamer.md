@@ -190,6 +190,54 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 | ![spokes](images/spokes.png)         | ![gradient](images/gradient.png) |
 | ![colors](images/colors.png)         |                                  |
 
+### Send Images as videos
+* Use `pattern_gen.c` file to generate all 24 built-in patterns of `videotestsrc`. Save the images as `pattern-%02d.png`.
+* To generate all 24 patterns use the following shell commands:
+```
+# compile source code
+$ gcc pattern_gen.c -o pattern_gen `pkg-config --cflags --libs gstreamer-1.0`
+
+# For generating all pattern 
+$ for i in {0..24}; do ./pattern_gen $i; done
+```
+* To continuously show these images as video
+```
+gst-launch-1.0 multifilesrc location="pattern-%02d.png" loop=true \
+! decodebin \
+! videoconvert \
+! ximagesink
+```
+
+* To send the images only once use `num-buffers=24`
+```
+gst-launch-1.0 multifilesrc location="pattern-%02d.png" loop=true num-buffers=24 \
+! decodebin \
+! videoconvert \
+! ximagesink
+```
+
+* To send the images on a UDP port. Since we are sending raw video over UDP, it will cause following error "Attempting to send a UDP packets larger than maximum size (307200 > 65507)". We need to encript the video for sending over UDP port.
+
+```
+gst-launch-1.0 multifilesrc location="pattern-%02d.png" loop=true \
+! decodebin \
+! videoconvert \
+! videorate \
+! video/x-raw,framerate=4/1 \
+! udpsink host=127.0.0.1 port=6000
+```
+
+```
+gst-launch-1.0 multifilesrc location="pattern-%02d.png" loop=true \
+! decodebin \
+! videoconvert \
+! videorate \
+! video/x-raw,framerate=4/1 \
+! x264enc \
+! h264parse \
+! rtph264pay \
+! udpsink host=127.0.0.1 port=6000
+```
 
 ## Work Related
 ```
