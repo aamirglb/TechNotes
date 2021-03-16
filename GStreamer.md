@@ -239,6 +239,20 @@ gst-launch-1.0 multifilesrc location="pattern-%02d.png" loop=true \
 ! udpsink host=127.0.0.1 port=6000
 ```
 
+```
+# Use agingtv module with webcam
+gst-launch-1.0 -vvv v4l2src device=/dev/video0 \
+! videoconvert \
+! video/x-raw,width=640,heigh=480  \
+! agingtv dusts=false \
+! ximagesink
+```
+
+* **FFmpeg** is a command line application which consists of a library of free / open source software. Includes **libavcodec**, a library for audio/video codecs used by several other projects, and **libavformat**, a library for audio/video container mux and demux container. The project name comes from the MPEG standard video group, append “FF” for “fast forward”.
+
+* GStreamer can also send data using UDP or TCP. GStreamer can also send one source to many using **multiudp** so that the client can receive streams simultaneously. 
+
+
 ## Work Related
 ```
 gst-launch-1.0 -v videotestsrc \
