@@ -4,6 +4,17 @@
 
 * Gstreamer is a multi-platform, modular, open-source, **media streaming framework**.
 
+### GStreamer Core: 
+
+![Gst Architecture](images/gst-arch.png)
+
+
+![Building_Block](images/gst-blocks.png)
+
+* Hierarchical pipelines: Provides Bins containing Elements, linked by Pads.
+
+* Communication: Buffers, Events, Queries, Messages
+
 * GStreamer framework uses **GObject** and **GLib** libraries.
 
 * GStreamer is built on top of **GObject** (for object orientation) and **GLib** (for common algorithms) libraries. GStreamer functions have `gst_` prefix and GLiba and GObject use `g_` prefix.
