@@ -247,6 +247,22 @@ gst-launch-1.0 -vvv v4l2src device=/dev/video0 \
 ! agingtv dusts=false \
 ! ximagesink
 ```
+* send video test src as RPT and receive it
+
+```
+# sender pipeline
+gst-launch-1.0 -v videotestsrc ! video/x-raw,width=1024,height=768,framerate=30/1 ! timeoverlay halignment=center valignment=bottom  shaded-background=true font-desc="Sans, 24"  ! videoscale ! videoconvert ! x264enc ! rtph264pay ! udpsink host=127.0.0.1 port=5000
+
+# receiver pipeline
+gst-launch-1.0 -v udpsrc port=5000 caps = "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264, payload=(int)96" ! rtph264depay ! decodebin ! videoconvert ! autovideosink
+```
+
+* Installing v4l2-utils
+
+```
+$ sudo apt install v4l-utils
+$ v4l2-ctl --info -d /dev/video1 --list-formats
+```
 
 * **FFmpeg** is a command line application which consists of a library of free / open source software. Includes **libavcodec**, a library for audio/video codecs used by several other projects, and **libavformat**, a library for audio/video container mux and demux container. The project name comes from the MPEG standard video group, append “FF” for “fast forward”.
 
