@@ -275,6 +275,18 @@ $ sudo apt install v4l-utils
 $ v4l2-ctl --info -d /dev/video1 --list-formats
 ```
 
+* Record webcam to a file
+```
+# -e is important because after press ctrl-c the pipeline will not just stop but is being properly shut down by sending an EOS signal through the pipeline.
+$ gst-launch-1.0 -e v4l2src device=/dev/video0 ! videoconvert ! x264enc ! "video/x-h264,stream-format=(string)byte-stream"  ! h264parse !  qtmux ! filesink location=test.mp4 sync=false
+
+# Play RTSP stream
+$ gst-launch-1.0 rtspsrc location=rtsp://smartlink.local:8554/camera/0 ! rtph264depay ! avdec_h264 ! autovideosink sync=false
+
+# for RTSP stream
+$ gst-launch-1.0 rtspsrc location=rtsp://192.168.168.102:8554/camera/0 ! rtph264depay ! h264parse ! mp4mux ! filesink location=flight_video1.mp4
+```
+
 * **FFmpeg** is a command line application which consists of a library of free / open source software. Includes **libavcodec**, a library for audio/video codecs used by several other projects, and **libavformat**, a library for audio/video container mux and demux container. The project name comes from the MPEG standard video group, append “FF” for “fast forward”.
 
 * GStreamer can also send data using UDP or TCP. GStreamer can also send one source to many using **multiudp** so that the client can receive streams simultaneously. 
