@@ -179,7 +179,24 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 
  ```
 
- * A `tee` copies to each of its output pads everything coming through its input pad.
+ * Both audio video together
+ ```
+# no link between audiosink and videosrc
+$ gst-launch-1.0 audiotestsrc ! audioconvert ! autoaudiosink videotestsrc ! videoconvert ! autovideosink
+
+$ gst-launch-1.0 audiotestsrc ! audioconvert ! autoaudiosink audiotestsrc wave=pink-noise ! spacescope !  videoconvert ! autovideosink
+
+$ gst-launch-1.0 audiotestsrc freq=440 volume=0.3 ! queue ! a. audiotestsrc freq=880 volume=0.3 ! queue ! a. adder name=a ! audioconvert ! autoaudiosink
+
+$ gst-launch-1.0 filesrc location=test.ogg \
+  ! oggdemux name=d d. \
+  ! queue ! vorbisdec ! audioconvert ! audioresample autoaudiosink d. \
+  ! queue ! theoradec ! videoconvert ! videoscale ! autovidosink
+ ```
+
+* `spacescope` element takes audio as input and output BGRx video output.
+
+* A `tee` copies to each of its output pads everything coming through its input pad.
 
 * `filesink` location property specifies the name of the file.
 
