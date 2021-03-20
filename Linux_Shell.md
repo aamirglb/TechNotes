@@ -482,6 +482,10 @@ $ > /var/log/syslog
 $ cp /dev/null /var/log/syslog
 $ cat /dev/null > /var/log/syslog
 ```
+
+### Bash Cli shortcut
+![Bash CLI shortcut](images/bash_cli.png)
+
 ---
 ## <font color="orange"> 1. Symbolic Links </font>
 ---
@@ -522,9 +526,6 @@ find /home/aamir -xtype l
 # delete broken symlink
 find /home/aamir -xtype l -delete
 ```
-
-### Bash Cli shortcut
-![Bash CLI shortcut](images/bash_cli.png)
 
 ---
 ## <font color="orange"> 2. Secure Shell (SSH) Server Installation</font>
