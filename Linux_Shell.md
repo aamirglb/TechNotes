@@ -526,6 +526,9 @@ find /home/aamir -xtype l -delete
 ## <font color="orange"> 2. Secure Shell (SSH) Server Installation</font>
 ---
 
+### Bash Cli shortcut
+![Bash CLI shortcut](images/bash_cli.png)
+
 SSH is a cryptographic network protocol used for a secure connection between a client and a server.
 
 ```bash
