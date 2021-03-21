@@ -67,12 +67,27 @@ main (int argc, char *argv[])
    * any launch line works as long as it contains elements named pay%d. Each
    * element with pay%d names will be a stream */
   factory = gst_rtsp_media_factory_new ();
+  // gst_rtsp_media_factory_set_launch (factory, "( "
+  //     "videotestsrc ! video/x-raw,width=352,height=288,framerate=15/1 ! "
+  //     "timeoverlay halignment=center valignment=bottom shaded-background=true font-desc=\"Sans, 24\" ! "
+  //     "x264enc ! rtph264pay name=pay0 pt=96 "
+  //     "audiotestsrc ! audio/x-raw,rate=8000 ! "
+  //     "alawenc ! rtppcmapay name=pay1 pt=8 " ")");
+
+  /* This works but adds delay */ 
+  // gst_rtsp_media_factory_set_launch (factory, "( "
+  //     "v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,framerate=30/1 ! " 
+  //     "videorate ! video/x-raw,framerate=30/1 ! videoconvert ! "
+  //     "timeoverlay halignment=center valignment=bottom shaded-background=true font-desc=\"Sans, 24\" ! "
+  //     "video/x-raw,format=I420 ! x264enc ! rtph264pay name=pay0 pt=96 "
+  //     "audiotestsrc ! audio/x-raw,rate=8000 ! "
+  //     "alawenc ! rtppcmapay name=pay1 pt=8 " ")");
+
   gst_rtsp_media_factory_set_launch (factory, "( "
-      "videotestsrc ! video/x-raw,width=352,height=288,framerate=15/1 ! "
-      "timeoverlay halignment=center valignment=bottom shaded-background=true font-desc=\"Sans, 24\" ! "
-      "x264enc ! rtph264pay name=pay0 pt=96 "
-      "audiotestsrc ! audio/x-raw,rate=8000 ! "
-      "alawenc ! rtppcmapay name=pay1 pt=8 " ")");
+      "v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,framerate=30/1 ! queue ! " 
+      "videoconvert ! queue ! "
+      "video/x-raw,format=I420 ! queue ! x264enc ! rtph264pay name=pay0 pt=96 "
+       ")");
 
 //   gst_rtsp_media_factory_set_launch(factory, "( " 
 //     "multifilesrc location=\"pattern-%02d.png\" loop=true ! "

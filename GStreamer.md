@@ -200,6 +200,13 @@ $ gst-launch-1.0 filesrc location=test.ogg \
 
 * `spacescope` element takes audio as input and output BGRx video output.
 
+```
+# edgetv
+$ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,framerate=30/1 ! videoconvert ! timeoverlay ! edgetv !  ximagesink
+
+# rippletv
+$ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,framerate=30/1 ! videoconvert ! timeoverlay ! rippletv !  ximagesink
+```
 * A `tee` copies to each of its output pads everything coming through its input pad.
 
 * `filesink` location property specifies the name of the file.
@@ -312,6 +319,10 @@ $ gst-launch-1.0 rtspsrc location=rtsp://192.168.168.102:8554/camera/0 ! rtph264
 
 * GStreamer can also send data using UDP or TCP. GStreamer can also send one source to many using **multiudp** so that the client can receive streams simultaneously. 
 
+* x264 [error]: baseline profile doesn't support 4:2:2
+Use caps filter "video/x-raw,format=i420" between video convert and x264enc. This should resolve the format issue.
+
+If u want 264  main porofile then use caps filter "video/x-h264,profile=main" this would give 4 2 2 video
 
 ## Work Related
 ```
