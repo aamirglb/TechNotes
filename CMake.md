@@ -230,6 +230,9 @@ however also supports *multiple-configuration* generators. These are usually pro
 ```bash
 $ cmake .. -G"Visual Studio 12 2017 Win64" -D CMAKE_CONFIGURATION_TYPES="Release;Debug"
 $ cmake --build . --config Release
+
+# to build a specify target
+$ cmake --build . --target target1
 ```
 
 #### Controlling compiler flags
