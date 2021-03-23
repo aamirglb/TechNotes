@@ -670,7 +670,7 @@ What are files with SGID bit and Sticky bit?? SUID files
 | `:s/pattern/str/g`      | replace all occurrencesd in current line (g flag) |
 | `:%s/pattern/str/g`     | search and replace in entire file (% as range) |
 | `:%s/pattern//g`        | delete all instance of pattern |
-| `:s|pattern|str|`       | Use | instead of / |
+| `:s\|pattern\|str\|`       | Use \| instead of / |
 | `:%s/pattern/str/gc`    | To confirm each substitution, (c flag) |
 | `:%s/^foo.\*/vim/gc`    | regular expression |
 | `:3,10s/pat/str/g`      | all lines starting from 3 to 10 |
