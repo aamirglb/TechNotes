@@ -1,6 +1,6 @@
 # Bash Shell
 
-## Table Of Contents <br>
+## Table Of Contents
 
 [1. Symbolic Links](#1-symbolic-links) <br>
 [2. Secure Shell (SSH)](#2-secure-shell-ssh-server-installation) <br>
