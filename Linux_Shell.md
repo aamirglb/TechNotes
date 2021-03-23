@@ -664,24 +664,24 @@ What are files with SGID bit and Sticky bit?? SUID files
 
 * To browse search history, enter :s and use arrow up/down keys.
 
-|      command          |  Description |
-|-----------------------|--------------|
-| :s (:substitude)      | find and replace text |
-| :s/pattern/str/g      | replace all occurrencesd in current line (g flag) |
-| :%s/pattern/str/g     | search and replace in entire file (% as range) |
-| :%s/pattern//g        | delete all instance of pattern |
-| :s|pattern|str|       | Use | instead of / |
-| :%s/pattern/str/gc    | To confirm each substitution, (c flag) |
-| :%s/^foo.\*/vim/gc    | regular expression |
-| :3,10s/pat/str/g      | all lines starting from 3 to 10 |
-| :.,$s/pat/str/        | current line to last line |
-| :.,+4s/pat/str/g      | current line and next four lines |
-| :s/pattern/str/gi     | ignore case (i flag) |
-| :s/pattern/str/gI     | case sensitive (I flag) |
-| :s/\<pat\>/str/g      | find whole word pat |
-| :5,20s/^/#/           | comment lines from 5 to 20 |
-| :5,20s/^#//           | uncomment lines from 5 to 20 |
-| :%s/ab\|cd/aa         | replace ab or cd with aa |
-| :%s/\s\+$//g          | remove trailing whitespace at the end of each line |
+|      command            |  Description |
+|-------------------------|--------------|
+| `:s (:substitude)`      | find and replace text |
+| `:s/pattern/str/g`      | replace all occurrencesd in current line (g flag) |
+| `:%s/pattern/str/g`     | search and replace in entire file (% as range) |
+| `:%s/pattern//g`        | delete all instance of pattern |
+| `:s|pattern|str|`       | Use | instead of / |
+| `:%s/pattern/str/gc`    | To confirm each substitution, (c flag) |
+| `:%s/^foo.\*/vim/gc`    | regular expression |
+| `:3,10s/pat/str/g`      | all lines starting from 3 to 10 |
+| `:.,$s/pat/str/`        | current line to last line |
+| `:.,+4s/pat/str/g`      | current line and next four lines |
+| `:s/pattern/str/gi`     | ignore case (i flag) |
+| `:s/pattern/str/gI`     | case sensitive (I flag) |
+| `:s/\<pat\>/str/g`      | find whole word pat |
+| `:5,20s/^/#/`           | comment lines from 5 to 20 |
+| `:5,20s/^#//`           | uncomment lines from 5 to 20 |
+| `:%s/ab\|cd/aa`         | replace ab or cd with aa |
+| `:%s/\s\+$//g`          | remove trailing whitespace at the end of each line |
 
 
