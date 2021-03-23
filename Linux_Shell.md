@@ -3,7 +3,7 @@
 <font size=4>
 Table Of Contents <br>
 
-[1. Symbolic Links](#-1.-symbolic-links) <br>
+[1. Symbolic Links](#1.-symbolic-links) <br>
 [2. Secure Shell (SSH)](#2.-secure-shell-(ssh)-server-installation) <br>
 [3. Using SCP](#-3.-secure-transfer-files-using-scp) <br>
 [4. find Command](#4.-find-command) <br>
@@ -487,7 +487,7 @@ $ cat /dev/null > /var/log/syslog
 ![Bash CLI shortcut](images/bash_cli.png)
 
 ---
-## 1. Symbolic Links
+##1. Symbolic Links
 ---
 
 * A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer.
