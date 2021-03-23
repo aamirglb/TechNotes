@@ -1,13 +1,13 @@
 # Bash Shell
 
-<font size=4>
-Table Of Contents <br>
+## Table Of Contents <br>
 
 [1. Symbolic Links](#1-symbolic-links) <br>
-[2. Secure Shell (SSH)](#2-secure-shell-(ssh)-server-installation) <br>
-[3. Using SCP](#-3-secure-transfer-files-using-scp) <br>
+[2. Secure Shell (SSH)](#2-secure-shell-ssh-server-installation) <br>
+[3. Using SCP](#3-secure-transfer-files-using-scp) <br>
 [4. find Command](#4-find-command) <br>
 [5. vi Editor](#5-vi-editor) <br>
+
 
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
 * Different shells
@@ -489,6 +489,7 @@ $ cat /dev/null > /var/log/syslog
 
 
 ## 1. Symbolic Links
+[Table Of Contents](#table-of-contents)
 
 * A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer.
 
@@ -528,6 +529,7 @@ find /home/aamir -xtype l -delete
 ```
 
 ## 2. Secure Shell (SSH) Server Installation
+[Table Of Contents](#table-of-contents)
 
 SSH is a cryptographic network protocol used for a secure connection between a client and a server.
 
@@ -563,6 +565,7 @@ $ chmod 600 ~/.ssh/config
 ```
 
 ## 3. Secure Transfer Files Using SCP
+[Table Of Contents](#table-of-contents)
 
 SCP (secure copy) allows to securely copy files and directories between two locations.
 
@@ -598,6 +601,7 @@ $ scp user1@host1.com:/files/file.txt user2@host2.com:/files
 ```
 
 ## 4. find command
+[Table Of Contents](#table-of-contents)
 
 * `find` command can be used to find files by **permission, users, groups, file type, date, size** and other possible criteria.
 
@@ -643,4 +647,4 @@ TBD: https://www.tecmint.com/35-practical-examples-of-linux-find-command/
 What are files with SGID bit and Sticky bit?? SUID files
 
 ## 5. vi Editor
-
+[Table Of Contents](#table-of-contents)
