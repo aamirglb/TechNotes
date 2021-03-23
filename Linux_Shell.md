@@ -3,11 +3,11 @@
 <font size=4>
 Table Of Contents <br>
 
-[1. Symbolic Links](#<font-color="orange">-1.-symbolic-links-</font>) <br>
-[2. Secure Shell (SSH)](#<font-color="orange">-2.-secure-shell-(ssh)-server-installation</font>) <br>
-[3. Using SCP](#<font-color="orange">-3.-secure-transfer-files-using-scp-</font>) <br>
-[4. find Command](#<font-color="orange">4.-find-command</font>) <br>
-</font>
+[1. Symbolic Links](#1.-symbolic-links) 
+[1. Secure Shell (SSH)](#2.-secure-shell-(ssh)-server-installation)
+[1. Using SCP](#-3.-secure-transfer-files-using-scp)
+[1. find Command](#4.-find-command)
+[1. vi Editor](#5.-vi-editor) 
 
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
 * Different shells
@@ -487,7 +487,7 @@ $ cat /dev/null > /var/log/syslog
 ![Bash CLI shortcut](images/bash_cli.png)
 
 ---
-## <font color="orange"> 1. Symbolic Links </font>
+## 1. Symbolic Links
 ---
 
 * A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer.
@@ -528,7 +528,7 @@ find /home/aamir -xtype l -delete
 ```
 
 ---
-## <font color="orange"> 2. Secure Shell (SSH) Server Installation</font>
+## 2. Secure Shell (SSH) Server Installation
 ---
 
 SSH is a cryptographic network protocol used for a secure connection between a client and a server.
@@ -564,7 +564,7 @@ $ touch ~/.ssh/config
 $ chmod 600 ~/.ssh/config
 ```
 ---
-## <font color="orange"> 3. Secure Transfer Files Using SCP </font>
+## 3. Secure Transfer Files Using SCP
 ---
 
 SCP (secure copy) allows to securely copy files and directories between two locations.
@@ -601,7 +601,7 @@ $ scp user1@host1.com:/files/file.txt user2@host2.com:/files
 ```
 
 ---
-## <font color="orange">4. find command</font>
+## 4. find command
 ---
 
 * `find` command can be used to find files by **permission, users, groups, file type, date, size** and other possible criteria.
@@ -646,3 +646,7 @@ $ find . -type f ! -name "*.*" -exec rm {} \;
 ```
 TBD: https://www.tecmint.com/35-practical-examples-of-linux-find-command/
 What are files with SGID bit and Sticky bit?? SUID files
+
+---
+## 5. vi Editor
+---
