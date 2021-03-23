@@ -487,9 +487,8 @@ $ cat /dev/null > /var/log/syslog
 ### Bash Cli shortcut
 ![Bash CLI shortcut](images/bash_cli.png)
 
----
+
 ## 1. Symbolic Links
----
 
 * A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer.
 
@@ -528,9 +527,7 @@ find /home/aamir -xtype l
 find /home/aamir -xtype l -delete
 ```
 
----
 ## 2. Secure Shell (SSH) Server Installation
----
 
 SSH is a cryptographic network protocol used for a secure connection between a client and a server.
 
@@ -564,9 +561,8 @@ The `config` file must be readable and writable only by the user and not accessi
 $ touch ~/.ssh/config
 $ chmod 600 ~/.ssh/config
 ```
----
+
 ## 3. Secure Transfer Files Using SCP
----
 
 SCP (secure copy) allows to securely copy files and directories between two locations.
 
@@ -601,9 +597,7 @@ $ scp remote_username@10.10.0.2:/remote/file.txt /local/directory
 $ scp user1@host1.com:/files/file.txt user2@host2.com:/files
 ```
 
----
 ## 4. find command
----
 
 * `find` command can be used to find files by **permission, users, groups, file type, date, size** and other possible criteria.
 
@@ -648,6 +642,5 @@ $ find . -type f ! -name "*.*" -exec rm {} \;
 TBD: https://www.tecmint.com/35-practical-examples-of-linux-find-command/
 What are files with SGID bit and Sticky bit?? SUID files
 
----
 ## 5. vi Editor
----
+
