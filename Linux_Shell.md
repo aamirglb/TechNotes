@@ -3,11 +3,15 @@
 <font size=4>
 Table Of Contents <br>
 
-[1. Symbolic Links](#1.-symbolic-links) 
-[1. Secure Shell (SSH)](#2.-secure-shell-(ssh)-server-installation)
-[1. Using SCP](#-3.-secure-transfer-files-using-scp)
-[1. find Command](#4.-find-command)
-[1. vi Editor](#5.-vi-editor) 
+[1. Symbolic Links](#1.-symbolic-links)
+
+[2. Secure Shell (SSH)](#2.-secure-shell-(ssh)-server-installation)
+
+[3. Using SCP](#-3.-secure-transfer-files-using-scp)
+
+[4. find Command](#4.-find-command)
+
+[5. vi Editor](#5.-vi-editor) 
 
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
 * Different shells
