@@ -79,10 +79,11 @@ output: hello world
 sed s/pattern/str/flags
 ```
 
-| Flag | Desciption |
-|------|------------|
-| `/g` | Global replacement |
-
+| Command | Description |
+|---------|-------------|
+| `p`  | Print lines |
+| `d`  | Delete lines |
+| `w`  | Write to file |
 
 * [^]*: matches everything except a space.
 
@@ -107,3 +108,83 @@ output: one four
 #Add a colon after 80th character in each line.
 sed 's/./&:/80' <file >new
 ```
+* Sed scripting follows Read, Execute, Print, Repeat (REPR) acronum.
+
+* Usually when p is used you will use the -n option to suppress the the default printing that happens as part of the standard sed flow.
+
+```
+$ sed -n '2 p' /etc/passwd
+$ sed -n '1, 4 p' /etc/passwd
+$ sed -n '4, $ p' /etc/passwd
+```
+
+* `n,m` indicatates n through m lines
+* `n,+m` means m lines starting with n
+* `n~m` indicates that sed should start at nth line and pick up every mth line from there.
+
+```
+# print only odd numbered lines
+$ sed -n '1~2 p' /etc/passwd
+
+# print lines matching pattern "star"
+$ sed -n '/star/ p' notes.txt
+
+# print line matching "star" and 2 lines immediately
+$ sed -n '/star/,+2 p' notes.txt
+
+# delete only 2nd line
+$ sed '2 d' news.txt
+
+# delete 1 through 4
+$ sed '1, 4 d' news.txt
+
+# delete all empty lines from a file
+$ sed '/^$/ d' test.txt
+
+# delete all comment lines
+$ sed '/^#/ d' test.txt
+```
+
+* sed's most powerful command is substitute command `s`.
+
+```
+# replace Manager with Director only on lines that contain 'Sales'
+$ sed '/Sales/s/Manager/Director/' employee.txt
+
+$ echo "aamir" | sed 's/a/A/'
+output: Aamir
+$ echo "aamir" | sed 's/a/A/g'
+output: AAmir
+```
+
+| Substitute Flag | Desciption |
+|-----------------|------------|
+| `/g` | Global replacement |
+| `/1, /2, /3` | Number Flags |
+| `/p` | print flag |
+| `/w` | write flag |
+| `/i` | ignore case  (only GNU) |
+| `/e` | execute command (only GNU) |
+
+* Use number flag to specify occurence of original string. Only the n-th instance of original string will trigger the substitution. /11 will replace only the 11th occurrence of original string in a line.
+
+```
+echo "aamir" | sed 's/a/A/2'
+output: aAmir
+```
+
+```
+# print only line that was changed by substitute cmd
+$ sed -n 's/aamir/Aamir/p' /etc/passwd
+```
+
+* `&` replaces it with whatever text matched the original-string or regular-expression.
+
+## Regular Expression
+
+| Meta-Character | Description |
+|----------------|-------------|
+| `^`            | Matches at the start of a line |
+| `$`            | Matches the end of line |
+| `.`            | Matches any character except the end of line char |
+| '*`            | Zero or more occurrences of previous char |
