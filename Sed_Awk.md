@@ -188,3 +188,14 @@ $ sed -n 's/aamir/Aamir/p' /etc/passwd
 | `$`            | Matches the end of line |
 | `.`            | Matches any character except the end of line char |
 | '*`            | Zero or more occurrences of previous char |
+| `\+`           | Matches one or more occurrence of previous char |
+| `\?`           | Zero or one occurrences of previous char |
+| `\`            | Search for special chac (ex: *, .) |
+| [0-9]          | character class, Match only one out of several char |
+| `|`            | Match either of two whole subexpressions |
+
+
+```
+$ sed -n '/101\|102/ p' test.txt
+```
+
