@@ -192,7 +192,7 @@ $ sed -n 's/aamir/Aamir/p' /etc/passwd
 | `\?`           | Zero or one occurrences of previous char |
 | `\`            | Search for special chac (ex: *, .) |
 | [0-9]          | character class, Match only one out of several char |
-| `|`            | Match either of two whole subexpressions |
+| `\|`            | Match either of two whole subexpressions |
 
 
 ```
