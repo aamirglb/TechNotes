@@ -54,3 +54,45 @@ print "First element \@array is $array[0].\n"
 * Negative indices count backward from the end of an array.
 
 * Index of last element of @array is given by special scalar $#array;
+
+* Hash variables always start with %. A hash is a list of key-value pairs. Hash indexing is done with curly braces.
+
+```
+my %hash = ('name', 'Aamir', 'age', 30, 'occupation', 'engineer');
+my %data = (name => 'Aamir', 
+    age => 20,
+    occupation => 'engineer');
+```
+
+* Built-in string manipulation functions
+| Function | Description |
+|----------|-------------|
+| `chomp`  |             |
+| `chop`   |             | 
+| `chr`    |             |
+| `lc`     |             |
+| `uc`     |             |
+| `index`  |             |
+| `rindex` |             |
+| `substr` |             |
+| `reverse` |            |
+| `split`  |             |
+
+* `<=>` space shift operator
+  `x`   string repetition operator
+
+* Array manipulation functions
+| Function | Description |
+|----------|-------------|
+| `push`   |             | 
+| `pop`    |             |
+| `shift`  |             |
+| `unshift`|             |
+| `reverse`|             |
+| `sort`   |             |
+| `join`   |             |
+| `splice` |             |
+| `grep`   |             |
+| `map`    |             |
+
+* Perl has a special **undefined** value, often written **undef**
