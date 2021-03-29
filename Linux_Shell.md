@@ -7,6 +7,7 @@
 [3. Using SCP](#3-secure-transfer-files-using-scp) <br>
 [4. find Command](#4-find-command) <br>
 [5. vi Editor](#5-vi-editor) <br>
+[6. Usefull commands](#6-useful-commands) <br>
 
 
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
@@ -685,3 +686,8 @@ What are files with SGID bit and Sticky bit?? SUID files
 | `:%s/\s\+$//g`          | remove trailing whitespace at the end of each line |
 
 
+# Usefull Commands
+```
+# Kill processes 
+$ kill -9 $(ps -aux | grep main.py | awk '{print $2}')
+```
