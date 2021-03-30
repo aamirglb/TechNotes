@@ -7,7 +7,7 @@
 [3. Using SCP](#3-secure-transfer-files-using-scp) <br>
 [4. find Command](#4-find-command) <br>
 [5. vi Editor](#5-vi-editor) <br>
-[6. Usefull commands](#6-useful-commands) <br>
+[6. Usefull commands](#6-usefull-commands) <br>
 
 
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
