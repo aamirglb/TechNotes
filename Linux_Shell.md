@@ -686,8 +686,14 @@ What are files with SGID bit and Sticky bit?? SUID files
 | `:%s/\s\+$//g`          | remove trailing whitespace at the end of each line |
 
 
-# Usefull Commands
+# 6. Usefull Commands
 ```
 # Kill processes 
 $ kill -9 $(ps -aux | grep main.py | awk '{print $2}')
+
+# or better use pgrep and pkill
+$ kill -9 $(pgrep main.py)
+
+# remove grep output from ps output
+$ ps -aux | grep main.* | grep -v grep
 ```
