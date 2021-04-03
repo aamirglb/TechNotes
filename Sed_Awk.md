@@ -373,4 +373,11 @@ if (conditional-expression)
 # while
 while(condition)
     actions
+
+$ awk 'BEGIN {while(count++<50) s=s "x"; print s}'
+
+do
+    action
+while(condition)
 ```
+
