@@ -84,6 +84,13 @@ sed s/pattern/str/flags
 | `p`  | Print lines |
 | `d`  | Delete lines |
 | `w`  | Write to file |
+| `a`  | Append line after |
+| `i`  | Insert line before |
+| `c`  | Change line |
+| `l`  | Print hidden characters |
+| `=`  | Print line numbers |
+| `y`  | Change Case |
+| `q`  | Quid |
 
 * [^]*: matches everything except a space.
 
@@ -199,3 +206,171 @@ $ sed -n 's/aamir/Aamir/p' /etc/passwd
 $ sed -n '/101\|102/ p' test.txt
 ```
 
+* A regular expression followed by `{m}` matches exactly m occurrences of preceding expression.
+
+* A regular expression followed by `{m,n}` indicates that the preceding
+item must match at least m times, but not more than n times.
+
+### Additional Sed Commands
+#### Append line after (a command)
+
+```
+$ sed '[address] a line-to-append' input-file
+
+$ echo -e "123\n789\n" | sed '1 a 456'
+output:
+123
+456
+789
+
+# append at the end 
+$ echo -e "123\n456\n789" | sed '$ a 10'
+
+# search and append after
+$ echo -e "123\n456\n789" | sed '/123/a abc\
+def\
+ghi'
+```
+
+#### Insert line before (i command)
+
+```
+$ echo -e "123\n789\n" | sed '1 i ABC'
+output:
+ABC
+123
+789
+```
+
+#### Change line (c command)
+* Change command (c) let us replace an existing line with new text.
+
+```
+echo -e "123\n456\n789" | sed '1 c ABC'
+output:
+ABC
+456
+789
+
+# a, i and c together
+# a - Append 'Jack Johnson' after 'Jason'
+# i - Insert 'Mark Smith' before 'Jason'
+# c - Change 'Jason' to 'Joe Mason'
+$ sed '/Jason/ {
+    a\
+    204,Jack Johnson,Engineer
+    i\
+    202,Mark Smith,Sales Engineer
+    c\
+    203,Joe Mason,Sysadmin
+}' employee.txt
+```
+
+* The sed `l` command prints hidden characters, like `\t` for tab and $ for end of line.
+
+* The sed `=` command prints line numbers followed by line content. Line number and line content can be printed on same line by combining = command with N command.
+
+```
+# get the line number of line having pattern
+$ sed -n '/Raj/ =' test.txt
+
+# get total number of lines in a file
+$ sed -n '$ =' test.txt
+```
+
+#### Change case (y command)
+```
+# print after executing first line
+$ sed 'q' test.txt
+
+# print first 5 lines
+$ sed '5 q' test.txt
+
+# print all lines until first containing keyword
+$ sed '/Manager/q' test.txt
+```
+
+# Awk 
+
+* Awk is a powerful language to manipulate and process text files. Useful when lines in text files are in record format.
+
+* AWK - original AWK
+NAWK - New AWK
+GAWK - GNU AWK
+
+  ```
+  awk -Fs '/pattern/ {action}' input-file
+  awk -Fs '{action}' input-file
+
+  -F: filed separator (default is empty space)
+  ```
+
+  ```
+  $ awk -F: '/mail/ {print $1}' /etc/passwd
+  ```
+
+  * A typical awk program has three blocks: `BEGIN, body, END`.
+
+  ```
+  $ awk 'BEGIN {FS=":"; print "----header----"} \
+        /mail/ {print $1} \
+        END {print "----footer----"}' /etc/passwd
+  ```
+
+  * awk print command (without any argument) prints the full record.
+
+```
+$ awk -F: 'BEGIN {print "username\n----------\n"; C=1} \
+{ print C, $1; C++ } \
+END { print "--------"}' /etc/passwd
+```
+
+| Built-In Variables | Description |
+|--------------------|-------------|
+| `FS`               | Field separator |
+| `OFS`              | Output field separator |
+| `RS`               | Record separator |
+| `ORS`              | Output record separator |
+| `NR`               | Number of records |
+| `FILENAME`         | Current File Name |
+| `FNR`              | File number of record, reset NR between multiple files |
+| `NF`               | Number of field |
+
+
+```
+# multple filed separator
+BEGIN { FS="[,:%]"}
+```
+* `FILENAME` inside the BEGIN block will return empty value "", as the BEGIN block is for the whole awk program, and not for any specific file.
+
+```
+# print number of shell users
+$ awk -F ':' '$NF ~ /\/bin\/bash/ { print; n++ }; END { print n }' /etc/passwd
+
+# print even lines 
+$ awk 'NR % 2 == 0 {print NR, $0}' /etc/passwd
+``` 
+#### Regular expression operators
+| Operator | Description |
+|----------|-------------|
+| `~`      | Match operator |
+| `!~`     | No match operator |
+
+* `==` looks for full match, `~` looks for partial match
+
+```
+# single action
+if (conditional-expression)
+    action
+
+# Multiple actions
+if (conditional-expression)
+{
+    action1;
+    action2;
+}
+
+# while
+while(condition)
+    actions
+```
