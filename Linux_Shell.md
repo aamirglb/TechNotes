@@ -652,6 +652,10 @@ What are files with SGID bit and Sticky bit?? SUID files
 
 * vim is the most popular command-line text editor.
 
+* To delete all lines in the current file use `%d` command in normal mode.
+* To delete from current line till the end use `,$d`.
+* To delete from line 3 to 6 use `3,6d`.
+*  
 * general form of substitute command 
 ```
 :[range]s/{pattern}/{string}/[flags] [count]
