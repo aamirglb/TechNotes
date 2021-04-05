@@ -10,10 +10,10 @@ $ apt-get install gstreamer1.0-tools libgstreamer1.0-dev gstreamer1.0-plugins-\*
 ```
 ### GStreamer Core: 
 
-![Gst Architecture](images/gst-arch.png)
+![Gst Architecture](images/gstreamer/gst-arch.png)
 
 
-![Building_Block](images/gst-blocks.png)
+![Building_Block](images/gstreamer/gst-blocks.png)
 
 * Hierarchical pipelines: Provides Bins containing Elements, linked by Pads.
 
@@ -215,19 +215,19 @@ $ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,f
 
 |  Pattern                             | Pattern                  |
 |--------------------------------------|--------------------------|
-| ![smpte](images/smpte.png)           | ![snow](images/snow.png) |
-| ![black](images/black.png)           | ![white](images/white.png) |
-| ![red(images/red.png)                | ![green](images/green.png) |
-| ![blue](images/blue.png)             | ![checkers-1](images/checkers-1.png) |
-| ![checkers-2](images/checkers-2.png) | ![checkers-4](images/checkers-4.png) |
-| ![checkers-8](images/checkers-8.png) | ![circular](images/circular.png) |
-| ![blink](images/blink.png)           | ![smpte75](images/smpte75.png) |
-| ![zone-plate](images/zone-plate.png) | ![gamut](images/gamut.png) |
-| ![chroma-zone-plate](images/chroma-zone-plate.png) | ![solid-color](images/solid-color.png) |
-| ![ball](images/ball.png)             | ![smpte100](images/smpte100.png) |
-| ![bar](images/bar.png)               | ![pinwheel](images/pinwheel.png) |
-| ![spokes](images/spokes.png)         | ![gradient](images/gradient.png) |
-| ![colors](images/colors.png)         |                                  |
+| ![smpte](images/gstreamer/smpte.png)           | ![snow](images/gstreamer/snow.png) |
+| ![black](images/gstreamer/black.png)           | ![white](images/gstreamer/white.png) |
+| ![red(images/gstreamer/red.png)                | ![green](images/gstreamer/green.png) |
+| ![blue](images/gstreamer/blue.png)             | ![checkers-1](images/gstreamer/checkers-1.png) |
+| ![checkers-2](images/gstreamer/checkers-2.png) | ![checkers-4](images/gstreamer/checkers-4.png) |
+| ![checkers-8](images/gstreamer/checkers-8.png) | ![circular](images/gstreamer/circular.png) |
+| ![blink](images/gstreamer/blink.png)           | ![smpte75](images/gstreamer/smpte75.png) |
+| ![zone-plate](images/gstreamer/zone-plate.png) | ![gamut](images/gstreamer/gamut.png) |
+| ![chroma-zone-plate](images/gstreamer/chroma-zone-plate.png) | ![solid-color](images/gstreamer/solid-color.png) |
+| ![ball](images/gstreamer/ball.png)             | ![smpte100](images/gstreamer/smpte100.png) |
+| ![bar](images/gstreamer/bar.png)               | ![pinwheel](images/gstreamer/pinwheel.png) |
+| ![spokes](images/gstreamer/spokes.png)         | ![gradient](images/gstreamer/gradient.png) |
+| ![colors](images/gstreamer/colors.png)         |                                  |
 
 ### Send Images as videos
 * Use `pattern_gen.c` file to generate all 24 built-in patterns of `videotestsrc`. Save the images as `pattern-%02d.png`.
@@ -342,3 +342,4 @@ tail -n 1000 -f captions.srt | gst-launch-1.0 -v fdsrc ! subparse ! txt. videote
 ```
 
 ### Caption file format
+![colors](images/gstreamer/srt_file_format.png)
