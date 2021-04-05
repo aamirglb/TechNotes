@@ -485,6 +485,15 @@ $ cp /dev/null /var/log/syslog
 $ cat /dev/null > /var/log/syslog
 ```
 
+#### Bash substring removal
+```
+# Deletes shortest match of substring from front of $string
+${string#substring}
+
+# Deletes longest match of substring from front of $string
+${string##substring}
+```
+
 ### Bash Cli shortcut
 ![Bash CLI shortcut](images/bash_cli.png)
 
