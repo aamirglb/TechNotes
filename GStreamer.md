@@ -343,3 +343,7 @@ tail -n 1000 -f captions.srt | gst-launch-1.0 -v fdsrc ! subparse ! txt. videote
 
 ### Caption file format
 ![colors](images/gstreamer/srt_file_format.png)
+
+**Cairo**: Cairo is a 2D graphics library with support for multiple output devices. Currently supported output targets include the X Window System (via both Xlib and XCB), Quartz, Win32, image buffers, PostScript, PDF, and SVG file output. Experimental backends include OpenGL, BeOS, OS/2, and DirectFB.
+
+**Pango**: Pango is a library for laying out and rendering of text, with an emphasis on internationalization. Pango can be used anywhere that text layout is needed, though most of the work on Pango so far has been done in the context of the GTK widget toolkit. Pango forms the core of text and font handling for GTK.
