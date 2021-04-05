@@ -336,3 +336,9 @@ gst-launch-1.0 -v videotestsrc \
 ! rtph264pay \
 ! udpsink host=127.0.0.1 port=5000
 ```
+### Inserting caption
+```
+tail -n 1000 -f captions.srt | gst-launch-1.0 -v fdsrc ! subparse ! txt. videotestsrc is-live=true ! video/x-raw, width =800, height=480, framerate=10/1 ! videoconvert ! decodebin ! textoverlay name=txt ! xvimagesink
+```
+
+### Caption file format
