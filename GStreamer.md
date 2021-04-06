@@ -222,7 +222,7 @@ $ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,f
 |--------------------------------------|--------------------------|
 | ![smpte](images/gstreamer/smpte.png)           | ![snow](images/gstreamer/snow.png) |
 | ![black](images/gstreamer/black.png)           | ![white](images/gstreamer/white.png) |
-| ![red(images/gstreamer/red.png)                | ![green](images/gstreamer/green.png) |
+| ![red](images/gstreamer/red.png)                | ![green](images/gstreamer/green.png) |
 | ![blue](images/gstreamer/blue.png)             | ![checkers-1](images/gstreamer/checkers-1.png) |
 | ![checkers-2](images/gstreamer/checkers-2.png) | ![checkers-4](images/gstreamer/checkers-4.png) |
 | ![checkers-8](images/gstreamer/checkers-8.png) | ![circular](images/gstreamer/circular.png) |
@@ -295,10 +295,22 @@ gst-launch-1.0 -vvv v4l2src device=/dev/video0 \
 
 ```
 # sender pipeline
-gst-launch-1.0 -v videotestsrc ! video/x-raw,width=1024,height=768,framerate=30/1 ! timeoverlay halignment=center valignment=bottom  shaded-background=true font-desc="Sans, 24"  ! videoscale ! videoconvert ! x264enc ! rtph264pay ! udpsink host=127.0.0.1 port=5000
+gst-launch-1.0 -v videotestsrc \
+! video/x-raw,width=1024,height=768,framerate=30/1 \
+! timeoverlay halignment=center valignment=bottom  shaded-background=true font-desc="Sans, 24" \
+! videoscale \
+! videoconvert \
+! x264enc \
+! rtph264pay \
+! udpsink host=127.0.0.1 port=5000
 
 # receiver pipeline
-gst-launch-1.0 -v udpsrc port=5000 caps = "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264, payload=(int)96" ! rtph264depay ! decodebin ! videoconvert ! autovideosink
+gst-launch-1.0 -v udpsrc port=5000 \
+caps = "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264, payload=(int)96" \
+! rtph264depay \
+! decodebin \
+! videoconvert \
+! autovideosink
 ```
 
 * Installing v4l2-utils
@@ -310,14 +322,28 @@ $ v4l2-ctl --info -d /dev/video1 --list-formats
 
 * Record webcam to a file
 ```
-# -e is important because after press ctrl-c the pipeline will not just stop but is being properly shut down by sending an EOS signal through the pipeline.
-$ gst-launch-1.0 -e v4l2src device=/dev/video0 ! videoconvert ! x264enc ! "video/x-h264,stream-format=(string)byte-stream"  ! h264parse !  qtmux ! filesink location=test.mp4 sync=false
+# -e is important because after press ctrl-c the pipeline will not just stop but is being 
+# properly shut down by sending an EOS signal through the pipeline.
+$ gst-launch-1.0 -e v4l2src device=/dev/video0 \
+! videoconvert \
+! x264enc \
+! "video/x-h264,stream-format=(string)byte-stream"  \
+! h264parse \
+! qtmux \
+! filesink location=test.mp4 sync=false
 
 # Play RTSP stream
-$ gst-launch-1.0 rtspsrc location=rtsp://smartlink.local:8554/camera/0 ! rtph264depay ! avdec_h264 ! autovideosink sync=false
+$ gst-launch-1.0 rtspsrc location=rtsp://smartlink.local:8554/camera/0 \
+! rtph264depay \
+! avdec_h264 \
+! autovideosink sync=false
 
 # for RTSP stream
-$ gst-launch-1.0 rtspsrc location=rtsp://192.168.168.102:8554/camera/0 ! rtph264depay ! h264parse ! mp4mux ! filesink location=flight_video1.mp4
+$ gst-launch-1.0 rtspsrc location=rtsp://192.168.168.102:8554/camera/0 \
+! rtph264depay \
+! h264parse \
+! mp4mux \
+! filesink location=flight_video1.mp4
 ```
 
 * **FFmpeg** is a command line application which consists of a library of free / open source software. Includes **libavcodec**, a library for audio/video codecs used by several other projects, and **libavformat**, a library for audio/video container mux and demux container. The project name comes from the MPEG standard video group, append “FF” for “fast forward”.
@@ -343,7 +369,14 @@ gst-launch-1.0 -v videotestsrc \
 ```
 ### Inserting caption
 ```
-tail -n 1000 -f captions.srt | gst-launch-1.0 -v fdsrc ! subparse ! txt. videotestsrc is-live=true ! video/x-raw, width =800, height=480, framerate=10/1 ! videoconvert ! decodebin ! textoverlay name=txt ! xvimagesink
+tail -n 1000 -f captions.srt | gst-launch-1.0 -v fdsrc \
+! subparse \
+! txt. videotestsrc is-live=true \
+! video/x-raw, width =800, height=480, framerate=10/1 \
+! videoconvert \
+! decodebin \
+! textoverlay name=txt \
+! xvimagesink
 ```
 ### tee example
 ```
