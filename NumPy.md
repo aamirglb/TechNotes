@@ -56,3 +56,44 @@ b = np.sqrt(a)
 ```
 
 * Numpy arrays can be sliced just like Python lists.
+
+* In addition to array methods Numpy also has a large number of built-in functions.
+
+* All arrays have a property called `.shape` that returns a tuple of the size in each dimension.
+
+* In NumPy arrays, axes are zero-indexed and identify which dimension is which. A 2-D array has a vertical axis (| - axis 0) and a horizontal axis (-- axis 1).
+
+```python
+import numpy as np
+table = np.array([
+    [5, 3, 7, 1],
+    [2, 6, 7, 9],
+    [1, 1, 1, 1],
+    [4, 3, 2, 0],
+])
+
+table.max() # 9
+table.max(axis=0) # array([5, 6, 7, 9])
+table.max(axis=1) # array([7, 9, 1, 4])
+```
+
+* Arrays can be broadcasted against each other if their dimensions match or if one of the arrays has a size of 1.
+
+* `A = np.arange(32).reshape(4, 1, 8)` <br>
+  A has 4 planes, each with 1 row and 8 columns. <br>
+  `B = np.arange(48).reshape(1, 6, 8)` <br>
+  B has 1 plane with 6 rows and 8 columns.
+
+* NumPy arrays use commas between axes, so that multiple axes indexed in one set of square brackets.
+
+```python
+# Durer magic square
+# add up any of the rows, columns, or diagonals, then you’ll get the same number, 34. 
+square = np.array([
+    [16, 3, 2, 13],
+    [5, 10, 11, 8],
+    [9, 6, 7, 12],
+    [4, 15, 14, 1]
+])
+```
+ 
