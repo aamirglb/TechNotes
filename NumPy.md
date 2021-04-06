@@ -2,6 +2,8 @@
 
 * Numpy is a Python package that allows to efficiently store and process large array of numerical data like sound data and image data.
 
+* Numpy library provides a simple yet powerful data structure: the **n-dimensional array**. Many of Python most popular libraries are built on top of Numpy.
+
 * Numpy uses simple Python syntax to perform complex operations on arrays.
 
 * It is a common practice to import numpy as np.
@@ -31,6 +33,10 @@ m = np.array([[1, 2], [3, 4], [5, 6]])
 ```
 
 * Arithmetic operations on numpy arrays, get automatically applied to each individual element of the array. This is called **_vectorisation_**.
+
+* **Vectorization** is the process of performing the same operation in the same way for each element in an array.
+
+* **Broadcasting** is the process of extending two arrays of different shapres and figuring out how to perform a vectorized calculation between them.
 
 ```python
 x = np.array([1, 2, 3, 5])
