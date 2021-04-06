@@ -6,7 +6,12 @@
 
 ## Library Installation
 ```
-$ apt-get install gstreamer1.0-tools libgstreamer1.0-dev gstreamer1.0-plugins-\* gstreamer1.0-libav libgstrtspserver-1.0-0 libgstrtspserver-1.0-dev
+$ apt-get install gstreamer1.0-tools \
+                  libgstreamer1.0-dev \
+                  gstreamer1.0-plugins-\* 
+                  gstreamer1.0-libav 
+                  libgstrtspserver-1.0-0 
+                  libgstrtspserver-1.0-dev
 ```
 ### GStreamer Core: 
 
