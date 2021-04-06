@@ -340,6 +340,35 @@ gst-launch-1.0 -v videotestsrc \
 ```
 tail -n 1000 -f captions.srt | gst-launch-1.0 -v fdsrc ! subparse ! txt. videotestsrc is-live=true ! video/x-raw, width =800, height=480, framerate=10/1 ! videoconvert ! decodebin ! textoverlay name=txt ! xvimagesink
 ```
+### tee example
+```
+gst-launch-1.0 v4l2src device=/dev/video0 \
+! tee name=t t. \
+! queue \
+! video/x-raw,width=640,height=480 \
+! videoconvert \
+! autovideosink t. \
+! queue \
+! video/x-raw,width=640,height=480 \
+! videoconvert \
+! autovideosink -v
+
+# Display video and save one frame per second
+gst-launch-1.0 v4l2src device=/dev/video0 \
+! tee name=t t. \
+! queue \
+! video/x-raw,width=640,height=480 \
+! videoconvert \
+! autovideosink t. \
+! queue \
+! video/x-raw,width=640,height=480 \
+! timeoverlay \
+! videorate \
+! video/x-raw,framerate=1/1 \
+! videoconvert \
+! jpegenc \
+! multifilesink location="test-%05d.jpeg"
+```
 
 ### Caption file format
 ![colors](images/gstreamer/srt_file_format.png)
