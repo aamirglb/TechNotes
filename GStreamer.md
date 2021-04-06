@@ -182,20 +182,44 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 
  gst-launch-1.0 videotestsrc pattern=11 ! videoconvert ! autovideosink
 
- gst-launch-1.0 videotestsrc ! videoconvert ! tee name=t ! queue ! autovideosink t. ! queue ! autovideosink
+ gst-launch-1.0 videotestsrc \
+ ! videoconvert \
+ ! tee name=t \
+ ! queue \
+ ! autovideosink t. \
+ ! queue \
+ ! autovideosink
 
- gst-launch-1.0 souphttpsrc location=https://www.freedesktop.org/software/gstreamer-sdk/data/media/sintel_trailer-480p.webm ! matroskademux name=d d.video_0 ! matroskamux ! filesink location=sintel_video.mkv
+ gst-launch-1.0 souphttpsrc location=https://www.freedesktop.org/software/gstreamer-sdk/data/media/sintel_trailer-480p.webm \
+ ! matroskademux name=d d.video_0 \
+ ! matroskamux \
+ ! filesink location=sintel_video.mkv
 
  ```
 
  * Both audio video together
  ```
 # no link between audiosink and videosrc
-$ gst-launch-1.0 audiotestsrc ! audioconvert ! autoaudiosink videotestsrc ! videoconvert ! autovideosink
+$ gst-launch-1.0 audiotestsrc \
+! audioconvert \
+! autoaudiosink videotestsrc \
+! videoconvert \
+! autovideosink
 
-$ gst-launch-1.0 audiotestsrc ! audioconvert ! autoaudiosink audiotestsrc wave=pink-noise ! spacescope !  videoconvert ! autovideosink
+$ gst-launch-1.0 audiotestsrc \
+! audioconvert \
+! autoaudiosink audiotestsrc wave=pink-noise \
+! spacescope \
+!  videoconvert \
+! autovideosink
 
-$ gst-launch-1.0 audiotestsrc freq=440 volume=0.3 ! queue ! a. audiotestsrc freq=880 volume=0.3 ! queue ! a. adder name=a ! audioconvert ! autoaudiosink
+$ gst-launch-1.0 audiotestsrc freq=440 volume=0.3 \
+! queue \
+! a. audiotestsrc freq=880 volume=0.3 \
+! queue \
+! a. adder name=a \
+! audioconvert \
+! autoaudiosink
 
 $ gst-launch-1.0 filesrc location=test.ogg \
   ! oggdemux name=d d. \
@@ -207,10 +231,20 @@ $ gst-launch-1.0 filesrc location=test.ogg \
 
 ```
 # edgetv
-$ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,framerate=30/1 ! videoconvert ! timeoverlay ! edgetv !  ximagesink
+$ gst-launch-1.0 v4l2src device=/dev/video0 \
+! video/x-raw,width=640,height=480,framerate=30/1 \
+! videoconvert \
+! timeoverlay \
+! edgetv \
+!  ximagesink
 
 # rippletv
-$ gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=640,height=480,framerate=30/1 ! videoconvert ! timeoverlay ! rippletv !  ximagesink
+$ gst-launch-1.0 v4l2src device=/dev/video0 \
+! video/x-raw,width=640,height=480,framerate=30/1 \
+! videoconvert \
+! timeoverlay \
+! rippletv \
+!  ximagesink
 ```
 * A `tee` copies to each of its output pads everything coming through its input pad.
 
