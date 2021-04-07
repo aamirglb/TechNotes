@@ -448,3 +448,62 @@ gst-launch-1.0 v4l2src device=/dev/video0 \
 **Cairo**: Cairo is a 2D graphics library with support for multiple output devices. Currently supported output targets include the X Window System (via both Xlib and XCB), Quartz, Win32, image buffers, PostScript, PDF, and SVG file output. Experimental backends include OpenGL, BeOS, OS/2, and DirectFB.
 
 **Pango**: Pango is a library for laying out and rendering of text, with an emphasis on internationalization. Pango can be used anywhere that text layout is needed, though most of the work on Pango so far has been done in the context of the GTK widget toolkit. Pango forms the core of text and font handling for GTK.
+
+### Send webcam video as JPEG images
+#### Sender
+$ gst-launch-1.0 v4l2src device=/dev/video0 \
+! image/jpeg,width=640,height=480,framerate=30/1 \
+! videorate \
+! image/jpeg,framerate=1/1 \
+! rtpjpegpay \
+! udpsink host=127.0.0.1 port=6666
+
+#### Receiver
+$ gst-launch-1.0 udpsrc port=6666 \
+! application/x-rtp,encoding-name=JPEG,payload=26 \
+! rtpjpegdepay \
+! jpegparse \
+! jpegdec \
+! autovideosink
+
+#### Sender (with timeoverlay)
+gst-launch-1.0 v4l2src device=/dev/video0 \
+! image/jpeg,width=640,height=480,framerate=30/1 \
+! videorate \
+! image/jpeg,framerate=1/1 \
+! jpegdec \
+! timeoverlay \
+! jpegenc \
+! rtpjpegpay \
+! udpsink host=127.0.0.1 port=6666
+
+### Check USB WebCam Resolution
+use `lsusb` command
+Examine the output of `lsusb` and find a line describing webcam
+```
+$ lsusb
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 004: ID 0461:4e84 Primax Electronics, Ltd USB Optical Mouse
+Bus 001 Device 003: ID 0461:0010 Primax Electronics, Ltd HP PR1101U / Primax PMX-KPR1101U Keyboard
+Bus 001 Device 024: ID 0bda:8152 Realtek Semiconductor Corp. RTL8152 Fast Ethernet Adapter
+Bus 001 Device 005: ID 0bda:0169 Realtek Semiconductor Corp. Mass Storage Device
+**Bus 001 Device 023: ID 05a3:9520 ARC International Camera**
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+# Use Bus and Device number to get more information
+$ lsusb -s 001:023 -v
+
+# Or else use v4l2-ctl
+$ v4l2-ctl --list-formats-ext
+
+# or ffmpeg
+$ ffmpeg -f video4linux2 -list_formats all -i /dev/video0
+[video4linux2,v4l2 @ 0x5591e869e6c0] Compressed:       mjpeg :          Motion-JPEG : 640x480 320x240 800x600 1024x768 1280x720 1280x1024 1600x1200 1920x1080 2048x1536 2592x1944 640x480
+[video4linux2,v4l2 @ 0x5591e869e6c0] Raw       :     yuyv422 :           YUYV 4:2:2 : 640x480 320x240 800x600 1024x768 1280x720 1280x1024 1600x1200 1920x1080 2048x1536 2592x1944 640x480
+
+```
+
+
+
