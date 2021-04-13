@@ -700,6 +700,8 @@ What are files with SGID bit and Sticky bit?? SUID files
 
 
 # 6. Usefull Commands
+## Killin a bunch of processes
+
 ```
 # Kill processes 
 $ kill -9 $(ps -aux | grep main.py | awk '{print $2}')
@@ -709,4 +711,48 @@ $ kill -9 $(pgrep main.py)
 
 # remove grep output from ps output
 $ ps -aux | grep main.* | grep -v grep
+```
+
+## Generate a sequence of numbers
+```shell
+#
+seq LAST
+seq FIRST LAST
+seq FIRST INCREMENT LAST
+seq 10  # 1 to 10
+seq 0 2 10  # 0 2 4 6 8 10
+```
+
+## xargs
+* xargs is used to build and execute command lines from standard input. While tools like `grep` can accept standard input as parameters, many other tools cannot. Using `xargs` allows tools like `echo`, `rm`, `mkdir` etc to accept standard input as arguments.
+
+* `xargs` reads items from standard iput as separated by blanks and executes a command once for each argument.
+
+```
+echo "one two three" | xargs mkdir
+```
+
+* Use `-d` option to change delimeter
+
+* The most common usage of `xargs` is to use it with `find` command.
+
+```
+# find files older than two weeks
+$ find /tmp -mtime +14 | xargs rm
+```
+
+* `find` command supports the `-exec` option that allow arbitrary commands to be performed on found files.
+
+* `-t` option print each command that will be executed.
+
+```
+$ echo "one two three" | xargs -t rm
+```
+
+* `-p` option will print the command to be executd and prompt the user to run it.
+
+* Use `-I` option to run multiple commands.
+
+```
+echo "one two three" | xargs -I % sh -c 'echo %; mkdir %'
 ```
