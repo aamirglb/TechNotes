@@ -13,6 +13,7 @@ Technical Notes
 1. [NumPy](NumPy.md)
 1. [OpenCV](OpenCV.md)
 1. [Perl](Perl.md)
+1. [Python](Python.md)
 1. [Qt/QML](Qt_Qml.md)
 1. [ROS](ROS.md)
 1. [Sed Awk](Sed_Awk.md)
