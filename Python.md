@@ -39,3 +39,18 @@ def say_hello():
 def add_numbers(a, b):
     return a+b
 ```
+
+* The `turtle` module allows you to create images using turtle graphics. On Ubuntu `turtle` required tkinter module.
+
+```shell
+$ sudo apt-get install python3-tk
+```
+
+* Turtle methods
+
+|  fun  |  Description            |
+|-------|-------------------------|
+|  `fd` | Forward                 |
+|  `bk` | Backward                |
+|  `lt` | Left turn (in angle)    |
+|  `rt` | Right turn (in angle)   |
