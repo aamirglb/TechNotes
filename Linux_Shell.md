@@ -716,11 +716,16 @@ $ ps -aux | grep main.* | grep -v grep
 ## Generate a sequence of numbers
 ```shell
 #
-seq LAST
-seq FIRST LAST
-seq FIRST INCREMENT LAST
-seq 10  # 1 to 10
-seq 0 2 10  # 0 2 4 6 8 10
+$ seq LAST
+$ seq FIRST LAST
+$ seq FIRST INCREMENT LAST
+$ seq 10  # 1 to 10
+$ seq 0 2 10  # 0 2 4 6 8 10
+```
+
+## Check OS name and version
+```shell
+$ cat /etc/os-release
 ```
 
 ## xargs
@@ -729,7 +734,7 @@ seq 0 2 10  # 0 2 4 6 8 10
 * `xargs` reads items from standard iput as separated by blanks and executes a command once for each argument.
 
 ```
-echo "one two three" | xargs mkdir
+$ echo "one two three" | xargs mkdir
 ```
 
 * Use `-d` option to change delimeter
@@ -754,5 +759,5 @@ $ echo "one two three" | xargs -t rm
 * Use `-I` option to run multiple commands.
 
 ```
-echo "one two three" | xargs -I % sh -c 'echo %; mkdir %'
+$ echo "one two three" | xargs -I % sh -c 'echo %; mkdir %'
 ```
