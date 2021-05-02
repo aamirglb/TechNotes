@@ -726,6 +726,9 @@ $ seq 0 2 10  # 0 2 4 6 8 10
 ## Check OS name and version
 ```shell
 $ cat /etc/os-release
+
+# Linux kernel version
+$ uname -r
 ```
 
 ## xargs
