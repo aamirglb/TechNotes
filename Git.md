@@ -11,6 +11,18 @@ $ git config --global user.email "you@example.com"
 $ git config --global user.name "Your Name"
 ```
 
+### Discard all local changes
+```shell
+# revert changes made to working copy
+$ git checkout .
+
+# remove untrack files
+$ git clean -f
+
+# remove untrack directories
+$ git clean -fd
+```
+
 ### Git Tags
 Tags are reference points in the repository. Tags are usually used as references for release versions.
 Tags are Git objects meaning that **they can be checkout out** like a branch or a commit.
