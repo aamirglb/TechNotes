@@ -1,0 +1,49 @@
+FROM ubuntu:18.04
+USER root
+RUN apt-get update && apt-get install -y wget apt-transport-https \
+       ca-certificates curl gnupg2 \
+       software-properties-common
+
+RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -
+RUN sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+RUN apt-get update && apt-get install default-jdk-headless -y && apt-get install jenkins -y
+
+# Setup ROS
+RUN apt-get update -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && \
+    sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 && \
+    apt-get update -y && \
+    apt-get install ros-melodic-desktop-full python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential nano cmake usbutils git -y --allow-unauthenticated && \
+    rm -rf /var/lib/apt/lists/*
+
+# RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+# RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+# # RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
+# RUN apt update && apt install ros-melodic-desktop-full -y
+
+# ENV DEBIAN_FRONTEND noninteractive
+
+# ENV QT_PATH /opt/Qt
+# ENV QT_DESKTOP $QT_PATH/${QT_VERSION}/gcc_64
+# ENV PATH /usr/lib/ccache:$QT_DESKTOP/bin:$PATH
+
+# RUN rosdep init && rosdep update && echo "source \"/opt/ros/melodic/setup.bash\"" >> /var/lib/jenkins/.bashrc 
+
+# create user with id 1001 (jenkins docker workflow default)
+# RUN useradd --shell /bin/bash -u 1001 -c "" -m jenkins && usermod -a -G dialout jenkins
+# RUN useradd --shell /bin/bash -u 1001 -c "" -m jenkins && usermod -a -G dialout,sudo jenkins && echo "jenkins:jenkins" | chpasswd
+RUN usermod -aG sudo jenkins && echo "jenkins:jenkins" | chpasswd
+
+USER jenkins
+# setup ros env
+RUN echo "jenkins" | sudo -S rosdep init && rosdep update && echo "source \"/opt/ros/melodic/setup.bash\"" >> /var/lib/jenkins/.bashrc &&\
+    mkdir /var/lib/jenkins/src
+
+# cd /home/jenkins default
+WORKDIR /var/lib/jenkins
+
+
+# RUN source /home/jenkins/.bashrc
+
+CMD ["/etc/init.d/jenkins", "start"]
