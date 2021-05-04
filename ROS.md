@@ -179,6 +179,18 @@ rosdep update
 
 * `rosinstall` tool's job is to install ROS software from source.
 
+* Two important configuration steps that must be done within the account of everyuser that wants to use ROS. 
+    1. Setting uprosdepin a user account
+    2. Setting environment variables
+   
+```shell
+# create .ros directory in user's home directory
+$ rosdep update
+
+# setup environment variables used by ROS
+$ source /opt/ros/indigo/setup.bash
+```
+
 * ROS relies on a few environment variables to locate the files it needs. To set these environment variables, you’ll need to execute the `setup.bash` script that ROS provides, using this command:
 ```bash
 source /opt/ros/indigo/setup.bash
