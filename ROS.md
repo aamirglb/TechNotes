@@ -733,3 +733,57 @@ rosbag info filename.bag
 *Deep Neural Networks (dnn)* module. This module supports a number of deep learning frameworks, including `Caffe`, `TensorFlow`, and `Torch/PyTorch`.
 
 **YOLO “You Only Look Once”** is an algorithm that uses *convolutional neural networks (CNN)* for object detection.
+
+
+## YAML
+
+* **YAML** stands for "YAML Ain't Markup Language". YAML is a human-readable data serialization standard and is often used to write configuration files.
+
+* YAML is made up of bits and pieces of other languages.
+    * Scalars, lists, and associative arrays are based on Perl.
+    * The document separator “---” is based on MIME.
+    * Escape sequences are based on C.
+    * Whitespace wrapping is based on HTML.
+
+* Scalars, or variables, are defined using a colon and a space.
+```yaml
+integer: 25
+string: "25"
+float: 25.0
+boolean: Yes
+```
+
+* Associative arrays and lists are deinfed using conventioal block format or an inline format that is similar to JSON.
+```yaml
+--- # Shopping List in Block Format
+- milk
+- eggs
+- juice
+
+--- # Shopping List in Inline Format
+[milk, eggs, juice]
+```
+
+* Strings can be denoted with a | character, which preserves newlines, or a > character, which folds newlines.
+```yaml
+data: |
+   Each of these
+   Newlines
+   Will be broken up
+
+data: >
+   This text is
+   wrapped and will
+   be formed into
+   a single paragraph
+```
+
+* YAML achieves a unique cleanness by minimizing the amount of structural characters and allowing the data to show itself in a natural and meaningful way. For example, _indentation_ may be used for **structure**, _colons_ separate **key: value pairs**, and _dashes_ are used to create **“bullet” lists**.
+
+* All data structures can be adequately represented with three basic primitives: **mappings** (hashes/dictionaries), **sequences** (arrays/lists) and **scalars** (strings/numbers). 
+
+* New wave of agile languages such as Perl, Python, PHP, Ruby, and Javascript.
+
+* YAML integrates and builds upon concepts described by C, Java, Perl, Python, Ruby, RFC0822 (MAIL), RFC1866 (HTML), RFC2045 (MIME), RFC2396 (URI), XML, SAX, SOAP, and JSON.
+
+* A single line break is folded into a single space, while empty lines are interpreted as line break characters. 
