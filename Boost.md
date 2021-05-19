@@ -1,5 +1,6 @@
 # Boost C++ Library
 
+C++ GCC get all warnings: gcc -Q --help=warning   
 ## Boost.Signals2
 
 * Boost.Signals2 library is an implementation of a _managed_ signals and slots system. Boost.Signals2 allows the user to specify the manner in which multiple return values are combined. 
