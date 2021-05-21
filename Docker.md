@@ -20,3 +20,44 @@ $ docker run -d --restart=always redis
 $ docker update --restart=no redis
 ```
 
+* Container is an isolated environment for running applications. Lightweight and use OS of the host operating system.
+
+* Hypervisors: VirtualBox, VMWare, Hyper-V (Windows only)
+
+* Container is a special process.
+
+```shell
+$ docker image ls
+$ docker images
+
+# List running container
+$ docker ps
+
+# List all container
+$ docker ps -a
+```
+
+Linux Distros (More than 1000 distributation of Linux)
+1. Ubuntu
+1. Debian
+1. Alpine
+1. Fedora
+1. CentOS
+
+Package Managers
+1. npm
+1. yarn
+1. pip 
+1. NuGet 
+1. apt (advance package tool) apt-get is older version
+
+```
+# 
+$ apt list
+$ apt update # update package database
+$ apt list
+```
+
+* Container lives in container repository. Public repository for Docker called DockerHub. (10K+ container images)
+
+
