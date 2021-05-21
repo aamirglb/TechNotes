@@ -8,3 +8,15 @@
 
 * Docker’s fundamental platform and container design means that a single Docker image (for any given application like Jenkins) can be run on any supported operating system (macOS, Linux and Windows) or cloud service (AWS and Azure) which is also running Docker.
 
+* To always restart a container after system restart, use `--restart` flag
+
+```shell
+$ docker run -d --restart=always redis
+```
+
+* To stop the container from restarting always use `docker update` command
+
+```shell
+$ docker update --restart=no redis
+```
+
