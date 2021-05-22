@@ -60,4 +60,16 @@ $ apt list
 
 * Container lives in container repository. Public repository for Docker called DockerHub. (10K+ container images)
 
+```shell
+$ docker stop container_name
+$ docker start container_name
+$ docker ps --help
+# Remove all containers 
+$ docker rm $(docker ps -aq)
+# force remove running containers
+$ docker rm -f $(docker ps -aq)
 
+$ docker ps --format "ID\t{{.ID}}\n"
+```
+
+* Docker volumes allow to share data between host and container and between containers.
