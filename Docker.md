@@ -73,3 +73,10 @@ $ docker ps --format "ID\t{{.ID}}\n"
 ```
 
 * Docker volumes allow to share data between host and container and between containers.
+
+* volumen: source:destination:ro
+
+* nginx server serve's website from location "usr/share/nginx/html"
+
+bootstrap single page template
+https://github.com/StartBootstrap/startbootstrap-grayscale.git
