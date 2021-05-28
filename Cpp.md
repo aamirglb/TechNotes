@@ -1,3 +1,55 @@
+# C++ Concurrency in Action
+
+* With C++11 it is possible to write multithreaded C++ programs without relying on platform-specific extensions and enabled you to write portable multithreaded code with guaranteed behavior.
+
+* Technical Specifications for **Concurrency extensions** and **Parallelism** to be incorporated into C++17.
+
+* Concurrency is about two or more separate activities happening at the same time.
+
+* Separate processes can pass messages to each other through all the normal inter-
+communication channels (signals, sockets, files, pipes, and so on).
+
+* It is easier to write safe concurrent code with processes rather than threads.
+
+* Threads are much like light-weight processes: each thread runs independently of the others, and each may run a different sequence of instructions. But all threads in a process _share the same address space_, and most of the data can be accessed directly from all threads, global variables remain global, and pointers or references to objects or data can be passed around among threads.
+
+* Application frameworks, such as MFC, and general-purpose C++ libraries, such as Boost and ACE.
+
+* C++ Standard Library was extended to include classes for managing threads, protecting shared data, synchronizing operations between threads, and low-level atomic operations.
+
+```cpp
+#include <thread>
+void do_some_work();
+std::thread t(do_some_work);
+
+struct background_task {
+    void operator()() const {
+        do_work();
+        do_more_work();
+    }
+}
+background_task f;
+std::thread t2(f); // functor is copied into storge belonging to thread
+```
+
+* `std::thread` works with any callable type.
+
+* _**C++ most vexing parse**_, passing a temporary rather than a named variable
+
+```cpp
+std::thread my_thread(background_task()); // WRONG !!
+// Declare my_thread function taking single parameter and return thread object
+
+std::thread my_thread( (background_task()) ); // extra set of parentheses
+std::thread my_thread{background_task()};
+```
+
+* `std::thread` destructor calls `std::terminate()` if thread terminate without join.
+
+
+
+
+
 # C++17
 
 ### Structure Binding
