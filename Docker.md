@@ -78,6 +78,10 @@ $ docker ps --format "ID\t{{.ID}}\n"
 
 * nginx server serve's website from location "usr/share/nginx/html"
 
+* "ID:\t{{.ID}}\nNAME:\t{{.Names}}\nIMAGE:\t{{.Image}}\nPORTS:\t{{.Ports}}\nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS:\t{{.Status}}\n"
+
+* Use --volume-from option to mount volumne from one container to other container
+
 bootstrap single page template
 https://github.com/StartBootstrap/startbootstrap-grayscale.git
 
