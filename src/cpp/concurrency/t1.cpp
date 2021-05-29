@@ -6,6 +6,7 @@ struct func {
     int& i;
     func(int& i_): i{i_}{}
     void operator()() {
+        std::cout<<std::this_thread::get_id() << '\n';
         using namespace std::chrono_literals;
         int sum{};
         for(auto i = 0; i < 10; ++i) {
@@ -26,6 +27,7 @@ void oops() {
 }
 
 int main() {
+    std::cout<<std::this_thread::get_id() << '\n';
     oops();
     std::cout << "main returning.\n";
     return 0;
