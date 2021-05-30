@@ -46,9 +46,86 @@ std::thread my_thread{background_task()};
 
 * `std::thread` destructor calls `std::terminate()` if thread terminate without join.
 
+* `join()` is a simple and brute-force technique. For more fine-grained control use _condition variable_ and _futures_.
+
+* The call to `join()` is liable to be skipped if an exception is thrown after the thread has been started but before the call to `join()`.
+
+* Thread guard using Resource Acquisition Is Initialization (RAII) idiom
+
+```cpp
+class thread_guard {
+    std::thread& t;
+public:
+    explicit thread_guard(std::thread& t_) : t{t_} {}
+    ~thread_guard() { 
+        if(t.joinable()) {
+            t.join(); // can be called only once for a given thread
+        }
+    }
+    thread_guard(const thread_gurad&) = delete;
+    thread_guard& operator=(const thread_guard&) = delete;
+};
+
+std::thread t(func);
+thread_guard g(t);
+```
+* If a thread becomes detached, it isn’t possible to obtain a std::thread object that references it, so it can no longer be joined. Ownership and control of detached threads are passed over to C++ Runtime Library.
+
+```cpp
+char buffer[1024];
+sprintf(buffer, "%i", some_param);
+```
+
+```cpp
+struct X {
+    void do_lengthy_work();
+};
+X my_x;
+// Supply object pointer as first argument for class member functions
+std::thread t(&X::do_lengthy_work, &my_x); 
+```
+
+* `std::unique_ptr`, provides automatic memory management for dynamically
+allocated objects. The _move constructor_ and _move assignment_ operator allow the ownership of an object to be transferred around between `std::unique_ptr` instances 
+
+* This moving of values allows objects of this type to be accepted as function
+parameters or returned from functions. Where the source object is _temporary_, the
+move is automatic, but where the source is a _named value_, the transfer must be
+requested directly by invoking std::move().
+
+* It is not possible to just drop a thread by assigning a new value to the std::thread object that manages it.
+
+```cpp
+std::thread t1(some_function);
+std::thread t2(some_other_function);
+t1 = std::move(t2); // Program will be terminated
+```
+
+```cpp
+// Ownership is transferred
+std::thread f() { 
+    return std::thread(some_function);
+ }
+
+ void f(std::thread t);
+```
+
+* `std::thread::hardware_concurrency()` function returns an indication of the number of threads that can truly run concurrently for a given execution of a program.
+
+* Thread identifiers are of type `std::thread::id` and can be retrieved in two:  ways. `get_id()` member function or `std::this_thread:: get_id()`.
+
+* _invariants_ (never changing)
+
+* One of the most common cause of bugs in concurrent code is a _race condition_. A race condition is anything where the outcome depends on the relative ordering of execution of operations on tow or more threads.
+
+* A great deal of complexity in writing software that uses concurrency comes from avoiding problematic race conditions.
+
+* The most basic mechanism for protecting shared data is to use synchronization primitive called _mutex_ (mutual exclusion).
 
 
+* The Thread Library ensures that once one thread has locked a specific mutex, all other threads that try to lock the same mutex have to wait until the thread that successfully locked the mutex unlocks it.
 
+* Mutexes come with their own problems in the form of a _deadlock_.
 
 # C++17
 
