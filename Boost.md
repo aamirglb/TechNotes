@@ -173,3 +173,129 @@ service_.stop()
 dummy_work.reset(0); // destroy dummy_work
 ```
 The preceding code will make sure that `service_.run()` never stops unless you either use `service_.stop()` or `dummy_work.reset(0); // destroy dummy_work` .
+
+* `boost::asio`: core classes and functions. `io_service`, `streambuf`.
+* `boost::asio::ip`: `address`, `endpoing`, `tcp`, `udp`, `icmp`,
+
+* To deal with IP addresses, Boost.Asio provides following classes
+1. `ip::address`  
+1. `ip::address_v4`
+1. `ip::address_v6`
+
+* Some useful methods
+1. `ip::address_v4::broadcast([addr, mask])`
+1. `ip::address_v4::any()`
+1. `ip::address_v4::loopback()` 
+1. `ip_address_v6::loopback()`
+
+* Endpoint is an address with a port number. Each different type of socket has its own `endpoint` class.
+1. `ip::tcp::endpoint`
+1. `ip::udp::endpoint`
+1. `ip::icmp::endpoint`
+
+```cpp
+// get address, port and IP protocol from end point
+std::cout << ep.address().to_string() << ep.port() << ep.protocol()
+```
+
+```cpp
+io_service service;
+ip::udp::socket sock(service)
+sock.set_option(ip::udp::socket::reuse_address(true));
+
+// typedef declaration of different types of sockets
+ip::tcp::socket = basic_stream_socket<tcp>
+ip::udp::socket = basic_datagram_socket<udp>
+ip::icmp::socket = basic_raw_socket<icmp>
+```
+
+### Connection related functions
+```cpp
+assign(protocol,socket)
+open(protocol)
+bind(endpoint)
+connect(endpoint)
+async_connect(endpoint)
+is_open()
+close() // Any asynchronous operations on this socket are canceled immediately 
+         // and will complete with error::operation_aborted error code.
+shutdown(type_of_shutdown) // disables send or receive operations or both
+cancel() // Cancel all asynchronous operations
+```
+
+### Read/Write functions
+
+```cpp
+async_receive(buffer, [flags,] handler)
+async_read_some(buffer,handler)
+async_receive_from(buffer, endpoint[, flags], handler)
+async_send(buffer [, flags], handler)
+async_write_some(buffer, handler)
+async_send_to(buffer, endpoint, handler)
+receive(buffer [, flags])
+read_some(buffer)
+receive_from(buffer, endpoint [, flags])
+send(buffer [, flags])
+write_some(buffer) :
+send_to(buffer, endpoint [, flags])
+available()
+
+// For asynchronous function, signature of the handler is
+void handler(const boost::system::error_code& e, size_t bytes)
+
+// Value of flags are
+
+// only peek at the msg, next call to read the msg will re-read this message
+ip::socket_type::socket::message_peek 
+
+// OOB data is data that is flagged as more important than normal data
+ip::socket_type::socket::message_out_of_band
+
+ip::socket_type::socket::message_do_no_route
+
+ip::socket_type::socket::message_end_of_record
+```
+
+* Example of message peek
+```cpp
+char buff[1024];
+sock.receive(buffer(buff), ip::tcp::socket::message_peek );
+memset(buff,1024, 0);
+// re-reads what was previously read
+sock.receive(buffer(buff) );
+```
+
+* Read asynchronously from UDP server socket
+```cpp
+using namespace boost::asio;
+io_service service;
+ip::udp::socket sock(service);
+boost::asio::ip::udp::endpoint sender_ep;
+char buff[512];
+
+void on_read(const boost::system::error_code & err, std::size_t read_bytes) {
+  std::cout << "read " << read_bytes << std::endl;
+  sock.async_receive_from(buffer(buff), sender_ep, on_read);
+}
+
+int main(int argc, char* argv[]) {
+  ip::udp::endpoint ep( ip::address::from_string("127.0.0.1"), 8001);
+  sock.open(ep.protocol());
+  sock.set_option(boost::asio::ip::udp::socket::reuse_address(true));
+  sock.bind(ep);
+  sock.async_receive_from(buffer(buff,512), sender_ep, on_read);
+  service.run();
+}
+```
+* A socket instance cannot be copied, as the Copy constructor and operator = are inaccessible:
+```cpp
+ip::tcp::socket s1(service), s2(service);
+s1 = s2; // compile time error
+ip::tcp::socket s3(s1); // compile time error
+
+typedef boost::shared_ptr<ip::tcp::socket> socket_ptr;
+socket_ptr sock1(new ip::tcp::socket(service));
+socket_ptr sock2(sock1); // ok
+socket_ptr sock3;
+sock3 = sock1; // ok
+```
