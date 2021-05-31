@@ -299,3 +299,21 @@ socket_ptr sock2(sock1); // ok
 socket_ptr sock3;
 sock3 = sock1; // ok
 ```
+* When reading from or writing to a socket, you'll need a _buffer_, one that will hold the
+incoming data or the outgoing data. The memory in the buffer must outlive the I/O operation; you have to make sure if it is not deallocated or goes out of scope as long as the I/O operation lasts.
+This is extremely easy for synchronous operations, but not so straightforward for asynchronous operations.
+
+* Boost.Asio buffer instance needs to meet some requirements, namely
+`ConstBufferSequence` or `MutableBufferSequence`.
+
+```cpp
+struct shared_buffer {
+  boost::shared_array<char> buff;
+  int size;
+  shared_buffer(size_t size) : buff(new char[size]), size(size) {
+  }
+  mutable_buffers_1 asio_buff() const {
+    return buffer(buff.get(), size);
+  }
+};
+```
