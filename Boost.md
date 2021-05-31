@@ -168,5 +168,8 @@ service_.run(); // run will complete after a connection
 ```cpp
 typedef boost::shared_ptr<io_service::work> work_ptr;
 work_ptr dummy_work(new io_service::work(service_));
+
+service_.stop()
+dummy_work.reset(0); // destroy dummy_work
 ```
 The preceding code will make sure that `service_.run()` never stops unless you either use `service_.stop()` or `dummy_work.reset(0); // destroy dummy_work` .
