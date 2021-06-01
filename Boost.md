@@ -317,3 +317,36 @@ struct shared_buffer {
   }
 };
 ```
+
+* Connect a socket to an endpoint
+`connect(socket, begin [, end] [, condition])`
+`async_connect(socket, begin [, end] [, condition], handler)`
+
+* helper completion function
+```
+transfer_at_least(n)
+transfer_exactly(n)
+transfer_all()
+```
+* Functions that read until a condition is met
+```
+async_read_until(stream, stream_buffer, delim, handler)
+async_read_until(stream, stream_buffer, completion, handler)
+read_until(stream, stream_buffer, delim)
+read_until(stream, stream_buffer, completion)
+```
+
+* Read data from socket only when data is available.
+```
+if(sock.available())
+  read_data()
+```
+* To implement the asynchronous listening loop, `io_service` class provides four functions. `run()`, `run_one()`, `poll()` and `poll_one()`.
+
+* `io_service::run()` will run as long as there are pending operations to be executed or
+you manually call `io_service::stop()`.
+
+* `io_service::strand()`, will orders asynchronous handler calls.
+
+* `dispatch()` will call the handler before it returns, if the current thread has called `service.run()` , while `post()` always returns immediately.
+
