@@ -23,6 +23,11 @@ $ git clean -f
 $ git clean -fd
 ```
 
+### Rename master to main 
+```shell
+$ git branch -m master main
+```
+
 ### Git Tags
 Tags are reference points in the repository. Tags are usually used as references for release versions.
 Tags are Git objects meaning that **they can be checkout out** like a branch or a commit.
