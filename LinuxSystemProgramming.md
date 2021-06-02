@@ -77,4 +77,8 @@ void perror(const char *msg);
 
 * functions `getuid` and `getgid` return the user ID and the group ID.
 
-* Signals are a technique used to notify a process that some condition has occurred.
+* Signals are a technique used to notify a process that some condition has occurred. The process has three choices for dealing with the
+signal.
+1. Ignore the signal
+1. Let the default action occur
+1. Provide a function that is called when the signal occurs 
