@@ -65,6 +65,7 @@ my %data = (name => 'Aamir',
 ```
 
 * Built-in string manipulation functions
+
 | Function | Description |
 |----------|-------------|
 | `chomp`  |             |
@@ -82,6 +83,7 @@ my %data = (name => 'Aamir',
   `x`   string repetition operator
 
 * Array manipulation functions
+
 | Function | Description |
 |----------|-------------|
 | `push`   |             | 

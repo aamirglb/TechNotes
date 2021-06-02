@@ -9,6 +9,15 @@
 [5. vi Editor](#5-vi-editor) <br>
 [6. Usefull commands](#6-usefull-commands) <br>
 
+* Bash command line shortcuts
+```shell
+Ctrl+K  Cut from curser till the end of line 
+Ctrl+U  Cut from curser till beginning of line
+Ctrl+W  Cut words backwards
+Ctrl+Y  Paste from clilp board
+Ctrl+x+e Continue editing current line in text editor (uses $EDITOR)
+Alt+.   Paste previous command's last argument
+```
 
 * Bash is "Bourne Again Shell". Bourne shell is developed by GNU.
 * Different shells
