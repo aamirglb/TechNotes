@@ -20,3 +20,12 @@ Technical Notes
 1. [Sed Awk](Sed_Awk.md)
 1. [Usefull Links](UsefullLinks.md)
 
+
+6 that Facebook give to prepare for internship
+
+1. TCP/IP Illustrated Volume 1
+2. The Illustrated Network
+3. The Art of UNIX Programming
+4. Systems Performance: Enterprise and the Cloud
+5. Linux and the Unix Philosophy
+6. Advance Programming in Unix Environment

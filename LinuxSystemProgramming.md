@@ -164,3 +164,13 @@ enhancements from the engineers at Sun Microsystems. It is arguably the only com
 * **HP-UX**, Hewlett-Packard’s version of the UNIX System
 * **IRIX**, the UNIX System version shipped by Silicon Graphics
 * **UnixWare**, the UNIX System descended from SVR4 sold by SCO
+
+The runtime limits are obtained by calling one of the following three functions.
+```c
+#include <unistd.h>
+long sysconf(int name);
+long pathconf(const char *pathname, int name);
+long fpathconf(int fd, int name);
+```
+
+* we can use the `ulimit` command built into the Bourne-again shell to change the maximum number of files our processes can have open at one time.
