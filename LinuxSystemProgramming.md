@@ -82,3 +82,85 @@ signal.
 1. Ignore the signal
 1. Let the default action occur
 1. Provide a function that is called when the signal occurs 
+
+* UNIX systems maintain two different time values:
+    1. **Calendar time**: number of seconds since the Epoch: 00:00:00 January 1, 1970. primitive system data type `time_t` holds these values.
+    1. **Process time**: (CPU time) measures CPU resources used by a process. measured in clock ticks. Primitive system data type `clock_t` holds these time values.
+
+* The _user CPU time_ is the CPU time attributed to _user instructions_. The _system CPU time_ is the CPU time attributed to the _kernel_ when it executes on behalf of the process.
+
+* Use `time` command to measure the clock time, user time, and system time of any process.
+
+```shell
+$ cd /usr/include
+$ time -p grep _POSIX_SOURCE */*.h > /dev/null
+```
+
+* Linux 3.2.0 has 380 system calls and FreeBSD 8.0 has over 450. The system call interface has always been documented in Section 2 of the UNIX
+Programmer ’s Manual.
+
+* The technique used on UNIX systems is for each system call to have a function of the same name in the standard C library. The user process calls this function, using the standard C calling sequence. This function then invokes the appropriate kernel service, using whatever technique is required on the system.
+
+* Section 3 of the UNIX Programmer ’s Manual defines the general-purpose library functions available to programmers.
+
+* The UNIX system call that handles memory allocation, sbrk(2), is not a general-purpose memory manager.
+
+* The process control system calls (`fork`, `exec`, and `waitpid`) are usually invoked by the user’s application code directly. But
+some library routines like `system` and `popen` exist to simplify certain common cases.
+
+* An important part of all the standardization efforts is the
+specification of various limits that each implementation must define.
+
+* ANSI is the **American National Standards Institute**, the U.S. member in the **International Organization for Standardization (ISO)**. IEC stands for the **International Electrotechnical Commission**.
+
+* The intent of the ISO C standard is to provide portability of conforming C programs to a wide variety of operating systems, not only
+the UNIX System.
+
+* The C standard defines not only the syntax and semantics of the
+programming language but also a standard library. This library is important because all contemporary UNIX systems, provide the
+library routines that are specified in the C standard.
+
+* **POSIX (Portable Operating System Interface)** is a family of standards initially developed by the **IEEE (Institute of Electrical
+and Electronics Engineers)**. 
+
+* POSIX originally referred only to operating system interface but later extended to include many standards including shell and utilities.
+
+### ISO C Header
+![ISO C Header](images/lsp/iso_c_header.png)
+
+### POSIX Required Headers
+![Posix Required](images/lsp/posix_required.png)
+
+### POSIX optional Headers
+![Posix Optional](images/lsp/posix_optional.png)
+
+### X/Open System Interface (XSI) headers
+![XSI](images/lsp/xsi_header.png)
+
+* The **Single UNIX Specification**, a superset of the POSIX.1 standard, specifies additional interfaces that extend the functionality provided by the POSIX.1 specification.
+
+* The **X/Open System Interfaces (XSI)** option in POSIX.1 describes optional interfaces and defines which optional portions of POSIX.1 must be supported for an
+implementation to be deemed _XSI conforming_. Only XSI conforming implementations can be called **UNIX systems**.
+
+* UNIX **System V Release 4 (SVR4)** was a product of AT&T’s UNIX System Laboratories.
+
+* The **Berkeley Software Distribution (BSD)** releases were produced and distributed by
+the Computer Systems Research Group (CSRG) at the University of California at Berkeley.
+
+* **FreeBSD** is based on the 4.4BSD-Lite operating system.
+
+* **Linux** is an operating system similar to that of a UNIX System; it is freely available under the GNU Public License.
+
+* **Mac OS X** is based on entirely different technology than prior versions. The core
+operating system is called _Darwin_, and is based on a combination of the Mach kernel, the FreeBSD operating system, and an object-oriented framework for drivers and other kernel extensions. As of version 10.5, the Intel port of Mac OS X has been certified to be a UNIX system.
+
+* **Solaris** is the version of the UNIX System developed by Sun Microsystems (now
+Oracle). Solaris is based on System V Release 4, but includes more than fifteen years of
+enhancements from the engineers at Sun Microsystems. It is arguably the only commercially successful SVR4 descendant, and is formally certified to be a UNIX system.
+
+### Other UNIX Systems
+
+* **AIX**, IBM’s version of the UNIX System
+* **HP-UX**, Hewlett-Packard’s version of the UNIX System
+* **IRIX**, the UNIX System version shipped by Silicon Graphics
+* **UnixWare**, the UNIX System descended from SVR4 sold by SCO
