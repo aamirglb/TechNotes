@@ -174,3 +174,71 @@ long fpathconf(int fd, int name);
 ```
 
 * we can use the `ulimit` command built into the Bourne-again shell to change the maximum number of files our processes can have open at one time.
+
+* feature test macro to be defined before any header files are included by the C program.
+```
+cc -D_POSIX_C_SOURCE=200809L file.c
+```
+
+* The header `<sys/types.h>` defines some implementation-dependent data types, called the primitive system data types.
+
+![Primitive Data Type](imgaes/lsp/primitive_data_types.png)
+
+## File I/O
+
+* The term _unbuffered I/O_ means that each read or write invokes a system call in the kernel. These unbuffered I/O functions are not part of ISO C, but are part of POSIX.1 and the Single
+UNIX Specification.
+
+* By convention, UNIX System shells associate file descriptor 0 with the standard input of a process, file descriptor 1 with the standard output, and file descriptor 2 with
+the standard error.
+
+* magic numbers 0, 1, and 2 should be replaced in POSIX-compliant applications with the symbolic constants `STDIN_FILENO`, `STDOUT_FILENO`, and `STDERR_FILENO` to improve readability.
+These constants are defined in the <unistd.h> header.
+
+```c
+#include <fcntl.h>
+int open(const char *path, int oflag, ... /* mode_t mode */ );
+int openat(int fd, const char *path, int oflag, ... /* mode_t mode */ );
+```
+
+* The `openat` function gives threads a way to use relative pathnames to open files in directories other than the current working directory. All threads in the same process share the same current working directory, so this makes it difficult for multiple threads in the same process to work in different directories at the same time.
+
+* The **time-of-check-to-time-of-use (TOCTTOU)** errors is that a program is vulnerable if it makes two file-based function calls where the second call depends on the results of the first
+call. Because the two calls are not atomic, the file can change between the two calls,
+thereby invalidating the results of the first call, leading to a program error.
+
+```c
+#include <fcntl.h>
+int creat(const char *path, mode_t mode);
+# Equivalent to
+open(path, O_WRONLY | O_CREAT | O_TRUNC, mode);
+
+#include <unistd.h>
+int close(int fd);
+```
+
+* When a process terminates, all of its open files are closed automatically by the kernel.
+
+* Every open file has an associated _current file offset_, normally a non-negative integer
+that measures the number of bytes from the beginning of the file. An open file’s offset can be set explicitly by calling `lseek`.
+
+```c
+#include <unistd.h>
+off_t lseek(int fd, off_t offset, int whence);
+
+// whence - SEEK_SET, SEEK_CUR, SEEK_END
+
+// get current offset
+off_t currpos;
+currpos = lseek(fd, 0, SEEK_CUR);
+```
+
+* This technique can also be used to determine if a file is capable of seeking. If the file
+descriptor refers to a pipe, FIFO , or socket, lseek sets errno to ESPIPE and returns −1.
+
+* The file’s offset can be greater than the file’s current size, in which case the next
+write to the file will extend the file. This is referred to as _creating a hole_ in a file and is
+allowed. Any bytes in a file that have not been written are read back as 0.
+
+* `od -c file.hole`
+
