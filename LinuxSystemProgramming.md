@@ -242,3 +242,119 @@ allowed. Any bytes in a file that have not been written are read back as 0.
 
 * `od -c file.hole`
 
+* Even though you might enable 64-bit file offsets `off_t`, your ability to create a
+file larger than 2 GB (2^31 −1 bytes) depends on the underlying file system type.
+
+```c
+#include <unistd.h>
+ssize_t read(int fd, void *buf, size_t nbytes);
+ssize_t write(int fd, const void *buf, size_t nbytes);
+```
+
+* UNIX kernel closes all open file descriptors in a process when that process terminates.
+
+* The UNIX System supports the sharing of open files among different processes.
+
+* _atomic operation_ refers to an operation that might be composed of multiple steps. If the operation is performed atomically, either all the steps are performed (on success) or none are performed (on failure).
+
+* An existing file descriptor is duplicated by either `dup` or `dup2` function.
+
+```c
+#include <unistd.h>
+int dup(int fd);
+int dup2(int fd, int fd2);
+```
+
+* If _fd2_ is already open, it is first closed. If _fd_ equals _fd2_, then `dup2` returns
+_fd2_ without closing it. Otherwise, the `FD_CLOEXEC` file descriptor flag is cleared for _fd2_, so that _fd2_ is left open if the process calls exec.
+
+* Because both descriptors _fd_ and _fd2_ point to the same file table entry,
+they share the same file status flags—read, write, append, and so on—and the same
+current file offset. Each descriptor has its own set of file descriptor flags.
+
+* Traditional implementations of the UNIX System have a buffer cache or page cache in
+the kernel through which most disk I/O passes. This is called _delayed write_.
+
+```c
+#include <unistd.h>
+int fsync(int fd);
+int fdatasync(int fd);
+void sync(void);
+```
+
+* The function `fsync` refers only to a single file, specified by the file descriptor fd,
+and waits for the disk writes to complete before returning.
+
+* The `fcntl` function can change the properties of a file that is already open.
+
+```c
+#include <fcntl.h>
+int fcntl(int fd, int cmd, ... /* int arg */ );
+```
+
+* The fcntl function is used for five different purposes.
+1. Duplicate an existing descriptor (cmd = F_DUPFD or F_DUPFD_CLOEXEC)
+2. Get/set file descriptor flags (cmd = F_GETFD or F_SETFD)
+3. Get/set file status flags (cmd = F_GETFL or F_SETFL)
+4. Get/set asynchronous I/O ownership (cmd = F_GETOWN or F_SETOWN)
+5. Get/set record locks (cmd = F_GETLK, F_SETLK, or F_SETLKW)
+
+* Currently, only one file descriptor flag is defined: the `FD_CLOEXEC` flag.
+
+* File status flags
+
+![File status flag](imgages/lsp/file_status_flag.png)
+
+```shell
+$ ./a.out 0 < /dev/tty
+read only
+$ ./a.out 1 > temp.foo
+$ cat temp.foo
+write only
+$ ./a.out 2 2>>temp.foo
+write only, append
+$ ./a.out 5 5<>temp.foo
+read write
+```
+
+* The clause `5<>temp.foo` opens file `temp.foo` for reading and writing on file descriptor 5.
+
+* synchronous-write flag causes each write to wait for the data to be written to disk before returning.
+
+* Mac OS X 10.6.8, uses the **HFS** file system.
+
+* UNIX System implementations use ioctl for many miscellaneous device operations. Some
+implementations have even extended it for use with regular files.
+
+```c
+#include <unistd.h>        /* System V */
+#include <sys/ioctl.h>     /* BSD and Linux */
+int ioctl(int fd, int request, ...);
+```
+
+* Newer systems provide a directory named /dev/fd whose entries are files named 0, 1,
+2, and so on. Opening the file /dev/fd/n is equivalent to duplicating descriptor n,
+assuming that descriptor n is open.
+
+`fd = open("/dev/fd/0", mode); `
+
+* The main use of the /dev/fd files is from the shell. It allows programs that use
+_pathname arguments_ to handle standard input and standard output in the same
+manner as other pathnames.
+
+* The special meaning of `-` as a command-line argument to refer to the standard
+input or the standard output is a kludge that has crept into many programs. There are
+also problems if we specify `-` as the first file, as it looks like the start of another
+command-line option. Using /dev/fd is a step toward uniformity and cleanliness.
+
+```shell
+filter file2 | cat file1 - file3 | lpr
+filter file2 | cat file1 /dev/fd/0 file3 | lpr // same as above
+```
+
+```
+digit1>&digit2
+# Bash notation says redirect descriptor digit1 to the same file as descriptor digit2.
+./a.out > outfile 2>&1
+./a.out 2>&1 > outfile
+```
