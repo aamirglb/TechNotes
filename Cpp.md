@@ -122,10 +122,58 @@ std::thread f() {
 
 * The most basic mechanism for protecting shared data is to use synchronization primitive called _mutex_ (mutual exclusion).
 
-
 * The Thread Library ensures that once one thread has locked a specific mutex, all other threads that try to lock the same mutex have to wait until the thread that successfully locked the mutex unlocks it.
 
 * Mutexes come with their own problems in the form of a _deadlock_.
+
+* Normal interprocess communication channels (signals, sockets, files, pipes, and so on),
+
+* it’s important to understand the implementation costs associated with using any high-level facilities, compared to using the underlying low-level facilities directly. This cost is the _abstraction penalty_. 
+    
+* the functions and classes for managing threads are declared in <thread>, whereas those for protecting shared data are declared in other headers.
+    
+* every thread has to have an initial function, where the new thread of execution begins. 
+    
+* Once you’ve started your thread, you need to explicitly decide whether to wait for it to finish (by joining with it) or leave it to run on its own (by detaching it).
+    
+* The ease with which data can be shared between multiple threads in a single process is not only a benefit; it can also be a big drawback.
+    
+* In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads; the threads race to perform their respective operations.
+    
+* Because race conditions are generally timing-sensitive, they can often disappear entirely when the application is run under the debugger, because the debugger affects the timing of the program, even if only slightly.
+    
+* synchronization primitive called a mutex (mutual exclusion). Mutexes also come with their own problems in the form of a deadlock.
+    
+* In C++, you create a mutex by constructing an instance of std::mutex, lock it with a call to the lock() member function, and unlock it with a call to the unlock() member function.
+    
+* It isn’t recommended practice to call the member functions directly, instead use std::lock\_guard class template, which implements that RAII idiom for a mutex; it locks the supplied mutex on construction and unlocks it on destruction, ensuring a locked mutex is always correctly unlocked.
+    
+* C++17 has a new feature called class template argument deduction, which means that for simple class templates like std::lock\_guard, the template argument list can often be omitted.
+
+```cpp
+std::lock_guard guard(some_mutex); // C++17
+std::lock_guard<std::mutex> guard(some_mutex); // < C++17
+```
+    
+* Don’t pass pointers and references to protected data outside the scope of the lock, whether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions.
+    
+* The common advice for avoiding deadlock is to always lock the two mutexes in the same order: if you always lock mutex A before mutex B, then you’ll never deadlock.
+    
+* the C++ Standard Library has a cure for this in the form of std::lock—a function that can lock two or more mutexes at once without risk of deadlock.
+    
+* attempting to acquire a lock on std::mutex when you already hold it is undefined behavior.
+    
+* The std::adopt\_lock parameter is supplied in addition to the mutex to indicate to the std::lock\_guard objects that the mutexes are already locked, and they should adopt the ownership of the existing lock on the mutex rather than attempt to lock the mutex in the constructor.
+    
+```cpp
+std::lock(lhs.m,rhs.m);
+std::lock_guard<std::mutex> lock_a(lhs.m,std::adopt_lock);
+std::lock_guard<std::mutex> lock_b(rhs.m,std::adopt_lock);
+```
+        
+* std::lock provides all-or-nothing semantics with regard to locking the supplied mutexes.
+    
+* The need to synchronize operations between threads like this is such a common scenario that the C++ Standard Library provides facilities to handle it, in the form of condition variables and futures.
 
 # C++17
 
@@ -538,7 +586,7 @@ private:
 };
 ```
 
-    **Pointer to implementation** or **pImpl** is a C++ programming technique that removes implementation details of a class from its object representation by placing them in a separate class, accessed through an opaque pointer.
+* **Pointer to implementation** or **pImpl** is a C++ programming technique that removes implementation details of a class from its object representation by placing them in a separate class, accessed through an opaque pointer.
 
 ```cpp
 /* |INTERFACE| User.h file */
@@ -827,9 +875,7 @@ Every X object dynamically allocates its XImpl object.
     
 * Classes with reference members shouldn't be assigned. If one needs to change the object that a reference refers to, one really ought to be using a pointer instead.
     
-* 
-    `T t = u;`
-    This is always _initialization_; it is never _assignment_, and so it never calls `T::operator=()`. Yes, I know there's an `=` character in there, but don't let that throw you. That's just a syntax holdover from C, not an assignment operation.
+* `T t = u;` This is always _initialization_; it is never _assignment_, and so it never calls `T::operator=()`. Yes, I know there's an `=` character in there, but don't let that throw you. That's just a syntax holdover from C, not an assignment operation.
     
 ```cpp      
 int f( int );
@@ -887,131 +933,8 @@ std::cout: std::basic_ostream<char, std::char_traits<char>>
     
 * The standard algorithm `remove()` does not physically remove objects from a container; the size of the container is unchanged after `remove()` has done its thing. Rather, `remove()` shuffles up the _unremoved_ objects to fill in the gaps left by removed objects, leaving at the end one _dead_ object for each removed object. Finally, `remove()` returns an iterator pointing at the first "dead" object, or, if no objects were removed, `remove()` returns the `end()` iterator.
     
-* The standard advance() algorithm for iterators is already aware of iterator categories, and is automatically optimized for random-access iterators. In particular, it will take constant time for random-access iterators, instead of the linear time required for other iterators.
+* The standard `advance()` algorithm for iterators is already aware of iterator categories, and is automatically optimized for random-access iterators. In particular, it will take constant time for random-access iterators, instead of the linear time required for other iterators.
     
-* A **predicate} is a pointer to a function, or a function object (an object that supplies the function call operator, operator()()), that gives a yes/no answer to a question about an object.
+* A **predicate** is a pointer to a function, or a function object (an object that supplies the function call operator, `operator()()`), that gives a yes/no answer to a question about an object.
     
-* **Traits class:} A class that encapsulates a set of types and functions necessary for template classes and template functions to manipulate objects of types for which they are instantiated.
-    
-    \chapter{C++ Concurrency in Action}
-    
-* Normal interprocess communication channels (signals, sockets, files, pipes, and so on),
-* it can be easier to write safe concurrent code with processes rather than threads .
-* There are two main reasons to use concurrency in an application: separation of concerns and performance.
-* Application frameworks, such as MFC, and general-purpose C++ libraries, such as Boost and ACE, have accumulated sets of C++ classes that wrap the underlying platform-specific APIs and provide higher-level facilities for multithreading that simplify tasks.
-* Resource Acquisition Is Initialization (RAII) idiom with locks to ensure that mutexes are unlocked when the relevant scope is exited.
-* The only specific support for concurrency and parallelism added in C++14 was a new mutex type for protecting shared data (see chapter 3). But C++17 adds considerably more: a full suite of parallel algorithms (see chapter 10) for starters.
-    
-* it’s important to understand the implementation costs associated with using any high-level facilities, compared to using the underlying low-level facilities directly. This cost is the _abstraction penalty}. 
-    
-* the functions and classes for managing threads are declared in <thread>, whereas those for protecting shared data are declared in other headers.
-    
-* every thread has to have an initial function, where the new thread of execution begins. 
-    
-* Once you’ve started your thread, you need to explicitly decide whether to wait for it to finish (by joining with it) or leave it to run on its own (by detaching it).
-    
-* The ease with which data can be shared between multiple threads in a single process is not only a benefit; it can also be a big drawback.
-    
-* In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads; the threads race to perform their respective operations.
-    
-* Because race conditions are generally timing-sensitive, they can often disappear entirely when the application is run under the debugger, because the debugger affects the timing of the program, even if only slightly.
-    
-* synchronization primitive called a mutex (mutual exclusion). Mutexes also come with their own problems in the form of a deadlock.
-    
-* In C++, you create a mutex by constructing an instance of std::mutex, lock it with a call to the lock() member function, and unlock it with a call to the unlock() member function.
-    
-* It isn’t recommended practice to call the member functions directly, instead use std::lock\_guard class template, which implements that RAII idiom for a mutex; it locks the supplied mutex on construction and unlocks it on destruction, ensuring a locked mutex is always correctly unlocked.
-    
-* C++17 has a new feature called class template argument deduction, which means that for simple class templates like std::lock\_guard, the template argument list can often be omitted.
-        ```cpp
-        std::lock_guard guard(some_mutex); // C++17
-        std::lock_guard<std::mutex> guard(some_mutex); // < C++17
-        ```
-    
-* Don’t pass pointers and references to protected data outside the scope of the lock, whether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions.
-    
-* The common advice for avoiding deadlock is to always lock the two mutexes in the same order: if you always lock mutex A before mutex B, then you’ll never deadlock.
-    
-* the C++ Standard Library has a cure for this in the form of std::lock—a function that can lock two or more mutexes at once without risk of deadlock.
-    
-* attempting to acquire a lock on std::mutex when you already hold it is undefined behavior.
-    
-* The std::adopt\_lock parameter is supplied in addition to the mutex to indicate to the std::lock\_guard objects that the mutexes are already locked, and they should adopt the ownership of the existing lock on the mutex rather than attempt to lock the mutex in the constructor.
-    
-        ```cpp
-        std::lock(lhs.m,rhs.m);
-        std::lock_guard<std::mutex> lock_a(lhs.m,std::adopt_lock);
-        std::lock_guard<std::mutex> lock_b(rhs.m,std::adopt_lock);
-        ```
-        
-* std::lock provides all-or-nothing semantics with regard to locking the supplied mutexes.
-    
-* The need to synchronize operations between threads like this is such a common scenario that the C++ Standard Library provides facilities to handle it, in the form of condition variables and futures.
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-    
-    ```cpp
-    ```
-    * 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-*     
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-*
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-*
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-*
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-\end{itemize}
-\end{document}
+* **Traits class:** A class that encapsulates a set of types and functions necessary for template classes and template functions to manipulate objects of types for which they are instantiated.
