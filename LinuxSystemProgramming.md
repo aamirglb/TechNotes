@@ -358,3 +358,74 @@ digit1>&digit2
 ./a.out > outfile 2>&1
 ./a.out 2>&1 > outfile
 ```
+
+```c
+#include <sys/stat.h>
+int stat(const char *restrict pathname, struct stat *restrict buf );
+int fstat(int fd, struct stat *buf );
+int lstat(const char *restrict pathname, struct stat *restrict buf );
+int fstatat(int fd, const char *restrict pathname, struct stat *restrict buf, int flag);
+```
+
+* `stat`: Given a pathname, returns a structure of information about the named file.
+* `fstat`: obtains information about the file that is already open on the descriptor _fd_.
+* `lstat`: returns information about the symbolic link, not the file referenced by the symbolic link.
+* `fstatat`: return the file statistics for a pathname relative to an open directory represented by the _fd_ argument.
+
+```c
+struct stat {
+    dev_t     st_dev;         /* ID of device containing file */
+    ino_t     st_ino;         /* Inode number */
+    mode_t    st_mode;        /* File type and mode */
+    nlink_t   st_nlink;       /* Number of hard links */
+    uid_t     st_uid;         /* User ID of owner */
+    gid_t     st_gid;         /* Group ID of owner */
+    dev_t     st_rdev;        /* Device ID (if special file) */
+    off_t     st_size;        /* Total size, in bytes */
+    blksize_t st_blksize;     /* Block size for filesystem I/O */
+    blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */
+
+    /* Since Linux 2.6, the kernel supports nanosecond
+        precision for the following timestamp fields.
+        For the details before Linux 2.6, see NOTES. */
+
+    struct timespec st_atim;  /* Time of last access */
+    struct timespec st_mtim;  /* Time of last modification */
+    struct timespec st_ctim;  /* Time of last status change */
+
+#define st_atime st_atim.tv_sec      /* Backward compatibility */
+#define st_mtime st_mtim.tv_sec
+#define st_ctime st_ctim.tv_sec
+};
+```
+
+### Unix File Types
+1. Regular File
+2. Directory File
+3. Block Special File
+4. Character Special file
+5. FIFO: A type of file used for communication between processes. It’s sometimes
+called a named pipe.
+6. Socket: A type of file used for network communication between processes.
+7. Symbolic link: A type of file that points to another file.
+
+![file types](images/lsp/file_type.png)
+
+* Every process has six or more IDs associated with it.
+
+![User IDs](images/lsp/ids.png)
+
+* When we execute a program file, the effective user ID of the process is usually the
+real user ID, and the effective group ID is usually the real group ID. However, we can
+also set a special flag in the file’s mode word (st_mode) that says, "When this file is
+executed, set the effective user ID of the process to be the _owner of the file_ (st_uid)". Similarly, we can set another bit in the file’s mode word that causes the effective group ID to be the group owner of the file (st_gid). These two bits in the file’s mode word are called the _set-user-ID_ bit and the _set-group-ID_ bit.
+
+* The UNIX System program that allows anyone to change his or her password, passwd(1), is a set-user-ID program.
+
+* whenever we want to open any type of file by name, we must have execute permission in each directory mentioned in the name, including the current directory, if it is implied. This is why the execute permission bit for a directory is often called the _search bit_.
+
+* Read permission for a directory lets us read the directory, obtaining a list of
+all the filenames in the directory. Execute permission lets us pass through the
+directory when it is a component of a pathname that we are trying to access.
+
+* The two owner IDs are properties of the _file_, whereas  the two effective IDs and the supplementary group IDs are properties of the _process_.
