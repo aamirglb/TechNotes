@@ -429,3 +429,46 @@ all the filenames in the directory. Execute permission lets us pass through the
 directory when it is a component of a pathname that we are trying to access.
 
 * The two owner IDs are properties of the _file_, whereas  the two effective IDs and the supplementary group IDs are properties of the _process_.
+
+* when we open a file, the kernel performs its access tests based on the effective user and group IDs. Sometimes, however, a process wants to test accessibility based on the real user and group IDs.
+
+```c
+#include <unistd.h>
+int access(const char *pathname, int mode);
+int faccessat(int fd, const char *pathname, int mode, int flag);
+```
+
+* file mode creation mask that is associated with every process. The `umask` function sets the file mode creation mask for the process and returns the previous value.
+
+```c
+#include <sys/stat.h>
+mode_t umask(mode_t cmask);
+```
+
+* `umask` value is expressed in octal, with one bit representing one permission to be masked off.
+
+```c
+#include <sys/stat.h>
+int chmod(const char *pathname, mode_t mode);
+int fchmod(int fd, mode_t mode);
+int fchmodat(int fd, const char *pathname, mode_t mode, int flag);
+```
+
+* On versions of the UNIX System that predated _demand paging_, this bit was known as the **sticky bit**. If it was set for an executable program file, then the first time the program was executed, a copy of the program’s text was saved in the swap area when the process terminated. The program would then load into memory more quickly the next time it was executed, because the swap area was handled as a contiguous file, as compared to the possibly random location of data blocks in a normal UNIX file system.
+
+```c
+#include <unistd.h>
+int chown(const char *pathname, uid_t owner, gid_t group);
+int fchown(int fd, uid_t owner, gid_t group);
+int fchownat(int fd, const char *pathname, uid_t owner, gid_t group, int flag);
+int lchown(const char *pathname, uid_t owner, gid_t group);
+```
+
+```c
+#include <unistd.h>
+int truncate(const char *pathname, off_t length);
+int ftruncate(int fd, off_t length);
+```
+
+* truncate an existing file to length bytes. If the previous size of the file was greater than length, the data beyond length is no longer accessible.
+

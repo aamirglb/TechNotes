@@ -11,6 +11,7 @@ Technical Notes
 1. [GStreamer](GStreamer.md)
 1. [Jenkins](Jenkins.md)
 1. [Linux Shell](Linux_Shell.md)
+1. [Linux System Programming](LinuxSystemProgramming.md)
 1. [NumPy](NumPy.md)
 1. [OpenCV](OpenCV.md)
 1. [Perl](Perl.md)
