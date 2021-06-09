@@ -472,3 +472,136 @@ int ftruncate(int fd, off_t length);
 
 * truncate an existing file to length bytes. If the previous size of the file was greater than length, the data beyond length is no longer accessible.
 
+```c
+#include <unistd.h>
+int symlink(const char *actualpath, const char *sympath);
+int symlinkat(const char *actualpath, int fd, const char *sympath);
+```
+
+* It is not required that actualpath exist when the symbolic link is created.
+
+* Three streams are predefined and automatically available to a process: standard input, standard output, and standard error. These streams refer to the same files as the file
+descriptors `STDIN_FILENO`, `STDOUT_FILENO`, and `STDERR_FILENO`, respectively.
+
+* The goal of the buffering provided by the standard I/O library is to use the minimum number of read and write calls.
+
+* Standard I/O library provides three types of buffering:
+    * Fully buffered
+    * Line buffered
+    * Unbuffered
+
+* The standard error stream, for example, is normally unbuffered so that any error
+messages are displayed as quickly as possible, regardless of whether they
+contain a newline.
+
+* Change default buffering by calling following functions
+
+```c
+#include <stdio.h>
+void setbuf(FILE *restrict fp, char *restrict buf );
+int setvbuf(FILE *restrict fp, char *restrict buf, int mode, size_t size);
+```
+
+* The ISO C standard defines two functions that are provided by the standard I/O library to assist in creating temporary files.
+
+```c
+#include <stdio.h>
+# generates a string that is a valid pathname and that does not match the name of any existing file.
+char *tmpnam(char *ptr);
+
+FILE *tmpfile(void);
+```
+
+```c
+#include <stdlib.h>
+char *mkdtemp(char *template);
+int mkstemp(char *template);
+```
+
+```c
+#include <stdio.h>
+# memory stream
+FILE *fmemopen(void *restrict buf, size_t size, const char *restrict type);
+```
+
+* The UNIX System’s password file, called the user database by POSIX.1, contains the
+fields shown in Figure 6.1. These fields are contained in a passwd structure that is
+defined in <pwd.h>.
+
+![passwd fields](images/lsp/passwd_fields.png)
+
+* The nobody user name can be used to allow people to log in to a system, but
+with a user ID (65534) and group ID (65534) that provide no privileges.
+
+* Some systems provide the `vipw` command to allow administrators to edit the
+password file. The `vipw` command serializes changes to the password file and makes
+sure that any additional files are consistent with the changes made.
+
+* The encrypted password is a copy of the user’s password that has been put through a
+one-way encryption algorithm. Because this algorithm is one-way, we can’t guess the
+original password from the encrypted version.
+
+```c
+#include <stdlib.h>
+void exit(int status);
+void _Exit(int status);
+
+#include <unistd.h>
+void _exit(int status);
+```
+
+* Three functions terminate a program normally: `_exit` and `_Exit`, which return to the kernel immediately, and `exit`, which performs certain cleanup processing and then
+returns to the kernel.
+
+* With ISO C, a process can register at least 32 functions that are automatically called by `exit`. These are called _exit handlers_ and are registered by calling the `atexit` function.
+
+* The only way a program can be executed by the kernel is if one of the `exec`  functions is called. The only way a process can voluntarily terminate is if _exit or _Exit is called, either explicitly or implicitly (by calling exit). A process can also be involuntarily terminated by a signal.
+
+* The `size(1)` command reports the sizes (in bytes) of the text, data, and bss
+segments.
+
+* **Shared libraries** remove the common library routines from the executable file, instead maintaining a single copy of the library routine somewhere in memory that all processes reference. This reduces the size of each executable file but may add some runtime overhead, either when the program is first executed or the first time each shared library function is called. Another advantage of shared libraries is that library functions can be replaced with new versions without having to relink edit every program that uses the library (assuming that the number and type of arguments haven’t changed).
+
+* Process ID 0 is usually the scheduler process and is often known as the _swapper_. No program on disk corresponds to this process, which is part of the kernel and is known as a system process. 
+
+* Process ID 1 is usually the `init` process and is invoked by the kernel at the end of the bootstrap procedure. The program file for this process was `/etc/init` in older versions of the UNIX System and is `/sbin/init` in newer versions.
+
+* `init` usually reads the system-dependent initialization files — the `/etc/rc*` files or `/etc/inittab` and the files in `/etc/init.d`, and brings the system to a certain state.
+
+* In Mac OS X 10.4, the init process was replaced with the launchd process, which performs the same set of tasks as init, but has expanded functionality.
+
+* An existing process can create a new one by calling the `fork` function.
+
+```c
+#include <unistd.h>
+pid_t fork(void);
+```
+
+* The return value in the child is 0, whereas the return value in the parent is the process ID of the new child.
+
+* The child gets _a copy of the parent’s data space, heap, and stack_. Note that this is a copy for the child; the parent and the child do not share these portions of memory. The parent and the child do share the text segment.
+
+```c
+if ((pid = fork()) < 0) 
+{
+    printf("fork error");
+}
+/* child process */
+else if (pid == 0) 
+{
+    globvar++;
+    var++;
+}
+/* parent process */
+else 
+{
+    sleep(2);
+}
+```
+
+* In general, we never know whether the child starts executing before the parent, or vice versa. The order depends on the scheduling algorithm used by the kernel. If it’s
+required that the child and parent synchronize their actions, some form of interprocess communication is required.
+
+* `strlen` will calculate the length of a string not including the terminating null byte, `sizeof` calculates the size of the buffer, which does include the terminating null byte.
+
+* One characteristic of `fork` is that all file descriptors that are open in the parent are duplicated in the child.
