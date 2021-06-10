@@ -8,3 +8,6 @@ https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
 
 ### Bash parameters and parameter expansions
 https://developer.ibm.com/technologies/linux/tutorials/l-bash-parameters/
+
+### Simplifying Loops with C++11 in Qt Ways
+https://embeddeduse.com/2016/05/13/simplifying-loops-with-cpp11/
