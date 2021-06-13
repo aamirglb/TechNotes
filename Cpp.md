@@ -938,3 +938,22 @@ std::cout: std::basic_ostream<char, std::char_traits<char>>
 * A **predicate** is a pointer to a function, or a function object (an object that supplies the function call operator, `operator()()`), that gives a yes/no answer to a question about an object.
     
 * **Traits class:** A class that encapsulates a set of types and functions necessary for template classes and template functions to manipulate objects of types for which they are instantiated.
+
+### Calling Base Class virtual function
+
+```cpp
+class Foo {
+public:
+    int x;
+    virtual void printStuff() { std::cout << x << std::endl; }
+};
+
+class Bar : public Foo {
+public:
+    int y;
+    void printStuff() {
+        Foo::printStuff(); // calls base class' function
+        std::cout << y << std::endl;
+    }
+};
+```
