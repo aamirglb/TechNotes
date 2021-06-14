@@ -44,3 +44,10 @@ SDL. Other subsystems can be initialized using the following flags
 ![](images/sdl/sdl_render_flag.png)
 
 ![](images/sdl/sdl_win_flags.png)
+
+* SDL can use two structures to draw to the screen. One is the `SDL_Surface` structure, which contains a collection of pixels and is rendered
+using _software rendering processes (not the GPU)_. The other is `SDL_Texture`; this can be used for _hardware-accelerated rendering_.
+
+* https://www.widgetworx.com/spritelib/
+
+* `SpriteLib` is a collection of static and animated graphic objects available for free.
