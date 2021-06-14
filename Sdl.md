@@ -51,3 +51,34 @@ using _software rendering processes (not the GPU)_. The other is `SDL_Texture`; 
 * https://www.widgetworx.com/spritelib/
 
 * `SpriteLib` is a collection of static and animated graphic objects available for free.
+
+* The Open Sound System (OSS) is the original sound-programming interface for
+Linux. Maintained by 4Front Technologies, OSS provides a consistent
+kernel-based interface to sound hardware.
+
+* Advanced Linux Sound Architecture (ALSA) is a community project that seeks
+to surpass OSS in all areas. The ALSA team has created a complete set of
+kernel-level sound card drivers, an easy-to-use programming interface, and a
+facility for emulating OSS.
+
+* The Enlightened Sound Daemon (ESD, also called EsounD) is a sound server
+that allows multiple applications to share a single sound card. ESD-aware
+applications send their sound streams to ESD, and ESD mixes them internally
+into a single output stream.
+
+* The Open Audio Library (OpenAL) is an environmental 3D audio library that
+supports just about every major platform. It aims to provide an open
+replacement for proprietary (and generally incompatible) 3D audio systems such
+as EAX and A3D.
+
+* OpenAL can add realism to a game by simulating attenuation
+(degradation of sound over distance), the Doppler effect (change in frequency as
+a result of motion), and material densities.
+
+* `libpng` and `libjpeg`: These two libraries allow you to load **Portable Network Graphic (.png)** and **JPEG (.jpg)** images, respectively. 
+
+* PNG is an excellent general-purpose image format that compresses images without loss in detail. It is based on a completely open specification, and it is widely supported by image manipulation programs.
+
+* JPEG is an older, “lossy” image format that does a good job with landscapes
+and other natural scenes but produces noticeably lousy results with precise
+images such as line art. JPEG is also an open standard.
