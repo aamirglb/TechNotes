@@ -10,12 +10,11 @@ Rectangle {
 
     Timer {
         id: timer
-        interval: 200; running: true; repeat: true
+        interval: 1000; running: true; repeat: true
         onTriggered: if(percent > 0) {
                          --percent;
                      }
     }
-
 
     Rectangle {
         id: body
