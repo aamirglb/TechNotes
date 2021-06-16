@@ -82,3 +82,39 @@ a result of motion), and material densities.
 * JPEG is an older, “lossy” image format that does a good job with landscapes
 and other natural scenes but produces noticeably lousy results with precise
 images such as line art. JPEG is also an open standard.
+
+* **zlib** is a general-purpose data compression library that implements the gzip format. It features an interface very similar to the stdio codefopen and codefwrite functions.
+
+* SDL is a thin and well-behaved layer of code rather than a
+subsuming beast.
+
+* The SDL library consists of several sub-APIs, providing cross-platform support
+for video, audio, input handling, multithreading, OpenGL rendering contexts,
+and various other amenities.
+
+* Every personal computer's _video controller_ set of chips is responsible for producing images on the screen, based on the data contained in a certain area of memory (the _framebuffer_ ).
+
+* The video hardware’s refresh rate
+is therefore of great interest to a game developer.
+
+* The image on a computer screen is divided into discrete colored areas called
+pixels (short for pictorial elements). Each pixel can be individually controlled by
+the video card. The resolution of a display specifies the number of pixels across
+and down; for instance, a screen with a resolution of 640 by 480 is a matrix of
+640 columns and 480 rows. The video card uses a device called a RAMDAC
+(random access memory digital-analog converter ) to pump these individual
+pixels from the framebuffer memory to the monitor.
+
+* The _framebuffer_ is an area of memory that describes the image on the screen,
+with each on-screen pixel corresponding to one memory location. The exact
+format of the framebuffer is determined by the video chipset, but it is most
+commonly a simple array.
+
+* SDL uses structures called **surfaces** for manipulating graphical data. A surface is simply a block of memory for storing a rectangular region of pixels.
+
+* The rectangular
+regions of data stored in surfaces are often called _bitmaps_ or _pixmaps_.
+
+* The most important property of surfaces is that they can be copied onto each
+other very quickly. That is, one surface’s pixels can be transferred to an
+identically sized rectangular area of another surface. This operation is called a _blit_, or _block image transfer_.

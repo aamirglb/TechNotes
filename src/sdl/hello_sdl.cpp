@@ -1,6 +1,6 @@
 // g++ -Wall -I/usr/include/SDL2 hello_sdl.cpp -lSDL2
 
-#include<SDL.h>
+#include <SDL.h>
 
 SDL_Window* g_pWindow = 0;
 SDL_Renderer* g_pRenderer = 0;
