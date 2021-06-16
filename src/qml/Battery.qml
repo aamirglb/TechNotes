@@ -15,11 +15,9 @@ Rectangle {
     SpinBox {
         from: 0
         to: 100
-        value: 100 // "Medium"
-
-//        property var items: ["Small", "Medium", "Large"]
-
+        value: 20
         onValueChanged: _percent = value
+        Component.onCompleted: _percent = value
     }
 
     Timer {
@@ -38,7 +36,7 @@ Rectangle {
         id: battery
         anchors.centerIn: parent
 
-        width: 200
+        width: 50
         height: width * .4
         radius: width * .1
         color: root.color
@@ -63,11 +61,12 @@ Rectangle {
         anchors.left: battery.left
         anchors.leftMargin: 2
         anchors.verticalCenter: battery.verticalCenter
-        width: (_percent > 5) ? ((_percent > 10) ? ((_percent > 16) ? (battery.radius * 2) : (battery.width * .15)) : (battery.width * .05)) : 4
-        height: (_percent > 0) ? (( _percent > 16) ? (battery.height - (_topMargin * 2)) : (_percent > 10) ? (battery.height * .8) : (battery.height * .7)) : 0
+        width: (_percent > 3) ? ((_percent > 5) ? ((_percent > 8) ? (battery.radius * 2) : (battery.width * .15)) : (battery.width * .05)) : 4
+        height: (_percent > 0) ? (( _percent > 8) ? (battery.height - (_topMargin * 2)) : (_percent > 10) ? (battery.height * .8) : (battery.height * .7)) : 0
         radius: width/2
 
         color: _fillColor
+        visible: false
     }
 
     Rectangle {
@@ -95,6 +94,7 @@ Rectangle {
         height: battery.height - (_topMargin * 2)
 //        radius: 8
         color: _fillColor
+//        visible: _percent > 8
     }
 
     Text {
