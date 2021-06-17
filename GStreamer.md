@@ -177,6 +177,11 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 
  * `gst-launch-1.0` tool accepts a textual description of a pipeline, instantiates it, and sets it to the PLAYING state. It allows you to quickly check if a given pipeline works, before going through the actual implementation using GStreamer API calls.
 
+* Fast-forward, reverse-playback and slow-motion are all techniques collectively known as _trick modes_ and they all have in common that modify the normal playback rate.
+
+* GStreamer provides two mechanisms to change the playback rate: _Step Events_ and _Seek Events_. Step Events allow skipping a given amount of media besides changing the subsequent playback rate (only to positive values). Seek Events, additionally, allow jumping to any position in the stream and set positive and negative playback rates.
+
+* 
  ```
  gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
 
