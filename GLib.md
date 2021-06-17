@@ -97,3 +97,35 @@
  * `g_return_if_fail()` prints a warning and immediately returns from the current function if condition is `FALSE`. `g_return_val_if_fail()` is similar but allows you to return some return_value.
 
  * All of the debugging macros print a warning using GLib’s `g_log()` facility, whichmeans the warning includes the name of the originating application or library,and you can optionally install a replacement warning-printing routine.
+
+ ```c
+ include<glib.h>
+ gpointer g_malloc (gsize n_bytes);
+ void g_free (gpointer mem);
+ gpointer g_realloc (gpointer mem, gsize n_bytes);
+ gpointer g_memdup (gconstpointer mem, guint n_bytes);
+ ```
+
+ ```c
+ gint g_snprintf (gchar *string, gulong n, gcharconst*format, ...);
+ ```
+
+ ```c
+ // Allocating String
+ #include<glib.h>
+ gchar * g_strdup (constgchar *str);
+ gchar * g_strndup (constgchar *str, gsize n);
+ gchar * g_strdup_printf (constgchar *format, ...);
+ gchar * g_strdup_vprintf (constgchar *format, va_list args);
+ gchar * g_strnfill (gsize length, gchar fill_char);
+ ```
+
+ * GLib implements many common data structures, like linked lists, sorted binary trees, N-ary trees, and hash tables.
+
+ * GLib provides generic single and doubly linked lists, `GSList` and `GList`, respectively. 
+
+ * Every GTK+ widget is a subclass of the GObject base class. So knowing the basic concepts of GObject is important for using a GTK+ widget or another GObject-based utility, but also for creating your own GObject classes.
+
+ * What GObject adds is more features such as reference counting, inheri-tance, virtual functions, interfaces, signals and more.
+
+ 
