@@ -15,7 +15,7 @@ Rectangle {
     SpinBox {
         from: 0
         to: 100
-        value: 20
+        value: 100
         onValueChanged: _percent = value
         Component.onCompleted: _percent = value
     }
@@ -36,7 +36,7 @@ Rectangle {
         id: battery
         anchors.centerIn: parent
 
-        width: 50
+        width: 200
         height: width * .4
         radius: width * .1
         color: root.color
@@ -57,45 +57,74 @@ Rectangle {
     }
 
     Rectangle {
-        id: leftFill
-        anchors.left: battery.left
-        anchors.leftMargin: 2
+        id: fill
         anchors.verticalCenter: battery.verticalCenter
-        width: (_percent > 3) ? ((_percent > 5) ? ((_percent > 8) ? (battery.radius * 2) : (battery.width * .15)) : (battery.width * .05)) : 4
-        height: (_percent > 0) ? (( _percent > 8) ? (battery.height - (_topMargin * 2)) : (_percent > 10) ? (battery.height * .8) : (battery.height * .7)) : 0
-        radius: width/2
-
-        color: _fillColor
-        visible: false
+        anchors.horizontalCenter: battery.horizontalCenter
+        width: battery.width - 8
+        height: battery.height - 8
+        radius: width * .1
+        color: "red"
     }
 
     Rectangle {
-        id: rightFill
-        anchors.left: battery.left
-        anchors.leftMargin: mainFill.width
-        anchors.top: battery.top
-        anchors.topMargin: _topMargin
-        width: (_percent > 85) ? ((_percent > 90) ? ((_percent > 95) ? battery.radius * 2 : battery.radius * 1.3) : battery.radius * 1.0) : 0
-//        width: battery.radius * 2
-        height: battery.height - (_topMargin * 2)
-        radius: battery.radius
-        color: _fillColor
+        id: fill2
+        anchors.right: fill.right
+        anchors.verticalCenter: fill.verticalCenter
+        width: battery.radius
+        height: fill.height - 8
+        color: root.color
+        radius: width * .25
     }
 
     Rectangle {
-        id: mainFill
-        anchors.left: battery.left
-        anchors.leftMargin: leftFill.width/2
-        anchors.top: battery.top
-        anchors.topMargin: _topMargin
-
-//        width: battery.width - leftFill.width
-        width: (_percent > 86) ? battery.width - (leftFill.width) : ( (battery.width - leftFill.width) * _percent) / 100
-        height: battery.height - (_topMargin * 2)
-//        radius: 8
-        color: _fillColor
-//        visible: _percent > 8
+        id: fill3
+        anchors.left: fill2.left
+        anchors.top: fill.top
+        width: (fill2.width/2)+2
+        height: fill.height
+        color: root.color
     }
+
+//    Rectangle {
+//        id: leftFill
+//        anchors.left: battery.left
+//        anchors.leftMargin: 2
+//        anchors.verticalCenter: battery.verticalCenter
+//        width: (_percent > 3) ? ((_percent > 5) ? ((_percent > 8) ? (battery.radius * 2) : (battery.width * .15)) : (battery.width * .05)) : 4
+//        height: (_percent > 0) ? (( _percent > 8) ? (battery.height - (_topMargin * 2)) : (_percent > 10) ? (battery.height * .8) : (battery.height * .7)) : 0
+//        radius: width/2
+
+//        color: _fillColor
+//        visible: false
+//    }
+
+//    Rectangle {
+//        id: rightFill
+//        anchors.left: battery.left
+//        anchors.leftMargin: mainFill.width
+//        anchors.top: battery.top
+//        anchors.topMargin: _topMargin
+//        width: (_percent > 85) ? ((_percent > 90) ? ((_percent > 95) ? battery.radius * 2 : battery.radius * 1.3) : battery.radius * 1.0) : 0
+////        width: battery.radius * 2
+//        height: battery.height - (_topMargin * 2)
+//        radius: battery.radius
+//        color: _fillColor
+//    }
+
+//    Rectangle {
+//        id: mainFill
+//        anchors.left: battery.left
+//        anchors.leftMargin: leftFill.width/2
+//        anchors.top: battery.top
+//        anchors.topMargin: _topMargin
+
+////        width: battery.width - leftFill.width
+//        width: (_percent > 86) ? battery.width - (leftFill.width) : ( (battery.width - leftFill.width) * _percent) / 100
+//        height: battery.height - (_topMargin * 2)
+////        radius: 8
+//        color: _fillColor
+////        visible: _percent > 8
+//    }
 
     Text {
         text: qsTr(_percent.toString()) + "%"
