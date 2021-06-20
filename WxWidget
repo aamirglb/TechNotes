@@ -5,6 +5,14 @@ advanced than others.
 
 * http://www.wxwidgets.org
 
+* We need the GTK development libraries which wxWidgets depend on.
+
+```shell
+$ sudo apt-get install libgtk-3-dev build-essential checkinstall
+```
+
+* The utility called `checkinstall` would allow us to create an installation package for wxwidgets, so that later on it can un-installed easily using package managers.
+
 * **DialogBlocks** is a sizer-based resource editor that quickly gets you creating professional-looking dialogs, wizards and frames for deployment on Windows, Linux, Mac or any other supported wxWidgets platform.
 
 * wxWidgets is a programmer’s toolkit for writing desktop or mobile applications
