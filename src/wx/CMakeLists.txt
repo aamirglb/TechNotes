@@ -11,3 +11,6 @@ target_link_libraries(hello ${wxWidgets_LIBRARIES})
 
 add_executable(hello2 hello2.cpp)
 target_link_libraries(hello2 ${wxWidgets_LIBRARIES})
+
+add_executable(event_handle event_handle.cpp)
+target_link_libraries(event_handle ${wxWidgets_LIBRARIES})

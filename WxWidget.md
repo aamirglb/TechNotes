@@ -56,3 +56,57 @@ principles employed are broadly the same.
 
 ![](images/wx/wx_port.png)
 
+* Every wxWidgets application defines an application class deriving from `wxApp`.
+
+```cpp
+// Declare the application class
+class MyApp : public wxApp
+{
+public:
+// Called on application startup
+virtual bool OnInit();
+};
+```
+
+* The implementation of OnInit usually creates at least one window, interprets
+any command-line arguments, sets up data for the application, and performs
+any other initialization tasks required for the application.
+
+* wxT() macro converts string and character literals to the appropriate type to allow the
+application to be compiled in Unicode mode.
+
+```cpp
+// Give wxWidgets the means to create a MyApp object
+IMPLEMENT_APP(MyApp)
+```
+
+* When wxWidgets creates a MyApp object, it assigns the result to the global
+variable wxTheApp . You can use this in your application, but it would be more
+convenient if you didn’t have to cast the wxApp pointer to MyApp.
+
+```cpp
+// Implements MyApp& wxGetApp()
+DECLARE_APP(MyApp)
+```
+
+* A frame is a top-level window that contains other windows, and usually has a title bar and menu bar.
+
+```cpp
+// Declare our main frame class
+class MyFrame : public wxFrame
+{
+public:
+// Constructor
+MyFrame(const wxString& title);
+// Event handlers
+void OnQuit(wxCommandEvent& event);
+void OnAbout(wxCommandEvent& event);
+private:
+// This class handles events
+DECLARE_EVENT_TABLE()
+};
+```
+
+* Small bitmaps and icons can be implemented using the `XPM` format on
+all platforms. XPM files have valid C++ syntax and so can be included as `SetIcon(wxIcon(modrian_xpm));`
+
