@@ -11,11 +11,17 @@ cMain::cMain() : wxFrame(nullptr,
     wxPoint(30, 30), 
     wxSize(800, 600))
 {
+    wxFont font(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
+
     btn = new wxButton*[nFieldWidth * nFieldHeight];
-    wxGridSizer* grid = new wxGridSizer(nFieldWidth, nFieldHeight, 0, 0);
+    label = new wxStaticText(this, wxID_ANY, "Score: 0/70");
+    label->SetFont(font);
+
+    wxGridSizer* grid = new wxGridSizer(nFieldWidth + 1, nFieldHeight, 0, 0);
+    
 
     nField = new int[nFieldWidth * nFieldHeight];
-    wxFont font(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
+    
 
     for (auto x = 0; x < nFieldWidth; ++x) {
         for (auto y = 0; y < nFieldHeight; ++y) {
@@ -29,6 +35,7 @@ cMain::cMain() : wxFrame(nullptr,
         }
     }
 
+    grid->Add(label, wxEXPAND | wxALL);
     this->SetSizer(grid);
     grid->Layout();
 
@@ -105,16 +112,26 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
 
     btn[y * nFieldWidth + x]->Enable(false);
     
-    if (nPrevButton != -1) {
-        btn[nPrevButton]->SetBackgroundColour(wxNullColour);
+    if (prevX != -1 || prevY != -1) {
+        btn[prevY * nFieldWidth + prevX]->SetBackgroundColour(wxNullColour);
         // btn[nPrevButton]->SetBackgroundStyle(wxBG_STYLE_SYSTEM);
+        for (int i = -1; i < 2; ++i) {
+            for (int j = -1; j < 2; ++j) {
+                if (prevX + i >= 0 && prevX + i < nFieldWidth && prevY + j >= 0 && prevY + j < nFieldHeight) {
+                    btn[(prevY + j) * nFieldWidth + (prevX + i)]->SetBackgroundColour(wxNullColour);
+                }
+            }
+        }
     }
 
     if (nField[y * nFieldWidth + x] == -1) {
-        wxMessageBox("BOOOOM !! - Game Over :(-");
+        wxString msg;
+        msg.Printf("BOOOOM !! - Game Over :(-\nYour Score is %d/70", nScore);
+        wxMessageBox(msg);
 
         // Reset game
         bFirstClick = true;
+        nScore = 0;
         for (int x = 0; x < nFieldWidth; ++x) {
             for (int y = 0; y < nFieldHeight; ++y) {
                 nField[y * nFieldWidth + x] = 0;
@@ -133,7 +150,8 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
                         ++mine_count;
 
                     // set the background of neigbouring cell to yellow
-                    //btn[(y + j) * nFieldWidth + (x + i)]->SetBackgroundColour(*wxCYAN);
+                    if(btn[(y + j) * nFieldWidth + (x + i)]->GetLabel() == "")
+                        btn[(y + j) * nFieldWidth + (x + i)]->SetBackgroundColour(*wxCYAN);
                 }
             }
         }
@@ -143,8 +161,14 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
             btn[y * nFieldWidth + x]->Enable(false);
         // }
         btn[y * nFieldWidth + x]->SetBackgroundColour(*wxBLUE);
+        ++nScore;
     }
     
-    nPrevButton = y * nFieldWidth + x;
+    prevY = y;
+    prevX = x;
+    
+    wxString score;
+    score.Printf("Score: %d/70", nScore);
+    label->SetLabel(score);
     evt.Skip();
 }

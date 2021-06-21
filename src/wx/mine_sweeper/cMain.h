@@ -15,7 +15,11 @@ public:
     int nFieldWidth = 10;
     int nFieldHeight = 10;
     wxButton** btn;
-    int nPrevButton = -1;
+    wxStaticText *label;
+    int nScore = 0;
+
+    int prevX = -1;
+    int prevY = -1;
 
     int* nField = nullptr;
     bool bFirstClick = true;
