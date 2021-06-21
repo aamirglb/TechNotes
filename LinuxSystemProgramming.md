@@ -657,3 +657,33 @@ Only a privileged process was allowed to increase its scheduling priority.
 * Cryptography is a collection of mathematical techniques for protecting information. The process of using cryptography to scramble a message is called _encryption_. The process of unscrambling the message by use of appropriate key is called _decryption_.
 
 * Data Encryption Standard (DES) is a symmetric algorithm, which means that it uses the same key for encryption as for decryption.
+
+
+# NCURSES
+
+* the designers of UNIX invented a mechanism named `termcap`. It is a file that lists all the capabilities of a particular terminal, along with the escape sequences needed to achieve a particular effect. In the later years, this was replaced by `terminfo`.
+
+* The `Curses` library forms a wrapper over working with raw terminal codes, and provides highly flexible and efficient API (Application Programming Interface). It provides functions to move the cursor, create windows, produce colors, play with mouse etc. The application programs need not worry about the underlying terminal capabilities.
+
+* `NCURSES` is a clone of the original System V Release 4.0 (SVr4) `curses`. It is a freely distributable library, fully compatible with older version of `curses`. 
+
+* Its sister libraries `panel`, `menu` and `form` provide an extension to the basic curses library. These libraries usually come along with `curses`.
+
+* when we called `printw` the data is actually written to an imaginary window, which is not updated on the screen yet. The job of `printw` is to update a few flags and data structures and write the data to a buffer corresponding to `stdscr`. In order to show it on the screen, we need to call `refresh()` and tell the curses system to dump the contents on the screen.
+
+* don't forget to end the curses mode. Otherwise your terminal might behave strangely after the program quits. endwin() frees the memory taken by curses sub-system and its data structures and puts the terminal in normal mode.
+
+* `raw()` and `cbreak()` are use to disable line buffering. The difference between these two functions is in the way control characters like suspend (CTRL-Z), interrupt and quit (CTRL-C) are passed to the program. In the raw() mode these characters are directly passed to the program without generating a signal. In the cbreak() mode these control characters are interpreted as any other character by the terminal driver. 
+
+* `echo()` and `noecho()`: 
+* `keypad()`: It enables the reading of function keys like F1, F2, arrow keys etc.
+
+* `halfdelay()`: enable the half-delay mode, which is similar to the cbreak() mode in that characters typed are immediately available to program. However, it waits for 'X' tenths of a second for input and then returns ERR, if no input is available. 
+
+*  1. `addch()` class: Print single character with attributes
+   1. `printw()` class: Print formatted output similar to printf()
+   1. `addstr()` class: Print strings
+
+* `addch(ch | A_BOLD | A_UNDERLINE);`
+
+* 

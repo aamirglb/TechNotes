@@ -27,6 +27,8 @@ public:
 
     void OnButtonClicked(wxCommandEvent& evt);
 
+private:
+    void resetGame();
     // wxDECLARE_EVENT_TABLE();
 };
 

@@ -1,6 +1,10 @@
 #include "cMain.h"
 #include <iostream>
 
+#ifdef linux
+#include <ncurses.h>
+#endif
+
 // wxBEGIN_EVENT_TABLE(cMain, wxFrame)
 // 	EVT_BUTTON(10001, OnButtonClicked)
 // wxEND_EVENT_TABLE()
@@ -55,33 +59,49 @@ cMain::cMain() : wxFrame(nullptr,
     //	wxID_ANY,
     //	wxPoint(10, 110),
     //	wxSize(300, 300));
+
+    // Initialise curses
+    initscr();
+    raw();
+    curs_set(0);
+    // printw("Hello World !!!");
+    refresh();
 }
 
 cMain::~cMain()
 {
     delete[]btn;
+    endwin();
 }
 
 void cMain::PrintSheetCode()
 {
     for (auto i = 0; i < (3 * nFieldWidth); ++i)
-        std::cout << "=";
-    std::cout << '\n';
+        printw("=");
+    printw("\n");
+        // std::cout << "=";
+    // std::cout << '\n';
 
     for (auto i = 0; i < nFieldWidth; ++i) {
         for (auto j = 0; j < nFieldHeight; ++j) {
             if (nField[j * nFieldWidth + i] == -1) {
-                std::cout << " X ";
+                // std::cout << " X ";
+                printw(" X ");
             }
             else {
-                std::cout << " . ";
+                printw(" . ");
+                // std::cout << " . ";
             }
         }
-        std::cout << "\n";
+        printw("\n");
+        // std::cout << "\n";
     }
     for (auto i = 0; i < (3 * nFieldWidth); ++i)
-        std::cout << "*";
-    std::cout << '\n';
+        printw("*");
+        // std::cout << "*";
+    // std::cout << '\n';
+    printw("\n");
+    refresh();
 }
 
 void cMain::OnButtonClicked(wxCommandEvent& evt)
@@ -89,6 +109,9 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
     //m_list1->AppendString(m_txt1->GetValue());
     int x = (evt.GetId() - 1000) % nFieldWidth;
     int y = (evt.GetId() - 1000) / nFieldWidth;
+    move(0, 0);
+    printw("(%d, %d)\n", x, y);
+    refresh();
     wxString msg;
     msg.Printf("Position (%d, %d) clicked\n", x, y);
     if (bFirstClick) {
@@ -119,6 +142,17 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
             for (int j = -1; j < 2; ++j) {
                 if (prevX + i >= 0 && prevX + i < nFieldWidth && prevY + j >= 0 && prevY + j < nFieldHeight) {
                     btn[(prevY + j) * nFieldWidth + (prevX + i)]->SetBackgroundColour(wxNullColour);
+
+                    // Update console also
+                    move(2+prevX, (3*prevY));
+                    attron(A_NORMAL);
+                    if (nField[j * nFieldWidth + i] == -1) {
+                        printw(" X ");
+                    } else {
+                        printw(" . ");
+                    }
+                    attroff(A_NORMAL);
+                    refresh();
                 }
             }
         }
@@ -130,15 +164,7 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
         wxMessageBox(msg);
 
         // Reset game
-        bFirstClick = true;
-        nScore = 0;
-        for (int x = 0; x < nFieldWidth; ++x) {
-            for (int y = 0; y < nFieldHeight; ++y) {
-                nField[y * nFieldWidth + x] = 0;
-                btn[y * nFieldWidth + x]->SetLabel("");
-                btn[y * nFieldWidth + x]->Enable(true);
-            }
-        }
+        resetGame();
     }
     else {
         // count neighbouring mines
@@ -162,8 +188,23 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
         // }
         btn[y * nFieldWidth + x]->SetBackgroundColour(*wxBLUE);
         ++nScore;
+
+        if(nScore == 70) {
+            wxMessageBox("Congratulations!! You Won.");
+            resetGame();
+            return;
+        }
+        // move(2, (3*x)+1);
+        // printw("%d", (3*x));
+        move(2+x, (3*y));
+        attron(A_BLINK | A_REVERSE | A_BOLD);
+        printw(" . ");
+        attroff(A_BLINK | A_REVERSE | A_BOLD);
+        refresh();
     }
     
+    
+
     prevY = y;
     prevX = x;
     
@@ -171,4 +212,17 @@ void cMain::OnButtonClicked(wxCommandEvent& evt)
     score.Printf("Score: %d/70", nScore);
     label->SetLabel(score);
     evt.Skip();
+}
+
+void cMain::resetGame() {
+    bFirstClick = true;
+    nScore = 0;
+    for (int x = 0; x < nFieldWidth; ++x) {
+        for (int y = 0; y < nFieldHeight; ++y) {
+            nField[y * nFieldWidth + x] = 0;
+            btn[y * nFieldWidth + x]->SetLabel("");
+            btn[y * nFieldWidth + x]->Enable(true);
+        }
+    }
+    clear();
 }
