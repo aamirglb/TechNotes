@@ -1,9 +1,7 @@
 #include "cMain.h"
 #include <iostream>
+#include <curses.h>
 
-#ifdef linux
-#include <ncurses.h>
-#endif
 
 // wxBEGIN_EVENT_TABLE(cMain, wxFrame)
 // 	EVT_BUTTON(10001, OnButtonClicked)
