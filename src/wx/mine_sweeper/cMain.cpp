@@ -1,9 +1,9 @@
 #include "cMain.h"
 #include <iostream>
 
-wxBEGIN_EVENT_TABLE(cMain, wxFrame)
-	EVT_BUTTON(10001, OnButtonClicked)
-wxEND_EVENT_TABLE()
+// wxBEGIN_EVENT_TABLE(cMain, wxFrame)
+// 	EVT_BUTTON(10001, OnButtonClicked)
+// wxEND_EVENT_TABLE()
 
 cMain::cMain() : wxFrame(nullptr, 
 	wxID_ANY, 

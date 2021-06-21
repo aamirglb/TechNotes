@@ -23,6 +23,6 @@ public:
 
 	void OnButtonClicked(wxCommandEvent& evt);
 
-	wxDECLARE_EVENT_TABLE();
+	// wxDECLARE_EVENT_TABLE();
 };
 
