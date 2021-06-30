@@ -148,11 +148,11 @@ std::thread f() {
     
 * It isn’t recommended practice to call the member functions directly, instead use std::lock\_guard class template, which implements that RAII idiom for a mutex; it locks the supplied mutex on construction and unlocks it on destruction, ensuring a locked mutex is always correctly unlocked.
     
-* C++17 has a new feature called class template argument deduction, which means that for simple class templates like std::lock\_guard, the template argument list can often be omitted.
+* C++17 has a new feature called class template argument deduction, which means that for simple class templates like `std::lock_guard`, the template argument list can often be omitted.
 
 ```cpp
 std::lock_guard guard(some_mutex); // C++17
-std::lock_guard<std::mutex> guard(some_mutex); // < C++17
+std::lock_guard<std::mutex> guard(some_mutex); // < C++11
 ```
     
 * Don’t pass pointers and references to protected data outside the scope of the lock, whether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions.
@@ -171,9 +171,22 @@ std::lock_guard<std::mutex> lock_a(lhs.m,std::adopt_lock);
 std::lock_guard<std::mutex> lock_b(rhs.m,std::adopt_lock);
 ```
         
-* std::lock provides all-or-nothing semantics with regard to locking the supplied mutexes.
+* std::lock provides all-or-nothing semantics with regard to locking the supplied mutexes. The `std::adopt_lock` parameter indicate to the `std::lock_guard` objects that the mutexes
+are already locked, and they should adopt the ownership of the existing lock on the mutex rather than attempt to lock the mutex in the constructor.
     
 * The need to synchronize operations between threads like this is such a common scenario that the C++ Standard Library provides facilities to handle it, in the form of condition variables and futures.
+
+* You can detect at compile time the existence of a copy or move constructor that doesn’t throw an exception using the `std::is_nothrow_copy_constructible` and `std::is_nothrow_move_constructible` type traits.
+
+* deadlock, is the biggest problem with having to lock two or more mutexes in order to perform an operation.
+
+* The common advice for avoiding deadlock is to always lock the two mutexes in the
+_same order_: if you always lock mutex A before mutex B, then you’ll never deadlock.
+
+* `std::lock` function can lock two or more mutexes at once without risk of deadlock.
+
+* Attempting to acquire a lock on `std::mutex` when you already hold it is undefined behavior. (A mutex that does permit multiple locks by the same thread is provided in
+the form of `std::recursive_mutex`.
 
 # C++17
 
