@@ -970,3 +970,67 @@ public:
     }
 };
 ```
+
+# C++ Template Complete Guide
+
+* The keyword `typename` introduces a type parameter. This is by far the most common kind of template parameter in C++ programs, but other parameters are possible.
+
+* For historical reasons, you can also use the keyword `class` instead of `typename` to define a type parameter. The keyword `typename` came relatively late in the evolution of the C++98 standard.
+
+* `::max` is to ensure that our `max()` template is found in the global namespace.
+
+* Templates aren’t compiled into single entities that can handle any type. Instead, different entities are generated from the template for every type for which the template is used.
+
+* The process of replacing template parameters by concrete types is called _instantiation_. It results in an _instance_ of a template.
+
+* Note also that `void` is a valid template argument provided the resulting code is valid.
+
+* When a function template is used in a way that triggers its instantiation, a compiler will (at some point) need to see that template’s definition. This breaks the usual compile and link distinction for ordinary functions, when the declaration of a function is sufficient to compile its use. To overcome this implement each template inside a header file.
+
+* Specify (or qualify) explicitly the type of T to prevent the compiler from attempting type deduction. `max<double>(4, 7.2); // OK`
+
+* type deduction does not work for default call arguments if default argument for the template parameter is not declared.
+
+```cpp
+template<typename T>
+void f(T = "");
+
+f(1);  // OK
+f();   // Error: Cannot deduce T
+
+template<typename T = std::string>
+void f(T = "");
+
+f();   // OK
+```
+
+* If a return type depends on template parameters, the simplest and best approach to deduce the return type is to let the compiler find out. Since C++14, this is possible by simply not declaring any return type.
+
+```cpp
+// C++14
+template<typename T1, typename T2>
+auto max (T1 a, T2 b)
+{
+    return b < a ? a : b;
+}
+
+// C++11
+template<typename T1, typename T2>
+auto max (T1 a, T2 b) -> decltype(b<a?a:b)
+{
+    return b < a ? a : b;
+}
+
+// If T is a reference type
+#include <type_traits>
+template<typename T1, typename T2>
+auto max (T1 a, T2 b) -> typename std::decay<decltype(true?a:b)>::type
+{ 
+    return b < a ? a : b;
+}
+```
+
+* the type trait `std::decay<>` returns the resulting type in a member `type`. It is defined by the standard library in `<type_trait>`. Because the member `type` is a type, you have to qualify the
+expression with `typename` to access it
+
+Page-48
