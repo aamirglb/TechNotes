@@ -743,6 +743,32 @@ What are files with SGID bit and Sticky bit?? SUID files
 ```
 In normal mode press ‘R’ (capital R) to enter replace mode
 ```
+### Deleting Lines
+
+```
+    dd delete current line
+   5dd delete 5 lines from current line
+   :[start],[end]d Delete a range of lines
+   :3,5d   delete line 3-5
+   . current line
+   $ last line
+   % All lines
+   :.,$d  From current line to end of file
+   :.,1d  From current ilne to beginning of file
+   %d     Delete all lines
+```
+
+#### Delete Lines containing pattern
+
+* The global command (`g`) tells te delete command (`d`) to delete all lines containing the `<pattern>`
+
+```
+:g/<pattern>/d   Delete all lines containing the <pattern>
+:g!/<pattern>/d  Delete all lines not containing the <pattern>
+:g/^#/d          Delete all comment lines from Bash script
+:g/^$/d          Delete all blank lines
+:g/^\s*$/d       Delete all blank lines with zero or more whitespace character
+```
 
 * To delete all lines in the current file use `%d` command in normal mode.
 * To delete from current line till the end use `,$d`.
