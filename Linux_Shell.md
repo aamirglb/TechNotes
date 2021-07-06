@@ -668,12 +668,111 @@ What are files with SGID bit and Sticky bit?? SUID files
 ## 5. vi Editor
 [Table Of Contents](#table-of-contents)
 
-* vim is the most popular command-line text editor.
+* vim is the most popular command-line text editor. vim works in 
+    * **Normal** mode, 
+    * **Insert** mode, 
+    * **Visual** mode, 
+    * **Command** mode and 
+    * **Replace** mode.
+
+* To get into **Normal** mode, press **ESC** key.
+* Move the cursor
+
+```
+    h move one character left
+    j move one row down
+    k move one row up
+    l move one character right
+    4j move 4 rows down
+    6k move 6 rows up
+```
+
+* Basic word movements:
+
+```
+    w move to beginning of next word
+    b move to previous beginning of word
+    e move to end of word
+    W move to beginning of next word after a whitespace
+    B move to beginning of previous word before a whitespace
+    E move to end of word before a whitespace
+    
+    r replace a single character
+    x delete a single character
+    u undo changes
+    ctrl-r undo undo
+```
+* Insert commands include:
+
+```
+    i for ’insert’, this immediately switches vim to insert mode
+    a for ’append’, this moves the cursor after the current character and enters insert mode
+    o inserts a new line below the current line and enters insert mode on the new line
+
+    I moves the cursor to the beginning of the line and enters insert mode
+    A moves the cursor to the end of the line and enters insert mode
+    O inserts a new line above the current one and enters insert mode on the new line
+```
+* Visual mode commands
+
+```
+    v enter visual mode, this will also mark a starting selection point
+      Move the cursor to the desired end selection point; vim will provide a visual highlight of the text selection
+
+    V enter visual line mode, this will make text selections by line
+    <C-V> to enter visual block mode, this will make text selections by blocks; moving the cursor will make rectangle selections of the text
+    
+    visual: Enter by pressing v
+    block-visual: select any rectangular region. Enter by pressing <ctrl>+v
+    linewise-visual: always select full lines. Enter by pressing <shift>+v
+```
+
+* **Command** mode has a wide variety of commands and can do things that normal mode can’t do as easily. To enter command mode type ’:’ from normal mode
+    
+```
+    : Enters command mode
+    % Means across all lines
+    s Means substitute
+    /foo is regex to find things to replace
+    /bar/ is regex to replace things with
+    /g means global, otherwise it would only execute once per line
+    
+```
+* **Replace** mode
+
+```
+In normal mode press ‘R’ (capital R) to enter replace mode
+```
+### Deleting Lines
+
+```
+    dd delete current line
+   5dd delete 5 lines from current line
+   :[start],[end]d Delete a range of lines
+   :3,5d   delete line 3-5
+   . current line
+   $ last line
+   % All lines
+   :.,$d  From current line to end of file
+   :.,1d  From current ilne to beginning of file
+   %d     Delete all lines
+```
+
+#### Delete Lines containing pattern
+
+* The global command (`g`) tells te delete command (`d`) to delete all lines containing the `<pattern>`
+
+```
+:g/<pattern>/d   Delete all lines containing the <pattern>
+:g!/<pattern>/d  Delete all lines not containing the <pattern>
+:g/^#/d          Delete all comment lines from Bash script
+:g/^$/d          Delete all blank lines
+:g/^\s*$/d       Delete all blank lines with zero or more whitespace character
+```
 
 * To delete all lines in the current file use `%d` command in normal mode.
 * To delete from current line till the end use `,$d`.
 * To delete from line 3 to 6 use `3,6d`.
-*  
 * general form of substitute command 
 ```
 :[range]s/{pattern}/{string}/[flags] [count]
@@ -693,7 +792,7 @@ What are files with SGID bit and Sticky bit?? SUID files
 | `:s/pattern/str/g`      | replace all occurrencesd in current line (g flag) |
 | `:%s/pattern/str/g`     | search and replace in entire file (% as range) |
 | `:%s/pattern//g`        | delete all instance of pattern |
-| `:s\|pattern\|str\|`       | Use \| instead of / |
+| `:s\|pattern\|str\|`    | Use \| instead of / |
 | `:%s/pattern/str/gc`    | To confirm each substitution, (c flag) |
 | `:%s/^foo.\*/vim/gc`    | regular expression |
 | `:3,10s/pat/str/g`      | all lines starting from 3 to 10 |
@@ -707,6 +806,19 @@ What are files with SGID bit and Sticky bit?? SUID files
 | `:%s/ab\|cd/aa`         | replace ab or cd with aa |
 | `:%s/\s\+$//g`          | remove trailing whitespace at the end of each line |
 
+### Useful tips
+
+```
+S (SHIFT+s) Start writing on a line at correct indentation
+%           Jump to matching bracket/brace
+>>, <<      Indent one line
+>, <        Indent multiple lines
+=G          Fix indentation in the whole file
+:tabnew     Create a new tab
+gt          Go to next tab
+gT          Go to previous tab
+:tabo       Close all other tabs beside the active one
+```
 
 # 6. Usefull Commands
 ## Killin a bunch of processes

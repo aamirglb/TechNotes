@@ -157,6 +157,43 @@ $ git reset --hard @{1}
 # or go to previous (pre-merge) commit
 ```
 
+## Git Submodules
+
+* Git _submodules_ allow you to keep a Git repository as a subdirectory of another Git repository. This lets you clone another repository into your project and keep your commits separate.
+
+* To add a new submodule you use the git submodule add command with the absolute or relative URL of the project you would like to start tracking.
+
+```shell
+$ git submodule add https://github.com/chaconinc/DbConnector
+```
+* `.gitmodules` configuration file stores the mapping between the project’s URL and the local subdirectory you’ve pulled it into:
+
+```
+[submodule "DbConnector"]
+	path = DbConnector
+	url = https://github.com/chaconinc/DbConnector
+```
+
+### Cloning a Project with Submodules
+
+* When a project with submodules is cloned, by default you get the directories that contain submodules, but none of the files within them yet:
+
+```shell
+$ git clone https://github.com/chaconinc/MainProject
+
+# initialize local configuration file
+$ git submodule init
+
+# fetch all the data from that project and check out the appropriate commit listed in your superproject
+$ git submodule update
+```
+
+* A simpler way to clone project with submodules is to use `--recurse-submodules`. automatically initialize and update each submodule in the repository, including nested submodules.
+
+```
+$ git clone --recurse-submodules https://github.com/chaconinc/MainProject
+```
+
 * `~/.gitconfig` file contains information that will be used to identify commits in log. Either create `.gitconfig` file or use `git config` command from command line. 
 
 * `.git` directory contains entire repository in Git internal format, and some repository-specific administrative information. `getrepository-layout (5)` manpage.
