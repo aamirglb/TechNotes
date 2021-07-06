@@ -668,7 +668,13 @@ What are files with SGID bit and Sticky bit?? SUID files
 ## 5. vi Editor
 [Table Of Contents](#table-of-contents)
 
-* vim is the most popular command-line text editor. vim works in **Normal** mode, **Insert** mode, **Visual** mode, **Command** mode and **Replace** mode.
+* vim is the most popular command-line text editor. vim works in 
+    * **Normal** mode, 
+    * **Insert** mode, 
+    * **Visual** mode, 
+    * **Command** mode and 
+    * **Replace** mode.
+
 * To get into **Normal** mode, press **ESC** key.
 * Move the cursor
 
