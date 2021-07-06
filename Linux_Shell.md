@@ -806,6 +806,19 @@ In normal mode press ‘R’ (capital R) to enter replace mode
 | `:%s/ab\|cd/aa`         | replace ab or cd with aa |
 | `:%s/\s\+$//g`          | remove trailing whitespace at the end of each line |
 
+### Useful tips
+
+```
+S (SHIFT+s) Start writing on a line at correct indentation
+%           Jump to matching bracket/brace
+>>, <<      Indent one line
+>, <        Indent multiple lines
+=G          Fix indentation in the whole file
+:tabnew     Create a new tab
+gt          Go to next tab
+gT          Go to previous tab
+:tabo       Close all other tabs beside the active one
+```
 
 # 6. Usefull Commands
 ## Killin a bunch of processes
