@@ -1033,4 +1033,76 @@ auto max (T1 a, T2 b) -> typename std::decay<decltype(true?a:b)>::type
 * the type trait `std::decay<>` returns the resulting type in a member `type`. It is defined by the standard library in `<type_trait>`. Because the member `type` is a type, you have to qualify the
 expression with `typename` to access it
 
-Page-48
+```c++
+// C++11
+#include <type_traits>
+template<typename T1, typename T2>
+std::common_type_t<T1,T2> max (T1 a, T2 b)
+{
+    return b < a ? a : b;
+}
+
+// C++14
+std::common_type_t<T1,T2>
+```
+
+* it is possible to have default arguments for leading function template parameters even if parameters without default arguments follow
+
+```c++
+template<typename RT = long, typename T1, typename T2>
+RT max (T1 a, T2 b)
+{
+    return b < a ? a : b;
+}
+
+int i; long l;
+max(i, l); // returns long (default argument of template parameter for return type)
+max<int>(4, 42);
+```
+
+* A nontemplate function can coexist with a function template that has the same name and can be instantiated with the same type.
+
+```c++
+int max (int a, int b)
+{
+    return b < a ? a : b;
+} 
+
+// maximum of two values of any type:
+template<typename T>
+T max (T a, T b)
+{
+    return b < a ? a : b;
+}
+```
+
+* It is also possible to specify explicitly an _empty template argument_ list. This syntax indicates that only templates may resolve a call, but all the template parameters should be deduced from the call arguments:
+
+```c++
+::max<>(7, 42); // calls max<int> (by argument deduction)
+```
+
+### class template
+
+```c++
+template<typename T>
+class Stack {
+    std::vector<T> elem;
+    ...
+};
+
+template<typename T>
+void Stack<T>::push(T const& e) {
+    elem.push_back(e);
+}
+```
+
+* `back()` returns the last element and `pop_back()` removes the last element
+
+* To use an object of a class template, until C++17 you must always specify the template arguments explicitly.
+
+* code is instantiated _only for template (member) functions_ that are called. For class templates, member functions are instantiated only if they are used. This, of course, saves time and space and allows use of class templates only partially.
+
+* The term **_concept_** is often used to denote a set of constraints that is repeatedly required in a template library.
+
+Page 71
