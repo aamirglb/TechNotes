@@ -885,3 +885,10 @@ $ echo "one two three" | xargs -t rm
 ```
 $ echo "one two three" | xargs -I % sh -c 'echo %; mkdir %'
 ```
+## Create multiple files and directories
+           
+```
+$ mkdir {cs,files,masters,draft,static}   # directories.
+$ touch -- 'file with spaces' '-a' '-l' 'filename'    # And some files:
+           
+```
