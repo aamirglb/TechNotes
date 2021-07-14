@@ -49,4 +49,5 @@ easily add.
 * A `breadcrumb` navigation lets you jump to symbols and files in your workspace from the top without having to mess around with the file explorer; most helpful for small screens.
 
 * For markdown preview press `Ctrl+Shift+V` (Cmd+Shift+V on macOS)
-in the code editor, and the preview will appear in a separate window
+in the code editor, and the preview will appear in a separate window.
+
