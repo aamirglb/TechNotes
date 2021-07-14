@@ -686,4 +686,73 @@ Only a privileged process was allowed to increase its scheduling priority.
 
 * `addch(ch | A_BOLD | A_UNDERLINE);`
 
-* 
+# Syslog
+
+* `Syslog` is a _standard_ for message logging. It has been the standard logging mechanism on Linux/Unix systems for a very long time. Although most of the distros now ship with `journald` – a `systemd` based logger – `Syslog` still exists and is generally used in conjunction with `journald`.
+
+* Syslog generally referring to the following 3 things:
+    * *Syslog Daemon*: `rsyslog` is the Syslog daemon shipped with most of the distros.
+    * *Syslog Message Format*: defined by a standard (for eg RFC5424).
+    * *Syslog Protocol*: Can use TCP and TLS in addition to UDP (legacy protocol)
+
+* `syslog` logs are written in text format to files whereas `journald` logs are written in binary and required `journalctl` command to view them.
+
+* Generally, logs are written under `/var/log` directory.
+
+* Watch the logs are real time using
+```shell
+$ sudo tail -f /var/log/syslog     # Ubuntu/Debian
+$ sudo tail -f /var/log/messages   # RedHat
+```
+
+* Kernel logs (kern.log), boot logs (boot.log).
+
+* `rsyslog` daeomn's configuration file is `/etc/rsyslog.conf`.
+
+* By default rsyslog listens on port 514.
+
+* To log a message from command line 
+```shell
+$ logger "I just logged a message"
+```
+
+## logrotate
+
+* `logrotate` utility is used to clean up the logs on a periodic basis.
+
+* `logrotate` will rename or compress the main log when a condition is met so that the next event is recorded on an empty file.
+
+* In addition, it will remove “old” log files and will keep the most recent ones.
+
+* The configuration file `(/etc/logrotate.conf)` may indicate that other, more specific settings may be placed on individual `.conf` files inside `/etc/logrotate.d`.
+
+```shell
+/var/log/syslog
+{
+        rotate 3
+        daily
+        size=2M
+        missingok
+        notifempty
+        delaycompress
+        compress
+        postrotate
+                /usr/lib/rsyslog/rsyslog-rotate
+        endscript
+}
+```
+
+```shell
+/var/log/squid/access.log {
+    monthly
+    create 0644 root root
+    rotate 5
+    size=1M
+    dateext
+    dateformat -%d%m%Y
+    notifempty
+    mail gabriel@mydomain.com
+}
+```
+
+* By default, the installation of logrotate creates a crontab file inside /etc/cron.daily named logrotate. 
