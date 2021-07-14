@@ -51,3 +51,17 @@ easily add.
 * For markdown preview press `Ctrl+Shift+V` (Cmd+Shift+V on macOS)
 in the code editor, and the preview will appear in a separate window.
 
+* Editor ruler setting
+
+```
+ "editor.rulers": [
+        {
+            "column": 100,
+            "color": "#ff00FF"
+        },
+        {
+            "column": 120,
+            "color": "#ff0000"
+        },
+    ]
+```
