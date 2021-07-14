@@ -26,6 +26,7 @@ Technical Notes
 1. [Usefull Links](UsefullLinks.md)
 1. [WxWidgets](WxWidgets.md)
 
+In computing, the **robustness principle** is a design guideline for software that states: _"be conservative in what you do, be liberal in what you accept from others"_. It is often reworded as: **_"be conservative in what you send, be liberal in what you accept"_**. The principle is also known as **Postel's law**, after Jon Postel, who used the wording in an early specification of TCP.
 
 6 that Facebook give to prepare for internship
 
