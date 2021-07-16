@@ -203,4 +203,101 @@ for i, name in enumerate(dir(sys)):
 	print("{} => {}".format(i, name))
 ```
 
-Page 71: Modules and namespaces
+* each module is a self-contained namespace: one module file
+cannot see the names defined in another file unless it explicitly imports that other file.
+
+* `from` statement in a sense defeats the namespace partitioning purpose of modules—because the from copies variables from one file to another,
+
+* the `exec(open('module.py').read())` built-in function
+call is another way to launch files from the interactive prompt without having to import and later reload.
+
+* Python searches for imported modules in every directory
+listed in `sys.path`; a Python list of directory name strings in the sys module, which is initialized from a `PYTHONPATH` environment variable, plus a set of standard directories.
+
+```python
+for i, v in enumerate(sys.path):
+	print('{} => {}'.format(i, v))
+
+C:\Users\Aamir\AppData\Local\Programs\Python\Python37\lib\site-packages
+
+On Linux: 
+/usr/local/lib/python3.8/dist-packages
+/usr/lib/python3/dist-packages
+```
+
+* _IDLE_ provides a graphical user interface for doing Python development. _IDLE_ is a Python program that uses the standard library’s `tkinter` GUI toolkit (named `Tkinter` in Python 2.X) to build its windows. IDLE is just a Python script.
+
+```shell
+python -m idlelib.idle
+```
+
+* Alt-P - Scroll backward through command history
+* Alt-N - Scroll forward through command history
+
+* Python/C integration
+
+```c
+#include <Python.h>
+
+Py_Initialize(); // This is C, not Python
+PyRun_SimpleString("x = 'brave ' + 'sir robin'"); // But it runs Python code
+```
+
+* Python comes with a source code debugger named `pdb`, available as a module in Python’s standard library. `pdb` also includes a postmortem function (`pdb.pm()`) that you can run after an
+exception occurs, to get information from the time of the error.
+
+* `python –i m.py` Python will enter into its interactive interpreter mode.
+
+* The `Winpdb` system is a standalone debugger with advanced debugging support and cross-platform GUI.
+
+* Python's Built-in objects
+    * Numbers
+    * Strings
+    * Lists
+    * Dictionaries
+    * Tuples
+    * Files
+    * Sets
+
+* Python is `dynamically typed`, a model that keeps track of types
+for you automatically instead of requiring declaration code, but it is also `strongly typed`, a constraint that means you can perform on an object only operations that are valid for its type.
+
+* Python’s core objects set includes: _integers_ that have no
+fractional part, _floating-point numbers_ that do, and more exotic types — _complex numbers_ with imaginary parts, _decimals_ with fixed precision, _rationals_ with numerator and denominator, and full-featured sets.
+
+* There are two ways to print every object in Python; an object’s
+as-code `repr`, and the second is its user-friendly `str`.
+
+* In older Pythons, the floating-point `repr` sometimes displays more precision than you might expect
+
+```python
+import math
+math.pi
+math.sqrt(85)
+
+import random
+random.random()
+random.choice([1, 2, 3 4])
+```
+
+* In Python, we can also index backward, from the end. Formally, a negative index is simply added to the string's length.
+
+```python
+# equivalent
+S[-1]
+S[len(S)-1]
+```
+
+* sequences also support a more general form of indexing known as _slicing_, which is a way to extract an entire section (slice) in a single step.
+
+```python
+S[1:]  # everything past first
+S[0:3] # 0 to 2
+S[:3]  # 0 to 2
+S[:-1] # Everything but the last
+S[:]   # All of S as a top-level copy
+```
+
+* Sequences also supprt _concatenation_ with plus (+) sign and _repetition_ (*).
+
+Page 100
