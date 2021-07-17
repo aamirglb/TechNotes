@@ -300,4 +300,166 @@ S[:]   # All of S as a top-level copy
 
 * Sequences also supprt _concatenation_ with plus (+) sign and _repetition_ (*).
 
-Page 100
+* Strings are `immutable` in Python — they cannot be changed
+in place after they are created.
+
+* `numbers`, `strings`, and `tuples` are immutable; `lists`, `dictionaries`, and `sets` are immutable and can be changed in place.
+
+* `bytearray` type is available in Pythons 2.6, 3.0
+
+```python
+n = 'aamir'
+L = list(n)
+L[0] = 'A'
+n = ''.join(L)
+
+# Or use bytearray
+B = bytearray(b'spam')
+B.extend(b'eggs')
+B = B.decode() # convert to normal string
+```
+
+* String method
+
+```python
+S = 'python'
+S.find('py')
+S.replace('p', 'P')
+split(',')
+upper() # convert to uppercase
+isalpha() 
+isdigit()
+rstrip() # remove whitespace on the right side
+```
+
+* String formatting
+
+```python
+'%s, eggs, and %s' % ('spam', 'SPAM!')
+'{0}, eggs, and {1}'.format('spam', 'SPAM!')
+'{}, eggs, and {}'.format('spam', 'SPAM!') # 2.7+, 3.1+
+
+'{:,.2f}'.format(296999.2567) # 296,999.26
+```
+
+* The built-in `dir` function lists variables assigned in the caller's scope when called with no arguments; it also returns a list of all the attributes available for any object passed to it.
+
+* `help(s.replace)` to display help for strings replace function.
+
+* Special characters can be represneted as backslash escape sequences, which Python displays in `\xNN` hexadecimal escape notation for non-printable character.
+
+```python
+ord('\n')  # 10
+```
+
+* Python also supports _raw_ string literal that turns off the backslash escape mechanism. `r'C:\text\new'`
+
+* `str` string handles Unicode text.
+  `bytes` string type represents raw byte values (including media and encoded text).
+
+  * the notion of bytes
+doesn’t apply to Unicode: some encodings include character code points too large for
+a byte, and even simple 7-bit ASCII text is not stored one byte per character under some
+encodings and memory storage schemes
+
+```python
+'spam'.encode('utf8') # Encoded to 4 bytes in UTF-8 in files
+'spam'.encode('utf16')  # Encoded to 10 bytes in UTF-16 
+```
+
+* `bytearray` string type is essentially a `bytes` string (a `str` in 2.X) that supports most of the list object’s in-place mutable change operations.
+
+* Both Python 3.X and 2.X also support coding non-ASCII characters with \x hexadecimal and short \u and long \U Unicode escapes
+
+```python
+'x' + b'y'.decode()  # 'xy'
+'x'.encode() + b'y'  # b'xy'
+```
+
+* text is _encoded_ to bytes when stored in a file, and _decoded_ into
+characters (a.k.a. code points) when read back into memory. Once it is loaded, we usually process text as strings in decoded form only.
+
+* This `re` module has analogous calls for searching, splitting, and replacement, but because we can use patterns to specify substrings, we can be much more.
+
+```python
+import re
+match = re.match('Hello[ \t]*(.(*)world', 'Hello    Python world'))
+match.group(1)
+```
+
+* the list `append` method expands the list’s size and inserts an item at the end; the `pop` method (or an equivalent `del` statement) then removes an item at a given offset, causing the list to shrink.
+
+* Python includes a more advanced list operation known as a _list comprehension expression_
+
+* List comprehensions derive from set notation; they are a way to build a new list by running an expression on each item in a sequence, one at a time, from left to right.
+
+```python
+# List comprehension
+L = [x for x in range(6)]  # [0, 1, 2, 3, 4, 5]
+L = [x*x for x in L]       # [0, 1, 4, 9, 16, 25]
+
+L = [x for x in range(10)] # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+L = [x*x for x in L if x % 2 == 0] # [0, 4, 16, 36, 64]
+
+L = list(range(10))
+
+[[x**2, x**3] for x in range(4)]
+```
+
+* In recent Pythons, comprehension syntax has been generalized for other roles: it’s not just for making lists today. For example, enclosing a comprehension in _parentheses_ can also be used to create _generators_ that produce results on demand.
+
+```python
+G = (x for x in range(5))
+next(G)  # 0
+next(G)  # 1
+```
+
+* In Python 2.7 and 3.X, comprehension syntax can also be used to create _sets_ and _dictionaries_.
+
+```python
+M = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+{sum(row) for row in M} # create a set {24, 6, 15}
+{i:sum(M[i]) for i in range(3)} # create dictionary
+```
+
+```python
+>>> [ord(x) for x in 'spaam'] # List of character ordinals
+[115, 112, 97, 97, 109]
+>>> {ord(x) for x in 'spaam'} # Sets remove duplicates
+{112, 97, 115, 109}
+>>> {x: ord(x) for x in 'spaam'} # Dictionary keys are unique
+{'p': 112, 'a': 97, 's': 115, 'm': 109}
+>>> (ord(x) for x in 'spaam') # Generator of values
+<generator object <genexpr> at 0x000000000254DAB0>
+```
+
+* When written as literals, _dictionaries_ are coded in curly braces and consist of a series of **“key: value”** pairs.
+
+* indexing a dictionary by key is often the fastest way to code a search in Python.
+
+```python
+bob1 = dict(name='Bob', job='dev', age=40)
+bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))
+```
+
+* The dictionary `in` membership expression allows us
+to query the existence of a key
+
+```python
+# print dictionary in sorted order
+keys = list(D.keys())
+keys.sort()
+for key in keys:
+    print(key, '=>', D[key])
+```
+
+* The above three step process can be replaced with `sorted` built-in function.
+
+```python
+for key in sorted(D):
+    print(key, '=>', D[key])
+```
+
+Page 120: Iteration and Optimization
