@@ -651,4 +651,40 @@ mark the type of the object, and a reference counter.
 
 * types are associated with objects in Python, not with variables.
 
-Page 183
+* standard library `copy` module has a call for copying any object type generically, as well as a call for copying nested object structures
+
+```python
+import copy
+X = copy.copy(Y)      # Make shallow copy
+X = copy.deepcopy(Y)  # Make deep copy
+
+L = [1, 2, 3]
+M = L
+L == M    # check if same values
+L is M    # same objects
+```
+
+* `is` operator tests for ojbect _identity_, it return `True` only if both names point to the exact same object.
+
+* There are three string types: `str` is used for Unicode text (including
+ASCII), `bytes` is used for binary data (including encoded text), and `bytearray` is a mutable variant of `bytes`.
+
+* encoding => translation
+
+* Unlike in C, in Python, strings come with a powerful set of processing
+tools. Also unlike languages such as C, Python has no distinct type for individual characters; instead, you just use one-character strings.
+
+* In fact, Python 3.X defines `str` strings formally as sequences of Unicode code points, not `bytes`, to make this clear.
+
+* In Python, a zero (null) character does not terminate a string the way a “null byte” typically does in C. Instead, Python keeps both the string’s length and text in memory.
+
+```python
+S = 'hello'
+S[::-1]  # Reversing item, 'olleh'
+
+ord('s')  # 115
+chr(115)  # 's'
+```
+
+Page 239
+
