@@ -462,4 +462,193 @@ for key in sorted(D):
     print(key, '=>', D[key])
 ```
 
-Page 120: Iteration and Optimization
+* an object is iter_able if it is either a physically stored sequence in memory,
+or an object that generates one item at a time in the context of an iteration operation
+
+* dictionaries
+are iterable objects, with a **next** that returns successive keys.
+
+* The list comprehension, and related functional programming tools like `map` and
+`filter` , will often run _faster_ than a for loop today on some types of code.
+
+* A major rule of thumb in Python is to code for simplicity and readability first and worry
+about performance later
+
+* Python includes tools, including the `time` and `timeit` modules for timing the speed of
+alternatives, and the `profile` module for isolating bottlenecks.
+
+* Tuples are sequences, like lists, but they are _immutable_, like strings. Syntactically, they are normally coded in _parentheses_ instead of _square_ brackets
+
+* one-item tuples require a trailing comma. `(2,)`. tuples provide a sort of integrity con-
+straint.
+
+* File objects are Python code’s main interface to external files on your computer.
+
+* files provide an _iterator_ that automatically reads line by line in for loops and other contexts:
+
+```python
+for line in open('data.txt'): 
+    print(line)
+```
+
+* _text files_ represent content as normal `str` strings and per-
+form Unicode encoding and decoding automatically when writing and reading data,
+while `binary files` represent content as a special `bytes` string and allow you to access file
+content unaltered.
+
+* Python’s `struct` module can both create and unpack packed binary data - raw bytes that record values that are not Python objects — to be written to a file in binary mode.
+
+```python
+import struct
+packed = struct.pack('>i4sh', 7, b'spam', 8)
+packed  # b'\x00\x00\x00\x07spam\x00\x08'
+
+struct.unpack('>i4sh', packed)
+```
+
+```python
+text.encode('utf-8') # encode convert str to bytes
+raw.decode('utf-8')  # decode convert bytes to str
+
+text = open('unidata.txt', encoding='utf-8').read()
+```
+
+* `Sets`, are a recent addition to the language that are neither _mappings_ nor _sequences_;
+rather, they are _unordered_ collections of unique and immutable objects.
+
+```python
+X = set('spam')
+Y = {'h', 'e', 'l', 'l', 'o'}
+
+X & Y  # Intersection
+X | Y  # Union
+X - Y  # Difference
+X > Y  # Is superset
+
+set('spam') == set('asmp')   # Order-neutral equality tests (== is False)
+True
+```
+
+* Python recently grew a few new numeric types: _**decimal**_ numbers, which
+are fixed-precision floating-point numbers, and **_fraction_** numbers, which are rational
+numbers with both a numerator and a denominator.
+
+```python
+import decimal
+d = decimal.Decimal('3.141')
+d + 1  # Decimal('4.141')
+
+from fractions import Fraction
+f = Fraction(2, 3)
+f + 1
+f + Fraction(1, 2)
+```
+
+* The _type_ object, returned by the `type` built-in function, is an object that
+gives the type of another object.
+
+```python
+type(L)
+
+if type(L) == type([]):
+    print('yes')
+
+if type(L) == list:
+    print('yes')
+
+if isinstance(L, list):
+    print('yes')
+```
+
+* Floating-point numbers are implemented as C “doubles” in standard CPython, and therefore get as much precision as the C compiler used to build the Python interpreter gives to doubles.
+
+* Hex 0x or 0X
+  Octal 0o or 0O (zero and lower/uppercase letter o)
+  Binary 0b or 0B
+
+  * The built-in calls `hex(I)`, `oct(I)` and `bin(I)` convert an integer to its representation string in these three bases and `int(str, base)` converts a runtime string to an integer per a given base.
+
+  ![python expression](images/py/py_exprssion.png)
+
+ * `repr` (and the default interactive echo) produces results that look as though they were _code_; str (and the print operation) converts to a typically more user-friendly format if available. 
+
+ ```python
+ import math
+ math.floor(2.5)  # closest number below value
+ math.trunc(2.5)  # Truncate fractional part
+ ```
+
+ * The oct function converts decimal to octal, hex to hexadecimal, and bin to binary. To
+go the other way, the built-in int function converts a string of digits to an integer, and
+an optional second argument lets you specify the numeric base
+
+* The `eval` function, treats strings as though they were Python code.
+
+```python
+'{0:o}, {1:x}, {2:b}'.format(64, 64, 64)
+'100, 40, 1000000' 
+'%o, %x, %x, %X' % (64, 64, 255, 255)
+
+X = 99
+X.bit_length() # 7
+
+import math
+math.pi
+math.e
+math.sin(2 * math.pi / 180)
+math.sqrt(144)
+pow(2, 4)
+abs(-42.0)
+sum((1, 2, 3, 4))
+min(3, 1, 2, 4)
+max(3, 1, 2, 4)
+```
+
+* 3 ways to produce square root of number
+
+```python
+import math
+math.sqrt(144)  # module
+144 ** .5       # expression
+pow(144, .5)    # built-in
+```
+
+* Standard library module called `builtins`, implied namespace that Python automatically searches to find names used in a program.
+
+```python
+import random
+random.random()
+random.randint(1, 10)
+random.choice([1, 2, 3, 4, 5])
+random.shuffle([2, 4, 6, 8, 10])
+```
+
+```python
+import decimal
+decimal.getcontext().prec = 4
+```
+
+* `with` context manager statement
+
+* `{}` is still a dictionary in all Pythons. Empty sets must be created with the
+set built-in, and print the same way.
+
+* `sets` can only contain `immutable` (a.k.a. “hashable”) object types. Hence, _lists_ and _dictionaries_ cannot be embedded in sets, but _tuples_ can if you need to store compound values.
+
+* if you need to store a set inside another set, the `frozenset` built-in call works just like set but creates an _immutable_ set that cannot change and thus can be embedded in other sets.
+
+* sets can be used to _filter duplicates_ out of other collections.
+
+* Sets can be used to _isolate differences_ in lists, strings, and other iterable objects.
+
+* Sets can also be used to keep track of where you’ve already been when traversing a
+graph or other cyclic structure.
+
+* Each object also has two standard header fields: a _type designator_ used to
+mark the type of the object, and a reference counter.
+
+* a variable in Python is that it references a particular object at a particular point in time.
+
+* types are associated with objects in Python, not with variables.
+
+Page 183
