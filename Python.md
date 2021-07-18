@@ -686,5 +686,33 @@ ord('s')  # 115
 chr(115)  # 's'
 ```
 
-Page 239
+* unlike strings, lists may be changed in place by assignment to offsets and slices, list method calls, deletion statements, and more—they are mutable objects.
+
+```python
+['OK'] * 4
+['OK', 'OK', 'OK', 'OK']
+```
+
+* `map` built-in function applies a function to items in a sequence and collects all the results in a new list:
+
+```python
+list(map(abs, [−1, −2, 0, 1, 2]))
+[1, 2, 0, 1, 2]
+
+L.sort()
+L.sort(key=str.lower)
+L.sort(key=str.lower, reverse=True)
+```
+
+* sorting is also available in recent Pythons as a built-
+in function, which sorts any collection (not just lists) and returns a new list for the result
+(instead of in-place changes):
+
+```python
+sorted(L, key=str.lower, reverse=True)
+sorted([x.lower() for x in L], reverse=True)
+```
+
+Page 252
+
 
