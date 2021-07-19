@@ -1,3 +1,8 @@
+# Index
+
+1. [C++ Concurrency in Action](#c++-concurrency-in-action)
+1. [C++17](#-c++17)
+
 # C++ Concurrency in Action
 
 * With C++11 it is possible to write multithreaded C++ programs without relying on platform-specific extensions and enabled you to write portable multithreaded code with guaranteed behavior.
@@ -188,7 +193,7 @@ _same order_: if you always lock mutex A before mutex B, then you’ll never dea
 * Attempting to acquire a lock on `std::mutex` when you already hold it is undefined behavior. (A mutex that does permit multiple locks by the same thread is provided in
 the form of `std::recursive_mutex`.
 
-# C++17
+# C++17 The Complete Guide
 
 ### Structure Binding
 
@@ -242,7 +247,28 @@ static inline std::string name = ""; // OK since C++17
 inline MyClass myGlobalObj;
 // OK even if included/defined by multiple CPP files
 ```
+## Aggregate Extensions
 
+```cpp
+struct Data {
+    std::string name;
+    double value;
+};
+
+struct MoreData : Data {
+    bool done;
+}
+
+// Aggregate Extension
+MoreData y{{"test1", 1.2345}, false};
+```
+
+* Since C++11 you can specify attributes (formal annotations that enable or disable warnings). With
+C++17, new attributes were introduced.
+
+Attribute [[nodiscard]]
+Attribute [[maybe_unused]]
+Attribute [[fallthrough]]
 
 # C++11
 
