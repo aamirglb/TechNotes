@@ -713,6 +713,128 @@ sorted(L, key=str.lower, reverse=True)
 sorted([x.lower() for x in L], reverse=True)
 ```
 
-Page 252
+```python
+D = {'eggs': 3, 'spam': 2, 'ham': 1}
+D2 = {'toast': 4, 'muffin': 5}
+D.update(D2)
+print(D.items())
+{'eggs': 3, 'muffin': 5, 'toast': 4, 'spam': 2, 'ham': 1}
 
+D.pop('muffin')  # pop a dictionary by key, delete and return from a key
 
+list(D.items())
+[title for (title, year) in table.items() if year == '1975']
+```
+
+* There are at least three ways to avoid errors for nonexistent key in a dictonary.
+
+```python
+# Method-1: Check key using in
+if 'eggs' in D:
+    print(D['eggs'])
+else:
+    print("Key doesn't exist')
+
+# Method-2: Use try/except
+try:
+    print(D['eggs'])
+else:
+    print("Key doesn't exist')
+
+# Method-3: Use get
+D.get('test', 0)
+
+dict(zip(keylist, valuelist))
+```
+
+```python
+L = list(zip(['a', 'b', 'c'], [1, 2, 3]))
+D = dict(zip(['a', 'b', 'c'], [1, 2, 3]))
+
+D = {k: v for(k, v) in zip(['a', 'b', 'c'], [1, 2, 3])}
+```
+
+* In 3.X the dictionary keys , values , and items methods all return view objects, whereas in 2.X they return actual result lists.
+
+* **View objects** are _iterables_, which simply means objects that generate result items _one at a time_, instead of producing the result list all at once in memory.
+
+```python
+keys = D.keys()
+K
+dict_keys(['b', 'c', 'a'])   # view object, not a list
+```
+
+* dictionary views in 3.X are _dynamically reflect future changes_ made to the dictionary after the view object has been created
+
+* Tuples are
+    * Ordered collections of arbitarary objects
+    * Accessed by offset
+    * Of the category "immutable sequence"
+    * Fixed-length, heterogeneous and arbitararily nestable
+    * Arrays of object references
+
+* The **namedtuple** utility, available in the standard library’s _collections_ module implements an extension type that adds logic to tuples that allows components to be accessed by both _position_ and _attribute_ name, and can be converted to dictionary-like form for access by key if desired.
+
+* `namedtuple` are a tuple/class/dictionary _hybrid_.
+```python
+from collections import namedtuple
+Rec = namedtuple('Rec', ['name', 'age', 'jobs'])
+bob = Rect('Bob', 40.5, ['dev', 'mgr'])
+D = bob._asdict()
+```
+
+* The built-in `open` function creates a Python _file object_, which serves as a link to a file residing on your machine. After calling `open` , you can transfer strings of data to and from the associated external file by calling the returned file object’s methods.
+
+![file operations](images/py/py_file_op.png)
+
+* In _binary mode_ end-of-line translations and 3.X Unicode encodings are turned off.
+
+* The `pickle` module is a more advanced tool that allows us to store almost any Python object in a file directly, with no to- or from-string conversion requirement on our part.
+
+```python
+D = {'a': 1, 'b': 2}
+F = open('datafile.pkl', 'wb')
+import pickle
+pickle.dump(D, F)
+F.close()
+
+F = open('datafile.pkl', 'rb')
+E = pickle.load(F)
+E   # {'a': 1, 'b': 2}
+```
+
+* The `pickle` module performs what is known as object _serialization_ convert-
+ing objects to and from strings of bytes.
+
+* `shelve` is a tool that uses `pickle` to store Python objects in an access-by-key filesystem.
+
+* `JSON` is a newer and emerging data interchange format, which is both
+programming-language-neutral and supported by a variety of systems. `MongoDB`, for instance, stores data in a JSON document database (using a binary JSON format).
+
+* JSON is so close to Python dictionaries and lists in syntax, the translation to and from Python objects is trivial, and is automated by the `json` standard library module.
+
+```python
+name = dict(first='Bob', last='Smith')
+rec = dict(name=name, job=['dev', 'mgr'], age=40.5)
+
+import json
+json.dump(rec)
+S = json.dump(rec)
+O = json.loads(S)
+
+json.dump(rec, fp=open('testjson.txt', 'w'), indent=4)
+P = json.load(open('testjson.txt'))
+```
+
+* The `struct` module knows how to both compose and parse packed binary data.
+
+```python
+import struct
+data = struct.pack('>i4sh', 7, b'spam', 8)
+```
+
+* The first character of the format string can be used to indicate the byte order, size and alignment of the packed data. Use `sys.byteorder` to check the endianness of your system.
+
+![Byte Order](images/py/py_byte_order.png)
+
+![format character](images/py/py_format_char.png)
