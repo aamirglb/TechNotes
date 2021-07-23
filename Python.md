@@ -838,3 +838,69 @@ data = struct.pack('>i4sh', 7, b'spam', 8)
 ![Byte Order](images/py/py_byte_order.png)
 
 ![format character](images/py/py_format_char.png)
+
+* File’s `with` **context manager** allows us to wrap file-processing code in a logic layer that ensures that the file will be closed.
+
+```python
+with open('data.txt') as myfile:
+    for line in myfile:
+        ...
+```
+
+* empty-limit slices and the dictionary copy method only make top-level copies for a complete, fully independent copy of a deeply nested data structure, use the standard `copy` module.
+
+```python
+import copy
+X = copy.deepcopy(Y)
+```
+
+* The `==` operator tests value equivalence. The `is` operator tests object identity.
+
+* Python recognizes any _empty_ data structure as _false_ and any _nonempty_ data structure as _true_.
+
+* To preallocate a 100-item list, you can fill it with `None` objects:
+
+```python
+L = [None] * 100
+```
+
+* `None` does not mean “undefined.” That is, None is something, not
+nothing (despite its name!)—it is a real object and a real piece of memory that is created and given a built-in name by Python itself.
+
+* The types standard library module in Python 3.X provides additional type
+names for types that are not available as built-ins.
+
+```python
+import types
+for i, v in enumerate(dir(types)):
+    print(i, '=>', v)
+```
+
+![Python Objects](images/py/py_object_types.png)
+
+* Python prints a [...] whenever it detects a cycle in the object, rather than getting stuck in an infinite loop.
+
+* A _single starred name_, `*X` , can be used in the assignment target in order to collects all items in the sequence not assigned to other names.
+
+```python
+seq = [1, 2, 3, 4]
+a, *b = seq     # a=1 b=[2, 3, 4]
+*a, b = seq     # a=[1, 2, 3] b=4
+a, *b, c = seq  # a=1, b=[2, 3] c=4
+```
+
+* A sequence unpacking assignment always returns a _list_ for multiple matched items, whereas slicing returns a sequence of the same type as the object sliced
+
+```python
+L = [1, 2, 3, 4]
+while L:
+    front, *L = L
+    print(front, L)
+
+*a = seq   # Error
+*a, = seq  # OK
+```
+
+![Reserve Keywords](images/py/py_reserve_kw.png)
+
+Page 354
