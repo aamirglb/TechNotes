@@ -89,3 +89,5 @@ TABLE (subject), DROP INDEX , UPDATE table_name.
 use the `IS NULL` operator.
 
 * `IN` `LIKE` `GLOB` `MATCH` `REGEXP`. These five keywords are logic operators, returning, true, false, or NULL state.
+
+Page 34
