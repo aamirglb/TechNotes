@@ -90,4 +90,141 @@ use the `IS NULL` operator.
 
 * `IN` `LIKE` `GLOB` `MATCH` `REGEXP`. These five keywords are logic operators, returning, true, false, or NULL state.
 
-Page 34
+* SQL commands are divided into four major categories 
+    * Data Definition Language (DDL) : define the structure of tables, views, indexes, and other data containers and objects. `CREATE TABLE`, `DROP VIEW`
+    * Data Manipulation Language (DML): insert, update, delete and query actual data values. `INSERT`, `SELECT`.
+    * Transaction Control Language (TCL): control transactions. `BEGIN`, `COMMIT`
+    * Data Control Language (DCL): grant or revoke access control. `GRANT`, `REVOKE`. SQLite lacks DCL commands.
+
+* DDL commands define the basic structure of the database and are typ-
+ically run when a new database is created.
+
+```shell
+    CREATE TABLE table_name
+    (
+        column_name column_type,
+        [...]
+    );
+```
+
+* Most databases use strong, static column typing. This means that the elements of a column can only hold values compatible with the column’s defined type. SQLite utilizes a dynamic typing technique known as _manifest typing_.
+
+* In the stric sense, SQLite supports only **five** concrete datatypes. These are known as _storage classes_, and represent the different ways SQLite might choose to store data on disk.
+
+    * **NULL**
+    * **Integer**: 1, 2, 3, 4, 6 or 8 bytes in length
+    * **Float**: 8-byte value in processor's native format (IEEE 754 double precision number)
+    * **Text**: A variable-length string, stored using database encoding (UTF-8, UTF-16BE, or UTF-16LE)
+    * **BLOB**: (Binary Large Object) raw bytes, represented as hexadecimal text strings preceded by an `x`. Ex: `x'1234ABCD'`
+
+* Rather than being an absolute type, as in most databases, an SQLite column type (as defined in CREATE TABLE ) becomes more of a suggestion than a hard and fast rule. This is known as a _type affinity_, and essentially represents
+a desired category of type.
+
+* Each table column must have one of five type affinities:
+    * Text: `CHAR`, `CLOB` `TEXT`
+    * Numeric: If no match
+    * Integer: `INT`
+    * Float: `REAL`, `FLOA` `DOUB`
+    * None: `BLOB`
+
+```
+CREATE TABLE table_name
+(
+    column_name column_type  column_constraints...,
+    [... ,]
+    
+    table_constraints,
+    [...]
+);
+```
+
+* To help with date and time defaults, SQLite also includes three special keywords that may be used as a default value: `CURRENT_TIME` , `CURRENT_DATE` , and `CURRENT_TIMESTAMP`.
+
+```
+CREATE TABLE parts
+(
+part_id INTEGER PRIMARY KEY,
+stock   INTEGER DEFAULT 0 NOT NULL,
+desc    TEXT CHECK( desc != '' )  -- empty strings not allowed
+);
+```
+
+* There is some expense in maintaining an index, so be aware that enforcing a UNIQUE column constraint can have performance considerations.
+
+* a single column (or set of columns) can be des-
+ignated as the PRIMARY KEY . Each table can have only one primary key.
+
+* In SQLite, `PRIMARY KEY` does not imply `NOT NULL`. This is in contradiction to the SQL standard and is considered a bug,
+
+* In addition to a `PRIMARY KEY`, columns can also be marked as a `FOREIGN KEY`. These columns reference rows in another (foreign) table. Foreign keys can be used to create links between rows in different tables.
+
+* Compound primary key
+
+```
+CREATE TABLE rooms
+(
+    room_number      INTEGER NOT NULL,
+    building_number  INTEGER NOT NULL,
+    [...,]
+
+    PRIMARY KEY( room_number, building_number )
+);
+```
+
+* Create a table from the output of a query.
+
+```
+CREATE [TEMP] TABLE table_name AS SELECT query_statement;
+```
+
+* SQLite supports a limited version of the ALTER TABLE command. Currently, there are only two operations supported by ALTER TABLE : `add column` and `rename`.
+
+* `DROP TABLE` command is used to delete a table.
+
+```
+DROP TABLE table_name;
+```
+
+* Virtual tables can be used to connect any data source to SQLite, including other databases. A virtual table is created with the `CREATE VIRTUAL TABLE` command.
+
+* Views provide a way to package queries into a predefined object. Once created, views act more or less like read-only tables.
+
+```
+CREATE [TEMP] VIEW view_name AS SELECT query_statement
+```
+
+* A view is fully dynamic. Every time the view is referenced or queried,
+the underlying SELECT statement is run to regenerate the view.
+
+* Indexes (or indices) are a means to optimize database lookups by pre-sorting and indexing one or more columns of a table.
+
+```
+CREATE [UNIQUE] INDEX index_name ON table_name ( column_name [, ...] );
+```
+
+* There are three commands used for adding, modifying, and removing data from the database. `INSERT` adds new rows, `UPDATE` modifies existing rows, and `DELETE` removes rows.
+
+```
+INSERT INTO table_name (column_name [, ...]) VALUES (new_value [, ...]);
+```
+
+* To speed up bulk inserts, it is common to wrap groups of 1,000 to 10,000 `INSERT` statements into a single transaction. Grouping the statement together will substantially increase the overall speed of the inserts by delaying the physical I/O until the end of the transaction.
+
+```
+INSERT INTO table_name (column_name, [...]) SELECT query_statement;
+```
+
+* The `UPDATE` command is used to assign new values to one or more columns of existing rows in a table.
+
+```
+UPDATE table_name SET column_name=new_value [, ...] WHERE expression
+```
+
+* The `DELETE` command is used to delete or remove one or more rows
+from a single table.
+
+```
+DELETE FROM table_name WHERE expression;
+```
+
+Page 49
