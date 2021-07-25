@@ -227,4 +227,25 @@ from a single table.
 DELETE FROM table_name WHERE expression;
 ```
 
-Page 49
+```
+SELECT output_list FROM input_table WHERE row_filter;
+
+sqlite> CREATE TABLE tbl (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, a, b, c);
+sqlite> INSERT INTO tbl (a, b, c) VALUES (10,10,10);
+sqlite> INSERT INTO tbl (a, b, c) VALUES (20,30,35);
+sqlite> INSERT INTO tbl (a, b, c) VALUES (15,19,12);
+sqlite> SELECT a FROM tbl WHERE id=1 OR id=2 OR id=3;
+```
+
+* A _transaction_ is used to group together a series of low-level changes into a single, logical update.
+
+* The standard for reliable, robust transactions is the **ACID** test. ACID stands for _Atomic_, _Consistent_, _Isolated_, and _Durable_.
+
+* SQLite is in autocommit mode. This means that SQLite will automatically
+start a transaction for each command, process the command, and (assuming no errors were generated) automatically commit the transaction.
+
+* The `BEGIN` command is used to start or open a transaction. Once an explicit transaction has been opened, it will remain open until it is committed or rolled back. The keyword TRANSACTION is optional:
+
+```
+BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION]
+```
