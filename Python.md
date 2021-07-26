@@ -903,4 +903,25 @@ while L:
 
 ![Reserve Keywords](images/py/py_reserve_kw.png)
 
-Page 354
+* **Iteration protocol**: Any object with a `__next__` method to advance to a next result, which raises `StopIteration` at the end of the series of results, is considered an iterator in Python.
+
+```python
+# Best practice
+for line in open('script2.py'):   # Use file iterators to read by lines
+    print(line.upper(), end='')   # Calls __next__, catches StopIteration
+
+# Not good, loads entire file in memory
+for line in open('script2.py').readlines():
+    print(line.upper(), end='')
+```
+
+* To simplify manual iteration code, Python 3.X also provides a built-in function, `next`, that automatically calls an object’s `__next__` method.
+
+* List comprehensions may contain _nested loops_, coded as a series of `for` clauses.
+
+```python
+[x+y for x in 'abc' for y in 'xyz']
+['ax', 'ay', 'az', 'bx', 'by', 'bz', 'cx', 'cy', 'cz']
+```
+
+* In 3.X, `range` returns an iterable that generates numbers in the range on demand, instead of building the result list in memory.
