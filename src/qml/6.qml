@@ -10,10 +10,11 @@ Rectangle {
     property int duration: 8*1000
     property alias w: ball.width
     property alias h: ball.height
+    property var colors: ['red', 'white', 'black', 'yellow']
+    property int idx: 0
 
     ListModel {
         id: posModel
-//        ListElement { xPos: 0; yPos: 200 }
     }
 
     Repeater {
@@ -22,11 +23,11 @@ Rectangle {
         z: 90
         delegate: Rectangle {
             width: 10; height: 10; radius: 5;
-            color: "red"
+            color: colors[idx]
             x: xPos+(w/2); y: yPos+(h/2); z: 91
-            Component.onCompleted: {
-                console.log("creating rect at: ", xPos, yPos)
-            }
+//            Component.onCompleted: {
+//                console.log("creating rect at: ", xPos, yPos)
+//            }
         }
     }
 
@@ -72,6 +73,7 @@ Rectangle {
                     ball.x = 0;
                     ball.y = root.height-ball.height;
                     ball.rotation = 0;
+                    idx = Math.random() * 4
                     posModel.clear()
                     anim.restart()
                 }
