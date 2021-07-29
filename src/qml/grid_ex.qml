@@ -31,9 +31,18 @@ Rectangle {
                 color: "white"
             }
         }
-        Repeater {
-            model: 4
-            delegate: rosStatusDelegate
+        ScrollView {
+            contentWidth: root.width
+            contentHeight: root.height - heading.height
+//            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+//            width: root.width
+//            height: root.height - heading.height
+            clip: true
+            ListView {
+//                anchors.fill: parent
+                model: 5
+                delegate: rosStatusDelegate
+            }
         }
     }
 
