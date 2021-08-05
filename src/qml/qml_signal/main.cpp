@@ -6,6 +6,7 @@
 #include <QVariantList>
 #include <QVariantMap>
 #include <QDate>
+#include <QDateTime>
 
 class MyClass: public QObject {
     Q_OBJECT
@@ -34,11 +35,20 @@ int main(int argc, char *argv[]) {
     map.insert("language", "QML");
     map.insert("released", QDate(2010, 9, 21));
 
-    QMetaObject::invokeMethod(item, "readValues",
-        Q_ARG(QVariant, QVariant::fromValue(list)),
-        Q_ARG(QVariant, QVariant::fromValue(map))
-    );
+    // QMetaObject::invokeMethod(item, "readValues",
+    //     Q_ARG(QVariant, QVariant::fromValue(list)),
+    //     Q_ARG(QVariant, QVariant::fromValue(map))
+    // );
 
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QDateTime retValue;
+
+    QMetaObject::invokeMethod(item, "readDate",
+        /*Q_RETURN_ARG(QVariant, retValue),*/
+        Q_ARG(QVariant, QVariant::fromValue(dateTime)));
+
+    qDebug() << "Value returned from QML readDate():" << retValue;
+    
     MyClass myClass;
     QObject::connect(item, SIGNAL(qmlSignal(QString)), &myClass, SLOT(cppSlot(QString)));
 
