@@ -128,4 +128,8 @@
 
  * What GObject adds is more features such as reference counting, inheri-tance, virtual functions, interfaces, signals and more.
 
- 
+ # PyGTK
+
+ * `PyGObject` is a Python module that enables developers to access GObject-based libraries such as GTK+ within Python.
+
+ * gobject-introspection (gi)

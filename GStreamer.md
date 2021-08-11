@@ -181,7 +181,27 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 
 * GStreamer provides two mechanisms to change the playback rate: _Step Events_ and _Seek Events_. Step Events allow skipping a given amount of media besides changing the subsequent playback rate (only to positive values). Seek Events, additionally, allow jumping to any position in the stream and set positive and negative playback rates.
 
-* 
+* GStreamer depends heavily on Glib so you must make sure that the Glib Mainloop is running if you want to catch events on the bus.
+
+* The **playbin** element is an autoplugger which usually plays anything you throw at it, if you have the appropriate plugins installed. 
+
+```
+gst-launch-1.0 audiotestsrc ! alsasink videotestsrc ! xvimagesink
+
+# create a single frame
+gst-launch-1.0 videotestsrc num-buffers=1 ! jpegenc !  filesink location=videotestsrc-frame.jpg
+```
+
+*  If you are using the "name" property you may use the same element more than once. Just put a "." after its name, eg with oggmux here.
+
+```
+gst-launch-1.0 audiotestsrc ! vorbisenc ! oggmux name=mux ! \
+  filesink location=file.ogg videotestsrc ! theoraenc ! mux.
+```
+
+* Capabilities, `Gst.Caps`, is a container where you may store information that you may pass on to a `Gst.PadTemplate`. When you set the pipeline state to either playing or paused the elements pads negotiates what caps to use for the stream. 
+
+
  ```
  gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
 

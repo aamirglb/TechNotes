@@ -1062,3 +1062,4 @@ Registering your c++ object as a type in QML
 `qmlRegisterUncreatableType()`
 `qmlRegisterSingletonType()`
 
+https://www.youtube.com/watch?v=wsrRNqihjE4
