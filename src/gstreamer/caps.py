@@ -4,6 +4,8 @@ gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gst, GObject, Gtk
 
+import random
+
 class GTKMain(Gtk.Window):
     def __init__(self):
         super().__init__(title="videotestsrc-players")
@@ -14,6 +16,12 @@ class GTKMain(Gtk.Window):
         self.fps = 30
         self.width = 640
         self.height = 480
+        self.gray = False
+        self.ball_motion = { 
+            0: 'wavy', 
+            1: 'sweep', 
+            2: 'half-sweep' 
+        }
 
         patterns = [
             "smpte",
@@ -75,6 +83,8 @@ class GTKMain(Gtk.Window):
         self.fps_inc.connect("clicked", self.increase_fps)
         self.fps_dec = Gtk.Button(label="FPS-- ({})".format(self.fps))
         self.fps_dec.connect("clicked", self.decrease_fps)
+        self.grayscale = Gtk.Button(label="Turn {} Grayscale".format('OFF' if self.gray  else 'ON'))
+        self.grayscale.connect("clicked", self.toggle_gray_scale)
 
         vbox.add(self.pattern_combo)
         vbox.add(self.resolution_combo)
@@ -84,6 +94,7 @@ class GTKMain(Gtk.Window):
         vbox.add(self.rotate)
         vbox.add(self.fps_inc)
         vbox.add(self.fps_dec)
+        vbox.add(self.grayscale)
 
         self.state = 'stopped'        
         self.show_all()
@@ -93,7 +104,7 @@ class GTKMain(Gtk.Window):
         # self.source = Gst.ElementFactory.make('v4l2src', 'video-source')
         # self.source.set_property('device', '/dev/video0')
         self.sink = Gst.ElementFactory.make('autovideosink', 'videororation-output')
-        self.caps = Gst.Caps.from_string("video/x-raw, width={}, height={}, framerate={}/1".format(self.width, self.height, self.fps))
+        self.caps = Gst.Caps.from_string("video/x-raw, width={}, height={}, framerate=30/1".format(self.width, self.height))
         self.filter = Gst.ElementFactory.make("capsfilter", "filter")
         self.filter.set_property('caps', self.caps)
         self.overlay = Gst.ElementFactory.make('timeoverlay', 'overlay')
@@ -108,6 +119,7 @@ class GTKMain(Gtk.Window):
         self.fps_txt.set_property('valignment', 1)
         self.fps_txt.set_property('halignment', 0)
 
+        self.converter = Gst.ElementFactory.make('videoconvert')
 
         self.player.add(self.source)
         self.player.add(self.filter)
@@ -115,9 +127,11 @@ class GTKMain(Gtk.Window):
         self.player.add(self.fps_txt)
         self.player.add(self.flip)
         self.player.add(self.sink)
+        self.player.add(self.converter)
 
         self.source.link(self.filter)
-        self.filter.link(self.flip)
+        self.filter.link(self.converter)
+        self.converter.link(self.flip)
         self.flip.link(self.overlay)
         self.overlay.link(self.fps_txt)
         self.fps_txt.link(self.sink)
@@ -192,6 +206,15 @@ class GTKMain(Gtk.Window):
 
     def on_pattern_changed(self, combo):
         self.source.set_property("pattern", self.pattern_combo.get_active())
+        if self.pattern_combo.get_active() == 18:
+            self.source.set_property('background-color', 0xffff0000) 
+            self.source.set_property('foreground-color', 0x00ffff00)
+            motion = random.randint(0, 2)
+            self.source.set_property('motion', motion)
+            print('Setting ball motion to "{}"'.format(self.ball_motion[motion].upper()) )
+        else:
+            self.source.set_property('background-color', 0xff000000) 
+            self.source.set_property('foreground-color', 0xffffffff)
 
     def on_resolution_changed(self, combo):
         r = combo.get_active_text()
@@ -200,6 +223,17 @@ class GTKMain(Gtk.Window):
         # self.resize(self.width, self.height)
         self.caps = Gst.Caps.from_string("video/x-raw, width={}, height={}, framerate={}/1".format(self.width, self.height, self.fps))
         self.filter.set_property('caps', self.caps)
+
+    def toggle_gray_scale(self, w):
+        self.gray = not self.gray
+        print('Turning {} Grayscale'.format('ON' if self.gray else 'OFF'))
+        if self.gray:
+            self.caps = Gst.Caps.from_string("video/x-raw, format=GRAY8, width={}, height={}, framerate={}/1".format(self.width, self.height, self.fps))
+        else:
+            self.caps = Gst.Caps.from_string("video/x-raw, format=YUY2, width={}, height={}, framerate={}/1".format(self.width, self.height, self.fps))
+
+        self.filter.set_property('caps', self.caps)
+        self.grayscale.set_label("Turn {} Grayscale".format('OFF' if self.gray  else 'ON'))
 
 Gst.init(None)
 GTKMain()

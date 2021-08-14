@@ -530,5 +530,12 @@ $ ffmpeg -f video4linux2 -list_formats all -i /dev/video0
 
 ```
 
+* Generate a video from a still image
 
+```shell
+gst-launch-1.0 -v filesrc location=/home/aamir/workspace/programs/TechNotes/images/gstreamer/ball.png ! decodebin ! videoconvert ! imagefreeze ! timeoverlay !  autovideosink
+```
 
+```
+gst-launch-1.0 filesrc location=~/Downloads/ogg_1mb.ogg ! oggdemux ! vorbisdec ! tee name=t ! queue ! audioconvert ! autoaudiosink t. ! queue ! audioconvert ! spectrascope ! ximagesink
+```
