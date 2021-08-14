@@ -538,4 +538,7 @@ gst-launch-1.0 -v filesrc location=/home/aamir/workspace/programs/TechNotes/imag
 
 ```
 gst-launch-1.0 filesrc location=~/Downloads/ogg_1mb.ogg ! oggdemux ! vorbisdec ! tee name=t ! queue ! audioconvert ! autoaudiosink t. ! queue ! audioconvert ! spectrascope ! ximagesink
+
+# display current date and time
+gst-launch-1.0 videotestsrc ! video/x-raw,width=640,height=480 ! clockoverlay font-desc="Sans, 10" shaded-background=true time-format="%a %d-%m-%Y %H:%M:%S" ! autovideosink
 ```
