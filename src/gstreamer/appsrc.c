@@ -1,3 +1,6 @@
+/*
+gcc appsrc2.c -o appsrc2 `pkg-config --cflags --libs gstreamer-1.0`
+*/
 #include <gst/gst.h>
 
 static GMainLoop *loop;
@@ -23,7 +26,7 @@ cb_need_data (GstElement *appsrc,
   gst_buffer_memset (buffer, 0, color, size);
   ++color;
   if(color > 255) color = 0;
-  g_print("color: %d ", color);
+  print("color: %d ", color);
   white = !white;
 
   GST_BUFFER_PTS (buffer) = timestamp;

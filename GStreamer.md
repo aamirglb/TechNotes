@@ -539,3 +539,9 @@ gst-launch-1.0 -v filesrc location=/home/aamir/workspace/programs/TechNotes/imag
 ```
 gst-launch-1.0 filesrc location=~/Downloads/ogg_1mb.ogg ! oggdemux ! vorbisdec ! tee name=t ! queue ! audioconvert ! autoaudiosink t. ! queue ! audioconvert ! spectrascope ! ximagesink
 ```
+
+* sync=false is important otherwise video will freeze.
+
+```
+gst-launch-1.0 -vv -e videotestsrc ! video/x-raw,width=640,height=480 ! timeoverlay shaded-background=true ! tee name=t ! queue leaky=1 ! autovideosink sync=false t. ! queue ! x264enc ! mpegtsmux ! filesink location=testvideo.mp4
+```

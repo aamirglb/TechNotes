@@ -61,6 +61,7 @@ class GTKMain(Gtk.Window):
         resolutions = [
                 "320x240",
                 "640x480",
+                "720x480",
                 "1024x768",
                 "1920x1080",
          ]
@@ -206,7 +207,9 @@ class GTKMain(Gtk.Window):
 
     def on_pattern_changed(self, combo):
         self.source.set_property("pattern", self.pattern_combo.get_active())
-        if self.pattern_combo.get_active() == 18:
+        if self.pattern_combo.get_active() == 14:
+            self.source.set_property('kyt', 0x7fffffff)
+        elif self.pattern_combo.get_active() == 18:
             self.source.set_property('background-color', 0xffff0000) 
             self.source.set_property('foreground-color', 0x00ffff00)
             motion = random.randint(0, 2)
