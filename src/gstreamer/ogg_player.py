@@ -35,9 +35,6 @@ def bus_call(bus, message, loop, pipeline):
                 value = taglist.get_value_index(tag, i)
                 print(value, end=", ")
             print("")
-
-
-
     elif t == Gst.MessageType.STATE_CHANGED:
         old_state, new_state, pending_state = message.parse_state_changed()
         if message.src == pipeline:
