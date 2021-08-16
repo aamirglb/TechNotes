@@ -545,3 +545,7 @@ gst-launch-1.0 filesrc location=~/Downloads/ogg_1mb.ogg ! oggdemux ! vorbisdec !
 ```
 gst-launch-1.0 -vv -e videotestsrc ! video/x-raw,width=640,height=480 ! timeoverlay shaded-background=true ! tee name=t ! queue leaky=1 ! autovideosink sync=false t. ! queue ! x264enc ! mpegtsmux ! filesink location=testvideo.mp4
 ```
+
+# display current date and time
+gst-launch-1.0 videotestsrc ! video/x-raw,width=640,height=480 ! clockoverlay font-desc="Sans, 10" shaded-background=true time-format="%a %d-%m-%Y %H:%M:%S" ! autovideosink
+```
