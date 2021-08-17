@@ -76,6 +76,7 @@ def cb_print_position(pipeline):
 # References: 
 # https://gist.github.com/tylercubell/3bdf6e4ce7691907d1f0175a2d8747c0
 # https://github.com/gkralik/python-gst-tutorial/blob/master/basic-tutorial-4.py
+# https://coaxion.net/blog/2014/01/gstreamer-dynamic-pipelines/
 def on_pad_added(element, pad, decoder):
     pad_type = pad.get_current_caps().get_structure(0).get_name()
     print('pad_type {}'.format(pad_type))

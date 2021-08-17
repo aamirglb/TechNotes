@@ -549,3 +549,9 @@ gst-launch-1.0 -vv -e videotestsrc ! video/x-raw,width=640,height=480 ! timeover
 # display current date and time
 gst-launch-1.0 videotestsrc ! video/x-raw,width=640,height=480 ! clockoverlay font-desc="Sans, 10" shaded-background=true time-format="%a %d-%m-%Y %H:%M:%S" ! autovideosink
 ```
+
+# References: 
+# https://gist.github.com/tylercubell/3bdf6e4ce7691907d1f0175a2d8747c0
+# https://github.com/gkralik/python-gst-tutorial/blob/master/basic-tutorial-4.py
+# https://coaxion.net/blog/2014/01/gstreamer-dynamic-pipelines/
+

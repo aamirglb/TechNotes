@@ -25,6 +25,7 @@ class MainWindow(Gtk.Window):
         vbox.add(self.snapshot)
         self.show_all()
 
+        self.tee_pad_name = None
         self.recording = False
         self.imgidx = 0
         self.pipeline      = Gst.Pipeline.new('pipeline')
@@ -86,8 +87,9 @@ class MainWindow(Gtk.Window):
     def start_video(self, widget):
         self.pipeline.set_state(Gst.State.PLAYING)
 
-    def pad_probe_cb(self, pad, info):
+    def pad_probe_cb(self, pad, info, p1, p2):
         print("pad blocked")
+        p1.unlink(p2)
         Gst.Pad.remove_probe(pad, info.id)
         # Gst.Pad.send_event(pad, Gst.Event.new_eos())
 
@@ -124,20 +126,22 @@ class MainWindow(Gtk.Window):
             print("Starting recording 'testvideo-{0:02}.mp4'".format(self.imgidx))
             self.recbin.set_state(Gst.State.PAUSED)
             self.pipeline.add(self.recbin)
-
+            self.recbin.set_state(Gst.State.PLAYING)
             pad = Gst.Element.get_request_pad(self.tee, 'src_%u')
+            self.tee_pad_name = Gst.Pad.get_name(pad)
+            print('pad name: {} added'.format(self.tee_pad_name))
             bin_pad = Gst.Element.get_static_pad(self.recbin, 'sink')
             pad.link(bin_pad)
-            self.recbin.set_state(Gst.State.PLAYING)
+            
             self.recording = True
         else:
             # stop recording
             self.recording = False
-            pad = Gst.Element.get_static_pad(self.tee, 'src_1')
+            pad = Gst.Element.get_static_pad(self.tee, self.tee_pad_name)
             bin_pad = Gst.Element.get_static_pad(self.recbin, 'sink')
-            pad.add_probe(Gst.PadProbeType.BLOCK_DOWNSTREAM, self.pad_probe_cb)
+            pad.add_probe(Gst.PadProbeType.BLOCK_DOWNSTREAM, self.pad_probe_cb, pad, bin_pad)
             self.recbin.set_state(Gst.State.NULL)
-            pad.unlink(bin_pad)
+            # pad.unlink(bin_pad)
             self.pipeline.remove(self.recbin)
             
         
