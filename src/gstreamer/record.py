@@ -13,6 +13,11 @@ class MainWindow(Gtk.Window):
     def __init__(self):
         super().__init__(title="GStreamer")
         self.connect('destroy', Gtk.main_quit)
+
+        self.tee_pad_name = None
+        self.recording = False
+        self.imgidx = 0
+
         vbox = Gtk.VBox(spacing=6)
         self.add(vbox)
 
@@ -20,17 +25,18 @@ class MainWindow(Gtk.Window):
         self.start.connect('clicked', self.start_video)
         self.snapshot = Gtk.Button(label='Snapshot')
         self.snapshot.connect('clicked', self.on_snapshot_click)
+        self.record = Gtk.Button(label='{} Recording'.format('STOP' if self.recording else 'START'))
+        self.record.connect('clicked', self.on_record_click)
 
         vbox.add(self.start)
         vbox.add(self.snapshot)
+        vbox.add(self.record)
         self.show_all()
 
-        self.tee_pad_name = None
-        self.recording = False
-        self.imgidx = 0
+        
         self.pipeline      = Gst.Pipeline.new('pipeline')
         self.source        = Gst.ElementFactory.make('videotestsrc', 'source')
-        self.timestamp     = Gst.ElementFactory.make('timeoverlay', 'timestamp')
+        self.clock         = Gst.ElementFactory.make('clockoverlay', 'clock')
         self.tee           = Gst.ElementFactory.make('tee', 'tee')
         self.q1            = Gst.ElementFactory.make('queue', 'q1')
         self.sink          = Gst.ElementFactory.make('autovideosink', 'sink')
@@ -61,7 +67,7 @@ class MainWindow(Gtk.Window):
         # Set caps and properties
         self.srccaps = Gst.Caps.from_string('video/x-raw,width=640,height=480,framerate=30/1')
         self.srccapsfilter.set_property('caps', self.srccaps)
-        self.timestamp.set_property('shaded-background', True)
+        self.clock.set_property('shaded-background', True)
 
         # self.ratefiltercaps = Gst.Caps.from_string('video/x-raw,framerate=1/1')
         # self.ratefilter.set_property('caps', self.ratefiltercaps)
@@ -70,19 +76,22 @@ class MainWindow(Gtk.Window):
         self.pipeline.add(self.source)
         self.pipeline.add(self.tee)
         self.pipeline.add(self.q1)
-        self.pipeline.add(self.timestamp)
+        self.pipeline.add(self.clock)
         self.pipeline.add(self.sink)
         self.pipeline.add(self.srccapsfilter)
 
         self.source.link(self.srccapsfilter)
-        self.srccapsfilter.link(self.timestamp)
-        self.timestamp.link(self.tee)
+        self.srccapsfilter.link(self.clock)
+        self.clock.link(self.tee)
         self.tee.link(self.q1)
         self.q1.link(self.sink)
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
         self.bus.connect("message", self.on_message)
+
+    def __update_record_button(self):
+        self.record.set_label('{} Recording'.format('STOP' if self.recording else 'START'))
 
     def start_video(self, widget):
         self.pipeline.set_state(Gst.State.PLAYING)
@@ -95,30 +104,45 @@ class MainWindow(Gtk.Window):
 
         return Gst.PadProbeReturn.OK
 
-# stPad * pad, GstPadProbeInfo * info, gpointer user_data)
-# {
-#   GstPad *srcpad, *sinkpad;
-
-#   GST_DEBUG_OBJECT (pad, "pad is blocked now");
-
-#   /* remove the probe first */
-#   gst_pad_remove_probe (pad, GST_PAD_PROBE_INFO_ID (info));
-
-#   /* install new probe for EOS */
-#   srcpad = gst_element_get_static_pad (cur_effect, "src");
-#   gst_pad_add_probe (srcpad, GST_PAD_PROBE_TYPE_BLOCK |
-#       GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM, event_probe_cb, user_data, NULL);
-#   gst_object_unref (srcpad);
-
-#   /* push EOS into the element, the probe will be fired when the
-#    * EOS leaves the effect and it has thus drained all of its data */
-#   sinkpad = gst_element_get_static_pad (cur_effect, "sink");
-#   gst_pad_send_event (sinkpad, gst_event_new_eos ());
-#   gst_object_unref (sinkpad);
-
-#   return GST_PAD_PROBE_OK;
-
     def on_snapshot_click(self, widget):
+        # Create a bin for snapshot
+        snapbin   = Gst.Bin.new('snap_bin')
+        q         = Gst.ElementFactory.make('queue', 'q')
+        encoder   = Gst.ElementFactory.make('jpegenc', 'encoder')        
+        sink      = Gst.ElementFactory.make('filesink', 'filesink')
+        encoder.set_property('snapshot', True)
+        sink.set_property('location', 'img-{0:02}.jpeg'.format(self.imgidx))
+
+        # create a ghost pad for recording bin
+        pad = Gst.Element.get_static_pad(q, 'sink')
+        ghost_pad = Gst.GhostPad.new('sink', pad)
+        ghost_pad.set_active(True)
+        snapbin.add_pad(ghost_pad)
+
+        snapbin.set_state(Gst.State.PAUSED)
+        snapbin.add(q)
+        snapbin.add(encoder)
+        snapbin.add(sink)
+        self.pipeline.add(snapbin)
+        snapbin.set_state(Gst.State.PLAYING)
+
+        q.link(encoder)
+        encoder.link(sink)
+
+        # request a pad from tee
+        teepad = Gst.Element.get_request_pad(self.tee, 'src_%u')
+        # q_pad = Gst.Element.get_static_pad(q, 'sink')
+        teepad.link(ghost_pad)
+        print('Image "img-{0:02}.jpeg" Captured'.format(self.imgidx))
+        self.imgidx += 1
+        GLib.timeout_add(1500, self.snap_timeout, snapbin)
+        
+
+    def snap_timeout(self, bin):
+        bin.set_state(Gst.State.NULL)
+        self.pipeline.remove(bin)
+
+    def on_record_click(self, widget):
         # if recording not started
         if not self.recording:
             self.imgidx += 1
@@ -143,8 +167,8 @@ class MainWindow(Gtk.Window):
             self.recbin.set_state(Gst.State.NULL)
             # pad.unlink(bin_pad)
             self.pipeline.remove(self.recbin)
-            
-        
+        self.__update_record_button()
+
     def on_message(self, bus, message):
         t = message.type
         if t == Gst.MessageType.EOS:

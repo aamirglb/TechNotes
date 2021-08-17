@@ -17,8 +17,8 @@ cb_need_data (GstElement *appsrc,
   guint size;
   GstFlowReturn ret;
 
-  size = 385 * 288 * 2;
-
+  size = 640 * 480 * 2;
+  
   buffer = gst_buffer_new_allocate (NULL, size, NULL);
 
   /* this makes the image black/white */
@@ -26,8 +26,18 @@ cb_need_data (GstElement *appsrc,
   gst_buffer_memset (buffer, 0, color, size);
   ++color;
   if(color > 255) color = 0;
-  print("color: %d ", color);
+  g_print("color: %d ", color);
   white = !white;
+
+  int grid_size = size/32;
+  for(int i = 0; i < 32; i++) {
+    if(i % 2 == 0)
+      gst_buffer_memset(buffer, i*grid_size, 0x0, grid_size);    
+    else
+      gst_buffer_memset(buffer, i*grid_size, 0xFF, grid_size);
+  }
+  // gst_buffer_memset(buffer, 0, 0x0, size/2);
+  // gst_buffer_memset(buffer, size/2, 0xFF, size/2);
 
   GST_BUFFER_PTS (buffer) = timestamp;
   GST_BUFFER_DURATION (buffer) = gst_util_uint64_scale_int (1, GST_SECOND, 2);

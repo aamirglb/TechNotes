@@ -550,6 +550,13 @@ gst-launch-1.0 -vv -e videotestsrc ! video/x-raw,width=640,height=480 ! timeover
 gst-launch-1.0 videotestsrc ! video/x-raw,width=640,height=480 ! clockoverlay font-desc="Sans, 10" shaded-background=true time-format="%a %d-%m-%Y %H:%M:%S" ! autovideosink
 ```
 
+```
+gst-launch-1.0 videotestsrc ! intervideosink channel=vid0 intervideosrc channel=vid0 ! xvimagesink
+
+# Snapshot
+gst-launch-1.0 videotestsrc num-buffers=50 ! video/x-raw,width=640,height=512 ! clockoverlay !  videoconvert ! jpegenc snapshot=true ! filesink location="test.jpeg"
+```
+
 # References: 
 # https://gist.github.com/tylercubell/3bdf6e4ce7691907d1f0175a2d8747c0
 # https://github.com/gkralik/python-gst-tutorial/blob/master/basic-tutorial-4.py

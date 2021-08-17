@@ -8,94 +8,14 @@ import random
 
 class GTKMain(Gtk.Window):
     def __init__(self):
-        super().__init__(title="videotestsrc-players")
-        self.connect('destroy', Gtk.main_quit, "WM destroy")
-        vbox = Gtk.VBox(spacing=6)
-        self.add(vbox)
+        super().__init__(title="videotestsrc-players")        
 
         self.fps = 30
         self.width = 640
         self.height = 480
         self.gray = False
-        self.ball_motion = { 
-            0: 'wavy', 
-            1: 'sweep', 
-            2: 'half-sweep' 
-        }
-
-        patterns = [
-            "smpte",
-            "snow",
-            "black",
-            "white",
-            "red",
-            "green",
-            "blue",
-            "checkers-1",
-            "checkers-2",
-            "checkers-4",
-            "checkers-8",
-            "circular",
-            "blink",
-            "smpte75",
-            "zone-plate",
-            "gamut",
-            "chroma-zone-plate",
-            "solid-color",
-            "ball",
-            "smpte100",
-            "bar",
-            "pinwheel",
-            "spokes",
-            "gradient",
-            "colors",
-        ]
-        self.pattern_combo = Gtk.ComboBoxText()
-        self.pattern_combo.set_entry_text_column(0)        
-        for pattern in patterns:
-            self.pattern_combo.append_text(pattern)
-
-        self.pattern_combo.set_active(0)
-        # vbox.pack_start(self.pattern_combo, False, False, 0)
-
-        resolutions = [
-                "320x240",
-                "640x480",
-                "720x480",
-                "1024x768",
-                "1920x1080",
-         ]
         
-        self.resolution_combo = Gtk.ComboBoxText()
-        self.resolution_combo.set_entry_text_column(0)
-        
-        for r in resolutions:
-            self.resolution_combo.append_text(r)
-
-        self.start = Gtk.Button(label="Start")
-        self.start.connect("clicked", self.start_video)
-        self.stop = Gtk.Button(label="Stop")
-        self.stop.connect("clicked", self.stop_video)
-        self.pause = Gtk.Button(label="Pause")
-        self.pause.connect("clicked", self.pause_video)
-        self.rotate = Gtk.Button(label="Rotate(+90\xB0)")
-        self.rotate.connect("clicked", self.rotate_video)
-        self.fps_inc = Gtk.Button(label="FPS++ ({})".format(self.fps))
-        self.fps_inc.connect("clicked", self.increase_fps)
-        self.fps_dec = Gtk.Button(label="FPS-- ({})".format(self.fps))
-        self.fps_dec.connect("clicked", self.decrease_fps)
-        self.grayscale = Gtk.Button(label="Turn {} Grayscale".format('OFF' if self.gray  else 'ON'))
-        self.grayscale.connect("clicked", self.toggle_gray_scale)
-
-        vbox.add(self.pattern_combo)
-        vbox.add(self.resolution_combo)
-        vbox.add(self.start)
-        vbox.add(self.pause)
-        vbox.add(self.stop)
-        vbox.add(self.rotate)
-        vbox.add(self.fps_inc)
-        vbox.add(self.fps_dec)
-        vbox.add(self.grayscale)
+        self.setupUi()
 
         self.state = 'stopped'        
         self.show_all()
@@ -149,6 +69,71 @@ class GTKMain(Gtk.Window):
         #     print('fps_changed signal')
 
         # self.connect('fps_changed', self.on_fps_changed)
+
+    def setupUi(self):
+        self.connect('destroy', Gtk.main_quit, "WM destroy")
+        self.vbox = Gtk.VBox(spacing=6)
+        self.add(self.vbox)
+
+        self.ball_motion = { 
+            0: 'wavy', 1: 'sweep', 2: 'half-sweep' 
+        }
+
+        self.patterns = [
+            "smpte",              "snow",        "black",       "white",
+            "red",                "green",       "blue",        "checkers-1",
+            "checkers-2",         "checkers-4",  "checkers-8",  "circular",
+            "blink",              "smpte75",     "zone-plate",  "gamut",
+            "chroma-zone-plate",  "solid-color", "ball",        "smpte100",
+            "bar",                "pinwheel",    "spokes",      "gradient",
+            "colors",
+        ]
+        self.pattern_combo = Gtk.ComboBoxText()
+        self.pattern_combo.set_entry_text_column(0)        
+        for pattern in self.patterns:
+            self.pattern_combo.append_text(pattern)
+
+        self.pattern_combo.set_active(0)
+        # vbox.pack_start(self.pattern_combo, False, False, 0)
+
+        resolutions = [
+                "320x240",
+                "640x480",
+                "720x480",
+                "1024x768",
+                "1920x1080",
+         ]
+        
+        self.resolution_combo = Gtk.ComboBoxText()
+        self.resolution_combo.set_entry_text_column(0)
+        
+        for r in resolutions:
+            self.resolution_combo.append_text(r)
+
+        self.start = Gtk.Button(label="Start")
+        self.start.connect("clicked", self.start_video)
+        self.stop = Gtk.Button(label="Stop")
+        self.stop.connect("clicked", self.stop_video)
+        self.pause = Gtk.Button(label="Pause")
+        self.pause.connect("clicked", self.pause_video)
+        self.rotate = Gtk.Button(label="Rotate(+90\xB0)")
+        self.rotate.connect("clicked", self.rotate_video)
+        self.fps_inc = Gtk.Button(label="FPS++ ({})".format(self.fps))
+        self.fps_inc.connect("clicked", self.increase_fps)
+        self.fps_dec = Gtk.Button(label="FPS-- ({})".format(self.fps))
+        self.fps_dec.connect("clicked", self.decrease_fps)
+        self.grayscale = Gtk.Button(label="Turn {} Grayscale".format('OFF' if self.gray  else 'ON'))
+        self.grayscale.connect("clicked", self.toggle_gray_scale)
+
+        self.vbox.add(self.pattern_combo)
+        self.vbox.add(self.resolution_combo)
+        self.vbox.add(self.start)
+        self.vbox.add(self.pause)
+        self.vbox.add(self.stop)
+        self.vbox.add(self.rotate)
+        self.vbox.add(self.fps_inc)
+        self.vbox.add(self.fps_dec)
+        self.vbox.add(self.grayscale)
 
     def on_message(self, bus, message):
         t = message.type
