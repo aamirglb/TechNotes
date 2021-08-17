@@ -124,13 +124,6 @@ class Source(GObject.Object):
             self.source.set_property('background-color', 0xff000000) 
             self.source.set_property('foreground-color', 0xffffffff)
 
-    # def change_resolution(self, resolution):
-    #     w, h = resolution.split('x')
-    #     self.__width, self.__height = int(w), int(h)
-    #     caps = Gst.Caps.from_string('video/x-raw,width={},height={},framerate={}/1'.format(
-    #                             self.__width, self.__height, self.__fps))
-    #     self.ratefilter.set_property('caps', caps)
-
 class Streamer:
     def __init__(self, channel):
         self.__pipeline = Gst.Pipeline.new('pipeline')
@@ -162,13 +155,6 @@ class Streamer:
 
     def stop(self):
         self.__pipeline.set_state(Gst.State.NULL)
-
-    def change_resolution(self, resolution):
-        w, h = resolution.split('x')
-        self.__width, self.__height = int(w), int(h)
-        caps = Gst.Caps.from_string('video/x-raw,width={},height={},framerate={}/1'.format(
-                                self.__width, self.__height, self.__fps))
-        self.ratefilter.set_property('caps', caps)
 
 class Snapshoter:
     def __init__(self, channel):
@@ -248,10 +234,11 @@ class Manager(Gtk.Window):
         
         self.resolution_combo = Gtk.ComboBoxText()
         self.resolution_combo.set_entry_text_column(0)
-        
+
         for res in self.resolutions:
             self.resolution_combo.append_text(res)
-
+        self.resolution_combo.set_active(1)
+        
         self.start = Gtk.Button(label='Start')
         self.start.connect('clicked', self.on_start_click)
         self.pause = Gtk.Button(label='Pause')
@@ -276,10 +263,6 @@ class Manager(Gtk.Window):
         vbox.add(self.snapshot)
         self.show_all()
 
-        self.pattern_combo.connect("changed", self.on_pattern_changed)
-        self.resolution_combo.connect('changed', self.on_resolution_changed)
-        self.resolution_combo.set_active(1)
-
     def on_start_click(self, widget):
         if self.__paused:
             self.streamer.start()
@@ -293,6 +276,10 @@ class Manager(Gtk.Window):
             self.streamer.start()
             self.snap = Snapshoter('vid0')
             self.imgidx = 0
+
+            self.pattern_combo.connect("changed", self.on_pattern_changed)
+            self.resolution_combo.connect('changed', self.on_resolution_changed)
+
         self.start.set_sensitive(False)
         self.pause.set_sensitive(True)
         self.stop.set_sensitive(True)
