@@ -17,7 +17,7 @@ cb_need_data (GstElement *appsrc,
   guint size;
   GstFlowReturn ret;
 
-  size = 640 * 480 * 2;
+  size = 640 * 480 * 3;
   
   buffer = gst_buffer_new_allocate (NULL, size, NULL);
 
@@ -29,13 +29,37 @@ cb_need_data (GstElement *appsrc,
   g_print("color: %d ", color);
   white = !white;
 
-  int grid_size = size/32;
-  for(int i = 0; i < 32; i++) {
-    if(i % 2 == 0)
-      gst_buffer_memset(buffer, i*grid_size, 0x0, grid_size);    
-    else
-      gst_buffer_memset(buffer, i*grid_size, 0xFF, grid_size);
+  for(int i = 0; i < size/9; i++) {
+    // set red channel
+    gst_buffer_memset(buffer, (i*3), 0xFF, 1);
+    // set green channel
+    gst_buffer_memset(buffer, (i*3)+1, 0x0, 1);
+    // set blue channel
+    gst_buffer_memset(buffer, (i*3)+2, 0x0, 1);
   }
+  for(int i = size/9; i < (size/9)*2; i++) {
+    // set red channel
+    gst_buffer_memset(buffer, (i*3), 0x0, 1);
+    // set green channel
+    gst_buffer_memset(buffer, (i*3)+1, 0xFF, 1);
+    // set blue channel
+    gst_buffer_memset(buffer, (i*3)+2, 0x0, 1);
+  }
+  for(int i = (size/9)*2; i < size; i++) {
+    // set red channel
+    gst_buffer_memset(buffer, (i*3), 0x0, 1);
+    // set green channel
+    gst_buffer_memset(buffer, (i*3)+1, 0x0, 1);
+    // set blue channel
+    gst_buffer_memset(buffer, (i*3)+2, 0xFF, 1);
+  }
+  // int grid_size = size/32;
+  // for(int i = 0; i < 32; i++) {
+  //   if(i % 2 == 0)
+  //     gst_buffer_memset(buffer, i*grid_size, 0x0, grid_size);    
+  //   else
+  //     gst_buffer_memset(buffer, i*grid_size, 0xFF, grid_size);
+  // }
   // gst_buffer_memset(buffer, 0, 0x0, size/2);
   // gst_buffer_memset(buffer, size/2, 0xFF, size/2);
 
@@ -72,9 +96,9 @@ main (gint   argc,
   /* setup */
   g_object_set (G_OBJECT (appsrc), "caps",
         gst_caps_new_simple ("video/x-raw",
-                     "format", G_TYPE_STRING, "RGB16",
-                     "width", G_TYPE_INT, 384,
-                     "height", G_TYPE_INT, 288,
+                     "format", G_TYPE_STRING, "RGB",
+                     "width", G_TYPE_INT, 640,
+                     "height", G_TYPE_INT, 480,
                      "framerate", GST_TYPE_FRACTION, 0, 1,
                      NULL), NULL);
   gst_bin_add_many (GST_BIN (pipeline), appsrc, conv, videosink, NULL);

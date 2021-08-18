@@ -27,8 +27,8 @@ class Source(GObject.Object):
         self.fps_overlay = Gst.ElementFactory.make('textoverlay', 'textoverlay')
         self.capsfilter  = Gst.ElementFactory.make('capsfilter', 'capsfilter')
         self.videoflip   = Gst.ElementFactory.make('videoflip', 'flip')
-        # videorate        = Gst.ElementFactory.make('videorate', 'videorate')
-        # self.ratefilter  = Gst.ElementFactory.make('capsfilter', 'ratefilter')
+        videorate        = Gst.ElementFactory.make('videorate', 'videorate')
+        self.ratefilter  = Gst.ElementFactory.make('capsfilter', 'ratefilter')
         intervideosink   = Gst.ElementFactory.make('intervideosink', 'intervideosink')
 
         self.source.set_property('pattern', 0)
@@ -49,8 +49,8 @@ class Source(GObject.Object):
         self.__pipeline.add(self.fps_overlay)
         self.__pipeline.add(time_overlay)
         self.__pipeline.add(self.videoflip)
-        # self.__pipeline.add(videorate)
-        # self.__pipeline.add(self.ratefilter)
+        self.__pipeline.add(videorate)
+        self.__pipeline.add(self.ratefilter)
         self.__pipeline.add(intervideosink)
 
         self.source.link(self.capsfilter)
@@ -58,9 +58,9 @@ class Source(GObject.Object):
         clock.link(self.fps_overlay)
         self.fps_overlay.link(time_overlay)
         time_overlay.link(self.videoflip)
-        self.videoflip.link(intervideosink)
-        # self.videoflip.link(self.ratefilter)
-        # self.ratefilter.link(intervideosink)
+        self.videoflip.link(videorate)
+        videorate.link(self.ratefilter)
+        self.ratefilter.link(intervideosink)
 
         bus = self.__pipeline.get_bus()
         bus.add_signal_watch()
@@ -93,7 +93,8 @@ class Source(GObject.Object):
         caps = Gst.Caps.from_string('video/x-raw,width={},height={},framerate={}/1'.format(
                                 self.__width, self.__height, self.__fps))
         self.capsfilter.set_property('caps', caps)
-        # self.ratefilter.set_property('caps', caps)
+        caps2 = Gst.Caps.from_string('video/x-raw,framerate={}/1'.format(self.__fps))
+        self.ratefilter.set_property('caps', caps2)
         self.__pipeline.set_state(Gst.State.PLAYING)
 
     def pause(self):
@@ -108,6 +109,12 @@ class Source(GObject.Object):
             self.__flip_angle = 0
         print("Flipping video by: {}\xB0".format(self.__flip_angle*90))
         self.videoflip.set_property('video-direction', self.__flip_angle)
+
+    def set_fps(self, fps):
+        self.__fps = fps
+        caps = Gst.Caps.from_string('video/x-raw,framerate={}/1'.format(self.__fps))
+        self.ratefilter.set_property('caps', caps)
+        self.fps_overlay.set_property('text', 'FPS: {}'.format(self.__fps))
 
     def change_pattern(self, pattern):
         global ball_motion
@@ -195,6 +202,7 @@ class Snapshoter:
                                             Gst.Element.state_get_name(pending)))
         if change == Gst.StateChangeReturn.SUCCESS or change == Gst.StateChangeReturn.NO_PREROLL:
             if state == Gst.State.NULL:
+                print('Saving Snapshot as {}'.format(self.__filepath))
                 self.__update_file_location()
                 self.__pipeline.set_state(Gst.State.PLAYING)
            
@@ -203,6 +211,7 @@ class Manager(Gtk.Window):
         super().__init__(title="GStreamer")
         self.connect('destroy', Gtk.main_quit)
         self.__paused = False
+        self.__fps = 25
 
         vbox = Gtk.VBox(spacing=6)
         self.add(vbox)
@@ -254,12 +263,24 @@ class Manager(Gtk.Window):
         self.snapshot.connect('clicked', self.on_snapshot_click)
         self.snapshot.set_sensitive(False)
 
+        self.setfps = Gtk.Button(label='Set FPS')
+        self.setfps.connect('clicked', self.on_setfps_click)
+        self.fpsentry = Gtk.Entry()
+        self.fpsentry.set_text(str(self.__fps))
+        self.fpsentry.set_max_length(2)
+        self.fpsentry.set_width_chars(6)
+        hbox = Gtk.Box(spacing=6)
+        hbox.add(self.setfps)
+        hbox.add(self.fpsentry)
+        # vbox.pack_start(self.entry, True, True, 0)
+
         vbox.add(self.pattern_combo)
         vbox.add(self.resolution_combo)
         vbox.add(self.start)
         vbox.add(self.pause)
         vbox.add(self.stop)
         vbox.add(self.rotate)
+        vbox.add(hbox)
         vbox.add(self.snapshot)
         self.show_all()
 
@@ -316,6 +337,12 @@ class Manager(Gtk.Window):
     def on_rotate_click(self, widget):
         self.source.flip()
 
+    def on_setfps_click(self, widget):
+        try:
+            fps = int(self.fpsentry.get_text())
+            self.source.set_fps(fps)
+        except:
+            pass
 def main(args):
     Gst.init(None)
     Manager()
