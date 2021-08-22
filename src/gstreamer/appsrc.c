@@ -46,51 +46,29 @@ cb_need_data (GstElement *appsrc,
     0x0000FF,
     0xFFFF00,
     0xFF00FF,
+    0x00FFFF,
+    0x7F00FF,
+    0x800000,
+    0x808080,
   };
-  static int col_idx = 0;
+  static int len = sizeof(color_arr)/sizeof(color_arr[0]);
+  static guint col_idx = 0;
+  const int max_cells = 5;
+  int gwidth = width/max_cells;
+  int hwidth = height/max_cells;
 
-  int gwidth = width/5;
+  gst_buffer_memset (buffer, 0, 0x0, size);
 
-  gst_buffer_memset (buffer, 0, 0xff, size);
   for(int blk=0; blk < width/gwidth; ++blk) {
-    for(int i=0; i<height; ++i) {
-      for(int j=(blk*gwidth); j<(blk*gwidth)+gwidth; ++j) {
-        if(blk==0) {
-          set_color(buffer, (i*width*3)+(j*3), color_arr[ col_idx % 5]);
-        } else if(blk == 1) {
-          set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+1) % 5]);
-        } else if(blk == 2) {
-          set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+2) % 5]);
-        } else if(blk == 3) {
-          set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+3) % 5]);
-        } else if(blk == 4) {
-          set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+4) % 5]);
+    for(int k=0; k<height/hwidth; k++) {
+      for(int i=(k*hwidth); i< (k*hwidth)+hwidth; ++i) {
+        for(int j=(blk*gwidth); j<(blk*gwidth)+gwidth; ++j) {
+          set_color(buffer, (i*width*3)+(j*3), color_arr[ (blk+col_idx) % len]);
         }
       }
+      col_idx++;
     }
   }
-
-  col_idx += 1;
-  if(col_idx >= 5) col_idx = 0;
-  int bsize = height/5;
-
-  // for(int blk=0; blk < height/bsize; ++blk) {
-  //   for(int i=(blk*bsize); i<(blk*bsize)+bsize; ++i) {
-  //     for(int j=0; j<width; ++j) {
-  //       if(blk==0) {
-  //         set_color(buffer, (i*width*3)+(j*3), color_arr[ col_idx % 5]);
-  //       } else if(blk == 1) {
-  //         set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+1) % 5]);
-  //       } else if(blk == 2) {
-  //         set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+2) % 5]);
-  //       } else if(blk == 3) {
-  //         set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+3) % 5]);
-  //       } else if(blk == 4) {
-  //         set_color(buffer, (i*width*3)+(j*3), color_arr[ (col_idx+4) % 5]);
-  //       }
-  //     }
-  //   }
-  // }
 
   GST_BUFFER_PTS (buffer) = timestamp;
   GST_BUFFER_DURATION (buffer) = gst_util_uint64_scale_int (1, GST_SECOND, 2);
