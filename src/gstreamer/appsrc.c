@@ -5,6 +5,23 @@ gcc appsrc2.c -o appsrc2 `pkg-config --cflags --libs gstreamer-1.0`
 
 static GMainLoop *loop;
 
+static int color_arr[] = {
+    0xFF0000,
+    0x00FF00,
+    0x0000FF,
+    0xFFFF00,
+    0xFF00FF,
+    0x00FFFF,
+    0x7F00FF,
+    0x800000,
+    0x808080,
+  };
+static int len = sizeof(color_arr)/sizeof(color_arr[0]);
+static guint col_idx = 0;
+static guint flow_cnt = 0;
+static const int max_cells = 5;
+static guint time_count = 0;
+
 static void set_color(GstBuffer *buf, int offset, int color) {
     int r = (color & 0xFF0000) >> 16;
     int g = (color & 0x00FF00) >> 8;
@@ -12,6 +29,68 @@ static void set_color(GstBuffer *buf, int offset, int color) {
     gst_buffer_memset(buf, offset, r, 1);
     gst_buffer_memset(buf, offset+1, g, 1);
     gst_buffer_memset(buf, offset+2, b, 1); 
+}
+
+static void random_grid(GstBuffer *buffer, gint w, gint h) {
+  int gwidth = w/max_cells;
+  int hwidth = h/max_cells;
+  gint size = w * h;
+
+  for(int blk=0; blk < w/gwidth; ++blk) {
+    for(int k=0; k < h/hwidth; k++) {
+      for(int i=(k*hwidth); i< (k*hwidth)+hwidth; ++i) {
+        for(int j=(blk*gwidth); j<(blk*gwidth)+gwidth; ++j) {
+          set_color(buffer, (i*w*3)+(j*3), color_arr[ (blk+col_idx) % len]);
+        }
+      }
+      col_idx++;
+    }
+  }
+}
+
+static void grid_flow(GstBuffer *buffer, gint w, gint h) {
+  guint cell_cnt = 0;
+  int gwidth = w/max_cells;
+  int hwidth = h/max_cells;
+  gint size = w * h;
+  gint idx = 	0;
+
+  if(flow_cnt >= (max_cells * max_cells)) {
+    gst_buffer_memset (buffer, 0, 0xFF, size);
+    flow_cnt = 0;
+    return;
+  }
+
+  for(int blk=0; blk < w/gwidth; ++blk) {
+    for(int k=0; k < h/hwidth; k++) {
+      for(int i=(k*hwidth); i < (k*hwidth)+hwidth; ++i) {
+        for(int j=(blk*gwidth); j<(blk*gwidth)+gwidth; ++j) {
+          set_color(buffer, (i*w*3)+(j*3), color_arr[idx % len]);
+        }
+      }
+      idx++;
+      ++cell_cnt;
+      if(cell_cnt > flow_cnt) return;
+    }
+  }
+}
+
+static void snow(GstBuffer *buffer, gint w, gint h, gint pix_size) {
+  int gwidth = pix_size;
+  int hwidth = pix_size;
+  gint size = w * h;
+  guint color;
+
+  for(int blk=0; blk < w/gwidth; ++blk) {
+    for(int k=0; k < h/hwidth; k++) {
+      for(int i=(k*hwidth); i< (k*hwidth)+hwidth; ++i) {
+        for(int j=(blk*gwidth); j<(blk*gwidth)+gwidth; ++j) {
+          set_color(buffer, (i*w*3)+(j*3), color);
+        }
+      }
+      color = 	g_random_int_range(0x0, 0xFFFFFF);
+    }
+  }  
 }
 
 static void
@@ -31,6 +110,32 @@ cb_need_data (GstElement *appsrc,
   size = width * height * 3;
   
   buffer = gst_buffer_new_allocate (NULL, size, NULL);
+  gst_buffer_memset (buffer, 0, 0xFF, size);
+  
+  // random_grid(buffer, width, height);
+  // grid_flow(buffer, width, height); ++flow_cnt;
+  // snow_color(buffer, width, height);
+  // big_snow_color(buffer, width, height);
+
+  ++time_count;
+  static guint pix_size = 1;
+  if((time_count % 10) == 0 && pix_size != 256) {
+    pix_size *= 2;
+  }
+  
+  if(pix_size < 256) 
+    snow(buffer, width, height, pix_size);
+  
+  if(time_count > 80 && time_count < 90) {
+    random_grid(buffer, width, height);
+  } else if(time_count > 90 && time_count < (90+26)) {
+    grid_flow(buffer, width, height); ++flow_cnt;
+  }
+
+  if(time_count > (90+26)) {
+    time_count = 0;
+    pix_size = 1;
+  }
 
   /* this makes the image black/white */
   // gst_buffer_memset (buffer, 0, white ? 0xff : 0x0, size);
@@ -40,35 +145,6 @@ cb_need_data (GstElement *appsrc,
   // if(color > 255) color = 0;
   // white = !white;
 
-  static int color_arr[] = {
-    0xFF0000,
-    0x00FF00,
-    0x0000FF,
-    0xFFFF00,
-    0xFF00FF,
-    0x00FFFF,
-    0x7F00FF,
-    0x800000,
-    0x808080,
-  };
-  static int len = sizeof(color_arr)/sizeof(color_arr[0]);
-  static guint col_idx = 0;
-  const int max_cells = 5;
-  int gwidth = width/max_cells;
-  int hwidth = height/max_cells;
-
-  gst_buffer_memset (buffer, 0, 0x0, size);
-
-  for(int blk=0; blk < width/gwidth; ++blk) {
-    for(int k=0; k<height/hwidth; k++) {
-      for(int i=(k*hwidth); i< (k*hwidth)+hwidth; ++i) {
-        for(int j=(blk*gwidth); j<(blk*gwidth)+gwidth; ++j) {
-          set_color(buffer, (i*width*3)+(j*3), color_arr[ (blk+col_idx) % len]);
-        }
-      }
-      col_idx++;
-    }
-  }
 
   GST_BUFFER_PTS (buffer) = timestamp;
   GST_BUFFER_DURATION (buffer) = gst_util_uint64_scale_int (1, GST_SECOND, 2);
