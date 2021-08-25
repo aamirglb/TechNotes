@@ -32,6 +32,10 @@ class Source(GObject.Object):
         intervideosink   = Gst.ElementFactory.make('intervideosink', 'intervideosink')
 
         self.source.set_property('pattern', 0)
+        # Source is always at high resolution
+        caps = Gst.Caps.from_string('video/x-raw,width=1024,height=768,framerate=30/1')
+        self.capsfilter.set_property('caps', caps)
+
         clock.set_property('shaded-background', True)
         self.fps_overlay.set_property('text', 'FPS: {}'.format(self.__fps))
         self.fps_overlay.set_property('shaded-background', True)
@@ -87,12 +91,14 @@ class Source(GObject.Object):
             print('ERROR: {0}: {1}'.format(err, debug))
         return True
 
-    def start(self, res):
-        w, h = res.split('x')
-        self.__width, self.__height = int(w), int(h)
-        caps = Gst.Caps.from_string('video/x-raw,width={},height={},framerate={}/1'.format(
-                                self.__width, self.__height, self.__fps))
-        self.capsfilter.set_property('caps', caps)
+    def start(self):
+        # w, h = res.split('x')
+        # self.__width, self.__height = int(w), int(h)
+        # caps = Gst.Caps.from_string('video/x-raw,width={},height={},framerate={}/1'.format(
+        #                         self.__width, self.__height, self.__fps))
+        # self.capsfilter.set_property('caps', caps)
+
+        # TODO: videorate should also be moved to streamer class !!
         caps2 = Gst.Caps.from_string('video/x-raw,framerate={}/1'.format(self.__fps))
         self.ratefilter.set_property('caps', caps2)
         self.__pipeline.set_state(Gst.State.PLAYING)
@@ -139,6 +145,8 @@ class Streamer:
         converter        = Gst.ElementFactory.make('videoconvert', 'converter')
         videorate        = Gst.ElementFactory.make('videorate', 'videorate')
         self.ratefilter  = Gst.ElementFactory.make('capsfilter', 'ratefilter')
+        scale            = Gst.ElementFactory.make('videoscale', 'scale')
+        self.scalefilter = Gst.ElementFactory.make('capsfilter', 'scalefilter')
 
         sink        = Gst.ElementFactory.make('autovideosink', 'sink')
 
@@ -147,14 +155,21 @@ class Streamer:
         self.__pipeline.add(converter)
         self.__pipeline.add(videorate)
         self.__pipeline.add(self.ratefilter)
+        self.__pipeline.add(scale)
+        self.__pipeline.add(self.scalefilter)
         self.__pipeline.add(sink)
 
         videosource.link(converter)
         converter.link(videorate)
         videorate.link(self.ratefilter)
-        self.ratefilter.link(sink)
+        self.ratefilter.link(scale)
+        scale.link(self.scalefilter)
+        self.scalefilter.link(sink)
 
-    def start(self):
+    def start(self, res):
+        w, h = [int(x) for x in res.split('x')]
+        caps = Gst.Caps.from_string('video/x-raw,width={},height={}'.format(w, h))
+        self.scalefilter.set_property('caps', caps)
         self.__pipeline.set_state(Gst.State.PLAYING)
 
     def pause(self):
@@ -162,6 +177,12 @@ class Streamer:
 
     def stop(self):
         self.__pipeline.set_state(Gst.State.NULL)
+
+    def change_resolution(self, res):
+        w, h = [int(x) for x in res.split('x')] 
+        # self.resize(self.width, self.height)
+        caps = Gst.Caps.from_string("video/x-raw, width={}, height={}".format(w, h))
+        self.scalefilter.set_property('caps', caps)
 
 class Snapshoter:
     def __init__(self, channel):
@@ -286,15 +307,15 @@ class Manager(Gtk.Window):
 
     def on_start_click(self, widget):
         if self.__paused:
-            self.streamer.start()
-            self.source.start(self.resolution_combo.get_active_text())
+            self.streamer.start(self.resolution_combo.get_active_text())
+            self.source.start()
             self.__paused = False
         else:
             # Starting for the first time
             self.source = Source('vid0')
-            self.source.start(self.resolution_combo.get_active_text())
+            self.source.start()
             self.streamer = Streamer('vid0')
-            self.streamer.start()
+            self.streamer.start(self.resolution_combo.get_active_text())
             self.snap = Snapshoter('vid0')
             self.imgidx = 0
 
@@ -351,4 +372,3 @@ def main(args):
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
         
-
