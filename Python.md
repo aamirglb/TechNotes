@@ -925,3 +925,7 @@ for line in open('script2.py').readlines():
 ```
 
 * In 3.X, `range` returns an iterable that generates numbers in the range on demand, instead of building the result list in memory.
+
+# Matplotlib
+
+* **Anti-Grain Geometry (AGG)** is a high-quality 2D rendering library written in C++. It features anti-aliasing and sub-pixel resolution. It is not a graphics library, per se, but rather a framework to build a graphics library upon.
