@@ -2,6 +2,7 @@
 gcc appsrc2.c -o appsrc2 `pkg-config --cflags --libs gstreamer-1.0`
 */
 #include <gst/gst.h>
+#include <math.h>
 
 static GMainLoop *loop;
 
@@ -29,6 +30,26 @@ static void set_color(GstBuffer *buf, int offset, int color) {
     gst_buffer_memset(buf, offset, r, 1);
     gst_buffer_memset(buf, offset+1, g, 1);
     gst_buffer_memset(buf, offset+2, b, 1); 
+}
+
+static void draw_circle(GstBuffer *buf, gint mid_x, gint mid_y, guint w) {
+  // guint mid_x = w * 0.5;
+  // guint mid_y = h * 0.5;
+
+  set_color(buf, (mid_y*w*3)+(mid_x*3), 0x0);   
+
+  // Use the below formula to draw circle
+  // x = cx + r * cos(a)
+  // y = cy + r * sin(a)
+
+  guint r = 20;
+  for(int r=20; r > 0; --r) {
+  for(int a = 0; a < 360; ++a) {
+    guint x = mid_x + r * cos((a * M_PI)/180.);
+    guint y = mid_y + r * sin((a * M_PI)/180.);
+    set_color(buf, (y*w*3)+(x*3), 0x0);
+  }
+  }
 }
 
 static void random_grid(GstBuffer *buffer, gint w, gint h) {
@@ -111,31 +132,31 @@ cb_need_data (GstElement *appsrc,
   
   buffer = gst_buffer_new_allocate (NULL, size, NULL);
   gst_buffer_memset (buffer, 0, 0xFF, size);
-  
-  // random_grid(buffer, width, height);
-  // grid_flow(buffer, width, height); ++flow_cnt;
-  // snow_color(buffer, width, height);
-  // big_snow_color(buffer, width, height);
 
-  ++time_count;
-  static guint pix_size = 1;
-  if((time_count % 10) == 0 && pix_size != 256) {
-    pix_size *= 2;
-  }
-  
-  if(pix_size < 256) 
-    snow(buffer, width, height, pix_size);
-  
-  if(time_count > 80 && time_count < 90) {
-    random_grid(buffer, width, height);
-  } else if(time_count > 90 && time_count < (90+26)) {
-    grid_flow(buffer, width, height); ++flow_cnt;
-  }
+  static guint ox = 10;
+  static guint oy = 220;
+  draw_circle(buffer, ox, oy, width);
+  ox+= 5;
 
-  if(time_count > (90+26)) {
-    time_count = 0;
-    pix_size = 1;
-  }
+  // ++time_count;
+  // static guint pix_size = 1;
+  // if((time_count % 10) == 0 && pix_size != 256) {
+  //   pix_size *= 2;
+  // }
+  
+  // if(pix_size < 256) 
+  //   snow(buffer, width, height, pix_size);
+  
+  // if(time_count > 80 && time_count < 90) {
+  //   random_grid(buffer, width, height);
+  // } else if(time_count > 90 && time_count < (90+26)) {
+  //   grid_flow(buffer, width, height); ++flow_cnt;
+  // }
+
+  // if(time_count > (90+26)) {
+  //   time_count = 0;
+  //   pix_size = 1;
+  // }
 
   /* this makes the image black/white */
   // gst_buffer_memset (buffer, 0, white ? 0xff : 0x0, size);
