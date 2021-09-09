@@ -11,3 +11,7 @@ https://developer.ibm.com/technologies/linux/tutorials/l-bash-parameters/
 
 ### Simplifying Loops with C++11 in Qt Ways
 https://embeddeduse.com/2016/05/13/simplifying-loops-with-cpp11/
+
+### RGB Images
+https://www.scantips.com/lights/rgb.html
+https://web.stanford.edu/class/cs101/image-1-introduction.html

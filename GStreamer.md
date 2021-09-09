@@ -4,6 +4,8 @@
 
 * Gstreamer is a multi-platform, modular, open-source, **media streaming framework**.
 
+https://www.arducam.com/docs/cameras-for-raspberry-pi/native-raspberry-pi-cameras/native-camera-commands-raspistillraspivid/
+
 ## Library Installation
 ```
 $ apt-get install gstreamer1.0-tools \
