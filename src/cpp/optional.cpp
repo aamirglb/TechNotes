@@ -19,7 +19,8 @@ int main() {
         std::optional<int> oi = asInt(s);
         // if(oi) {
         if(oi.has_value()) {
-            std::cout << "convert '" << s << "' to int: " << *oi << "\n";
+            // std::cout << "convert '" << s << "' to int: " << *oi << "\n";
+            std::cout << "convert '" << s << "' to int: " << oi.value() << "\n";
         } else {
             std::cout << "can't convert '" << s << "' to int\n";
         }
