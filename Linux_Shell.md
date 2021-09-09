@@ -892,3 +892,20 @@ $ mkdir {cs,files,masters,draft,static}   # directories.
 $ touch -- 'file with spaces' '-a' '-l' 'filename'    # And some files:
            
 ```
+
+### Create Application Icon in Ubuntu
+vi anaconda-navigator.desktop
+
+```shell
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Anaconda
+Version=2.0
+Type=Application
+Exec=/path/to/anaconda-navigator
+Icon=/path/to/selected/icon
+Comment=Open Anaconda Navigator
+Terminal=false
+```
+
+mv anaconda-navigator.desktop ~/.local/share/applications/
