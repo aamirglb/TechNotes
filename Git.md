@@ -28,6 +28,38 @@ $ git clean -fd
 $ git branch -m master main
 ```
 
+### git stash
+
+git stash temporarily shelves (or stashes) changes you've made to your working copy so you can work on something else, and then come back and re-apply them later on.
+
+The git stash command takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy
+
+```shell
+$ git stash  # stash all changes
+$ git stash pop  # removes the changes from stash and reapplies them to your working copy
+$ git stash apply # reapply the changes to working copy and keep them in stash (useful for applying same changes to multiple branches)
+$ git stash -u # stash untracked files also
+# git stash -a # stash ignored files also
+
+$ git stash list # view all stashes
+$ git stash save "message"  # annotate git stash
+$ git stash pop stash@{2}   # select stash to re-apply
+$ git stash show  # show summary of stash
+$ git stash show -p # view full difference of stash
+
+$ git stash -p (--patch)  # partial stash
+```
+
+If the changes on your branch diverge from the changes in your stash, you may run into conflicts when popping or applying your stash. Instead, you can use `git stash branch` to create a new branch to apply your stashed changes to.
+
+```shell
+$ git stash branch add-stylesheet stash@{1}
+$ git stash drop stash@{1}  # delete a stash
+$ git stash clear  # delete all stash
+
+$ git log --oneline --graph stash@{0}
+```
+
 ### Git Tags
 Tags are reference points in the repository. Tags are usually used as references for release versions.
 Tags are Git objects meaning that **they can be checkout out** like a branch or a commit.
