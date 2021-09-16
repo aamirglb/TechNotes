@@ -260,3 +260,235 @@ same meaning (the same representation) within the DAG of revisions.
 branch, or branch head, or just a branch.
 
 * Git stored _branches_ and _tags_ in files inside .git administrative area, in the `.git/refs/heads/` and `.git/refs/tags/` directories, respectively.
+
+# Pro Git Notes
+
+* Distributed version control systems such as **Git** give each developer his or her own copy of the project's history, a _clone_ of a repository.
+
+* Git is very fast: nearly all operations are performed locally, and are flexible
+
+* Version control is a system
+that records changes to a file or set of files over time so that you can recall spe-
+cific versions later.
+
+* One of the more popular VCS tools was a system called **RCS**, which is still
+distributed with many computers today. RCS
+works by keeping patch sets (that is, the differences between files) in a special
+format on disk; it can then re-create what any file looked like at any point in
+time by adding up all the patches.
+
+* Centralized Version Control Systems (CVCSs) such as _CVS_, _Subversion_, and _Perforce_, have a single server that contains all the versioned files, and a number of clients that check out files from that central place.
+
+* Distributed Version Control Systems (DVCSs) such as _Git_, _Mercurial_, _Bazaar_ or _Darcs_, clients don’t just check out the latest snapshot of the files: they fully mirror the repository. Every clone is really a full backup
+of all the data.
+
+* The major difference between Git and any other VCS  is the way Git thinks about its data.
+Most other systems store information as a **list of file-based changes**. These systems think of the information they keep as a set of
+files and the changes made to each file over time.
+
+* Git doesn’t think of or store its data this way. Instead, Git thinks of its data
+more like a set of snapshots of a miniature filesystem. Every time you commit,
+or save the state of your project in Git, it basically takes a picture of what all
+your files look like at that moment and stores a reference to that snapshot. To
+be efficient, if files have not changed, Git doesn’t store the file again, just a link
+to the previous identical file it has already stored. Git thinks about its data more
+like a stream of snapshots.
+
+* Everything in Git is check-summed before it is stored and is then referred to by
+that checksum. The mechanism that Git uses for this checksumming is called a **SHA-1** hash.
+This is a 40-character string composed of hexadecimal characters and calculated based on the contents of a file or directory structure in Git.
+
+* Git stores everything in its database not by file name but by
+the hash value of its contents.
+
+* Git has three main states that your files can reside in: **committed**, **modified**, and **staged**. This leads us to the three main sections of a Git project: the _Git directory_, the _working directory_, and the _staging area_.
+
+* The **Git directory** is where Git stores the metadata and object database for your project. This is the most important part of Git, and it is what is copied when you clone a repository from another computer.
+
+* The **working directory** is a _single checkout_ of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.
+
+* The **staging area** is a file, generally contained in your Git directory, that stores information about what will go into your next commit. It’s sometimes referred to as the **“index”**, but it’s also common to refer to it as the _staging area_.
+
+* Git comes with a tool called `git config` that lets you get and set configuration variables that control all aspects of how Git looks and operates.
+
+* `/etc/gitconfig`: system wide settings `git config --system` to read and write these settings.
+
+* `~/.gitconfig` or `~/.config/git/config` : User specific `git config --global`
+
+* `.git/config`: Specific to repository
+
+```shell
+$ git config --system --list (or -l)
+$ git config --global --list
+```
+
+* user name and email address is immutably baked into the commits you start creating.
+
+```shell
+$ git config --global core.editor emacs
+$ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -no...'"
+
+# List configuration
+$ git config --list 
+
+# get specific key
+$ git config user.name
+$ git config user.email
+```
+
+* `git init` creates a new subdirectory named `.git` that contains all of your necessary repository files - a Git repository skeleton.
+
+* `git add` specify the files you want to track, followed by a `git commit`
+
+* `git clone [url]` receives a full copy of nearly all data that the server has.
+
+* `git clone [url] [local_directory]` use a different directory name.
+
+* Git has a number of different transfer protocols like `https://` protocol, and also `git://` or `user@server:path/to/repo.git`, which uses the SSH transfer protocol.
+
+* _Tracked files_ are files that were in the last snapshot; they can be _unmodified_, _modified_, or _staged_. Untracked files are every-
+thing else - any files in your working directory that were not in your last snapshot and are not in your staging area.
+
+* `git status` determine which files are in which state
+
+```shell
+# more compact/simplyfied output
+$ git status -s
+$ git status --short
+ M README
+MM Rakefile
+ A lib/git.rb
+ M lib/simplegit.rb
+?? LICENSE.txt
+```
+
+  ^ status of staging area
+  |^ status of working tree
+  ||
+* ?? untracked file 
+   A new files that have been added to the staging area 
+   M modified files 
+
+* There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree. 
+
+* `.gitignore` class of files that you don’t want Git to automatically add or even show you as being untracked.
+
+```shell
+$ cat .gitignore
+*.[oa]  # files ending in ".o" or ".a"
+*~      # ignore all files whose names end with a tilde
+```
+
+* Rules for patterns in the .gitignore file are as follows:
+    * Blank lines or lines starting with # are ignored.
+    * Standard glob patterns work.
+    * You can start patterns with a forward slash ( / ) to avoid recursivity.
+    * You can end patterns with a forward slash ( / ) to specify a directory.
+    * You can negate a pattern by starting it with an exclamation point ( ! ).
+    * two asterisks to match nested directories; a/**/z would match a/z, a/b/z, a/b/c/z, and so on.
+
+* `.gitignore` file examples for dozens of projects and languages at [](https://github.com/github/gitignore)
+
+* `git diff` shows you the exact lines added and removed
+
+```shell
+# compares what is in your working directory with what is in your staging area
+$ git diff
+
+# what you’ve staged that will go into your next commit
+$ git diff --staged (or --cached)
+```
+
+* `git commit -v` puts the diff of your change in the editor so you can see exactly what changes you’re committing
+
+* `git commit -m "message"` - commit message inline
+
+* `git commit -a` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip
+the `git add` part
+
+```shell
+$ git commit -a -m "new commit"
+```
+
+* `git rm --cached README` keep the file in your working tree but remove it from your staging area.
+
+* Git doesn’t explicitly track file movement. If
+you rename a file in Git, no metadata is stored in Git that tells it you renamed
+the file.
+
+* `git mv file_from file_to` rename a file
+
+* `git log` look back to see what has happend in the repository
+
+* `git log -p` show the difference introduced in each commit
+
+* `git log -p -2` limit the output to the last two entries
+
+* `git log --stat` show stats
+
+* `git log --pretty=oneline`
+
+* `git log --pretty=format:"%h - %an, %ar : %s"`
+
+Useful options for git log --pretty=format
+
+| Option | Description of Output |
+|--------|-----------------------|
+| %H | Commit hash |
+| %h | Abbreviated commit hash |
+| %T | Tree hash |
+| %t | Abbreviated tree hash |
+| %P | Parent hashes |
+| %p | Abbreviated parent hashes |
+| %an|  Author name |
+| %ae|  Author email |
+| %ad|  Author date (format respects the --date=option) |
+| %ar|  Author date, relative |
+| %cn|  Committer name |
+| %ce|  Committer email |
+| %cd|  Committer date |
+| %cr|  Committer date, relative |
+| %s | Subject |
+[Table caption, works as a reference][Caption]
+
+* `git log --pretty=format:"%h %s" --graph` adds a nice little ASCII graph
+
+Common options to git log
+
+| Option | Description |
+|--------|-------------|
+| -p     | Show the patch introduced with each commit. |
+| --stat | Show statistics for files modified in each commit. |
+| --shortstat | Display only the changed/insertions/deletions line from the --stat command. |
+| --name-only | Show the list of files modified after the commit information. |
+| --name-status | Show the list of files affected with added/modified/deleted information as well. |
+| --abbrev-commit | Show only the first few characters of the SHA-1 checksum instead of all 40. |
+| --relative-date | Display the date in a relative format (for example, “2 weeks ago”) instead of using the full date format. |
+| --graph | Display an ASCII graph of the branch and merge history beside the log output. |
+| --pretty | Show commits in an alternate format. Options include `oneline`, `short`, `full`, `fuller`, and `format` (where you specify your own format) |
+
+* `git log --since=2.weeks` list of commits made in last 2 weeks
+
+* `git log -Sfunction_name` takes a string and only shows the commits that introduced a change to the code that added or removed that string
+
+* The last really useful option to pass to `git log` as a filter is a _path_. If you specify a directory or file name, you can limit the log output to commits that introduced a change to those files. This is always the last option and is generally preceded by double dashes ( -- ) to separate the paths from the options.
+
+Options to limit the output of git log
+
+| Option | Description |
+|--------|-------------|
+| -(n) | Show only the last n commits |
+| --since, --after | Limit the commits to those made after the speci- fied date. |
+| --until, --before | Limit the commits to those made before the specified date. |
+| --author | Only show commits in which the author entry matches the specified string. |
+| --committer | Only show commits in which the committer entry matches the specified string. |
+| --grep | Only show commits with a commit message containing the string |
+| -S | Only show commits adding or removing code matching the string |
+
+* `git commit --amend` override previous commit
+
+```shell
+$ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend  # second commit replaces the results of the first.
+```
