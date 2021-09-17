@@ -637,3 +637,5 @@ the log of a rebased branch, it looks like a linear history: it appears that all
 work happened in series, even when it originally happened in parallel.
 
 * A remote repository is generally a _bare repository_ – a Git repository that has no working directory.
+
+* In Git, there are two main ways to _integrate changes from one branch into another_: the **merge** and the **rebase**.
