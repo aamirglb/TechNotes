@@ -492,3 +492,95 @@ $ git commit -m 'initial commit'
 $ git add forgotten_file
 $ git commit --amend  # second commit replaces the results of the first.
 ```
+
+* `git restore --staged Git.md` to unstage Git.md
+
+* `git checkout -- CONTRIBUTING.md` discard the changes made to the file
+
+* Anything that is committed in Git can almost always be recovered. Even commits that were on branches that were deleted or commits that
+were overwritten with an `--amend` commit can be recovered. However, anything you lose that was never committed is likely never to be seen again.
+
+* **Remote repositories** are versions of your project that are hosted on the Internet or network somewhere.
+
+* `git remote` lists the shortnames of each remote handle you’ve specified. **origin** is the default name Git gives to the server you cloned from.
+
+* `git remote -v` shows the URLs that Git has stored for the shortname to be used when reading and writing to that remote.
+
+* `git remote add <shortname> <url>` add a new remote explicitly. To add a new remote Git repository as a shortname you can reference
+easily.
+
+* `git remote add pb https://github.com/paulboone/ticgit`
+Now you can use the string `s` on the command line in lieu of the whole URL
+
+* `git fetch [remote-name]` pulls down all the data from that remote project that you don’t have yet.
+
+* `git fetch` doesn’t automatically merge it with any of your work or modify what you’re currently working on.
+
+* `git pull` command automatically fetch and then merge that remote branch into your current branch.
+
+* `git push origin master` push your master branch to your origin server
+
+* `git remote show [remote-name]` see more information about a particular remote
+
+* `git remote rename pb paul` change a remote’s shortname.
+
+* `git remote rm paul` remove a remote
+
+* **Tagging**: Git has the ability to tag specific points in history as being important.
+
+* `git tag` list available tags
+
+* `git tag -l "v1.8.5*"` search with a particular pattern
+
+* Git uses two main types of tags: **lightweight** and **annotated**.
+
+* A _lightweight tag_ is very much like a branch that doesn’t change – it’s just a pointer to a specific commit. Lightweight tag is basically the commit checksum stored in a file - no other information is kept.
+
+* _Annotated tags_, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, email, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG).
+
+* `git tag -a v1.4 -m "my version 1.4"` create annotated tag with a tagging message
+
+* `git tag -a v1.2 9fceb02` tag commits using SHA checksum after moving past the commits
+
+* By default, the `git push` command doesn’t transfer tags to remote servers. You will have to explicitly push tags to a shared server after you have created them. This process is just like sharing remote branches – you can run `git push origin [tagname]`.
+
+* `git push origin --tags` push all tags to remote
+
+* `git checkout v1.4` will checkout the v1.4 tag. This puts the repo in a **detached HEAD** state. This means any changes made will not update the tag. Therefore it is a best practice to create a new branch anytime you're making changes in a detached HEAD state.
+
+* `git checkout -b version2 v2.0.0` create a branch from tag
+
+* If you don’t want to type the entire text of each of the Git commands, you can easily set up an alias for each command using git config. 
+
+```shell
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
+
+* Branching means you diverge from the main line of development and continue to do work without messing with that main line.
+
+* Git doesn’t store data as a series of changesets or differences, but instead as a series of **snapshots**.
+
+* A branch in Git is simply a lightweight movable pointer to one of these commits.
+
+* `git branch testing` created a new branch, it didn’t switch to that branch.
+
+* `git log --oneline --decorate` shows where the branch pointers are pointing.
+
+* `git checkout testing` switch to an existing branch.
+
+* A branch in Git is in actuality a simple file that contains the 40 character SHA-1 checksum of the commit it points to, branches are cheap to create and destroy.
+
+* `git checkout -b iss53`
+
+* When you try to merge one commit with a commit that can be reached by following the first commit's history, Git simplifies things by moving the pointer forward because there is no divergent work to merge together – this is called a "fast-forward."
+
+* `git branch -d hotfix` delete a branch
+
+* Git adds standard conflict-resolution markers to the files that have conflicts, so you can open them manually and resolve those conflicts.
+
+* After you’ve resolved each of
+these sections in each conflicted file, run git add on each file to mark it as re-
+solved. Staging the file marks it as resolved in Git.
