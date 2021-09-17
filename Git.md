@@ -584,3 +584,48 @@ $ git config --global alias.st status
 * After you’ve resolved each of
 these sections in each conflicted file, run git add on each file to mark it as re-
 solved. Staging the file marks it as resolved in Git.
+
+* `git branch` get listing of current branches
+
+* `git branch -v` see the last commit on each branch
+
+* `git branch --merged` see which branches are already merged into the branch you’re on
+
+* `git branch --no-merged` see all the branches that contain work you haven’t yet merged in
+
+* `git ls-remote [remote]` or `git remote show [remote]` get a full list of remote references explicitly
+
+* `git clone -o booyah` booyah instead of origin
+
+* If you don’t want to type your password every single time you push, you can set up a **"credential cache"**. The simplest is just to keep it in memory for a few minutes, which you can easily set up by running `git config --global credential.helper cache`.
+
+```shell
+$ git fetch origin
+
+# directly merge the remote/serverfix branch into current branch
+$ git merge origin/serverfix
+
+# create a branch to track remote/serverfix branch
+$ git branch -b serverfix origin/serverfix
+
+# shortcut for the above command
+$ git checkout --track origin/serverfix
+
+# set up a local branch with a different name than the remote branch
+$ git checkout -b sf origin/serverfix
+```
+
+* Checking out a local branch from a remote-tracking branch automatically creates what is called a **"tracking branch"** (and the branch it tracks is called an **"upstream branch"**).
+
+* When you have a tracking branch set up, you can reference its upstream branch with the `@{upstream}` or `@{u}` shorthand.
+
+* `git merge @{u}` instead of `git merge origin/master`
+
+* `git branch -vv` list out your local branches with more information including what each branch is tracking and if your local branch is
+ahead, behind or both.
+
+* `git pull` is essentially a `git fetch` immediately followed by a `git merge` in most cases.
+
+* `git push origin --delete serverfix` delete remote branch
+
+* In Git, there are two main ways to _integrate changes from one branch into another_: the **merge** and the **rebase**.
