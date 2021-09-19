@@ -239,3 +239,6 @@ let s1 = String::from("hello");
 let s2 = s1;
 println!("{}, world!", s1); // this won't work
 ```
+
+* If we do want to deeply copy the heap data of the String , not just the stack
+data, we can use a common method called `clone` .
