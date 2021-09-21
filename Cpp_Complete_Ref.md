@@ -806,6 +806,7 @@ On Linux: this printfs
 This is a test 4
 On Windows (with gcc 4.7.0)
 This 2 --> looks some problem here
+```
 
 * %n is used primarily to enable your program to perform dynamic formatting.
 
