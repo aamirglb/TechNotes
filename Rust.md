@@ -241,4 +241,32 @@ println!("{}, world!", s1); // this won't work
 ```
 
 * If we do want to deeply copy the heap data of the String , not just the stack
-data, we can use a common method called `clone` .
+data, we can use a common method called `clone`.
+
+* If a type has the Copy trait, an older variable is still usable
+after assignment. Rust won’t let us annotate a type with the Copy trait if the
+type, or any of its parts, has implemented the Drop trait.
+
+* We call having references as function parameters _borrowing_.
+
+* mutable references have one big restriction: you can have only _one mutable reference_ to a particular piece of data in a particular scope. 
+
+```rust
+let mut s = String::from("hello");
+let r1 = &mut s;
+let r2 = &mut s;   // Error
+```
+
+* The benefit of having this restriction is that Rust can prevent _data races_
+at compile time. A _data race_ is similar to a race condition and happens when
+these three behaviors occur:
+    * Two or more pointers access the same data at the same time.
+    * At least one of the pointers is being used to write to the data.
+    * There’s no mechanism being used to synchronize access to the data.
+
+* A string slice is a reference to part of a `String` , and it looks like this:
+```rust
+let s = String::from("hello world");
+let hello = &s[0..5];
+let world = &s[6..11];
+```

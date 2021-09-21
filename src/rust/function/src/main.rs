@@ -41,6 +41,15 @@ fn main() {
     for num in (1..5).rev() {
         println!("{}...", num);
     }
+
+    let s = String::from("hello");
+    take_ownership(s);
+    // println!("take_ownership: {}", s);
+
+    let mut ss1 = gives_ownership();
+
+    let ss2 = takes_and_gives_back(&mut ss1);
+    println!("ss2: {}", ss2);
 }
 
 
@@ -58,4 +67,18 @@ fn loop_ex() -> i32 {
         }
     };
     result
+}
+
+fn take_ownership(s: String) {
+    println!("take_ownership: {}", s);
+}
+
+fn gives_ownership() -> String {
+    let mut some_str = String::from("hello");
+    some_str
+}
+
+fn takes_and_gives_back(&mut a_str: String) -> String {
+    a_str.push_str(", world!!");
+    a_str
 }
