@@ -46,7 +46,7 @@ Window {
                 var dst = ''
                 if( distance > 1000 ) {
                     dst = (distance / 1000)
-                    dst = distance.toFixed(2) + ' km'
+                    dst = dst.toFixed(2) + ' km'
                 }
                 else {
                     dst = distance.toFixed(0) + ' m'
