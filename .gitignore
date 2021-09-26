@@ -4,3 +4,4 @@ src/python/notebooks/.ipynb_checkpoints/*
 src/rust/**/Cargo.lock
 src/rust/**/debug/
 src/rust/**/target/
+src/**/a.out

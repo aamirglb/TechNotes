@@ -12,6 +12,7 @@ struct func {
         for(auto i = 0; i < 10; ++i) {
             sum += i;
             std::this_thread::sleep_for(1s);
+            std::this_thread::sleep_for(100ms);
             std::cout << "summing up...\n";
         }
     }
