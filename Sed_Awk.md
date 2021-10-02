@@ -380,4 +380,8 @@ do
     action
 while(condition)
 ```
+zsh example to list all C++ files in current directory and all it's subdirectories.
 
+```
+% ls **/*.cpp | awk -F/ BEGIN'{ n=0; } { n+=1; print n, " => ", $NF} END {printf "Total Files: %s\n", n; }'
+```
