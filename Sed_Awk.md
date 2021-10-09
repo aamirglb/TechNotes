@@ -223,7 +223,7 @@ output:
 456
 789
 
-# append at the end 
+# append at the end
 $ echo -e "123\n456\n789" | sed '$ a 10'
 
 # search and append after
@@ -290,7 +290,7 @@ $ sed '5 q' test.txt
 $ sed '/Manager/q' test.txt
 ```
 
-# Awk 
+# Awk
 
 * Awk is a powerful language to manipulate and process text files. Useful when lines in text files are in record format.
 
@@ -347,9 +347,9 @@ BEGIN { FS="[,:%]"}
 # print number of shell users
 $ awk -F ':' '$NF ~ /\/bin\/bash/ { print; n++ }; END { print n }' /etc/passwd
 
-# print even lines 
+# print even lines
 $ awk 'NR % 2 == 0 {print NR, $0}' /etc/passwd
-``` 
+```
 #### Regular expression operators
 | Operator | Description |
 |----------|-------------|
@@ -385,3 +385,67 @@ zsh example to list all C++ files in current directory and all it's subdirectori
 ```
 % ls **/*.cpp | awk -F/ BEGIN'{ n=0; } { n+=1; print n, " => ", $NF} END {printf "Total Files: %s\n", n; }'
 ```
+
+# Sed 101 Hacks
+
+```bash
+# print all lines twice
+$ sed 'p' employee.txt
+
+# same as cat
+$ sed -n 'p' employee.txt
+
+# print only 2nd line
+$ sed -n '2 p' employee.txt
+
+# print 1-4 lines
+$ sed -n '1,4 p' employee.txt
+
+#
+$ sed -n '2,$ p' employee.txt
+```
+
+* You can modify address range using comma, plus, and tilde.
+
+`n,m`: indicates n through m.
+`n,+m`: means the m lines starting with n.
+`n~m`: indicates that sed should start at the nth line and pick up every mth line from there.
+
+```bash
+# first match to 4th line
+$ sed -n '/Jason/,4 p' employee.txt
+```
+
+`^`: The Caret Symbol ^ matches at the start of a line.
+
+`$`: The dollar symbol $ matches the  end of a line.
+
+`.`: The special meta-character "." (dot) matches any character except the end of the line character.
+
+`*`: The special character "*" (star) matches zero or more occurrences of the previous character.
+
+`+`: The special character "\+" matches one or more occurrence of the previous character.
+
+`?`: The special character "?" matches zero or one occurrences of the previous character.
+
+`Character Class ([0-9])`: The character class is nothing but a list of characters mentioned
+within a square bracket; this is used to match only one out of several characters.
+
+`|`: The pipe character (|) is used to specify that either of two whole subexpressions could occur in a position.
+
+`Exactly M Occurrences ({m})`: A Regular expression followed by `{m}` matches exactly `m` occurrences of the preceding expression.
+
+`M to N Occurrences ({m,n})`: A regular expression followed by {m,n} indicates that the preceding
+item must match at least m times, but not more than n times. The
+values of m and n must be non-negative and smaller than 255.
+
+`Word Boundary (\b)`: `\b` is used to match a word boundary.
+
+`Back References (\n)`: Back references let you group expressions for further use.
+
+use the sed command line option `-i`, which lets sed directly modify the input file.
+
+```bash
+$ sed -i 's/John/Johnny/' employee.txt
+```
+
