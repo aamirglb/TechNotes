@@ -15,3 +15,6 @@ https://embeddeduse.com/2016/05/13/simplifying-loops-with-cpp11/
 ### RGB Images
 https://www.scantips.com/lights/rgb.html
 https://web.stanford.edu/class/cs101/image-1-introduction.html
+
+### Mit Courses
+https://ocw.mit.edu/courses/

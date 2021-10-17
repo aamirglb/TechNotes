@@ -1,6 +1,7 @@
 # Vim Editor
 
 Ctrl-C |> Normal Mode (Ctrl-C/Ctrl-V/Ctrl-f will not work for copy/paste)
+
 i/a/I/A/o/O |> Insert Mode
 
 | Command | Description |
@@ -68,7 +69,6 @@ i/a/I/A/o/O |> Insert Mode
 | :tabnew {file} | open a file in new tab |
 | :tabn | go to next tab |
 | :tabp | go to previous tab |
-
 | yiw | yank in current word |
 | yaw | yank all word (includes a trailing space) |
 | yy | yank the current line |

@@ -88,7 +88,7 @@ table.max(axis=1) # array([7, 9, 1, 4])
 
 ```python
 # Durer magic square
-# add up any of the rows, columns, or diagonals, then you’ll get the same number, 34. 
+# add up any of the rows, columns, or diagonals, then you’ll get the same number, 34.
 square = np.array([
     [16, 3, 2, 13],
     [5, 10, 11, 8],
@@ -96,4 +96,27 @@ square = np.array([
     [4, 15, 14, 1]
 ])
 ```
- 
+# Python Data Analytics
+
+Open Data
+
+http://datahub.io/dataset
+http://data.gov
+http://open-data.europa.eu/en/data/
+http://aws.amazon.com/datasets
+
+Cython: Compiler that translates Python code into C.
+Jython
+PyPy: interpreter is a JIT (just-in-time) compiler and it converts the Python code directly in machine code at runtime.
+
+* There is another distribution very similar to Anaconda and it is the Canopy distribution
+provided by Enthought, a company founded in 2001 and known for the SciPy project
+(https://www.enthought.com/products/canopy/).
+
+* The package manager of Canopy, as
+opposed to conda, is graphical.
+
+* SciPy (pronounced “sigh pie”) is a set of open-source Python libraries specialized for
+scientific computing.
+
+
