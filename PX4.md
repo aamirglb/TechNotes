@@ -1,0 +1,3 @@
+# PX4
+
+* Compass calibration on a drone is done to **align the drones’ flight system with the Earth’s magnetic north**, not its true north. This phenomena is known as _magnetic declination_ and accounts for the Earth’s shifting magnetic field (typically by a large number of degrees to that of true north). An algorithm stored in the rom memory of the aircraft accounts for this delta and allows for proper calibration of the magnetometer, the drone’s electronic compass. This magnetometer in conjunction with other onboard sources (GPS, gyros, accelerometer, altimeter) accurately determine its spatial positioning and are critical in generating precise flight control.
