@@ -13,4 +13,7 @@ find_package(SFML REQUIRED graphics window system network audio)
 include_directories(${SFML_INCLUDE_DIR})
 
 add_executable(sfml_test 1.cpp) 
+add_executable(shape_circle shape_circle.cpp) 
+
 target_link_libraries(sfml_test m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(shape_circle sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
