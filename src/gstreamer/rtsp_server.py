@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
+'''
+This script stream all 24 test pattern using RTSP server.
+To listen to a particular stream use the following command:
 
-import sys
+# smpte pattern
+gst-launch-1.0 rtspsrc location=rtsp://127.0.0.1:8554/stream0 latency=300 ! decodebin ! autovideosink
+
+# ball pattern
+gst-launch-1.0 rtspsrc location=rtsp://127.0.0.1:8554/stream0 latency=300 ! decodebin ! autovideosink
+
+etc
+'''
+
 import gi
 
 gi.require_version('Gst', '1.0')
@@ -27,8 +38,10 @@ class TestRtspMediaFactory(GstRtspServer.RTSPMediaFactory):
         self.pattern = pattern
 
     def do_create_element(self, url):
+        if self.pattern == 18:
+            self.pattern = '{} background-color=0x00ff0000 flip=1'.format(self.pattern)
         pipeline = 'videotestsrc pattern={} ! video/x-raw,width=1024,height=768,framerate=25/1 ! \
-            timeoverlay ! x264enc ! h264parse ! rtph264pay name=pay0 pt=96'.format(self.pattern)
+            timeoverlay shaded-background=1 ! x264enc ! h264parse ! rtph264pay name=pay0 pt=96'.format(self.pattern)
         return Gst.parse_launch(pipeline)
 
 class GstreamerRtspServer():
