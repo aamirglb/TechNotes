@@ -17,7 +17,10 @@ set(SOURCES main.cpp
             mainwindow.cpp
             finddialog.cpp
             gotocelldialog.cpp
-            sortdialog.cpp)
+            sortdialog.cpp
+            spreadsheet.cpp
+            cell.cpp
+            spreadsheet.qrc)
 
 #qt5_add_resources(SOURCES spreadsheet.qrc)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)

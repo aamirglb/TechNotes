@@ -34,28 +34,28 @@ void MainWindow::createActions() {
     newAction->setStatusTip(tr("Create a new spreadsheet file"));
     connect(newAction, &QAction::triggered, this, &MainWindow::newFile);
 
-    openActon = new QAction(tr("&Open"), this);
+    openAction = new QAction(tr("&Open"), this);
     openAction->setIcon(QIcon(":/images/open.png"));
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open existing spreadsheet"));
-    connect(openAction, &QAction::triggered, this, &MainWindow::openFile);
+    connect(openAction, &QAction::triggered, this, &MainWindow::open);
 
-    saveActon = new QAction(tr("&Save"), this);
-    saveActon->setIcon(QIcon(":/images/save.png"));
-    saveActon->setShortcut(QKeySequence::Save);
-    saveActon->setStatusTip(tr("Save current spreadsheet"));
-    connect(saveActon, &QAction::triggered, this, &MainWindow::saveFile);
+    saveAction = new QAction(tr("&Save"), this);
+    saveAction->setIcon(QIcon(":/images/save.png"));
+    saveAction->setShortcut(QKeySequence::Save);
+    saveAction->setStatusTip(tr("Save current spreadsheet"));
+    connect(saveAction, &QAction::triggered, this, &MainWindow::save);
 
-    saveAsActon = new QAction(tr("Save As"), this);
-    saveAsActon->setIcon(QIcon(":/images/saveas.png"));
-    saveAsActon->setShortcut(QKeySequence::SaveAs);
-    saveAsActon->setStatusTip(tr("Save current spreadsheet"));
-    connect(saveActon, &QAction::triggered, this, &MainWindow::saveAsFile);
+    saveAsAction = new QAction(tr("Save As"), this);
+    saveAsAction->setIcon(QIcon(":/images/saveas.png"));
+    saveAsAction->setShortcut(QKeySequence::SaveAs);
+    saveAsAction->setStatusTip(tr("Save current spreadsheet"));
+    connect(saveAsAction, &QAction::triggered, this, &MainWindow::saveAs);
 
     for(auto i = 0; i < MaxRecentFiles; ++i) {
         recentFileActions[i] = new QAction(this);
         recentFileActions[i]->setVisible(false);
-        connect(recentFileActions, &QAction::triggered, this, &MainWindow::openRecentFile);
+        connect(recentFileActions[i], &QAction::triggered, this, &MainWindow::openRecentFile);
     }
 
     exitAction = new QAction(tr("E&xit"), this);
@@ -67,7 +67,7 @@ void MainWindow::createActions() {
     copyAction = new QAction(tr("&Copy"), this);
     pasteAction = new QAction(tr("&Paste"), this);
     deleteAction = new QAction(tr("&Delete"), this);
-    selectRowAction = new QAction(tr(&Row), this);
+    selectRowAction = new QAction(tr("&Row"), this);
     selectColumnAction = new QAction(tr("&Column"), this);
 
     selectAllAction = new QAction(tr("&All"), this);
@@ -98,7 +98,7 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::createMenus() {
-    fileMenu = menuBar()->addMenu(tr(&File));
+    fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(newAction);
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAction);
@@ -142,12 +142,12 @@ void MainWindow::createMenus() {
 
 void MainWindow::createContextMenu() {
     spreadsheet->addAction(cutAction);
-    spreadsheet->addAction(copyActoin);
+    spreadsheet->addAction(copyAction);
     spreadsheet->addAction(pasteAction);
     spreadsheet->setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
-void MainWindow::createToolBars() {
+void MainWindow::createToolBar() {
     fileToolBar = addToolBar(tr("&File"));
     fileToolBar->addAction(newAction);
     fileToolBar->addAction(openAction);
@@ -282,7 +282,7 @@ void MainWindow::setCurrentFile(const QString &filename) {
         updateRecentFileActions();
     }
 
-    setWindowTitle(tr("%1[*] - %2").arg(shownNane).arg(tr("Spreadsheet")));
+    setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Spreadsheet")));
 }
 
 QString MainWindow::strippedName(const QString &fullname) {
@@ -299,7 +299,7 @@ void MainWindow::updateRecentFileActions() {
     for(int j = 0; j < MaxRecentFiles; ++j) {
         if( j < recentFiles.count()) {
             QString text = tr("&%1 %2").arg(j+1).arg(strippedName(recentFiles[j]));
-            recentFileAction[j]->setText(text);
+            recentFileActions[j]->setText(text);
             recentFileActions[j]->setData(recentFiles[j]);
             recentFileActions[j]->setVisible(true);
         } else {
@@ -393,7 +393,7 @@ void MainWindow::readSettings() {
     updateRecentFileActions();
 
     bool showGrid = settings.value("showGrid", true).toBool();
-    showGridAction.setChecked(showGrid);
+    showGridAction->setChecked(showGrid);
 
     bool autoRecalc = settings.value("autoRecalc", true).toBool();
     autoRecalculateAction->setChecked(autoRecalc);
