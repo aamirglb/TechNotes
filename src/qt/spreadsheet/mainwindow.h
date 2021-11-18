@@ -92,7 +92,7 @@ private:
 
     // Options
     QAction *showGridAction;
-    QAction *autoRecalculateAction;
+    QAction *autoRecalcAction;
 
     // Help
     QAction *aboutAction;

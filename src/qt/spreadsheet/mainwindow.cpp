@@ -61,26 +61,69 @@ void MainWindow::createActions() {
     exitAction = new QAction(tr("E&xit"), this);
     exitAction->setShortcut(tr("Ctrl+Q"));
     exitAction->setStatusTip(tr("Exit the applicaiton"));
+    exitAction->setIcon(QIcon(":/images/exit.png"));
     connect(exitAction, &QAction::triggered, this, &MainWindow::close);
 
     cutAction = new QAction(tr("Cu&t"), this);
+    cutAction->setShortcut(QKeySequence::Cut);
+    cutAction->setStatusTip(tr("Cut current selection"));
+    cutAction->setIcon(QIcon(":/images/cut.png"));
+    connect(cutAction, &QAction::triggered, spreadsheet, &Spreadsheet::cut);
+
     copyAction = new QAction(tr("&Copy"), this);
+    copyAction->setShortcut(QKeySequence::Copy);
+    copyAction->setStatusTip(tr("Copy current selection"));
+    copyAction->setIcon(QIcon(":/images/copy.png"));
+    connect(copyAction, &QAction::triggered, spreadsheet, &Spreadsheet::copy);
+
     pasteAction = new QAction(tr("&Paste"), this);
+    pasteAction->setShortcut(QKeySequence::Paste);
+    pasteAction->setStatusTip(tr("Paste current selection"));
+    pasteAction->setIcon(QIcon(":/images/paste.png"));
+    connect(pasteAction, &QAction::triggered, spreadsheet, &Spreadsheet::paste);
+
     deleteAction = new QAction(tr("&Delete"), this);
+    deleteAction->setShortcut(QKeySequence::Delete);
+    deleteAction->setStatusTip(tr("Delete current selection"));
+    deleteAction->setIcon(QIcon(":/images/del.png"));
+    connect(deleteAction, &QAction::triggered, spreadsheet, &Spreadsheet::del);
+
     selectRowAction = new QAction(tr("&Row"), this);
+    selectRowAction->setStatusTip(tr("Select current row"));
+    selectRowAction->setIcon(QIcon(":/images/row_select.png"));
+    connect(selectRowAction, &QAction::triggered, spreadsheet, &Spreadsheet::selectCurrentRow);
+
     selectColumnAction = new QAction(tr("&Column"), this);
+    selectColumnAction->setStatusTip(tr("Select current column"));
+    selectColumnAction->setIcon(QIcon(":/images/column_select.png"));
+    connect(selectColumnAction, &QAction::triggered, spreadsheet, &Spreadsheet::selectCurrentColumn);
 
     selectAllAction = new QAction(tr("&All"), this);
     selectAllAction->setShortcut(QKeySequence::SelectAll);
+    selectAllAction->setIcon(QIcon(":/images/all_select.png"));
     selectAllAction->setStatusTip(tr("Select all the cells in the spreadsheet"));
     connect(selectAllAction, &QAction::triggered, spreadsheet, &Spreadsheet::selectAll);
 
     findAction = new QAction(tr("&Find"), this);
+    findAction->setShortcut(QKeySequence::Find);
+    findAction->setStatusTip(tr("Find value"));
+    findAction->setIcon(QIcon(":/images/find.png"));
+    connect(findAction, &QAction::triggered, this, &MainWindow::find); 
+
     goToCellAction = new QAction(tr("&Go to Cell"), this);
+    goToCellAction->setStatusTip(tr("Find a value"));
+    goToCellAction->setIcon(QIcon(":/images/goto.png"));
+    connect(goToCellAction, &QAction::triggered, this, &MainWindow::goToCell);
 
     // Tool
     reCalculateAction = new QAction(tr("&Recalculate"), this);
+    reCalculateAction->setStatusTip(tr("Recalculate cells"));
+    reCalculateAction->setIcon(QIcon(":/images/recalc.png"));
+    connect(reCalculateAction, &QAction::triggered, spreadsheet, &Spreadsheet::recalculate);
+
     sortAction = new QAction(tr("&Sort"), this);
+    sortAction->setIcon(QIcon(":/images/sort.png"));
+    connect(sortAction, &QAction::triggered, this, &MainWindow::sort);
 
     showGridAction = new QAction(tr("&Show Grid"), this);
     showGridAction->setCheckable(true);
@@ -88,9 +131,15 @@ void MainWindow::createActions() {
     showGridAction->setStatusTip(tr("Show or hide the spreadsheet's grid"));
     connect(showGridAction, &QAction::toggled, spreadsheet, &Spreadsheet::setShowGrid);
 
-    autoRecalculateAction = new QAction(tr("&Auto-Recalculate"), this);
+    autoRecalcAction = new QAction(tr("&Auto-Recalculate"), this);
+    autoRecalcAction->setCheckable(true);
+    autoRecalcAction->setStatusTip(tr("Enable/disable auto recalculate"));
+    connect(autoRecalcAction, &QAction::toggled, spreadsheet, &Spreadsheet::setAutoRecalculate);
 
     aboutAction = new QAction(tr("&About"), this);
+    aboutAction->setStatusTip(tr("About spreadsheet application"));
+    aboutAction->setIcon(QIcon(":/images/icon.png"));
+    connect(aboutAction, &QAction::triggered, this, &MainWindow::about);
 
     aboutQtAction = new QAction(tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
@@ -117,6 +166,7 @@ void MainWindow::createMenus() {
     editMenu->addAction(deleteAction);
 
     selectSubMenu = editMenu->addMenu(tr("&Select"));
+    selectSubMenu->setIcon(QIcon(":/images/select.png"));
     selectSubMenu->addAction(selectRowAction);
     selectSubMenu->addAction(selectColumnAction);
     selectSubMenu->addAction(selectAllAction);
@@ -131,7 +181,7 @@ void MainWindow::createMenus() {
 
     optionsMenu = menuBar()->addMenu(tr("&Options"));
     optionsMenu->addAction(showGridAction);
-    optionsMenu->addAction(autoRecalculateAction);
+    optionsMenu->addAction(autoRecalcAction);
 
     menuBar()->addSeparator();
 
@@ -382,7 +432,7 @@ void MainWindow::writeSettings() {
     settings.setValue("geometry", saveGeometry());
     settings.setValue("recentFiles", recentFiles);
     settings.setValue("showGrid", showGridAction->isChecked());
-    settings.setValue("autoRecalc", autoRecalculateAction->isChecked());
+    settings.setValue("autoRecalc", autoRecalcAction->isChecked());
 }
 
 void MainWindow::readSettings() {
@@ -396,5 +446,5 @@ void MainWindow::readSettings() {
     showGridAction->setChecked(showGrid);
 
     bool autoRecalc = settings.value("autoRecalc", true).toBool();
-    autoRecalculateAction->setChecked(autoRecalc);
+    autoRecalcAction->setChecked(autoRecalc);
 }
