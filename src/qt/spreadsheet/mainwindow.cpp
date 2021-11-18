@@ -9,9 +9,12 @@
 #include "sortdialog.h"
 #include "spreadsheet.h"
 
+QStringList MainWindow::recentFiles;
+
 MainWindow::MainWindow() {
     spreadsheet = new Spreadsheet;
     setCentralWidget(spreadsheet);
+    setAttribute(Qt::WA_DeleteOnClose);
 
     createActions();
     createMenus();
@@ -52,6 +55,11 @@ void MainWindow::createActions() {
     saveAsAction->setStatusTip(tr("Save current spreadsheet"));
     connect(saveAsAction, &QAction::triggered, this, &MainWindow::saveAs);
 
+    closeAction = new QAction(tr("&Close"), this);
+    closeAction->setShortcut(QKeySequence::Close);
+    closeAction->setStatusTip(tr("Close this window"));
+    connect(closeAction, &QAction::triggered, this, &MainWindow::close);
+
     for(auto i = 0; i < MaxRecentFiles; ++i) {
         recentFileActions[i] = new QAction(this);
         recentFileActions[i]->setVisible(false);
@@ -62,7 +70,7 @@ void MainWindow::createActions() {
     exitAction->setShortcut(tr("Ctrl+Q"));
     exitAction->setStatusTip(tr("Exit the applicaiton"));
     exitAction->setIcon(QIcon(":/images/exit.png"));
-    connect(exitAction, &QAction::triggered, this, &MainWindow::close);
+    connect(exitAction, &QAction::triggered, qApp, &QApplication::closeAllWindows);
 
     cutAction = new QAction(tr("Cu&t"), this);
     cutAction->setShortcut(QKeySequence::Cut);
@@ -111,7 +119,8 @@ void MainWindow::createActions() {
     connect(findAction, &QAction::triggered, this, &MainWindow::find); 
 
     goToCellAction = new QAction(tr("&Go to Cell"), this);
-    goToCellAction->setStatusTip(tr("Find a value"));
+    goToCellAction->setShortcut(tr("Ctrl+G"));
+    goToCellAction->setStatusTip(tr("Go To a Cell"));
     goToCellAction->setIcon(QIcon(":/images/goto.png"));
     connect(goToCellAction, &QAction::triggered, this, &MainWindow::goToCell);
 
@@ -157,6 +166,7 @@ void MainWindow::createMenus() {
         fileMenu->addAction(recentFileActions[i]);
     }
     fileMenu->addSeparator();
+    fileMenu->addAction(closeAction);
     fileMenu->addAction(exitAction);
 
     editMenu = menuBar()->addMenu(tr("&Edit"));
@@ -239,10 +249,12 @@ void MainWindow::spreadsheetModified() {
 }
 
 void MainWindow::newFile() {
-    if(okToContinue()) {
-        spreadsheet->clear();
-        setCurrentFile("");
-    }
+    MainWindow *mainWin = new MainWindow;
+    mainWin->show();
+    // if(okToContinue()) {
+    //     spreadsheet->clear();
+    //     setCurrentFile("");
+    // }
 }
 
 bool MainWindow::okToContinue() {
@@ -264,7 +276,7 @@ bool MainWindow::okToContinue() {
 void MainWindow::open() {
     if(okToContinue()) {
         QString filename = QFileDialog::getOpenFileName(this, 
-            tr("Open Spreadsheet"), ".", tr("Spreadsheet files (*.sp"));
+            tr("Open Spreadsheet"), ".", tr("Spreadsheet files (*.sp)"));
         
         if(!filename.isEmpty()) {
             loadFile(filename);
@@ -329,7 +341,7 @@ void MainWindow::setCurrentFile(const QString &filename) {
         shownName = strippedName(curFile);
         recentFiles.removeAll(curFile);
         recentFiles.prepend(curFile);
-        updateRecentFileActions();
+        updateRecentFileActionsAllWindow();
     }
 
     setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Spreadsheet")));
@@ -337,6 +349,14 @@ void MainWindow::setCurrentFile(const QString &filename) {
 
 QString MainWindow::strippedName(const QString &fullname) {
     return QFileInfo(fullname).fileName();
+}
+
+void MainWindow::updateRecentFileActionsAllWindow() {
+    foreach(QWidget *win, QApplication::topLevelWidgets()) {
+        if(MainWindow *mainWin = qobject_cast<MainWindow *>(win)) {
+            mainWin->updateRecentFileActions();
+        }
+    }
 }
 
 void MainWindow::updateRecentFileActions() {
@@ -372,11 +392,11 @@ void MainWindow::find() {
         findDialog = new FindDialog(this);
         connect(findDialog, &FindDialog::findNext, spreadsheet, &Spreadsheet::findNext);
         connect(findDialog, &FindDialog::findPrevious, spreadsheet, &Spreadsheet::findPrevious);
-
-        findDialog->show();
-        findDialog->raise();
-        findDialog->activateWindow();
     }
+
+    findDialog->show();
+    findDialog->raise();
+    findDialog->activateWindow();
 }
 
 void MainWindow::goToCell() {
@@ -440,7 +460,7 @@ void MainWindow::readSettings() {
     restoreGeometry(settings.value("geometry").toByteArray());
     
     recentFiles = settings.value("recentFiles").toStringList();
-    updateRecentFileActions();
+    updateRecentFileActionsAllWindow();
 
     bool showGrid = settings.value("showGrid", true).toBool();
     showGridAction->setChecked(showGrid);

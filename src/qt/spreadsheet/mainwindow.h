@@ -44,13 +44,14 @@ private:
     void setCurrentFile(const QString &filename);
     void updateRecentFileActions();
     QString strippedName(const QString &fullFilename);
+    void updateRecentFileActionsAllWindow();
 
 private:
     Spreadsheet *spreadsheet;
     FindDialog *findDialog;
     QLabel *locationLabel;
     QLabel *formulaLabel;
-    QStringList recentFiles;
+    static QStringList recentFiles;
     QString curFile;
 
     enum { MaxRecentFiles = 5 };
@@ -72,6 +73,7 @@ private:
     QAction *openAction;
     QAction *saveAction;
     QAction *saveAsAction;
+    QAction *closeAction;
     QAction *exitAction;
 
     // Edit
