@@ -198,7 +198,7 @@ void Plotter::updateRubberBandRegion() {
 
 void Plotter::refreshPixmap() {
     pixmap = QPixmap(size());
-    pixmap.fill(this, 0, 0);
+    // pixmap.fill(this, 0, 0);
     QPainter painter(&pixmap);
     painter.initFrom(this);
     drawGrid(&painter);
