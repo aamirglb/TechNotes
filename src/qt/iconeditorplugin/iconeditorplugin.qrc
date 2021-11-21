@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/iconeditor.png</file>
+    </qresource>
+</RCC>

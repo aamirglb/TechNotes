@@ -564,3 +564,22 @@ gst-launch-1.0 videotestsrc num-buffers=50 ! video/x-raw,width=640,height=512 ! 
 # https://github.com/gkralik/python-gst-tutorial/blob/master/basic-tutorial-4.py
 # https://coaxion.net/blog/2014/01/gstreamer-dynamic-pipelines/
 
+### Display mjpeg compressed video
+
+```
+ffmpeg  -f video4linux2 -list_formats all -i /dev/video2
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+[video4linux2,v4l2 @ 0x55da62e916c0] Compressed:       mjpeg :          Motion-JPEG : 640x480 320x240 800x600 1024x768 1280x720 1280x1024 1600x1200 1920x1080 2048x1536 2592x1944 640x480
+[video4linux2,v4l2 @ 0x55da62e916c0] Raw       :     yuyv422 :           YUYV 4:2:2 : 640x480 320x240 800x600 1024x768 1280x720 1280x1024 1600x1200 1920x1080 2048x1536 2592x1944 640x480
+/dev/video2: Immediate exit requested
+
+gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg,width=800,height=600,framerate=30/1 ! decodebin !  autovideosink
+```
