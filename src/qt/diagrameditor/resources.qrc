@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/send-to-back.svg</file>
+        <file>images/bring-forward.png</file>
+        <file>images/delete.png</file>
+        <file>images/paste.png</file>
+        <file>images/cut.png</file>
+        <file>images/copy.png</file>
+        <file>images/link.png</file>
+        <file>images/node.png</file>
+    </qresource>
+</RCC>
