@@ -167,6 +167,7 @@ void DiagramWindow::updateActions() {
     bool hasSelection = !scene->selectedItems().isEmpty();
     bool isNode = (selectedNode() != 0);
     bool isNodePair = (selectedNodePair() != NodePair());
+    bool isLink = (selectedLink() != nullptr);
 
     cutAction->setEnabled(isNode);
     copyAction->setEnabled(isNode);
@@ -174,7 +175,7 @@ void DiagramWindow::updateActions() {
     deleteAction->setEnabled(hasSelection);
     bringToFrontAction->setEnabled(isNode);
     sendToBackAction->setEnabled(isNode);
-    propertiesAction->setEnabled(isNode);
+    propertiesAction->setEnabled(isNode || isLink);
     foreach (QAction *action, view->actions())
         view->removeAction(action);
 
