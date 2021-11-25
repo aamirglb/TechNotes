@@ -1,5 +1,11 @@
+#include <QApplication>
+#include <QPainter>
 #include <QPainterPath>
-
+#include <QFontMetricsF>
+#include <QStyleOptionGraphicsItem>
+#include <QGraphicsSceneMouseEvent>
+#include <QInputDialog>
+#include "link.h"
 #include "node.h"
 
 Node::Node() {
@@ -31,7 +37,7 @@ void Node::removeLink(Link *link) {
 
 QRectF Node::outlineRect() const {
     const int Padding = 8;
-    QFontMetricsF metrics = qApp->font();
+    QFontMetricsF metrics {qApp->font()};
     QRectF rect = metrics.boundingRect(myText);
     rect.adjust(-Padding, -Padding, +Padding, +Padding);
     rect.translate(-rect.center());
@@ -40,7 +46,7 @@ QRectF Node::outlineRect() const {
 
 QRectF Node::boundingRect() const {
     const int Margin = 1;
-    return outlineRect().adjusted(-Margin, -Margin, +Margin, +Margin)
+    return outlineRect().adjusted(-Margin, -Margin, +Margin, +Margin);
 }
 
 QPainterPath Node::shape() const {
@@ -51,7 +57,7 @@ QPainterPath Node::shape() const {
     return path;
 }
 
-void Node::paint(QPainter *parient,
+void Node::paint(QPainter *painter,
                 const QStyleOptionGraphicsItem *option,
                 QWidget * /* widget */) {
     QPen pen(myOutlineColor);

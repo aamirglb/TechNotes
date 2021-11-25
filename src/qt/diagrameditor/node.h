@@ -1,18 +1,21 @@
 #pragma once
+#include <QCoreApplication>
 #include <QGraphicsItem>
 #include <QColor>
 #include <QSet>
 
 class QPainter;
 class QStyleOptionGraphicsItem;
-class QGraphicsScenceMouseEvent;
+class QGraphicsSceneMouseEvent;
+class Link;
 
 class Node : public QGraphicsItem {
-    Q_DECLARE_TR_FUNCTIONS(Node);
+    Q_DECLARE_TR_FUNCTIONS(Node)
 
 public:
     Node();
-    void setText(const QString &text) { myText = text; }
+    ~Node();
+    void setText(const QString &text);
     QString text() const { return myText; }
 
     void setTextColor(const QColor &color) { myTextColor = color; }
@@ -34,7 +37,7 @@ public:
                QWidget *widget);
 
 protected:
-    void mouseDoubleClickEvent(QGraphicsScenceMouseEvent *event);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:

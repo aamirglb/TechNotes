@@ -28,8 +28,7 @@ DiagramWindow::DiagramWindow() {
     createActions();
     createMenus();
     createToolBars();
-    connect(scene, &QGraphicsScene::selectionChanged,
-        this, &DiagramWindow::updateActions);
+    connect(scene, &QGraphicsScene::selectionChanged, this, &DiagramWindow::updateActions);
     setWindowTitle(tr("Diagram"));
     updateActions();
 }
@@ -72,7 +71,16 @@ Node *DiagramWindow::selectedNode() const {
     if (items.count() == 1) {
         return dynamic_cast<Node *>(items.first());
     } else {
-        return 0;
+        return nullptr;
+    }
+}
+
+Link *DiagramWindow::selectedLink() const {
+    QList<QGraphicsItem *> items = scene->selectedItems();
+    if(items.count() == 1) {
+        return dynamic_cast<Link *>(items.first());
+    } else {
+        return nullptr;
     }
 }
 
@@ -243,7 +251,7 @@ void DiagramWindow::createToolBars() {
     fileToolBar->addAction(newNodeAction);
     fileToolBar->addAction(newLinkAction);
     fileToolBar->addAction(deleteAction);
-    editToolBar->addSeparator();
+    fileToolBar->addSeparator();
 
     editToolBar = addToolBar(tr("&Edit"));
     editToolBar->addAction(cutAction);
