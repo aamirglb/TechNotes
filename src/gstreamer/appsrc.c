@@ -1,5 +1,5 @@
 /*
-gcc appsrc2.c -o appsrc2 `pkg-config --cflags --libs gstreamer-1.0`
+gcc appsrc.c -o appsrc `pkg-config --cflags --libs gstreamer-1.0` -lm
 */
 #include <gst/gst.h>
 #include <math.h>
@@ -29,14 +29,14 @@ static void set_color(GstBuffer *buf, int offset, int color) {
     int b = (color & 0x0000FF);
     gst_buffer_memset(buf, offset, r, 1);
     gst_buffer_memset(buf, offset+1, g, 1);
-    gst_buffer_memset(buf, offset+2, b, 1); 
+    gst_buffer_memset(buf, offset+2, b, 1);
 }
 
 static void draw_circle(GstBuffer *buf, gint mid_x, gint mid_y, guint w) {
   // guint mid_x = w * 0.5;
   // guint mid_y = h * 0.5;
 
-  set_color(buf, (mid_y*w*3)+(mid_x*3), 0x0);   
+  set_color(buf, (mid_y*w*3)+(mid_x*3), 0x0);
 
   // Use the below formula to draw circle
   // x = cx + r * cos(a)
@@ -111,7 +111,7 @@ static void snow(GstBuffer *buffer, gint w, gint h, gint pix_size) {
       }
       color = 	g_random_int_range(0x0, 0xFFFFFF);
     }
-  }  
+  }
 }
 
 static void
@@ -129,34 +129,34 @@ cb_need_data (GstElement *appsrc,
   int width = 640;
   int height = 480;
   size = width * height * 3;
-  
+
   buffer = gst_buffer_new_allocate (NULL, size, NULL);
   gst_buffer_memset (buffer, 0, 0xFF, size);
 
-  static guint ox = 10;
-  static guint oy = 220;
-  draw_circle(buffer, ox, oy, width);
-  ox+= 5;
+  // static guint ox = 10;
+  // static guint oy = 220;
+  // draw_circle(buffer, ox, oy, width);
+  // ox+= 5;
 
-  // ++time_count;
-  // static guint pix_size = 1;
-  // if((time_count % 10) == 0 && pix_size != 256) {
-  //   pix_size *= 2;
-  // }
-  
-  // if(pix_size < 256) 
-  //   snow(buffer, width, height, pix_size);
-  
-  // if(time_count > 80 && time_count < 90) {
-  //   random_grid(buffer, width, height);
-  // } else if(time_count > 90 && time_count < (90+26)) {
-  //   grid_flow(buffer, width, height); ++flow_cnt;
-  // }
+  ++time_count;
+  static guint pix_size = 1;
+  if((time_count % 10) == 0 && pix_size != 256) {
+    pix_size *= 2;
+  }
 
-  // if(time_count > (90+26)) {
-  //   time_count = 0;
-  //   pix_size = 1;
-  // }
+  if(pix_size < 256)
+    snow(buffer, width, height, pix_size);
+  g_print("%d ", time_count);
+  if(time_count > 80 && time_count < 90) {
+    random_grid(buffer, width, height);
+  } else if(time_count > 90 && time_count < (90+26)) {
+    grid_flow(buffer, width, height); ++flow_cnt;
+  }
+
+  if(time_count > (90+26)) {
+     time_count = 0;
+     pix_size = 1;
+  }
 
   /* this makes the image black/white */
   // gst_buffer_memset (buffer, 0, white ? 0xff : 0x0, size);
@@ -224,4 +224,4 @@ main (gint   argc,
   g_main_loop_unref (loop);
 
   return 0;
-  }
+}
