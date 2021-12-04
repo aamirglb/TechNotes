@@ -52,10 +52,12 @@ QVariant CurrencyModel::headerData(int section,
 void CurrencyModel::setCurrencyMap(const QMap<QString, double> &map, const QMap<QString, QString> &countries) {
     beginResetModel();
     currencyMap.clear();
-    endResetModel();
-
+    countryNames.clear();
+    
     currencyMap = map;
     countryNames = countries;
+
+    endResetModel();
 }
 
 QString CurrencyModel::currencyAt(int offset) const {
