@@ -9,6 +9,7 @@ public:
 
 private:
     QMap<QString, double> currencyMap;
+    QMap<QString, QString> countryMap;
     QTableView *tableView;
     CurrencyModel currencyModel;
 };

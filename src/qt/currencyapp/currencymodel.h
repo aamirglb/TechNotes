@@ -5,7 +5,7 @@ class CurrencyModel : public QAbstractTableModel {
 public:
     CurrencyModel(QObject *parent = nullptr);
 
-    void setCurrencyMap(const QMap<QString, double> &map);
+    void setCurrencyMap(const QMap<QString, double> &map, const QMap<QString, QString> &countries);
     int rowCount(const QModelIndex &parent) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const;
@@ -14,6 +14,8 @@ public:
         
 private:
     QString currencyAt(int offset) const;
+    QString countryAt(int offset) const;
     QMap<QString, double> currencyMap;
+    QMap<QString, QString> countryNames;
 };
 

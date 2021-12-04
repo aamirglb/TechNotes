@@ -17,7 +17,8 @@ CurrencyWidget::CurrencyWidget(QString filename, QWidget *parent)
         while(!in.atEnd()) {
             auto line = in.readLine();
             auto fields = line.split(",");
-            currencyMap.insert(fields[1], fields[0].toDouble());
+            currencyMap.insert(fields[2], fields[1].toDouble());
+            countryMap.insert(fields[2], fields[0]);
         }
         file.close();
     } else {
@@ -26,9 +27,14 @@ CurrencyWidget::CurrencyWidget(QString filename, QWidget *parent)
         currencyMap.insert("CHF", 1.2970);
         currencyMap.insert("SGD", 1.6901);
         currencyMap.insert("USD", 1.0000);
+
+        countryMap.insert("AUD", "AUSTRALIA");
+        countryMap.insert("CHF", "SWITZERLAND");
+        countryMap.insert("SGD", "SINGAPORE");
+        countryMap.insert("USD", "UNITED STATES");
     }
     
-    currencyModel.setCurrencyMap(currencyMap);
+    currencyModel.setCurrencyMap(currencyMap, countryMap);
 
     tableView = new QTableView;
     tableView->setModel(&currencyModel);

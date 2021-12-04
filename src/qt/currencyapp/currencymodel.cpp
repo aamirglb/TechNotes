@@ -35,22 +35,34 @@ QVariant CurrencyModel::data(const QModelIndex &index, int role) const {
 }
 
 QVariant CurrencyModel::headerData(int section, 
-                                    Qt::Orientation /* orientation */,
+                                    Qt::Orientation orientation,
                                     int role) const {
-    if(role != Qt::DisplayRole)
+    if(role == Qt::ToolTipRole) {
+        return countryAt(section);
+    } else if(role == Qt::DisplayRole) {
+        if(orientation == Qt::Horizontal)
+            return QString("%1\n(%2)").arg(currencyAt(section)).arg(countryAt(section));
+        else
+            return currencyAt(section);
+    } else {
         return QVariant();
-    return currencyAt(section);
+    }
 }
 
-void CurrencyModel::setCurrencyMap(const QMap<QString, double> &map) {
+void CurrencyModel::setCurrencyMap(const QMap<QString, double> &map, const QMap<QString, QString> &countries) {
     beginResetModel();
     currencyMap.clear();
     endResetModel();
 
     currencyMap = map;
+    countryNames = countries;
 }
 
 QString CurrencyModel::currencyAt(int offset) const {
     return (currencyMap.begin() + offset).key();
+}
+
+QString CurrencyModel::countryAt(int offset) const {
+    return (countryNames.begin() + offset).value();
 }
 
