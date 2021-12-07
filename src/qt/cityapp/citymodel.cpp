@@ -24,6 +24,10 @@ QVariant CityModel::data(const QModelIndex &index, int role) const {
             return 0;
         int offset = offsetOf(index.row(), index.column());
         return distances[offset];
+    } else if(role == Qt::ToolTipRole) {
+        auto row = index.row();
+        auto col = index.column();
+        return QString("%1 <-> %2").arg(cities[row]).arg(cities[col]);
     }
     return QVariant();
 }
