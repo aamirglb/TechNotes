@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>capital_cities.csv</file>
+    </qresource>
+</RCC>
