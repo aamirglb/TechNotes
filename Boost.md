@@ -4,6 +4,8 @@ C++ GCC get all warnings: gcc -Q --help=warning
 
 * Most of Boost libraries consist solely of header files that can be used directly, some of the libraries require compilation.
 
+![boost_lib](images/cpp/boost_lib.png)
+
 ## Boost.Signals2
 
 * Boost.Signals2 library is an implementation of a _managed_ signals and slots system. Boost.Signals2 allows the user to specify the manner in which multiple return values are combined. 
