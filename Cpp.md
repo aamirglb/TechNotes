@@ -1,8 +1,291 @@
 # Index
 
+1. [Professional C++](#professional_c++)
 1. [C++ Annotation](#cpp_annotation)
 1. [C++ Concurrency in Action](#cpp_concurrency)
 1. [C++17](#-c++17)
+
+# Professional C++
+
+using namespace std; // using directive
+
+using std::cout; // using directive
+
+// Namespace nesting, C++17
+namespace NetLib::Networking::FTP {
+}
+
+namespace MyFTP = NetLib::Networking::FTP; // namespace alias
+
+// hexadecimal floating point literal
+0x3.ABCp-10; 0Xb.cp121
+
+3+(ABC/16^-3) * (2^-10)
+3+0.6708984375 * (2^-10) = 0.0035848617553...
+
+// Digit separators
+23'456'789
+0.123'456f
+
+<cstddef> provides the `std::byte` type representing a single byte. // C++17
+
+<<<< --- NOTES FROM LAPTOP --- >>>>>
+
+Module interface files usually have . cppm as extension.
+
+export module employee;   // module declaration
+
+export struct Employee {
+char firstInitial;
+char lastInitial;
+int employeeNumber;
+int salary;
+};
+
+import employee;
+
+if(<initializer>; <conditional_expression>) {
+
+}
+
+```cpp
+enum class Mode { Default, Custom, Standard };
+int value { 42 };
+Mode mode { /* ... */ };
+switch (mode) {
+    using enum Mode;
+    case Custom:
+        value = 84;
+        [[fallthrough]];  // fallthrough attribute, intended fallthrough
+    case Standard:
+    case Default:
+        // Do something with value ...
+    break;
+}
+```
+
+switch (<initializer>; <expression>) { <body> }
+
+The advantage of the conditional operator is that it is an expression, not a statement like the if and
+switch statement.
+
+// C++20
+<=> : Three-way comparison operator, also called the spaceship operator.
+result = i <=> 0;
+
+The three-way comparison operator can be used to determine the order of two values.
+With a single expression, it tells
+you whether a value is equal, less than, or greater than another value. Because it has to return more
+than just true or false , it cannot return a Boolean type. Instead, it returns an enumeration-like 2
+type, defined in <compare> and in the std namespace.
+
+<compare> provides named comparison functions to interpret the result of an ordering.
+These functions are std::is_eq() , is_neq() , is_lt() , is_lteq() , is_gt() , and is_gteq()
+returning true if an ordering represents == , != , < , <= , > , or >= respectively, false otherwise.
+
+```cpp
+// Function Return Type Deduction
+auto addNum(int n1, int n2) {
+    return n1 + n2;
+}
+```
+
+Every function has a local predefined variable __func__ containing the name of the current function.
+
+// Attributes
+Attributes are a mechanism to add optional and/or vendor-specific information into source code. Since C++11, there is standardized support for
+attributes by using the double square brackets syntax [[ attribute ]] .
+
+[[nodiscard]]
+can be used on a function returning a value to let the compiler issue
+a warning when that function is called without doing something with the returned value.
+
+```cpp
+[[nodiscard]] int func() {
+    return 42;
+}
+
+int main() {
+    func(); // warning C4834: discarding return value of function with 'nodiscard' attribute
+}
+```
+
+// C++20
+A reason can be provided for [[nodiscard]]
+[[nodiscard("Return value must be used")]] int func();
+
+[[maybe_unused]] suppress the compiler from issuing warning when something is unused.
+
+```cpp
+int func(int param1, [[maybe_unused]] int param2) {
+    return param1 * 2.5;
+}
+```
+
+[[noreturn]] a function never returns control to the call site.
+
+```cpp
+[[noreturn]] void forceProgramTermination() {
+    std::exit(1);
+}
+```
+[[deprecated]] to mark something as deprecated.
+[[deprecated("Unsafe method, please use funcV2")]] void func();
+
+[[likely]] and [[unlikely]] can be used to help compiler in optimizing the code. 
+Rarely required because compilers and hardware these days have **_powerful branch prediction_**
+
+```cpp
+int value {};
+if(value > 11) [[unlikely]] {
+
+} else {}
+
+switch(value) {
+    [[likely]] case 1:
+        break;
+    case 2:
+        break;
+    [[unlikely]] case 12:
+    break;
+}
+
+int array[3] = { 0 };
+int array[3] = {};
+int array[3] {};
+
+<array> => std::size();
+<cstddef> => size_t
+size_t arraySize { std::size(myArray)};
+
+C++ has a special type of fixed-size container called std::array , defined in <array> . It’s basically a thin wrap-
+per around C-style arrays.
+
+```cpp
+std::array<int, 3> arr { 3, 6, 9 };
+fmt::print("size: {}", arr.size());
+fmt::print("2nd: {}", arr[1]);
+
+// CTAD
+std::array arr2 {9, 6, 3};
+```
+
+C++ supports so-called class template argument deduction (CTAD)
+vector class template supports CTAD.
+
+std::pair in <utility>, groups two values of possibly different types.
+
+```cpp
+std::pair<double, int> myPair{1.23, 4};
+fmt::print("{} {}", myPair.first, myPair.second);
+```
+std::optional defined in <optional>, holds a value of a specific type, or nothing. 
+Often used for parameters and return value. 
+Remove the need to return "special" values from functions such as nullptr, -1, EOF and so on.
+
+// Structure Binding
+Always use auto keyword for structured bindings
+array values {11, 22, 33};
+auto [x, y, z] {values};
+
+// C++20: Initializers for Range-Based for Loops
+for (<initializer>; <for-range-declaration> : <for-range-initializer>) { <body> }
+
+Initializer lists are defined in <initializer_list> and make it easy to write functions that can
+accept a variable number of arguments.
+
+module interface file (.cppm)
+module implementation file (.cpp)
+
+// C++11 
+Uniform Initialization of structure and class
+
+A benefit of using uniform initialization is that it prevents _narrowing_.
+
+If a narrowing cast is what you need, I recommend using the gsl::narrow_cast() function available 
+in the **Guidelines Support Library (GSL)**.
+
+// C++20: Designated Initializers
+C++20 introduces designated initializers to initialize data members of so-called aggregates using their
+name. An aggregate type is an object of an array type, or an object of a structure or class
+
+A null pointer is a special default value that no valid pointer will ever have and converts to false
+when used in a Boolean expression.
+
+The -> (arrow) operator lets you perform both the dereference and the
+field access in one step.
+
+int* p { new int[8] };
+
+To follow the const-correctness principle, it’s recommended to declare
+member functions that do not change any data members of the object as being
+const . These member functions are also called _inspectors_, compared to _mutators_
+for non-const member functions.
+
+```cpp
+constexpr int getArraySize() { return 32; }
+int a[getArraySize()]; 
+
+// C++20: consteval keyword
+constexpr keyword specifies that a function could be executed at compile time, but it does not guarantee compile-time execution.
+If you really want the guarantee that a function is always evaluated at compile time, you need to use
+the C++20 consteval keyword to turn a function into a so-called **immediate function**.
+
+auto& [s, i] { myPair }; // references-to-non-const
+const auto& [s, i] { myPair }; // references-to-const
+
+return value optimization (RVO)
+named return value optimization (NRVO)
+
+Both RVO and NRVO are forms of copy elision and
+make returning objects from functions very efficient. With copy elision, compilers can avoid any
+copying of objects that are returned from functions. This results in zero-copy pass-by-value semantics.
+
+5 types of casts
+const_cast() => add or cast away constness to a variable
+static_ast()
+reinterpret_cast()
+dynamic_cast()
+std::bit_cast() // since C++20
+
+std::invalid_argument defined in <stdexcept>
+
+A type alias provides a new name for an existing type declaration.
+using IntPtr = int*;
+using string = basic_string<char>;
+
+_Type inference_ allows the compiler to automatically deduce the type of an expression. There are two
+keywords for type inference: auto and decltype.
+
+Using auto to deduce the type of an expression strips away reference and const qualifiers.
+
+Copy list initialization:   T obj = {arg1, arg2, ...};
+Direct list initialization: T obj {arg1, arg2, ...};
+
+```cpp
+// Since C++17
+// Copy list initialization
+auto a = { 11 };     // initializer_list<int>
+auto b = { 11, 22 }; // initializer_list<int>
+
+// Direct list initialization
+auto c { 11 };      // int
+auto d { 11, 22 };  // Error, too many elements.
+
+// C++11/C++14
+auto a = { 11 };     // initializer_list<int>
+auto b = { 11, 22 }; // initializer_list<int>
+
+// Direct list initialization
+auto c { 11 };      // initializer_list<int> 
+auto d { 11, 22 };  // initializer_list<int> 
+```
+
+The difference between auto and decltype is that decltype does not strip reference and const
+qualifiers.
+
+
+
 
 # C++ Annotation
 
