@@ -29,7 +29,27 @@ namespace MyFTP = NetLib::Networking::FTP; // namespace alias
 
 <cstddef> provides the `std::byte` type representing a single byte. // C++17
 
-<<<< --- NOTES FROM LAPTOP --- >>>>>
+std::numeric_limits class in <limits> header.
+
+defined in <cmath>
+std::isnan() => check if a given floating-point number is not-a-number
+std::isinf() => check for infinity
+
+enum class PieceType { King, Queen, Rook, Pawn };
+PieceType piece { PieceType::King};
+
+enum class PieceType : unsigned long {
+    King = 1,
+    Queen,
+    Rook = 10,
+    Pawn,
+};
+
+// C++20
+using enum PieceType;
+PieceType piece { King };
+
+The value of old-style enumerations are exported to the enclosing scope.
 
 Module interface files usually have . cppm as extension.
 
@@ -132,7 +152,7 @@ int func(int param1, [[maybe_unused]] int param2) {
 [[deprecated]] to mark something as deprecated.
 [[deprecated("Unsafe method, please use funcV2")]] void func();
 
-[[likely]] and [[unlikely]] can be used to help compiler in optimizing the code. 
+[[likely]] and [[unlikely]] can be used to help compiler in optimizing the code.
 Rarely required because compilers and hardware these days have **_powerful branch prediction_**
 
 ```cpp
@@ -179,8 +199,8 @@ std::pair in <utility>, groups two values of possibly different types.
 std::pair<double, int> myPair{1.23, 4};
 fmt::print("{} {}", myPair.first, myPair.second);
 ```
-std::optional defined in <optional>, holds a value of a specific type, or nothing. 
-Often used for parameters and return value. 
+std::optional defined in <optional>, holds a value of a specific type, or nothing.
+Often used for parameters and return value.
 Remove the need to return "special" values from functions such as nullptr, -1, EOF and so on.
 
 // Structure Binding
@@ -197,12 +217,12 @@ accept a variable number of arguments.
 module interface file (.cppm)
 module implementation file (.cpp)
 
-// C++11 
+// C++11
 Uniform Initialization of structure and class
 
 A benefit of using uniform initialization is that it prevents _narrowing_.
 
-If a narrowing cast is what you need, I recommend using the gsl::narrow_cast() function available 
+If a narrowing cast is what you need, I recommend using the gsl::narrow_cast() function available
 in the **Guidelines Support Library (GSL)**.
 
 // C++20: Designated Initializers
@@ -224,7 +244,7 @@ for non-const member functions.
 
 ```cpp
 constexpr int getArraySize() { return 32; }
-int a[getArraySize()]; 
+int a[getArraySize()];
 
 // C++20: consteval keyword
 constexpr keyword specifies that a function could be executed at compile time, but it does not guarantee compile-time execution.
@@ -277,12 +297,65 @@ auto a = { 11 };     // initializer_list<int>
 auto b = { 11, 22 }; // initializer_list<int>
 
 // Direct list initialization
-auto c { 11 };      // initializer_list<int> 
-auto d { 11, 22 };  // initializer_list<int> 
+auto c { 11 };      // initializer_list<int>
+auto d { 11, 22 };  // initializer_list<int>
 ```
 
 The difference between auto and decltype is that decltype does not strip reference and const
 qualifiers.
+
+* strcpy_s() or strcat_s(), which are part of the “secure C library” standard (ISO/IEC TR 24731)
+
+* Raw string literal starts with `R"(` and ends with `)"`
+
+const char* str { R"(Hello "World"!)"};
+
+* `c_str()` get const char pointer
+
+  `data()` return const char* until C++14, starting C++17, return a char* when called on a non-const string.
+
+* string methods
+   substr(pos, len)
+   find(str)
+   replace(pos, len, str)
+   starts_with(str)/ends_with(str) C++20
+
+* Use the standard user-defined literal `s` to interpret a string literal as an std::string
+
+    auto string1 { "Hello World"s };
+
+* Standard user-defined literal `s` is defined in `std::literals::string_literals`.
+
+* vector names { "John", "Sam", "Joe" }; // deduced type vector<const char*> not vector<string>
+
+* string to_string(T val); // convert T to string
+
+* Lower-level numerical conversion functions defined in <charconv>
+
+std::string_view class // C++17
+
+* A string_view is basically a drop-in replacement for const string& but without the overhead. It never copies strings!
+no `c_str()` but `data()` is available. Add methods `remove_prefix(size_t)` and `remove_suffix(size_t)`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
