@@ -337,9 +337,70 @@ std::string_view class // C++17
 * A string_view is basically a drop-in replacement for const string& but without the overhead. It never copies strings!
 no `c_str()` but `data()` is available. Add methods `remove_prefix(size_t)` and `remove_suffix(size_t)`
 
+* C++20 introduces `std::format()`, defined in <format> , to format strings.
 
+* Invariants are conditions that have to be true during the execution of a piece of code, for example, a loop iteration.
 
+* For C++, a free tool called Doxygen (available at doxygen.org ) parses comments to auto-
+matically build HTML documentation, class diagrams, UNIX man pages, and other useful docu-
+ments.
 
+* The computing term
+_cruft_ refers to the gradual accumulation of small
+amounts of code that eventually turns a once-
+elegant piece of code into a mess of patches and
+special cases.
+
+* Since C++20, the Standard Library includes a collection of predefined
+mathematical constants, all defined in <numbers> in the std::numbers
+namespace. For example, it defines std::numbers::e , pi , sqrt2 , phi , and many
+more.
+
+* Scrum, an agile
+software development methodology, is one example of such an iterative process whereby the appli-
+cation is developed in cycles, known as sprints. With each sprint, designs can be modified, and new
+requirements can be taken into account.
+
+* With
+**dependency injection**, you create an interface for each service and you inject the interfaces a compo-
+nent needs into the component.
+
+* A framework is a collection of code around which you design a program.
+
+* 90/10 rule: 90 percent of the running time of most programs is
+spent in only 10 percent of the code
+
+* mixin class?
+
+* std::any class, available since C++17, you can store any type of object in
+an instance of the any class. The underlying implementation of std::any does use a void* pointer in
+certain cases, but it also keeps track of the type stored, so everything remains type safe.
+
+* An std::any object can store a value of any type, while an std::variant object can store a
+value of a selection of types.
+
+* A possible disadvantage of templates is so-called code bloat: an increased size of the final
+binary code.
+
+* templates can be specialized for specific types to treat those types differently.
+
+* open/closed principle (OCP)
+
+* you are allowed to call
+delete on a nullptr pointer; it simply will not do anything.
+
+* The
+main advantage of new over malloc() is that new doesn’t just allocate memory, it constructs objects!
+
+* There is also an alternative version of new , which does not throw an exception
+```cpp
+int* ptr { new(nothrow) int };
+
+* C++20: `std::span` wraps a pointer to an array and its size!
+
+* standard smart pointers, `unique_ptr` and `shared_ptr`, are defined in `<memory>`.
+
+* The get() method can be used to get direct access to the underlying pointer.
 
 
 
