@@ -7,10 +7,11 @@
 
 # Professional C++
 
-using namespace std; // using directive
+* using namespace std; // using directive
 
-using std::cout; // using directive
+* using std::cout; // using directive
 
+```cpp
 // Namespace nesting, C++17
 namespace NetLib::Networking::FTP {
 }
@@ -19,22 +20,28 @@ namespace MyFTP = NetLib::Networking::FTP; // namespace alias
 
 // hexadecimal floating point literal
 0x3.ABCp-10; 0Xb.cp121
+```
 
+* How to convert hex floating point literal to floating point value
+
+```cpp
 3+(ABC/16^-3) * (2^-10)
 3+0.6708984375 * (2^-10) = 0.0035848617553...
 
 // Digit separators
 23'456'789
 0.123'456f
+```
 
-<cstddef> provides the `std::byte` type representing a single byte. // C++17
+* `<cstddef>` provides the `std::byte` type representing a single byte. // C++17
 
-std::numeric_limits class in <limits> header.
+* `std::numeric_limits` class in `<limits>` header.
 
-defined in <cmath>
-std::isnan() => check if a given floating-point number is not-a-number
-std::isinf() => check for infinity
+* defined in `<cmath>`
+    * std::isnan() => check if a given floating-point number is not-a-number
+    * std::isinf() => check for infinity
 
+```cpp
 enum class PieceType { King, Queen, Rook, Pawn };
 PieceType piece { PieceType::King};
 
@@ -48,11 +55,13 @@ enum class PieceType : unsigned long {
 // C++20
 using enum PieceType;
 PieceType piece { King };
+```
 
-The value of old-style enumerations are exported to the enclosing scope.
+* The value of old-style enumerations are exported to the enclosing scope.
 
-Module interface files usually have . cppm as extension.
+* Module interface files usually have `.cppm` as extension.
 
+```cpp
 export module employee;   // module declaration
 
 export struct Employee {
@@ -63,10 +72,13 @@ int salary;
 };
 
 import employee;
+```
 
+```cpp
 if(<initializer>; <conditional_expression>) {
 
 }
+```
 
 ```cpp
 enum class Mode { Default, Custom, Standard };
@@ -84,24 +96,21 @@ switch (mode) {
 }
 ```
 
+```cpp
 switch (<initializer>; <expression>) { <body> }
+```
 
-The advantage of the conditional operator is that it is an expression, not a statement like the if and
-switch statement.
+* The advantage of the conditional operator is that it is an expression, not a statement like the if and switch statement.
 
-// C++20
-<=> : Three-way comparison operator, also called the spaceship operator.
+* C++20: `<=>` : Three-way comparison operator, also called the spaceship operator.
+
+```cpp
 result = i <=> 0;
+```
 
-The three-way comparison operator can be used to determine the order of two values.
-With a single expression, it tells
-you whether a value is equal, less than, or greater than another value. Because it has to return more
-than just true or false , it cannot return a Boolean type. Instead, it returns an enumeration-like 2
-type, defined in <compare> and in the std namespace.
+* The three-way comparison operator can be used to determine the order of two values. With a single expression, it tells you whether a value is equal, less than, or greater than another value. Because it has to return more than just true or false, it cannot return a Boolean type. Instead, it returns an enumeration-like type, defined in `<compare>` and in the std namespace.
 
-<compare> provides named comparison functions to interpret the result of an ordering.
-These functions are std::is_eq() , is_neq() , is_lt() , is_lteq() , is_gt() , and is_gteq()
-returning true if an ordering represents == , != , < , <= , > , or >= respectively, false otherwise.
+* `<compare>` provides named comparison functions to interpret the result of an ordering. These functions are `std::is_eq()`, `is_neq()`, `is_lt()`, `is_lteq()`, `is_gt()`, and `is_gteq()` returning true if an ordering represents == , != , < , <= , > , or >= respectively, false otherwise.
 
 ```cpp
 // Function Return Type Deduction
@@ -110,13 +119,12 @@ auto addNum(int n1, int n2) {
 }
 ```
 
-Every function has a local predefined variable __func__ containing the name of the current function.
+* Every function has a local predefined variable `__func__` containing the name of the current function.
 
-// Attributes
-Attributes are a mechanism to add optional and/or vendor-specific information into source code. Since C++11, there is standardized support for
+* **Attributes** are a mechanism to add optional and/or vendor-specific information into source code. Since C++11, there is standardized support for
 attributes by using the double square brackets syntax [[ attribute ]] .
 
-[[nodiscard]]
+``[[nodiscard]]``
 can be used on a function returning a value to let the compiler issue
 a warning when that function is called without doing something with the returned value.
 
@@ -130,11 +138,13 @@ int main() {
 }
 ```
 
-// C++20
-A reason can be provided for [[nodiscard]]
-[[nodiscard("Return value must be used")]] int func();
+* C++20: A reason can be provided for `[[nodiscard]]`
 
-[[maybe_unused]] suppress the compiler from issuing warning when something is unused.
+```cpp
+[[nodiscard("Return value must be used")]] int func();
+```
+
+* `[[maybe_unused]]` suppress the compiler from issuing warning when something is unused.
 
 ```cpp
 int func(int param1, [[maybe_unused]] int param2) {
@@ -142,18 +152,21 @@ int func(int param1, [[maybe_unused]] int param2) {
 }
 ```
 
-[[noreturn]] a function never returns control to the call site.
+* `[[noreturn]]` a function never returns control to the call site.
 
 ```cpp
 [[noreturn]] void forceProgramTermination() {
     std::exit(1);
 }
 ```
-[[deprecated]] to mark something as deprecated.
-[[deprecated("Unsafe method, please use funcV2")]] void func();
 
-[[likely]] and [[unlikely]] can be used to help compiler in optimizing the code.
-Rarely required because compilers and hardware these days have **_powerful branch prediction_**
+* `[[deprecated]]` to mark something as deprecated.
+
+```cpp
+[[deprecated("Unsafe method, please use funcV2")]] void func();
+```
+
+* `[[likely]]` and `[[unlikely]]` can be used to help compiler in optimizing the code. Rarely required because compilers and hardware these days have **_powerful branch prediction_**
 
 ```cpp
 int value {};
@@ -169,7 +182,10 @@ switch(value) {
     [[unlikely]] case 12:
     break;
 }
+```
 
+```cpp
+// Uniform initialization
 int array[3] = { 0 };
 int array[3] = {};
 int array[3] {};
@@ -177,9 +193,9 @@ int array[3] {};
 <array> => std::size();
 <cstddef> => size_t
 size_t arraySize { std::size(myArray)};
+```
 
-C++ has a special type of fixed-size container called std::array , defined in <array> . It’s basically a thin wrap-
-per around C-style arrays.
+* C++ has a special type of fixed-size container called `std::array`, defined in `<array>`. It’s basically a thin wrapper around C-style arrays.
 
 ```cpp
 std::array<int, 3> arr { 3, 6, 9 };
@@ -190,97 +206,102 @@ fmt::print("2nd: {}", arr[1]);
 std::array arr2 {9, 6, 3};
 ```
 
-C++ supports so-called class template argument deduction (CTAD)
-vector class template supports CTAD.
+* C++ supports so-called **class template argument deduction (CTAD)**. vector class template supports CTAD.
 
-std::pair in <utility>, groups two values of possibly different types.
+* `std::pair` in `<utility>`, groups two values of possibly different types.
 
 ```cpp
 std::pair<double, int> myPair{1.23, 4};
 fmt::print("{} {}", myPair.first, myPair.second);
 ```
-std::optional defined in <optional>, holds a value of a specific type, or nothing.
-Often used for parameters and return value.
-Remove the need to return "special" values from functions such as nullptr, -1, EOF and so on.
 
-// Structure Binding
-Always use auto keyword for structured bindings
+* `std::optional` defined in `<optional>`, holds a value of a specific type, or nothing.
+
+* Often used for parameters and return value.
+
+* Remove the need to return "special" values from functions such as `nullptr`, `-1`, `EOF` and so on.
+
+* **Structure Binding:** Always use auto keyword for structured bindings
+
+```cpp
 array values {11, 22, 33};
 auto [x, y, z] {values};
+```
 
+```cpp
 // C++20: Initializers for Range-Based for Loops
 for (<initializer>; <for-range-declaration> : <for-range-initializer>) { <body> }
+```
 
-Initializer lists are defined in <initializer_list> and make it easy to write functions that can
-accept a variable number of arguments.
+* Initializer lists are defined in `<initializer_list>` and make it easy to write functions that can accept a variable number of arguments.
 
-module interface file (.cppm)
-module implementation file (.cpp)
+*
+    * module interface file (.cppm)
+    * module implementation file (.cpp)
 
-// C++11
-Uniform Initialization of structure and class
+* C++11 supports Uniform Initialization of structure and class
 
-A benefit of using uniform initialization is that it prevents _narrowing_.
+* A benefit of using uniform initialization is that it prevents _narrowing_.
 
-If a narrowing cast is what you need, I recommend using the gsl::narrow_cast() function available
-in the **Guidelines Support Library (GSL)**.
+* If a narrowing cast is what you need, I recommend using the `gsl::narrow_cast()` function available in the **Guidelines Support Library (GSL)** [here](https://github.com/microsoft/GSL).
 
-// C++20: Designated Initializers
-C++20 introduces designated initializers to initialize data members of so-called aggregates using their
-name. An aggregate type is an object of an array type, or an object of a structure or class
+* **C++20: Designated Initializers** C++20 introduces designated initializers to initialize data members of so-called aggregates using their name. An aggregate type is an object of an array type, or an object of a structure or class
 
-A null pointer is a special default value that no valid pointer will ever have and converts to false
-when used in a Boolean expression.
+* A null pointer is a special default value that no valid pointer will ever have and converts to false when used in a Boolean expression.
 
-The -> (arrow) operator lets you perform both the dereference and the
-field access in one step.
+* The -> (arrow) operator lets you perform both the dereference and the field access in one step.
 
+```cpp
 int* p { new int[8] };
+```
 
-To follow the const-correctness principle, it’s recommended to declare
+* To follow the **const-correctness principle**, it’s recommended to declare
 member functions that do not change any data members of the object as being
-const . These member functions are also called _inspectors_, compared to _mutators_
-for non-const member functions.
+const . These member functions are also called _inspectors_, compared to _mutators_ for non-const member functions.
 
 ```cpp
 constexpr int getArraySize() { return 32; }
 int a[getArraySize()];
+```
 
-// C++20: consteval keyword
-constexpr keyword specifies that a function could be executed at compile time, but it does not guarantee compile-time execution.
-If you really want the guarantee that a function is always evaluated at compile time, you need to use
-the C++20 consteval keyword to turn a function into a so-called **immediate function**.
+* **C++20: consteval keyword**: `constexpr` keyword specifies that a function could be executed at compile time, but it does not guarantee compile-time execution. If you really want the _guarantee_ that a function is always evaluated at compile time, you need to use the C++20 `consteval` keyword to turn a function into a so-called **immediate function**.
 
+```cpp
 auto& [s, i] { myPair }; // references-to-non-const
 const auto& [s, i] { myPair }; // references-to-const
+```
 
-return value optimization (RVO)
-named return value optimization (NRVO)
+*
+    * return value optimization (RVO)
+    * named return value optimization (NRVO)
 
-Both RVO and NRVO are forms of copy elision and
-make returning objects from functions very efficient. With copy elision, compilers can avoid any
+* Both RVO and NRVO are forms of **copy elision** and make returning objects from functions very efficient. With copy elision, compilers can avoid any
 copying of objects that are returned from functions. This results in zero-copy pass-by-value semantics.
 
-5 types of casts
-const_cast() => add or cast away constness to a variable
-static_ast()
-reinterpret_cast()
-dynamic_cast()
-std::bit_cast() // since C++20
+* 5 types of casts
+    * `const_cast()` => add or cast away constness to a variable
+    * `static_cast()`
+    * `reinterpret_cast()`
+    * `dynamic_cast()`
+    * `std::bit_cast()` // since C++20
 
-std::invalid_argument defined in <stdexcept>
+* `std::invalid_argument` defined in `<stdexcept>`
 
-A type alias provides a new name for an existing type declaration.
+* A type alias provides a new name for an existing type declaration.
+
+```cpp
 using IntPtr = int*;
 using string = basic_string<char>;
+```
 
-_Type inference_ allows the compiler to automatically deduce the type of an expression. There are two
-keywords for type inference: auto and decltype.
+* _Type inference_ allows the compiler to automatically deduce the type of an expression. There are two keywords for type inference: `auto` and `decltype`.
 
-Using auto to deduce the type of an expression strips away reference and const qualifiers.
+* Using `auto` to deduce the type of an expression strips away reference and const qualifiers.
 
-Copy list initialization:   T obj = {arg1, arg2, ...};
-Direct list initialization: T obj {arg1, arg2, ...};
+```cpp
+T obj = {arg1, arg2, ...};  // Copy list initialization
+T obj {arg1, arg2, ...};    // Direct list initialization
+```
 
 ```cpp
 // Since C++17
@@ -301,69 +322,62 @@ auto c { 11 };      // initializer_list<int>
 auto d { 11, 22 };  // initializer_list<int>
 ```
 
-The difference between auto and decltype is that decltype does not strip reference and const
-qualifiers.
+* The difference between `auto` and `decltype` is that `decltype` does not strip reference and const qualifiers.
 
-* strcpy_s() or strcat_s(), which are part of the “secure C library” standard (ISO/IEC TR 24731)
+* `strcpy_s()` or `strcat_s()`, which are part of the “secure C library” standard (ISO/IEC TR 24731).
 
 * Raw string literal starts with `R"(` and ends with `)"`
 
+```cpp
 const char* str { R"(Hello "World"!)"};
+```
 
 * `c_str()` get const char pointer
 
   `data()` return const char* until C++14, starting C++17, return a char* when called on a non-const string.
 
 * string methods
+
+```cpp
    substr(pos, len)
    find(str)
    replace(pos, len, str)
    starts_with(str)/ends_with(str) C++20
+```
 
-* Use the standard user-defined literal `s` to interpret a string literal as an std::string
+* Use the standard user-defined literal `s` to interpret a string literal as an ```std::string```
 
+```cpp
     auto string1 { "Hello World"s };
+```
 
 * Standard user-defined literal `s` is defined in `std::literals::string_literals`.
 
-* vector names { "John", "Sam", "Joe" }; // deduced type vector<const char*> not vector<string>
+* vector names { "John", "Sam", "Joe" }; // deduced type `vector<const char*> ` not `vector<string>`
 
 * string to_string(T val); // convert T to string
 
-* Lower-level numerical conversion functions defined in <charconv>
+* Lower-level numerical conversion functions defined in `<charconv>`
 
-std::string_view class // C++17
+* `std::string_view` class // C++17
 
-* A string_view is basically a drop-in replacement for const string& but without the overhead. It never copies strings!
-no `c_str()` but `data()` is available. Add methods `remove_prefix(size_t)` and `remove_suffix(size_t)`
+* A string_view is basically a drop-in replacement for const string& but without the overhead. It never copies strings!. no `c_str()` but `data()` is available. Add methods `remove_prefix(size_t)` and `remove_suffix(size_t)`
 
-* C++20 introduces `std::format()`, defined in <format> , to format strings.
+* C++20 introduces `std::format()`, defined in `<format>`, to format strings.
 
 * Invariants are conditions that have to be true during the execution of a piece of code, for example, a loop iteration.
 
-* For C++, a free tool called Doxygen (available at doxygen.org ) parses comments to auto-
-matically build HTML documentation, class diagrams, UNIX man pages, and other useful docu-
-ments.
+* For C++, a free tool called Doxygen (available at doxygen.org) parses comments to automatically build HTML documentation, class diagrams, UNIX man pages, and other useful documents.
 
-* The computing term
-_cruft_ refers to the gradual accumulation of small
-amounts of code that eventually turns a once-
-elegant piece of code into a mess of patches and
-special cases.
+* The computing term _cruft_ refers to the gradual accumulation of small amounts of code that eventually turns a once-elegant piece of code into a mess of patches and special cases.
 
 * Since C++20, the Standard Library includes a collection of predefined
-mathematical constants, all defined in <numbers> in the std::numbers
-namespace. For example, it defines std::numbers::e , pi , sqrt2 , phi , and many
-more.
+mathematical constants, all defined in `<numbers>` in the `std::numbers`
+namespace. For example, it defines `std::numbers::e`, `pi`, `sqrt2`, `phi`, and many more.
 
-* Scrum, an agile
-software development methodology, is one example of such an iterative process whereby the appli-
-cation is developed in cycles, known as sprints. With each sprint, designs can be modified, and new
-requirements can be taken into account.
+* Scrum, an agile software development methodology, is one example of such an iterative process whereby the application is developed in cycles, known as _sprints_. With each sprint, designs can be modified, and new requirements can be taken into account.
 
-* With
-**dependency injection**, you create an interface for each service and you inject the interfaces a compo-
-nent needs into the component.
+* With **dependency injection**, you create an interface for each service and you inject the interfaces a component needs into the component.
 
 * A framework is a collection of code around which you design a program.
 
@@ -372,35 +386,32 @@ spent in only 10 percent of the code
 
 * mixin class?
 
-* std::any class, available since C++17, you can store any type of object in
-an instance of the any class. The underlying implementation of std::any does use a void* pointer in
-certain cases, but it also keeps track of the type stored, so everything remains type safe.
+* `std::any` class, available since C++17, you can store any type of object in
+an instance of the any class. The underlying implementation of `std::any` does use a `void*` pointer in certain cases, but it also keeps track of the type stored, so everything remains type safe.
 
-* An std::any object can store a value of any type, while an std::variant object can store a
-value of a selection of types.
+* An `std::any` object can store a value of any type, while an `std::variant` object can store a value of a selection of types.
 
-* A possible disadvantage of templates is so-called code bloat: an increased size of the final
-binary code.
+* A possible disadvantage of templates is so-called code bloat: an increased size of the final binary code.
 
 * templates can be specialized for specific types to treat those types differently.
 
 * open/closed principle (OCP)
 
-* you are allowed to call
-delete on a nullptr pointer; it simply will not do anything.
+* you are allowed to call `delete` on a `nullptr` pointer; it simply will not do anything.
 
-* The
-main advantage of new over malloc() is that new doesn’t just allocate memory, it constructs objects!
+* The main advantage of new over `malloc()` is that new doesn’t just allocate memory, it constructs objects!
 
-* There is also an alternative version of new , which does not throw an exception
+* There is also an alternative version of new, which does not throw an exception
+
 ```cpp
 int* ptr { new(nothrow) int };
+```
 
 * C++20: `std::span` wraps a pointer to an array and its size!
 
 * standard smart pointers, `unique_ptr` and `shared_ptr`, are defined in `<memory>`.
 
-* The get() method can be used to get direct access to the underlying pointer.
+* The `get()` method can be used to get direct access to the underlying pointer.
 
 
 
