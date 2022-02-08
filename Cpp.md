@@ -413,15 +413,186 @@ int* ptr { new(nothrow) int };
 
 * The `get()` method can be used to get direct access to the underlying pointer.
 
+* Copy constructor takes a reference-to- const to the source object.
+
+```cpp
+class Foo {
+    public:
+        Foo(const Foo& other);
+};
+```
+
+* If a class has data members that have a deleted copy constructor, then the
+copy constructor for the class is automatically deleted as well.
+
+* A single parameter constructor can be used to convert a different type to a class type. Such constructors are called _converting constructors_. To prevent compiler from doing such implicit conversions, mark single parameter constructor as `explicit`.
+
+* Since C++11, _converting constructors_ can have multiple parameters because of support for list initialization.
+
+* Starting with C++20, it is possible to pass a Boolean argument to explicit to turn it into a conditional explicit.
+
+```cpp
+explicit(true) MyClass(int);
+```
+
+* If you don’t declare a destructor, the compiler writes one for you that does recursive member-wise destruction and allows the object to be deleted.
+
+```cpp
+myCell = anotherCell = aThirdCell;
+myCell.operator=(anotherCell.operator=(aThirdCell));
+
+// Assignment operator
+Foo& operator=(const Foo& rhs) {
+    if(*this != &rhs) {
+        // Memeberwise assignment
+    }
+    return *this;
+}
+```
+
+* C++11 has deprecated the generation of a **copy constructor** if the class has a user-declared copy assignment operator or destructor. If you still need a compiler-generated copy constructor in such a case, you can explicitly default one:
+
+```cpp
+MyClass(const MyClass& src) = default;
+```
+
+* C++11 has also deprecated the generation of a **copy assignment operator** if the class has a user-declared copy constructor or destructor. If you still need a compiler-generated copy assignment operator in such a case, you can explicitly default one:
+
+```cpp
+MyClass& operator=(const MyClass& rhs) = default;
+
+Foo::Foo(const Foo& src) {
+    m_value = src.value; // Uses assignment operator
+}
+
+Foo::Foo(const Foo& src)
+    : m_value { src.value } // Uses Copy constructor
+{}
+```
+* C++ allows classes to declare that other classes, member functions of other classes, or non-member functions are **friends**, and can access _protected_ and _private_ data members and methods.
+
+```cpp
+class Foo {
+    friend class Bar; // Bar can access private and protected member of Foo
+    friend void Bar::processFoo(const Foo&); // Bar::processFoo can access private memeber of Foo
+    // Stand alone method as friend
+    friend void printFoo(const Foo&);
+};
+```
+
+* To implement an exception-safe assignment operator, the **copy-and-swap** idiom is used.
+
+* A function can be marked with the `noexcept` keyword to specify that it won’t throw any exceptions. If a `noexcept` function does throw an exception, the program is terminated.
+
+```cpp
+void myNonThrowingFunction() noexcept { /* ... */ }
+```
+* `std::exchange()`, defined in `<utility>`, replaces a value with a new value and returns the old
+value. `exchange()` is useful in implementing move assignment operators.
+
+```cpp
+void Spreadsheet::moveFrom(Spreadsheet& src) noexcept
+{
+    m_width = exchange(src.m_width, 0);
+    m_height = exchange(src.m_height, 0);
+    m_cells = exchange(src.m_cells, nullptr);
+}
+```
+
+* Prefer pass-by-value for parameters that a function inherently would copy, but only if the parameter is of a type that supports move semantics. Otherwise, use reference-to- const parameters.
+
+* The **rule of zero** states that you should design your classes in such a way that they do not require any of those five special member functions (destructor, copy and move constructors and copy and move assignment operators).
+
+* If you have a const, reference to const, or pointer to a const object, the compiler does not let you call any methods on that object unless those methods guarantee that they won’t change any data members.
+
+* The const specification is part of the method prototype and must accompany its definition as well
+
+* You cannot declare a static method const, because it is redundant. Static methods do not have an
+instance of the class, so it would be impossible for them to change internal values.
+
+* `mutable`, tells the compiler that it’s OK to change mutable variable in a const method.
+
+* You can overload a method based on const. That is, you can write two methods with the same name
+and same parameters, one of which is declared const and one of which is not.
+
+* Scott Meyer’s const_cast() pattern implements the const overload as you normally would and
+implements the non- const overload by forwarding the call to the const overload with the appropri-
+ate casts
+
+* Overloaded methods can be explicitly deleted, which enables you to disallow calling a method with
+particular arguments.
+
+```cpp
+class SpreadsheetCell
+{
+public:
+    void setValue(double value);
+    void setValue(int) = delete;
+};
+```
+
+* **Ref-Qualified Methods**: If a method should be called only on non-temporary instances, a `&` qualifier is added after the method header. Similarly, if a method should be called only on temporary instances, a `&&` qualifier is added.
+
+```cpp
+class TextHolder {
+public:
+    TextHolder(string text) : m_text { move(text) } {}
+    const string& getText() const & { return m_text; }
+    string&& getText() && { return move(m_text); }
+
+private:
+    string m_text;
+};
 
 
+TextHolder textHolder { "Hello world!" };
+cout << textHolder.getText() << endl;   // calls const &
+cout << TextHolder{ "Hello world!" }.getText() << endl;  // calls &&
+cout << move(textHolder).getText() << endl; // calls &&
+```
 
+* Since C++17, you can declare your static data members as inline.
 
+```cpp
+class Test {
+private:
+    static inline size_t ms_counter { 0 };
+};
+```
 
+* A nested class has access to all protected and private members of the outer class. The outer class on the other hand can only access public members of the nested class.
 
+* Overloaded operator should be defined in global workspace to support commutative property.
 
+```cpp
+class SpreadsheetCell {
+public:
+    SpreadsheetCell& operator+=(const
+    SpreadsheetCell& operator-=(const
+    SpreadsheetCell& operator*=(const
+    SpreadsheetCell& operator/=(const
+};
 
+SpreadsheetCell& SpreadsheetCell::operator+=(const SpreadsheetCell& rhs) {
+    set(getValue() + rhs.getValue());
+    return *this;
+}
+```
 
+* with C++20, it is actually recommended to implement operator== as a member function of the class instead of a global function.
+
+* An expression such as 10==myCell is rewritten by a C++20 compiler as myCell==10 for which the
+operator== member function can be called. Additionally, by implementing operator== , C++20
+automatically adds support for != as well.
+
+* Once your class has an overload for operator== and <=> , C++20 automatically provides support for all six comparison operators
+
+* Full support for all six comparison operators with one declaraton:
+
+```cpp
+[[nodiscard]] std::partial_ordering operator<=>(
+                    const SpreadsheetCell&) const = default;
+```
 
 
 
