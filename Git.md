@@ -1,5 +1,7 @@
 # Git
 
+[Pro Git](#pro-git-notes)
+
 Git first time setup.
 
 ```bash
