@@ -278,3 +278,64 @@ the array.
 * **Rest all parameters** `function max(...numbers)`
 
 * `Math.random` function returns a new pseudorandom number between zero (inclusive) and one (exclusive) every time you call it. To get a whole random number use `Math.floor(Math.random() * 10))`
+
+* A popular serialization format is called **JSON** (pronounced
+“Jason”), which stands for **JavaScript Object Notation**. In JSON, all property names have to be surrounded by double quotes, and only simple data expressions are allowed - no function calls, bindings etc.
+
+* JavaScript provides `JSON.stringify` and `JSON.parse` to convert data to and from JSON format.
+
+* **Abstractions** hide details and give us the ability to talk about problems at a higher (or more abstract) level.
+
+* Functions that operate on other functions, either by taking them as arguments or by returning them, are called _higher-order functions_.
+
+* `filter` is a standard array method.
+
+* The `map` method transforms an array by applying a function to all of its elements and building a new array from the returned values.
+
+* The `some` method is another higher-order function. It takes a test function and tells you whether that function returns true for any of the elements in the array.
+
+* The `some()` method tests whether at least one element in the array passes the test implemented by the provided function.
+
+* JavaScript uses UTF-16 unicode format. Most characters are described by using a single 16-bit code point.
+
+* JavaScript’s charCodeAt method gives you a code unit, not a full character
+code. The codePointAt method, added later, does give a full Unicode character.
+
+* The `this` keyword in method body automatically points at the object that it was called on.
+
+* Arrow functions are different—they do not bind their own this but can see
+the this binding of the scope around them.
+
+* A _prototype_ is another object that is used as a fallback
+source of properties. When an object gets a request for a property that it does
+not have, its prototype will be searched for the property, then the prototype’s
+prototype, and so on.
+
+* Functions derive from `Function.prototype`, and arrays derive from `Array.prototype`.
+
+* You can use `Object.create` to create an object with a specific prototype.
+
+```javascript
+let protoRabbit = {
+    speak(line) {
+        console.log(`The ${this.type} rabbit says '${line}'`);
+    }
+};
+let killerRabbit = Object.create(protoRabbit);
+```
+
+
+
+
+
+
+
+
+
+
+# Useful Links
+
+![unicode](https://flaviocopes.com/javascript-unicode/)
+
+![NPM](https://www.npmjs.com/)
+

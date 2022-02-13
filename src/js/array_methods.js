@@ -32,3 +32,15 @@ var fn = function() {
 }
 
 fn();
+
+let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(a.filter(i => i % 2 == 0));
+console.log(a.filter(i => i % 2 != 0));
+console.log(a.map(i => i * 0.5));
+
+console.log(a.reduce((a,b) => a + b));
+
+console.log("Average: ", a.reduce((a,b) => a + b) / a.length);
+
+console.log("some: ", a.map(i => some(i => i % 3 == 0)));
+

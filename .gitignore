@@ -5,3 +5,4 @@ src/rust/**/Cargo.lock
 src/rust/**/debug/
 src/rust/**/target/
 src/**/a.out
+src/js/node_modules
