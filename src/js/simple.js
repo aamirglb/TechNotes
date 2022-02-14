@@ -32,7 +32,16 @@ button3.onclick = () => {
 };
 document.body.appendChild(button3);
 
-
+const button4 = document.createElement("button");
+button4.innerText = "Canvas"
+button4.onclick = () => {
+	let cx = document.querySelector("canvas").getContext("2d");
+	cx.strokeStyle = "blue";
+	cx.strokeRect(5, 5, 50, 50);
+	cx.lineWidth = 5;
+	cx.strokeRect(135, 5, 50, 50);
+};
+document.body.appendChild(button4);
 //for (let i = 0; i < 2; i++) {
 //  const button = document.createElement("button");
 //  button.innerText = 'Button ' + i;

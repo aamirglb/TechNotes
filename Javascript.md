@@ -324,7 +324,9 @@ let protoRabbit = {
 let killerRabbit = Object.create(protoRabbit);
 ```
 
+* The most widely used approach to bolted-on JavaScript modules is called `CommonJS` modules. Node.js uses it and is the system used by most packages on NPM.
 
+* The main concept in `CommonJS` modules is a function called `require`. When you call this with the module name of a dependency, it makes sure the module is loaded and returns its interface.
 
 
 
@@ -338,4 +340,12 @@ let killerRabbit = Object.create(protoRabbit);
 ![unicode](https://flaviocopes.com/javascript-unicode/)
 
 ![NPM](https://www.npmjs.com/)
+
+Live Server vs code extension: spin local development web server
+Vetur vs code extension
+Material Icon Theme
+
+`sudo npm install -g @vue/cli`
+
+`npm install` to install all dependencies of the project within the project directory.
 
