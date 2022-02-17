@@ -328,8 +328,7 @@ let killerRabbit = Object.create(protoRabbit);
 
 * The main concept in `CommonJS` modules is a function called `require`. When you call this with the module name of a dependency, it makes sure the module is loaded and returns its interface.
 
-
-
+* The spread operator `...` is used to unpack, or "spread out," the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected.
 
 
 

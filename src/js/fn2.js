@@ -61,3 +61,50 @@ console.log(max(4, 1, 9, -2, 4, 10));
 let words = ["never", "fully"];
 console.log(["will", ...words, "understand"]);
 
+let calculator = {
+	op1: 3,
+	op2: 5,
+	add() {
+		this.result = this.op1 + this.op2
+	}
+}
+
+// calculator.add();
+calculator["add"]()
+console.log(calculator.result);
+
+let o = {
+	m: function() {
+		let self = this
+		console.log(this === o)
+		f();
+
+		function f() {
+			console.log(this === o)
+			console.log(self === o)
+		}
+	}
+};
+o.m();
+
+// Before ES6 rest arguments
+
+function max(x) {
+	let mv = -Infinity;
+	for(let i = 0; i < arguments.length; ++i) {
+		if(arguments[i] > mv) mv = arguments[i];
+	}
+	return mv;
+}
+
+console.log(max(3, 4, 88, 1100, 567, 34, 234, 1234))
+
+function new_max(first=-Infinity, ...rest) {
+	let mv = first;
+	for(let n of rest) {
+		if(n > mv) mv = n;
+	}
+	return mv;
+}
+
+console.log(max(3333, 4, 88, 1100, 567, 34, 234, 1234));
