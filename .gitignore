@@ -7,4 +7,4 @@ src/rust/**/target/
 src/**/a.out
 src/dotnet/**/obj/
 src/dotnet/**/bin/
-src/js/node_modules
+src/**/node_modules
