@@ -331,8 +331,38 @@ let killerRabbit = Object.create(protoRabbit);
 * The spread operator `...` is used to unpack, or "spread out," the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected.
 
 
+# TypeScript
 
+* A JavaScript superset, add types to JavaScript.
 
+* Non-JavaScript Features like Interfaces or Generics, Meta-Programming features like Decorators.
+
+*
+* `sudo npm i -g typescript`
+
+* Core Types
+
+    * number (integer + floating point)
+    * string
+    * boolean
+    * object (key-value pair, {})
+    * Array (flexible/strict)
+    * Tuple [1, 2] (array push is allowed)
+    * Enum
+    * Any
+    * Union Type
+
+* Type alias
+
+```typescript
+type Combinable = number | string
+```
+
+* Typescript is statically typed, JS is dynamically type.
+
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
 
 # Useful Links
 
@@ -344,7 +374,12 @@ Live Server vs code extension: spin local development web server
 Vetur vs code extension
 Material Icon Theme
 
+lite-server
+
 `sudo npm install -g @vue/cli`
 
 `npm install` to install all dependencies of the project within the project directory.
 
+* Babel
+
+* Prettier VS code extension
