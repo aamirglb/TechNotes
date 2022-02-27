@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue Mastery</title>
+    <!-- Import Styles -->
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <!-- Import Vue.js -->
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="nav-bar"></div>
+
+      <div class="cart">Cart({{ cart }})</div>
+
+      <div class="product-display">
+        <div class="product-container">
+          <div class="product-image">
+            <!-- image does here -->
+            <img v-bind:src="image">
+          </div>
+
+          <div class="product-info">
+            <h1>{{ product }} </h1>
+            <!--
+            <p v-if="inventory > 10">In Stock</p>
+            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!!</p>
+            <p v-else>Out of Stock</p>
+            -->
+            <p v-if="inStock">In Stock</p>
+            <p v-else>Out of Stock</p>
+            <ul>
+              <li v-for="d in details">{{ d }}</li>
+            </ul>
+            <div v-for="v in variants" :key="v.id" @mouseover="updateImage(v.image)">{{ v.color }}</div>
+            <button class="button" v-on:click="addToCart">Add to Cart</button>
+            <button class="button" @click="clearCart">Clear Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import Js -->
+    <script src="./main.js"></script>
+
+    <!-- Mount App -->
+    <script>
+      const mountedApp = app.mount('#app')
+    </script>
+  </body>
+</html>
