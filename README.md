@@ -2,14 +2,17 @@
 Technical Notes
 
 1. [Boost C++ Libraries](Boost.md)
+1. [C](C.md)
 1. [CleanCode](CleanCode.md)
 1. [CMake](CMake.md)
 1. [C++](Cpp.md)
+1. [C#](CSharp.md)
 1. [Docker](Docker.md)
 1. [Expect](Expect.md)
 1. [Git](Git.md)
 1. [GLib](GLib.md)
 1. [GStreamer](GStreamer.md)
+1. [Javascript](Javascript.md)
 1. [Jenkins](Jenkins.md)
 1. [Linux Shell](Linux_Shell.md)
 1. [Linux System Programming](LinuxSystemProgramming.md)
@@ -18,6 +21,7 @@ Technical Notes
 1. [NumPy](NumPy.md)
 1. [OpenCV](OpenCV.md)
 1. [Perl](Perl.md)
+1. [PX4](PX4.md)
 1. [Python](Python.md)
 1. [Qt/QML](Qt_Qml.md)
 1. [ROS](ROS.md)
@@ -26,6 +30,7 @@ Technical Notes
 1. [Sed Awk](Sed_Awk.md)
 1. [SQLite](SQLite.md)
 1. [Usefull Links](UsefullLinks.md)
+1. [Vim](Vim.md)
 1. [VSCode](VSCode.md)
 1. [WxWidgets](WxWidgets.md)
 
