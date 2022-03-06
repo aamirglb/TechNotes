@@ -335,3 +335,86 @@ let _vector2: Vec<i32> = vec@[0; 5000];
 * The match statement is the basic Rust tool to use enumerations.
 
 * Enums are not comparable using the "==" operator.
+
+* tuples cannot be accessed by a
+variable index
+
+```rust
+struct Data {
+    integer: i32,
+    fractional: f32,
+    character: char,
+    five_bytes: [u8; 5],
+}
+
+impl fmt
+let data = SomeData {
+    integer: 10_000_000,
+    fractional: 123.45,
+    character: 'Q',
+    five_bytes: [1, 2, 3, 4, 5],
+};
+```
+
+* **Tuple-Struct**:
+
+```rust
+struct SomeData(
+    i32,
+    f32,
+    char,
+    [u8; 5],
+);
+
+let data = SomeData(
+    10_000_000,
+    123.45,
+    'Q',
+    [1,2,2, 3, 4],
+);
+```
+
+* differing
+from C language, in Rust you can define functions inside the body of other functions.
+
+* in Rust it is allowed also to apply an explicit dereference, that is, before a reference, you are allowed to write or to omit the asterisk, while in C++ you must put it before a pointer and must
+not put it before a reference.
+
+* Rust avoids as much as possible undefined behavior. Rust does not use the concept of
+_exception_.
+
+* The pop function applied to an object of `Vec<T>` type returns a value of `Option<T>`
+type. Such generic type is defined by the Rust standard library as this:
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+
+* It has the option of being a `T` and the option of being nothing. It can be something or nothing. If it is something, it is a `T`.
+
+* The `Result` type is similar to the Option type, but while the `Option` type represents as
+`None` the case of a missing result, the `Result` type can add a value that describes such an
+anomalous condition.
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+* The `is_ok` function returns true if it is applied to an `Ok` variant. The `is_err` function
+returns true if it is applied to an `Err` variant.
+
+* The `unwrap` function return the value of the `Ok` variant, if it is applied to an `Ok` variant,
+and it panics otherwise.
+
+* In Rust, you can box most objects. The Rust standard library contains
+the generic struct type `Box<T>`. An object of type `Box<T>` is a reference to another object,
+which has type `T`, and that is placed in a part of memory, named "heap", different both
+from the static area and the stack.
+
+* The behavior and purpose of the `Box::new` function are to allocate an object in the heap that must be large enough to contain a copy of the received argument, copy the value of the received argument into such newly allocated object, and return the address of such object.
