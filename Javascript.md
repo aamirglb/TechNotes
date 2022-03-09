@@ -331,6 +331,94 @@ let killerRabbit = Object.create(protoRabbit);
 * The spread operator `...` is used to unpack, or "spread out," the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected.
 
 
+## JavaScript The Good Parts
+
+* The very **good** ideas include _functions_, _loose typing_, _dynamic objects_, and an _expressive object literal notation_. The **bad** ideas include a programming model based on _global variables_.
+
+* A controversial feature in JavaScript is **prototypal inheritance**. JavaScript has a class-free object system in which objects inherit properties directly from other objects.
+
+* Javascript's one choice that was particularly bad: JavaScript depends on global variables for linkage. All of the top-level variables of all compilation units are tossed together in a common namespace called the _global object_.
+
+* JSLint, a JavaScript parser that can
+analyze a JavaScript program and report on the bad parts that it contains.
+
+* JavaScript has a single number type. Internally, it is represented as 64-bit floating
+point, the same as Java’s double . Unlike most other programming languages, there is
+no separate integer type.
+
+* `NaN` is not equal to any value, including itself. You can detect `NaN` with the `isNaN(number)` function.
+
+* The value `Infinity` represents all values greater than 1.79769313486231570e+308.
+
+* JavaScript has a `Math` object that contains a
+set of methods that act on numbers.
+
+* All characters in JavaScript are 16 bits wide.
+
+* The \u convention allows for specifying character code points numerically. `"A" === "\u0041"`. `Strings` have a `length` property.
+
+* In web browsers, each `<script>` tag delivers a compilation unit that is compiled and immediately executed. Lacking a linker, JavaScript throws them all together in a common global
+namespace.
+
+* Unlike many other languages, blocks in JavaScript **do not create a new scope**, so variables should be defined at the
+top of the function, not in blocks.
+
+* The `for in` enumerates the property names (or keys) of an object. On each iteration, another property name string from the object is assigned to the variable.
+
+```javascript
+for (myvar in obj) {
+    if (obj.hasOwnProperty(myvar)) {
+        ...
+    }
+}
+```
+
+* JavaScript does not allow a line end between the return and the expression.
+
+* Objects in JavaScript are mutable keyed collections. In JavaScript, _arrays are objects_, _functions are objects_,
+_regular expressions are objects_, and, of course, _objects are objects_.
+
+* An object is a container of properties, where a property has a name and a value. A property name can be any string, including the empty string. A property value can be
+any JavaScript value except for `undefined`.
+
+* Objects in JavaScript are **class-free**.
+
+* Objects are passed around by reference. They are never copied.
+
+* Every object is linked to a prototype object from which it can inherit properties. All objects created from object literals are linked to `Object.prototype`, an object that
+comes standard with JavaScript.
+
+* The `delete` operator can be used to remove a property from an object.
+
+* Objects produced from object literals are
+linked to `Object.prototype`. Function objects are linked to `Function.prototype` (which is itself linked to `Object.prototype`). Every function is also created with two
+additional hidden properties: the function’s context and the code that implements the function’s behavior.
+
+* In addition to the declared parameters, every function receives two additional parameters: `this` and `arguments`. The `this` parameter is very important in object oriented programming, and its value is determined by the invocation pattern. There are four patterns of invocation in JavaScript:
+    * the method invocation pattern,
+    * the function invocation pattern,
+    * the constructor invocation pattern, and
+    * the apply invocation pattern.
+
+* The patterns differ in how the bonus parameter `this` is initialized.
+
+* There is no run-time error when the number of arguments and the number of parameters do not match. If there are too many argument values, the extra argument values will be ignored. If there are too few argument values, the `undefined` value will be substituted for the missing values. There is no type checking on the argument values: any type of value can be passed to any parameter.
+
+* When a function is stored as a property of an object, we call it a _method_.
+
+* When a function is invoked with Function invocation pattern, `this` is bound to the global object.
+
+* Functions that are intended to be used with the new prefix are called constructors. By
+convention, they are kept in variables with a capitalized name.
+
+
+
+
+
+
+
+
+
 # TypeScript
 
 * A JavaScript superset, add types to JavaScript.
