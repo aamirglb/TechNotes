@@ -411,10 +411,47 @@ additional hidden properties: the function’s context and the code that impleme
 * Functions that are intended to be used with the new prefix are called constructors. By
 convention, they are kept in variables with a capitalized name.
 
+* Because of a design error, `arguments` is not really an array. It is an array-like object. `arguments` has a `length` property, but it lacks all of the array methods.
 
+* A function always returns a value. If the return value is not specified, then `undefined` is returned.
 
+```javascript
+var add = function (a, b) {
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        throw {
+            name: 'TypeError',
+            message: 'add needs numbers'
+        };
+    }
+    return a + b;
+}
 
+var try_it = function ( ) {
+try {
+add("seven");
+} catch (e) {
+document.writeln(e.name + ': ' + e.message);
+}
+}
+try_it( );
+```
 
+* Some languages offer the `tail recursion optimization`. This means that if a function returns the result of invoking itself recursively, then the invocation is replaced with a loop, which can significantly speed things up.
+
+* Unfortunately, JavaScript does not have block scope even though its block syntax suggests that it does. This confusion can be a source of errors. JavaScript does have function scope.
+
+* a variable
+defined anywhere within a function is visible everywhere within the function.
+
+* _Currying_ allows us to produce a new function by combining a function and an argument:
+
+```javascript
+var add1 = add.curry(1);
+document.writeln(add1(6)); // 7
+```
+
+* JavaScript provides an _object_ that has some _array-like characteristics_. It converts array subscripts into strings that are used to make properties. It is significantly slower than a real array. The first value will get the property name '0' , the second value will get the property name
+'1' , and so on
 
 
 
