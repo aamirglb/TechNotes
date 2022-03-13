@@ -522,3 +522,175 @@
 ```c#
     int i = checked((int)val);
 ```
+
+# C# In Nutshell
+
+* C# has a _unified type system_ in which all types ultimately share a common base type.
+
+* An _interface_ is like a class that cannot hold data. is means that it can define only _behavior_ (and not _state_),
+
+* Using _delegates_, C# allows functions to be passed as values to and from other functions.
+
+* C# supports _static typing_, meaning that the language enforces type safety at _compile time_. This is in addition to type safety being enforced at _runtime_.
+
+* C# relies on the runtime to perform automatic memory management. The Common Language Runtime has a garbage collector that executes as part of your program, reclaiming memory for objects that are no longer referenced.
+
+* There is also a technology called **Blazor** that can compile C# to web assembly that runs in a browser.
+
+* Runtime support for C# programs consists of a **Common Language Runtime (CLR)** and a **Base Class Library (BCL)**.
+
+* The container for managed code is called an _assembly_. An _assembly_ contains not only _Intermediate Language (IL)_, but also type information (metadata).
+
+* You can examine and disassemble the contents of an assembly with Microsoft’s **ildasm** tool.
+
+* A BCL provides core functionality to programmers, such as
+    * collections,
+    * input/output,
+    * text processing,
+    * XML/JSON handling,
+    * networking,
+    * encryption,
+    * interop,
+    * concurrency and
+    * parallel programming.
+
+* **.NET 6** is Microsoft’s flagship open-source runtime. You can write web and console applications that run on Windows, Linux, and macOS,
+
+* MAUI (Multi-platform App UI, early 2022) is designed for creating mobile apps for iOS and Android
+
+* Universal Windows Platform (UWP) is designed for writing immersive touch-first applications that run on Windows 10+ desktop and devices.
+
+* **.NET Framework** is Microsoft’s original Windows-only runtime for writing web and rich-client applications that run (only) on Windows desktop/server.
+
+* When you target .NET Framework 4.8, you can use the features of C# 7.3 and earlier.
+
+* a file-scoped namespace declaration in C# 10 reduces clutter and eliminates an unnecessary level of indentation.
+
+```c#
+namespace MyNamespace; // Applies to everything that follows in the file.
+
+class Class1 {} // inside MyNamespace
+class Class2 {} // inside MyNamespace
+```
+
+* When you prefix a using directive with the `global` keyword, it applies the directive to all files in the project:
+
+```c#
+global using System;
+global using System.Collection.Generic;
+```
+
+* The .NET libraries are organized into nested namespaces. For example, the `System.Text` namespace contains types for handling text, and `System.IO` contain types for input/output.
+
+* The `using` directive lets you avoid this clutter by importing a namespace:
+
+```c#
+using System; // Import the System namespace
+```
+
+* Unlike .NET Framework, .NET 6 assemblies never have a .exe extension. The .exe that you see after building a .NET 6 application is a platform-specific native loader responsible for starting your application’s .dll assembly.
+
+* To compile an application, the dotnet tool requires a _project file_ as well as one or more C# files.
+
+```
+dotnet new Console -n <Project-Name>
+dotnet run <Project-Name>
+dotnet build Project-Name.csproj // just build the project
+```
+
+* 69 keywords
+
+![CS Keywords](images/cs/cs_keywords.png)
+
+* If you really want to use an identifier that clashes with a reserved keyword, you can do so by qualifying it with the @ prefix. `int @using = 123;`
+
+![Contextual KW](images/cs/cs_contextual_kw.png)
+
+* **Value types** comprise most built-in types (specifically, _all numeric types_, the _char type_, and the _bool type_) as well as _custom struct_ and _enum types_.
+
+* **Reference types** comprise all _class_, _array_, _delegate_, and _interface types_. (This includes the predefined string type.)
+
+![Numeric Types](images/cs/numeric_types.png)
+
+![Suffix](images/cs/cs_suffix.png)
+
+* The static class `System.Convert` provides methods that round while converting between various numeric types.
+
+* The `checked` operator instructs the runtime to generate an OverflowException rather than overflowing silently.
+
+* Use `unchecked` operator if `checked` is enabled project wise.
+
+* `float` and `double` internally represent numbers in base 2. For this reason, only numbers expressible in base 2 are represented precisely. Practically, this means most literals with a fractional component (which are in base 10) will not be represented precisely.
+
+* C#’s char type (aliasing the System.Char type) represents a Unicode character and occupies 2 bytes (UTF-16).
+
+* The \u (or \x) escape sequence lets you specify any Unicode character via its four-digit hexadecimal code.
+
+* `string` is a reference type rather than a value type. Its equality operators, however, follow value-type semantics.
+
+* A _verbatim_ string literal is prefixed with `@` and does not support escape sequences.
+
+* A `string` preceded with the `$` character is called an _interpolated string_. Interpolated strings can include expressions enclosed in braces.
+
+```c#
+int x = 4;
+Console.Write ($"A square has {x} sides");
+```
+
+* Interpolated strings must complete on a single line, unless you also specify the verbatim string operator
+
+```c#
+string s = $@"this interpolation spans {
+x} lines";
+```
+
+* From C# 10, interpolated strings can be constants, as long as the interpolated values are constants:
+
+```c#
+const string greeting = "Hello";
+const string message = $"{greeting}, world";
+```
+
+```c#
+char[] vowels = new char[5]; // Declare an array of 5 characters
+char[] vowels = new char[] {'a','e','i','o','u'};
+char[] vowels = {'a','e','i','o','u'};
+```
+
+* **Indices** let you refer to elements relative to the end of an array, with the `^` operator. `^1` refers to the last element, `^2` refers to the second-to-last element.
+
+* Ranges let you "slice" an array by using the `..` operator.
+
+* Multidimensional arrays come in two varieties: `rectangular` and `jagged`. **Rectangular** arrays represent an n-dimensional block of memory, and **jagged** arrays are arrays of arrays.
+
+```c#
+int[,] matrix = new int[3,3];  // Rectangular array
+int[][] matrix = new int[3][]; // Jagged array
+```
+
+* `var` keyword instructs the compiler to implicitly type a local variable.
+
+* You can’t explicitly delete objects in C#, as you can in C++. An unreferenced object is eventually collected by the garbage collector.
+
+* C# enforces a **definite assignment policy**. In practice, this means that outside of an unsafe or
+interop context, you can’t accidentally access uninitialized memory.
+
+* You can obtain the default value for any type via the `default` keyword.
+
+* Method can have following parameter modifiers: `value`, `ref`, `out`, or `in`.
+
+* A parameter can be passed by reference or by value, regardless of whether the parameter type is a
+reference type or a value type.
+
+* The `params` modifier, if applied to the last parameter of a method, allows the method to accept any number of arguments of a particular type.
+
+* Adding an _optional parameter_ to a public method that’s called from another assembly requires
+recompilation of both assemblies—just as though the parameter were mandatory.
+
+* Rather than identifying an argument by position, you can identify an argument by name:
+
+```c#
+Foo (x:1, y:2); // 1, 2
+void Foo (int x, int y) { Console.WriteLine (x + ", " + y); }
+```
+

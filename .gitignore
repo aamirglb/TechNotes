@@ -8,3 +8,5 @@ src/**/a.out
 src/dotnet/**/obj/
 src/dotnet/**/bin/
 src/**/node_modules
+src/cs/**/obj/
+src/cs/**/bin/
