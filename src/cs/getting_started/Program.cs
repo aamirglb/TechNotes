@@ -86,6 +86,18 @@ Console.WriteLine(default (decimal));
 int total = Sum(1, 2, 3, 4, 5);
 Console.WriteLine($"Total: {total}");
 
+int cardNumber = 13;
+
+string cardName = cardNumber switch
+{
+    13 => "King",
+    12 => "Queen",
+    11 => "Jack",
+    _ => "Pip Card",
+};
+
+Console.WriteLine($"Card Name: {cardName}");
+
 int Sum(params int[] a)
 {
     int sum = 0;

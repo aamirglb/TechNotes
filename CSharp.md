@@ -694,3 +694,144 @@ Foo (x:1, y:2); // 1, 2
 void Foo (int x, int y) { Console.WriteLine (x + ", " + y); }
 ```
 
+* **target-typed new expressions** (from C# 9), you can call new without specifying a type name if the compiler is able to
+unambiguously infer it.
+
+```c#
+System.Text.StringBuilder sb1 = new();
+System.Text.StringBuilder sb2 = new ("Test");
+```
+
+* C# provides three operators to make it easier to work with nulls:
+    *  **null-coalescing operator (??)**:
+        If the operand to the left is non-null, give it to me; otherwise, give me another value.
+    * **null-coalescing assignment operator (??=)**: (C# 8),
+     If the operand to the left is null, assign the right operand to the left operand.
+    * **null-conditional operator/Elvis (?.)**:
+    call methods and access members just like the standard dot operator except that if the operand on the left is `null`, the expression evaluates to `null` instead of throwing a `NullReferenceException`.
+
+```c#
+// null-coalescing operator
+string s1 = null;
+string s2 = s1 ?? "nothing"; // s2 evaluates to "nothing"
+
+// null-coalescing assignment operator
+myVar ??= someDefault;
+
+// equivalent to
+if(myVar == null) myVar = someDefault;
+```
+
+* The scope of a local variable or local constant extends throughout the current block. You cannot
+declare another local variable with the same name in the current block or in any nested blocks.
+
+* A variable’s scope extends in both directions throughout its code block. This is in
+contrast to C++ and is somewhat peculiar, given that it’s not legal to refer to a variable or constant before
+it’s declared.
+
+* You can also switch on types (from C# 7):
+
+```c#
+TellMeTheType (12);
+TellMeTheType ("hello");
+TellMeTheType (true);
+
+void TellMeTheeType (object x) // object allows any type.
+{
+switch (x)
+{
+case int i:
+    Console.WriteLine ("It's an int!");
+    Console.WriteLine ($"e square of {i} is {i * i}");
+    break;
+case string s:
+    Console.WriteLine ("It's a string");
+    Console.WriteLine ($"e length of {s} is {s.Length}");
+    break;
+default:
+    Console.WriteLine ("I don't know what x is");
+    break;
+}
+}
+
+// when keyword
+switch (x)
+{
+case bool b when b == true: // Fires only when b is true
+    Console.WriteLine ("True!");
+    break;
+case bool b:
+    Console.WriteLine ("False!");
+    break;
+}
+```
+
+* The `default` clause is always executed last, regardless of where it appears.
+
+* The `foreach` statement iterates over each element in an enumerable object. Most of the .NET types that represent a set or list of elements are enumerable.
+
+* C# overloads the using keyword to have independent meanings in different contexts. Specifically, the _using directive_ is different from the _using statement_.
+
+* The using directive imports a namespace, allowing you to refer to types without their fully qualified names.
+
+* From C# 10, if you prefix a using directive with the global keyword, the directive will apply to all files in the project or compilation unit:
+
+```c#
+global using System;
+global using System.Collection.Generic;
+```
+
+* The `using static` directive imports a _type_ rather than a namespace. The `using static` directive imports all accessible static members of the type, including fields, properties, and nested types.
+
+```c#
+using static System.Console;
+WriteLine ("Hello");
+```
+
+* Preceding the keyword `class`
+    * Attributes
+    * Class modifiers
+        * public
+        * internal
+        * abstract
+        * sealed
+        * static
+        * unsafe
+        * partial
+
+* Following class name
+    * Generic type parameters
+    * Constraints
+    * base class
+    * interfaces
+
+* Within braces
+    * methods
+    * properties
+    * indexers
+    * events
+    * fields
+    * constructors
+    * overloaded operators
+    * nested types
+    * finalizer
+
+* **expression-bodied method**: A fat arrow replaces the braces and return keyword:
+
+```c#
+int Foo (int x) => x * 2;
+void Foo (int x) => Console.WriteLine (x); // void return type
+```
+
+* Adding the `static` modifier to a local method (from C# 8) prevents it from seeing the local variables and parameters of the enclosing method.
+
+* one constructor can call another, using the `this` keyword.
+
+```c#
+public class Test
+{
+    int _a, _b;
+    public Test(int a) { _a = a;}
+    public Test(int a, float b) : this(a) { _b = b; }
+}
+```
