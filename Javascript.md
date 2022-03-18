@@ -331,7 +331,7 @@ let killerRabbit = Object.create(protoRabbit);
 * The spread operator `...` is used to unpack, or "spread out," the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected.
 
 
-## JavaScript The Good Parts
+# JavaScript The Good Parts
 
 * The very **good** ideas include _functions_, _loose typing_, _dynamic objects_, and an _expressive object literal notation_. The **bad** ideas include a programming model based on _global variables_.
 
@@ -452,6 +452,83 @@ document.writeln(add1(6)); // 7
 
 * JavaScript provides an _object_ that has some _array-like characteristics_. It converts array subscripts into strings that are used to make properties. It is significantly slower than a real array. The first value will get the property name '0' , the second value will get the property name
 '1' , and so on
+
+
+# Effective JavaScript
+
+* ES5 introduced another versioning consideration with its **strict mode**. This feature allows you to opt in to a restricted version of JavaScript that disallows some of the more problematic or error-prone features of the full language.
+
+* Strict mode is enabled in a program by adding a special string constant at the very beginning of the program:
+
+```javascript
+"use strict";  // at the beginning of the file
+
+function f(x) {
+    "use strict"
+    // ...
+}
+```
+
+* The bitwise arithmetic operators are special. Rather than operating on their arguments directly as floating-point numbers, they implicitly convert them to 32-bit integers. (To be precise, they are treated as 32-bit, big-endian, two’s complement integers.)
+
+* doubles can represent integers perfectly with up to 53 bits of precision. All of the integers from –9,007,199,254,740,992 (–2^53) to 9,007,199,254,740,992 (2^53) are valid doubles.
+
+* There are exactly seven falsy values: `false` , `0` , `-0` , `""` , `NaN` , `null` , and `undefined`. All other values are truthy
+
+* JavaScript strings consist of 16-bit code units, not Unicode code points.
+
+* Every unit of text of all the world’s writing systems is assigned a unique integer between 0 and 1,114,111, known as a **code point** in Unicode terminology.
+
+* Unicode allows multiple different binary encodings of code points. there are multiple standard encodings of Unicode, the
+most popular of which are UTF-8, UTF-16, and UTF-32.
+
+* The current Unicode range is over 2^20 code points. The new increased range is organized into 17 subranges of 2^16 code points each. The first of these, known as the **Basic Multilingual Plane (or BMP)**, consists of the original 2^16 code points. The additional 16 ranges are known as the **supplementary planes**.
+
+* JavaScript’s global namespace is also exposed as a _global object_, which is accessible at the top of a program as the initial value of the `this` keyword. In web browsers, the _global object_ is also bound to the global `window` variable.
+
+* `ES5` introduced a new global `JSON` object for reading and writing the JSON data format.
+
+* Instead of raising an error, a program that assigns to an _unbound variable_ simply creates a new global variable and assigns to it.
+
+* Functions that keep track of variables from their containing scopes are known as closures.
+
+```javascript
+function sandwichMaker() {
+    var magicIngredient = "peanut butter";
+    function make(filling) {
+        return magicIngredient + " and " + filling;
+    }
+    return make;
+}
+
+// Eventhough sandwichMaker returned here, the make function still remember's magicIngredient variable
+var f = sandwichMaker();
+f("jelly");   // "peanut butter and jelly"
+f("bananas"); // "peanut butter and bananas"
+f("marshmallows"); // "peanut butter and marshmallows"
+```
+
+* Understanding closures only requires learning three essential facts.
+    1. JavaScript allows you to refer to variables that were defined outside of the current function
+    1. functions can refer to variables defined in outer functions even after those outer functions have returned!
+    1. closures can update the values of outer variables.
+
+* JavaScript does not support _block scoping_: Variable definitions are not scoped to their nearest enclosing statement or block,
+but rather to their _containing function_.
+
+* JavaScript implicitly "hoists" the declaration part to the top of the enclosing function and leaves the assignment in place.
+
+* Closures store their outer variables by reference, not by value.
+
+```javascript
+// Function declaration
+function f() {...}
+
+// Function expression
+var f = function() {...};
+var f = function f() {...}
+```
+
 
 
 
