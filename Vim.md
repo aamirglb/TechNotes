@@ -88,6 +88,13 @@ i/a/I/A/o/O |> Insert Mode
 | gu}  | Change to end of paragraph to lower case |
 | gU5j | Change 5 lines below to upper case |
 | gu3k | Change 3 lines above to lower case |
+| yw   | Yank word              |
+| yaw  | Yank entire word irrespecitive of where the cursor is located    |
+| yiw  | Yank entire word            |
+| :tabnew | open new tab |
+| gt   | Move to next tab            |
+| gT   | Move to previous tab              |
+| _nnn_ gt     | Move to numbered tab              |
   
 In visual mode you select the text first and then you type operator
 
