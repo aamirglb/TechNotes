@@ -529,6 +529,23 @@ var f = function() {...};
 var f = function f() {...}
 ```
 
+* In JavaScript, functions, methods, and class constructors are just three different usage patterns of one single construct: **functions**.
+
+* **Higher-order functions** are nothing more than functions that take other functions as arguments or return functions as their result. Taking a function as an argument (often referred to as a _callback function_ because it is "called back" by the higher-order function) is a particularly powerful and expressive idiom, and one that JavaScript programs use heavily.
+
+* functions come with a built-in `call` method for providing a custom receiver.
+
+```javascript
+// Invoking a function via its call method:
+f.call(obj, arg1, arg2, arg3);
+
+// similarly to calling it directly:
+f(arg1, arg2, arg3);
+```
+
+* JavaScript provides every function with an implicit local variable called `arguments` .
+
+
 
 
 
