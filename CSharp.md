@@ -742,11 +742,11 @@ switch (x)
 {
 case int i:
     Console.WriteLine ("It's an int!");
-    Console.WriteLine ($"e square of {i} is {i * i}");
+    Console.WriteLine ($"The square of {i} is {i * i}");
     break;
 case string s:
     Console.WriteLine ("It's a string");
-    Console.WriteLine ($"e length of {s} is {s.Length}");
+    Console.WriteLine ($"The length of {s} is {s.Length}");
     break;
 default:
     Console.WriteLine ("I don't know what x is");
@@ -834,4 +834,11 @@ public class Test
     public Test(int a) { _a = a;}
     public Test(int a, float b) : this(a) { _b = b; }
 }
+```
+
+* A **deconstructor** does the reverse of construction and assigns ﬁelds back to a set of variables. A deconstruction method must be called **Deconstruct**.
+
+```c#
+public void Deconstruct (out ﬂoat width, out ﬂoat height) { ... }
+(ﬂoat width, ﬂoat height) = rect; // call Deconstruction
 ```

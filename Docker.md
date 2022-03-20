@@ -170,10 +170,19 @@ $ docker network create my_network
 
 * All containers are connected to the Docker bridge network by default.
 
-* A Docker registry allows multiple users to push and pull images from a central store
-using a RESTful API.
+* A Docker registry allows multiple users to push and pull images from a central store using a RESTful API.
 
 * Use the `docker search` command to find the image to pull, and then run it.
+
+* The growing popularity of both the Kubernetes’ pod and docker-compose concepts has made the _host-like container_ relatively redundant - separate containers can be conjoined into a single entity at a higher level, rather than manag-
+ing multiple processes using a traditional init service.
+
+* Each Dockerfile command creates a single new layer on top of the previous one, but using `&&` in your `RUN` statements effectively ensures that several commands get run as one command. This is useful because it can keep your images small.
+
+* Use [Supervisor](http://supervisord.org/) to manage the processes in your container.
+
+* Committing a container only stores the state of the filesystem at the
+time of the commit, not the processes.
 
 
 
