@@ -170,6 +170,11 @@ $ docker network create my_network
 
 * All containers are connected to the Docker bridge network by default.
 
+* A Docker registry allows multiple users to push and pull images from a central store
+using a RESTful API.
+
+* Use the `docker search` command to find the image to pull, and then run it.
+
 
 
 
