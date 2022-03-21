@@ -34,13 +34,3 @@ Technical Notes
 1. [VSCode](VSCode.md)
 1. [WxWidgets](WxWidgets.md)
 
-In computing, the **robustness principle** is a design guideline for software that states: _"be conservative in what you do, be liberal in what you accept from others"_. It is often reworded as: **_"be conservative in what you send, be liberal in what you accept"_**. The principle is also known as **Postel's law**, after Jon Postel, who used the wording in an early specification of TCP.
-
-6 that Facebook give to prepare for internship
-
-1. TCP/IP Illustrated Volume 1
-1. The Illustrated Network
-1. The Art of UNIX Programming
-1. Systems Performance: Enterprise and the Cloud
-1. Linux and the Unix Philosophy
-1. Advance Programming in Unix Environment
