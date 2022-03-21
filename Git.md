@@ -62,6 +62,16 @@ $ git stash clear  # delete all stash
 $ git log --oneline --graph stash@{0}
 ```
 
+```shell
+$ git stash show                 # brief summary of changes of file
+$ git stash show -p              # show difference againt current HEAD
+$ git stash show -p stash@{0}    # show diff against selected stash
+
+$ git diff stash                 # diff between stash and current state of repo
+$ git diff stash@{0} main        # top most stash and main branch
+
+```
+
 ### Git Tags
 Tags are reference points in the repository. Tags are usually used as references for release versions.
 Tags are Git objects meaning that **they can be checkout out** like a branch or a commit.
