@@ -9,9 +9,11 @@ function get_time_from_sec()
 	local tmp_min=$(bc <<< "($input_sec - $seconds) / 60")
 	local hours=0
 
-	if [ $tmp_min -gt 60 ]; then
+	if [ $tmp_min -ge 60 ]; then
 		minutes=$(bc <<< "$tmp_min % 60")
 		hours=$(bc <<< "($tmp_min - $minutes) / 60")
+	else
+		minutes=$tmp_min
 	fi
 	printf "%02d:%02d:%02d\n" $hours $minutes $seconds
 }
@@ -29,4 +31,7 @@ result=`get_time_from_sec $(bc <<< "(3600 * 25) + (60 * 59) + 59")`
 echo $result
 
 result=`get_time_from_sec $(bc <<< "(3600 * 0) + (60 * 0) + 0")`
+echo $result
+
+result=`get_time_from_sec 2134`
 echo $result
