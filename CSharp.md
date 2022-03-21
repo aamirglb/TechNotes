@@ -842,3 +842,41 @@ public class Test
 public void Deconstruct (out ﬂoat width, out ﬂoat height) { ... }
 (ﬂoat width, ﬂoat height) = rect; // call Deconstruction
 ```
+
+* each optional parameter value is baked into the _calling site_.
+
+* **Properties** look like ﬁelds from the outside, but internally they contain logic, like methods do.
+
+* A property is declared like a ﬁeld but with a get/set (property _accessors_) block added.
+
+* _expression-bodied property_
+
+```c#
+public decimal Worth => currentPrice * sharesOwned;
+```
+
+* _automatic property declaration_
+
+```c#
+public decimal CurrentPrice { get; set; }
+public decimal CurrentPrice { get; set; } = 123;
+public int Maximum { get; } = 999;
+```
+
+* From C# 9, you can declare a property accessor with `init` instead of `set`:
+
+```c#
+public class Note
+{
+public int Pitch { get; init; } = 20; // “Init-only” property
+public int Duration { get; init; } = 100; // “Init-only” property
+}
+```
+
+* These _init-only_ properties act like read-only properties, except that they can also be set via an object initializer:
+
+```c#
+var note = new Note { Pitch = 50 };
+```
+
+* To write an indexer, deﬁne a property called `this`, specifying the arguments in square brackets:
