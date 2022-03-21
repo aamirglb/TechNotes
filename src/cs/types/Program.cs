@@ -27,6 +27,14 @@ Console.WriteLine(s[3]);
 s[3] = "kangaroo";
 Console.WriteLine(s[3]);
 
+Console.WriteLine(s[^1]);
+string[] first3 = s[..2];
+foreach(string ss in first3)
+    Console.WriteLine(ss);
+
+Console.WriteLine(nameof(first3));
+Console.WriteLine(nameof(msft));
+
 class Rectangle
 {
     public readonly float Width, Height;
@@ -112,4 +120,6 @@ class Sentense
         get => words[wordNum];
         set => words[wordNum] = value;
     }
+    public string this [Index index] => words[index];
+    public string[] this [Range range] => words[range];
 }

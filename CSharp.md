@@ -880,3 +880,9 @@ var note = new Note { Pitch = 50 };
 ```
 
 * To write an indexer, deﬁne a property called `this`, specifying the arguments in square brackets:
+
+* **Finalizers** are class-only methods that execute before the garbage collector reclaims the memory for an unreferenced object.
+
+* **Partial types** allow a type definition to be split, typically across multiple files.
+
+* The `nameof` operator returns the name of any symbol (type, member, variable) as a string.

@@ -25,7 +25,7 @@ $ git clean -f
 $ git clean -fd
 ```
 
-### Rename master to main 
+### Rename master to main
 ```shell
 $ git branch -m master main
 ```
@@ -86,7 +86,7 @@ A *lightweight tag* is very much like a branch that doesn’t change; iit’s ju
 # list tags
 $ git tag
 
-# search for tags that match a particular pattern. 
+# search for tags that match a particular pattern.
 $ git tag -l "v1.8.5*"
 
 # create an annotated tag
@@ -109,7 +109,7 @@ $ git log --oneline --graph
 ```
 
 ### Git delete branch
-Git will not let you delete the branch you are currently on so you must make sure to checkout a branch that you are NOT deleting. 
+Git will not let you delete the branch you are currently on so you must make sure to checkout a branch that you are NOT deleting.
 ```bash
 // delete branch locally
 git branch -d localBranchName
@@ -121,7 +121,7 @@ git push origin --delete remoteBranchName
 The `-d` option will delete the branch only if it has already been pushed and merged with the remote branch. Use `-D` instead if you want to force the branch to be deleted, even if it hasn't been pushed or merged yet.
 
 ```bash
-# 
+#
 git fetch -p
 ```
 
@@ -197,7 +197,7 @@ $ git push --set-upstream origin better-random
 $ git log HEAD..origin/better-random
 
 # undo an unpublished merge
-$ git reset --hard @{1} 
+$ git reset --hard @{1}
 # or go to previous (pre-merge) commit
 ```
 
@@ -238,11 +238,11 @@ $ git submodule update
 $ git clone --recurse-submodules https://github.com/chaconinc/MainProject
 ```
 
-* `~/.gitconfig` file contains information that will be used to identify commits in log. Either create `.gitconfig` file or use `git config` command from command line. 
+* `~/.gitconfig` file contains information that will be used to identify commits in log. Either create `.gitconfig` file or use `git config` command from command line.
 
 * `.git` directory contains entire repository in Git internal format, and some repository-specific administrative information. `getrepository-layout (5)` manpage.
 
-* A Git version identifier is a SHA-1 hash. 
+* A Git version identifier is a SHA-1 hash.
 
 * To setup a branch as private, needs to configure the server with hooks.
 
@@ -280,8 +280,7 @@ branch, or branch head, or just a branch.
 * Git is very fast: nearly all operations are performed locally, and are flexible
 
 * Version control is a system
-that records changes to a file or set of files over time so that you can recall spe-
-cific versions later.
+that records changes to a file or set of files over time so that you can recall specific versions later.
 
 * One of the more popular VCS tools was a system called **RCS**, which is still
 distributed with many computers today. RCS
@@ -341,7 +340,7 @@ $ git config --global core.editor emacs
 $ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -no...'"
 
 # List configuration
-$ git config --list 
+$ git config --list
 
 # get specific key
 $ git config user.name
@@ -377,11 +376,11 @@ MM Rakefile
   ^ status of staging area
   |^ status of working tree
   ||
-* ?? untracked file 
-   A new files that have been added to the staging area 
-   M modified files 
+* ?? untracked file
+   A new files that have been added to the staging area
+   M modified files
 
-* There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree. 
+* There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree.
 
 * `.gitignore` class of files that you don’t want Git to automatically add or even show you as being untracked.
 
@@ -399,7 +398,7 @@ $ cat .gitignore
     * You can negate a pattern by starting it with an exclamation point ( ! ).
     * two asterisks to match nested directories; a/**/z would match a/z, a/b/z, a/b/c/z, and so on.
 
-* `.gitignore` file examples for dozens of projects and languages at [](https://github.com/github/gitignore)
+* `.gitignore` file examples for dozens of projects and languages at [https://github.com/github/gitignore](https://github.com/github/gitignore)
 
 * `git diff` shows you the exact lines added and removed
 
@@ -562,7 +561,7 @@ Now you can use the string `s` on the command line in lieu of the whole URL
 
 * `git checkout -b version2 v2.0.0` create a branch from tag
 
-* If you don’t want to type the entire text of each of the Git commands, you can easily set up an alias for each command using git config. 
+* If you don’t want to type the entire text of each of the Git commands, you can easily set up an alias for each command using git config.
 
 ```shell
 $ git config --global alias.co checkout
@@ -642,7 +641,7 @@ ahead, behind or both.
 
 * In Git, there are two main ways to _integrate changes from one branch into another_: the **merge** and the **rebase**.
 
-* With the **rebase** command, you can take all the changes that were committed on one branch and replay them on another one. 
+* With the **rebase** command, you can take all the changes that were committed on one branch and replay them on another one.
 
 * rebasing makes for a cleaner history. If you examine
 the log of a rebased branch, it looks like a linear history: it appears that all the
