@@ -441,7 +441,7 @@ the file.
 
 * `git log --pretty=format:"%h - %an, %ar : %s"`
 
-Useful options for git log --pretty=format
+Useful options for `git log --pretty=format`
 
 | Option | Description of Output |
 |--------|-----------------------|
@@ -464,7 +464,7 @@ Useful options for git log --pretty=format
 
 * `git log --pretty=format:"%h %s" --graph` adds a nice little ASCII graph
 
-Common options to git log
+Common options to `git log`
 
 | Option | Description |
 |--------|-------------|
@@ -484,7 +484,7 @@ Common options to git log
 
 * The last really useful option to pass to `git log` as a filter is a _path_. If you specify a directory or file name, you can limit the log output to commits that introduced a change to those files. This is always the last option and is generally preceded by double dashes ( -- ) to separate the paths from the options.
 
-Options to limit the output of git log
+Options to limit the output of `git log`
 
 | Option | Description |
 |--------|-------------|
