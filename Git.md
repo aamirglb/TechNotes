@@ -423,9 +423,7 @@ $ git commit -a -m "new commit"
 
 * `git rm --cached README` keep the file in your working tree but remove it from your staging area.
 
-* Git doesn’t explicitly track file movement. If
-you rename a file in Git, no metadata is stored in Git that tells it you renamed
-the file.
+* Git doesn’t explicitly track file movement. If you rename a file in Git, no metadata is stored in Git that tells it you renamed the file.
 
 * `git mv file_from file_to` rename a file
 
@@ -480,7 +478,7 @@ Common options to `git log`
 
 * `git log --since=2.weeks` list of commits made in last 2 weeks
 
-* `git log -Sfunction_name` takes a string and only shows the commits that introduced a change to the code that added or removed that string
+* `git log -S function_name` takes a string and only shows the commits that introduced a change to the code that added or removed that string
 
 * The last really useful option to pass to `git log` as a filter is a _path_. If you specify a directory or file name, you can limit the log output to commits that introduced a change to those files. This is always the last option and is generally preceded by double dashes ( -- ) to separate the paths from the options.
 
@@ -511,6 +509,8 @@ $ git commit --amend  # second commit replaces the results of the first.
 * Anything that is committed in Git can almost always be recovered. Even commits that were on branches that were deleted or commits that
 were overwritten with an `--amend` commit can be recovered. However, anything you lose that was never committed is likely never to be seen again.
 
+## Working with Remotes
+
 * **Remote repositories** are versions of your project that are hosted on the Internet or network somewhere.
 
 * `git remote` lists the shortnames of each remote handle you’ve specified. **origin** is the default name Git gives to the server you cloned from.
@@ -521,7 +521,7 @@ were overwritten with an `--amend` commit can be recovered. However, anything yo
 easily.
 
 * `git remote add pb https://github.com/paulboone/ticgit`
-Now you can use the string `s` on the command line in lieu of the whole URL
+Now you can use the string `pb` on the command line in lieu of the whole URL
 
 * `git fetch [remote-name]` pulls down all the data from that remote project that you don’t have yet.
 
@@ -536,6 +536,8 @@ Now you can use the string `s` on the command line in lieu of the whole URL
 * `git remote rename pb paul` change a remote’s shortname.
 
 * `git remote rm paul` remove a remote
+
+## Tagging
 
 * **Tagging**: Git has the ability to tag specific points in history as being important.
 
@@ -569,6 +571,8 @@ $ git config --global alias.br branch
 $ git config --global alias.ci commit
 $ git config --global alias.st status
 ```
+
+## Branching
 
 * Branching means you diverge from the main line of development and continue to do work without messing with that main line.
 
