@@ -29,6 +29,46 @@ Alt+.   Paste previous command's last argument
 
 * `/etc/shells` file lists all available shells on the systems
 
+* **Unoffical Bash Strict Mode**
+
+```bash
+    #!/bin/bash
+    set -euo pipefail
+    IFS=$'\n\t'
+```
+
+* The `set -e` option instructs bash to immediately exit if any command has a non-zero exit status.
+
+* `set -u` affects variables. When set, a reference to any variable you haven't previously defined - with the exceptions of `$*` and `$@` - is an error, and causes the program to immediately exit.
+
+* `set -o pipefail` setting prevents errors in a pipeline from being masked. If any command in a pipeline fails, that return code will be used as the return code of the whole pipeline.
+
+* The **IFS (Internal Field Separator)** variable controls what Bash calls _word splitting_.
+
+```bash
+#!/bin/bash
+IFS=$' '
+items="a b c"
+for x in $items; do
+    echo "$x"
+done
+
+IFS=$'\n'
+for y in $items; do
+    echo "$y"
+done
+```
+
+* `set +u` _disables_ this variable strictness, and `set -u` _enables_ it.
+
+* if a reference is made at runtime to an undefined variable, bash has a syntax for declaring a default value, using the `:-` operator:
+
+```bash
+bar=${foo:-alpha}  #bar is set to "alpha"
+empty_str=${undef_var:-}  #empty_str is set to ""
+```
+
+
 ```bash
 $ cat /etc/shells
 # /etc/shells: valid login shells

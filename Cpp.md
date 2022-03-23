@@ -4,6 +4,7 @@
 1. [C++ Annotation](#cpp_annotation)
 1. [C++ Concurrency in Action](#cpp_concurrency)
 1. [C++17](#-c++17)
+1. [C++ Libraries](#c++-libraries)
 
 # Professional C++
 
@@ -2090,3 +2091,7 @@ void Stack<T>::push(T const& e) {
 * The term **_concept_** is often used to denote a set of constraints that is repeatedly required in a template library.
 
 Page 71
+
+# C++ Libraries
+
+* [Skia](https://skia.org/) is an open source 2D graphics library which provides common APIs that work across a variety of hardware and software platforms. It serves as the graphics engine for Google Chrome and Chrome OS, Android, Flutter, and many other products. 
