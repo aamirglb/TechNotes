@@ -48,6 +48,10 @@ echo "123 abc" | sed -r 's/[0-9]+/(&)/'
 
 * The escaped parentheses (that is, parentheses with backslashes before them) remember a substring of the characters matched by the regular expression. You can use this to exclude part of the characters matched by the regular expression. The "\1" is the first remembered pattern, and the "\2" is the second remembered pattern. Sed has up to nine remembered patterns.
 
+* **Comment out a range of lines"
+```shell
+$ sed '4,15s/./\/\/&/' -i match.cpp
+```
 
 ```
 echo "hello world" | sed 's/\([a-z]*\).*/\1/'
