@@ -231,6 +231,11 @@ these three behaviors occur:
     * At least one of the pointers is being used to write to the data.
     * There’s no mechanism being used to synchronize access to the data.
 
+* Slices let you reference a contiguous sequence of elements in a collection rather than the whole collection. 
+  A slice is a kind of reference, so it does not have ownership.
+
+
+
 * A string slice is a reference to part of a `String` , and it looks like this:
 ```rust
 let s = String::from("hello world");
@@ -255,6 +260,40 @@ let user1 = User {
                 sign_in_count: 1,
 };
 ```
+
+* `println()`
+
+    `{}` => use `Display` format
+    `{:?}` => use output format called `Debug`
+    `{:#?}` => pretty printing
+
+* The `&self` is actually short for `self: &Self`. Within an `impl` block, the type `Self` is an _alias_ for the type that the `impl` block is for.
+
+* Use `&mut self` as the first parameter to get read/write access to the object.
+
+* All functions defined within an `impl` block are called _associated functions_ because they’re _associated_ with the type named after the `impl`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```rustc
 let _number = 12; // leading underscore silence unused variable warning

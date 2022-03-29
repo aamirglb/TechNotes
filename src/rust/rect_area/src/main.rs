@@ -29,6 +29,8 @@ fn main() {
     println!("The area of rectangle is {} square pixels.",
         area_v2(rect1));
 
+    dbg!(width1 >= 30);
+
     let rect1 = Rectangle { width: 30, height: 50 };
     println!("The area of rectangle is {} square pixels.",
         area_v3(&rect1));
