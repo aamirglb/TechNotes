@@ -24,14 +24,16 @@ Window {
     }
 
     id: root
-    property var _counter: 0
-    property var _interval: 50
+    property var _counter:       0
+    property var _interval:      50
+    property bool _startCounter: false
+
     //    color: "transparent"
-    color: "black"
-    title: "Timer App"
-    width: 1920 * 0.8
-    height: 1080 * 0.8
-    visible: true
+    color:    "black"
+    title:    "Timer App"
+    width:    1920 * 0.8
+    height:   1080 * 0.8
+    visible:  true
 
     Label {
         id: label
@@ -43,10 +45,60 @@ Window {
     }
 
     Timer {
-        interval: _interval; running: true; repeat: true
+        id:        timer
+        interval:  _interval
+        running:   _startCounter
+        repeat:    true
         onTriggered: {
             ++_counter;
             label.text = msToHMS(_counter * _interval);
+        }
+    }
+
+    Rectangle {
+        id:              startButton
+        width:           120
+        height:          40
+        radius:          width * .5
+        anchors.right:   parent.right
+        anchors.bottom:  parent.bottom
+        anchors.margins: 20
+        color:           _startCounter ? "red" : "blue"
+        Label {
+            text:             _startCounter ? "Stop" : "Start"
+            anchors.centerIn: parent
+            color:            "white"
+            font.bold:        true
+            font.pixelSize:   18
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: { _startCounter = !_startCounter }
+        }
+    }
+
+    Rectangle {
+        id:              resetButton
+        width:           120
+        height:          40
+        radius:          width * .5
+        anchors.right:   startButton.left
+        anchors.bottom:  parent.bottom
+        anchors.margins: 20
+        color:           "blue"
+        Label {
+            text:            "Reset"
+            anchors.centerIn: parent
+            color:            "white"
+            font.bold:        true
+            font.pixelSize:   18
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                _counter = 0
+                label.text = "00:00:00.000"
+            }
         }
     }
 }
