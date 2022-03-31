@@ -31,8 +31,8 @@ Window {
     //    color: "transparent"
     color:    "black"
     title:    "Timer App"
-    width:    1920 * 0.8
-    height:   1080 * 0.8
+    width:    Screen.width * .9
+    height:   Screen.height * .9
     visible:  true
 
     Label {
