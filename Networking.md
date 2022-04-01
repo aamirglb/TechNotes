@@ -1,3 +1,19 @@
+# Networking Notes
+
+# netcat tool
+
+* `netcat` is a utility that is able to write and read data across TCP and UDP network connections. It can be used as port scanner, a backdoor, a port redirector, a port listener and lots more.
+
+* `nmap` is more suited for port scanning.
+
+```shell
+$ nc -v -w2 -z <target-ip> <port-range>
+$ nc -v -w2 -z 192.168.0.120 20-30
+
+# Grab port banners
+$ nc -v -n 192.168.0.120 80
+```
+
 # Computer Networks
 
 * TCP/IP is a protocol suite that implements the Internet architecture and draws its origins from the ARPANET Reference Model (ARM) [RFC0871].
