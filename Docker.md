@@ -184,7 +184,18 @@ ing multiple processes using a traditional init service.
 * Committing a container only stores the state of the filesystem at the
 time of the commit, not the processes.
 
+* Remove containers
 
+```shell
+# All containers (both stopped and running)
+$ docker ps -a -q | xargs --no-run-if-empty docker rm -f
+
+# Remove stopped containers
+$ docker ps -a -q --filter status=exited | xargs --no-run-if-empty docker rm
+
+# same as above command
+$ docker container prune
+```
 
 
 

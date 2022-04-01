@@ -35,6 +35,15 @@ window.Seed = (function () {
       votes: 9,
       avatar: './public/images/avatars/molly.png',
       submissionImage: './public/images/submissions/image-aqua.png',
+    },
+    {
+      id: 5,
+      title: 'Software Development',
+      description: 'Build high quality softwares',
+      url: '#',
+      votes: 0,
+      avatar: '',
+      submissionImage: '',
     }
   ];
 
