@@ -90,7 +90,7 @@ use the `IS NULL` operator.
 
 * `IN` `LIKE` `GLOB` `MATCH` `REGEXP`. These five keywords are logic operators, returning, true, false, or NULL state.
 
-* SQL commands are divided into four major categories 
+* SQL commands are divided into four major categories
     * Data Definition Language (DDL) : define the structure of tables, views, indexes, and other data containers and objects. `CREATE TABLE`, `DROP VIEW`
     * Data Manipulation Language (DML): insert, update, delete and query actual data values. `INSERT`, `SELECT`.
     * Transaction Control Language (TCL): control transactions. `BEGIN`, `COMMIT`
@@ -132,7 +132,7 @@ CREATE TABLE table_name
 (
     column_name column_type  column_constraints...,
     [... ,]
-    
+
     table_constraints,
     [...]
 );
@@ -249,3 +249,100 @@ start a transaction for each command, process the command, and (assuming no erro
 ```
 BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION]
 ```
+
+# MongoDB
+
+* Mongo DB stores its information in documents rather than rows.
+
+```
+{
+_id: 10,
+username: 'peter',
+email: 'pbbakkum@gmail.com'
+}
+```
+
+* Mongo DB features
+
+    * secondary indexes,
+    * range queries,
+    * sorting,
+    * aggregations, and
+    * geospatial indexes
+
+* A **document-based data model** can represent rich, hierarchical data structures. It’s often possible to do without the multitable joins common to relational databases.
+
+* MongoDB’s data model is document-oriented.
+
+* A JSON document needs double quotes everywhere except for numeric values. While for JavaScript version of a JSON document double quotes aren’t necessary.
+
+* A _document_ is essentially a set of property names and their values. The values can be simple data types, such as strings, numbers, and dates. But these values can also be arrays and even other JSON documents.
+
+* Internally, MongoDB stores documents in a format called **Binary JSON**, or **BSON**.
+
+* The MongoDB shell uses JavaScript and gets documents in JSON,
+
+* Where relational databases have _tables_, MongoDB has _collections_. In other words, MySQL keeps its data in tables of rows, while Mongo DB keeps its data in collections of documents, which you can think of as a group of documents.
+
+* In theory, each document in a collection can have a completely different structure; in practice, a collection’s document will be relatively uniform.
+
+* Indexes in MongoDB are implemented as a B-tree data structure. B-tree indexes,
+also used in many relational databases, are optimized for a variety of queries, includ-
+ing range scans and queries with sort clauses.
+
+* create, read, update, and delete (CRUD)
+
+* databases in MongoDB are just namespaces to distinguish between collections.
+
+* All collections in a database are grouped in the
+same files, so it makes sense, from a memory perspective, to keep related collections
+in the same database.
+
+* A query selector is a
+document that’s used to match against all documents in the collection.
+
+* MongoDB’s `$and` operator
+
+* MongoDB uses opportunistic locking in its **WiredTiger storage engine** to maximize concurrency and throughput.
+
+* Every document has a special key, "_id", that is unique within a collection.
+
+* By default MongoDB listens for socket connections on port `27017`
+
+* On startup, the shell connects to the `test` database on a MongoDB server and assigns this database connection to the global variable `db`.
+
+* The `insertOne` function adds a document to a collection.
+
+* find and findOne can be used to query a collection.
+
+* If we would like to modify our post, we can use `updateOne`.
+
+* Basic Data Types
+
+    * Null
+        `{"x" : null }`
+
+    * Boolean
+        `{"x": true}`
+
+    * Number
+        ```
+            {"x": 3.14}
+            {"x": 3 }
+            {"x": NumberInt("3")}
+            {"x": NumberLong("3")}
+        ```
+    * String
+        `{"x": "foobar"}
+    * Date: 64-bit integers representing milliseconds since the Unix
+epoch (January 1, 1970)
+            `{"x": new Date()}
+
+    * Regular Expression
+    * Array
+    * Embedded document
+    * Object ID
+    * Binary data
+    * Code
+
+
