@@ -4,7 +4,7 @@
 
 * **Podman** and **Containerd** are other alternatives to Docker.
 
-* ![Play With Docker PWD](https://labs.play-with-docker.com)
+* [Play With Docker PWD](https://labs.play-with-docker.com)
 
 * Applications like Jenkins can be downloaded as read-only "images" (or Docker images), each of which is run in Docker as a container.
 
