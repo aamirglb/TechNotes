@@ -345,4 +345,9 @@ epoch (January 1, 1970)
     * Binary data
     * Code
 
+* The "_id" key’s value can be any type, but it defaults to an `ObjectId`.
 
+* ObjectIds use 12 bytes of storage, which gives them a string representation that is 24
+hexadecimal digits
+
+* `Mongoose` is a Object Data Modeling (ODM) library for MongoDB distributed as an npm package. Mongoose is a Node.js-based Object Data Modeling (ODM) library for MongoDB. The problem that Mongoose aims to solve is allowing developers to enforce a specific schema at the application layer.

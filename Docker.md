@@ -86,7 +86,62 @@ $ docker ps --format "ID\t{{.ID}}\n"
 
 * Use --volume-from option to mount volumne from one container to other container
 
+# Docker In Action
+
+* _Docker_ is an open source project for building, shipping and running programs.
+
+* _Containers_ is an operating system technology.
+* _Docker_ is an open source project for building, shipping and running programs.
+
+* _Containers_ is an operating system technology.
+
+* Running state of a container is directly tied to the state of a single running program inside the container.
+
+* Containers are an operating system feature.
+
+* Docker uses Linux `namespaces` and `cgroups`, which have been part of Linux since 2007. Docker doesn’t provide
+the container technology, but it specifically makes it simpler to use.
+
+* Docker builds containers using 10 major system features.
+
+    1. _PID namespace_ - Process identifiers and capabilities
+    1. _UTS namespace_ - Host and domain name
+    1. _MNT namespace_ - Filesystem access and structure
+    1. _IPC namespace_ - Process communication over shared memory
+    1. _NET namespace_ - Network access and structure
+    1. _USR namespace_ - User names and identifiers
+    1. _chroot syscall_ - Controls the location of the filesystem root
+    1. _cgroups_ - Resource protection
+    1. _CAP drop_ - Operating system feature restrictions
+    1. _Security modules_ - Mandatory access controls
+
+* _Docker image_ is a bundled snapshot of all the files that should be available to a program running inside a container.
+
+* On macOS and Windows, Docker uses a single, small virtual machine to run all the containers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Docker In Practice
+
+
 
 * **Docker Images**: An image is a collection of filesystem layers and some metadata.
 Taken together, they can be spun up as Docker containers.
