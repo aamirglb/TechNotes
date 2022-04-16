@@ -119,19 +119,140 @@ the container technology, but it specifically makes it simpler to use.
 
 * On macOS and Windows, Docker uses a single, small virtual machine to run all the containers.
 
+* Every time you run docker run and create a new container, that new container will get a 1024-bit unique identifier.
 
+```shell
+docker run --interactive --tty \
+    --link web:web \
+    --name web_test \
+    busybox:1.29 /bin/sh
+```
 
+* To detach an interactive terminal, hold down the Ctrl (or Control) key and press P and then Q. This will work only when you’ve used the `--tty` option.
 
+* The docker logs command has a flag, `--follow` or `-f` , that will display the logs and then continue watching and updating the display with changes to the log as they occur.
 
+* The `docker stop` command tells the program with PID 1 in the container to halt.
 
+* A _PID namespace_ is a set of unique numbers that identify
+processes. Linux provides tools to create multiple PID namespaces. Each namespace has a complete set of possible PIDs. This means that each PID namespace will contain
+its own PID 1, 2, 3, and so on.
 
+* Docker creates a new PID namespace for each container by default. A container’s PID namespace isolates processes in
+that container from processes in other containers.
 
+```shell
+$ docker exec <container-name> <command>
+# execute ps command inside container nsA
+$ docker exec nsA ps
+```
 
+* you can optionally create containers without their own PID namespace by setting the `--pid` flag on `docker create` or `docker run` and setting the value to `host`.
 
+```shell
+$ docker run --pid host busybox:1.29 ps 1
+```
 
+* _metaconflicts_: conflicts between containers in the Docker layer.
 
+* By default, Docker assigns a unique (human-friendly) name to each container it creates. The `--name` flag overrides that process with a known value.
 
+```shell
+$ docker rename webid webid-old
+```
 
+* The `docker create` command is similar to `docker run`, the primary difference being that the container is created in a
+stopped state.
+
+```shell
+$ CID=$(docker create nginx:latest)
+$ echo $CID
+```
+
+* Both the `docker run` and `docker create` commands provide another flag to write the ID of a new container to a known file:
+
+```shell
+$ docker create --cidfile /tmp/web.cid nginx
+$ cat /tmp/web.cid
+```
+
+* Docker won’t create a new container by using the provided CID file if that file already exists.
+
+* get the truncated ID of the last created container
+
+```shell
+$ docker ps --latestt --quiet
+$ docker ps -l -q
+
+# get complete id
+$ docker ps -l -q --no-trunc
+```
+
+* The link mechanism injects IP addresses into dependent containers, and containers that aren’t running don’t have
+IP addresses.
+
+* Links create a unidirectional network connection from one container to other containers on the same host.
+
+* __WordPress__ is a popular open source content-management and blogging program. WordPress uses a database program called MySQL to store most of its data.
+
+* The `docker inspect` command will display all the metadata (a JSON document) that Docker maintains for a container.
+
+* Setup a WordPress website using Docker
+
+```shell
+# MySQL container
+$ docker run -d --name wpdb \
+    -e MYSQL_ROOT_PASSWORD=ch2demo \
+    mysql:5.7v
+
+# WordPress website
+docker run -d --name wp3 \
+    --link wpdb:mysql \
+    -p 8000:80 \
+    --read-only \
+    -v /run/apache2/ \
+    --tmpfs /tmp \
+    wordpress:5.0.0-php7.2-apache
+```
+
+* Navigate to `http://localhost:8000` to visit the website.
+
+* Environment variable injection
+
+```shell
+$ docker run --env MY_ENV_VVAR="test variable" busybox:1.29 env
+```
+
+* The `--env` flag, or `-e` for short, can be used to inject any environment variable.
+
+* An _init system_ is a program that’s used to launch and maintain the state of other programs. Any process with __PID 1__ is treated like an init process by the Linux kernel (even
+if it is not technically an init system).
+
+* Several init systems could be used inside a container. The most popular include `runit`, `Yelp/dumb-init`, `tini`, `supervisord`, and `tianon/gosu`.
+
+* To see which processes are running inside the container, use the `docker top` command.
+
+* The `top` subcommand will show the _host PID_ for each of the processes in the container.
+
+* Docker containers run something called an _entrypoint_ before executing the command. Entrypoints are perfect places to put code that validates the preconditions of a container.
+
+* To remove a container from your computer, use the `docker rm` command.
+
+* You can stop the container with `docker stop` command or by using the `-f` flag on `docker rm`. The key difference is that when you stop a process by using the `-f` flag, Docker sends a `SIG_KILL` signal, which immediately terminates the receiving process. In contrast, using `docker stop` will send a `SIG_HUP` signal. Recipients of `SIG_HUP` have time to perform finalization and cleanup tasks. The `SIG_KILL` signal makes for no such allowances and can result in file corruption or poor network experiences.
+
+* A _named repository_ is a named bucket of images. A
+repository’s name is made up of the name of the host where the image is located, the user account that owns the image, and a short name.
+
+          User/organization
+docker.io/dockerinaction/ch3_hello_registry
+^^^^^^^^^                ^^^^^^^^^^^^^^^^^^
+Registry host            short name
+
+* Just as there can be several versions of software, a repository can hold several images. Each image in a repository is identified uniquely with _tags_.
+
+* `freegeoip` is a web application that can be used to get the rough geographical location associated with a network address.
+
+* _Docker Hub_ is a registry and index with a web user interface run by Docker Inc.
 
 
 
