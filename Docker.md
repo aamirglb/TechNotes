@@ -254,6 +254,41 @@ Registry host            short name
 
 * _Docker Hub_ is a registry and index with a web user interface run by Docker Inc.
 
+* The `docker save` command creates TAR archive files.
+
+* A _Dockerfile_ is a script that describes steps for Docker to take to build a new image.
+
+* Every container has something called a MNT namespace and a unique file tree root.
+
+* Three most common types of storage mounted into containers:
+    * Bind mounts
+    * In-memory storage
+    * Docker volumes
+
+* All three types of mount points can be created using the `--mount` flag on the docker run and docker create subcommands.
+
+* This command creates an empty `tmpfs` device and attaches it to the new container’s file tree at `/tmp`. Any files created under this file tree will be written to memory instead of disk.
+
+```shell
+docker run --rm \
+    --mount type=tmpfs,dst=/tmp \
+    --entrypoint mount \
+    alpine:latest -v
+```
+
+* Docker volumes are named filesystem trees managed by Docker.
+
+* The __Apache Cassandra__ project provides a column database with built-in clustering, eventual consistency, and linear write scalability.
+
+
+
+
+
+
+
+
+
+
 
 
 
