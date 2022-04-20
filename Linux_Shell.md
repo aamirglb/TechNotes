@@ -11,7 +11,7 @@
 
 * Bash command line shortcuts
 ```shell
-Ctrl+K  Cut from curser till the end of line 
+Ctrl+K  Cut from curser till the end of line
 Ctrl+U  Cut from curser till beginning of line
 Ctrl+W  Cut words backwards
 Ctrl+Y  Paste from clilp board
@@ -68,7 +68,6 @@ bar=${foo:-alpha}  #bar is set to "alpha"
 empty_str=${undef_var:-}  #empty_str is set to ""
 ```
 
-
 ```bash
 $ cat /etc/shells
 # /etc/shells: valid login shells
@@ -82,10 +81,9 @@ $ cat /etc/shells
 
 * "#!" is called sha bang.
 
-* `/bin/sh` is a 
-link to `bash` shell in Linux.
+* `/bin/sh` is a link to `bash` shell in Linux.
 
-* shell command line provides two modes to edit the commands in command line. 
+* shell command line provides two modes to edit the commands in command line.
     1. emacs mode
     1. vi mode
 
@@ -245,7 +243,7 @@ done
 Output
 ------
 CA NY UT TX
- ``` 
+ ```
 
  * Executing a shell script like `./script.sh` will spawn a new bash shell and it executes the script.
 
@@ -411,7 +409,7 @@ group=/etc/group
 
 if [ -f $passwd ] && x=`wc -l $passwd|awk '{print $1}'` && \
    [ -f $group ] && y=`wc -l $group|awk '{print $1}'` && let total=$x+$y
-then 
+then
     echo "Total Lines in $passwd and $group files are: $total"
 fi
 
@@ -422,7 +420,7 @@ fi
     * Allows pattern matching
     * =~ regular expresison matching
 ```bash
-    if [[ $name ~= ^b ]]; 
+    if [[ $name ~= ^b ]];
 ```
 
 ```bash
@@ -497,7 +495,7 @@ read -p prompt
 read -s # This doesn't echo the value as you enter
 read -t 10 # read waits for 10 sec and times out
 read -N 5  # return after reading exactly 5 char
-read -r    # read \ literally 
+read -r    # read \ literally
 read       # if no variable, store value in $REPLY internal variable
 ```
 
@@ -518,11 +516,11 @@ ulimit -a
 
 * `shopt` stands for shell options. View all shell options and their current status.
 
-* `truncate` is a command line utility that can be found in most Linux distros. It is used to shrink the size of a file to a desired size. 
+* `truncate` is a command line utility that can be found in most Linux distros. It is used to shrink the size of a file to a desired size.
 
 * The truncation process basically removes all the contents of the file. It does not however remove the file itself, but it leaves it on the disk as a zero byte file. This allows the file to re-used or be continually used by other programs while keeping the overall size in check. This process is also referred to as **“zero out a file”** or to **“empty a file“**. The truncation process also will preserve the inode of the file.
 
-* **noclobber** is a feature in Linux which is used to prevent accidental overwriting of files. If noclobber is set or enabled on your system, the above I/O redirection methods will throw an error. 
+* **noclobber** is a feature in Linux which is used to prevent accidental overwriting of files. If noclobber is set or enabled on your system, the above I/O redirection methods will throw an error.
 
 ```
 $ truncate -s 0 /var/log/syslog
@@ -599,7 +597,7 @@ $ sudo apt install openssh-server -y
 # verify that installation is successful
 $ sudo systemctl status ssh
 
-# Allow Uncomplicated Firewall(UFW) firewall 
+# Allow Uncomplicated Firewall(UFW) firewall
 $ sudo ufw allow ssh
 
 # connect to ssh server
@@ -684,7 +682,7 @@ $ find . -type f -name "*.cpp"
 # find file with 777 permission
 $ find . -type f -perm 0777 -print
 
-# without 777 permission 
+# without 777 permission
 $ find / -type f ! -perm 777
 
 # find read only files
@@ -708,11 +706,11 @@ What are files with SGID bit and Sticky bit?? SUID files
 ## 5. vi Editor
 [Table Of Contents](#table-of-contents)
 
-* vim is the most popular command-line text editor. vim works in 
-    * **Normal** mode, 
-    * **Insert** mode, 
-    * **Visual** mode, 
-    * **Command** mode and 
+* vim is the most popular command-line text editor. vim works in
+    * **Normal** mode,
+    * **Insert** mode,
+    * **Visual** mode,
+    * **Command** mode and
     * **Replace** mode.
 
 * To get into **Normal** mode, press **ESC** key.
@@ -736,7 +734,7 @@ What are files with SGID bit and Sticky bit?? SUID files
     W move to beginning of next word after a whitespace
     B move to beginning of previous word before a whitespace
     E move to end of word before a whitespace
-    
+
     r replace a single character
     x delete a single character
     u undo changes
@@ -761,14 +759,14 @@ What are files with SGID bit and Sticky bit?? SUID files
 
     V enter visual line mode, this will make text selections by line
     <C-V> to enter visual block mode, this will make text selections by blocks; moving the cursor will make rectangle selections of the text
-    
+
     visual: Enter by pressing v
     block-visual: select any rectangular region. Enter by pressing <ctrl>+v
     linewise-visual: always select full lines. Enter by pressing <shift>+v
 ```
 
 * **Command** mode has a wide variety of commands and can do things that normal mode can’t do as easily. To enter command mode type ’:’ from normal mode
-    
+
 ```
     : Enters command mode
     % Means across all lines
@@ -776,7 +774,7 @@ What are files with SGID bit and Sticky bit?? SUID files
     /foo is regex to find things to replace
     /bar/ is regex to replace things with
     /g means global, otherwise it would only execute once per line
-    
+
 ```
 * **Replace** mode
 
@@ -813,7 +811,7 @@ In normal mode press ‘R’ (capital R) to enter replace mode
 * To delete all lines in the current file use `%d` command in normal mode.
 * To delete from current line till the end use `,$d`.
 * To delete from line 3 to 6 use `3,6d`.
-* general form of substitute command 
+* general form of substitute command
 ```
 :[range]s/{pattern}/{string}/[flags] [count]
 
@@ -864,7 +862,7 @@ gT          Go to previous tab
 ## Killin a bunch of processes
 
 ```
-# Kill processes 
+# Kill processes
 $ kill -9 $(ps -aux | grep main.py | awk '{print $2}')
 
 # or better use pgrep and pkill
@@ -926,11 +924,11 @@ $ echo "one two three" | xargs -t rm
 $ echo "one two three" | xargs -I % sh -c 'echo %; mkdir %'
 ```
 ## Create multiple files and directories
-           
+
 ```
 $ mkdir {cs,files,masters,draft,static}   # directories.
 $ touch -- 'file with spaces' '-a' '-l' 'filename'    # And some files:
-           
+
 ```
 
 ### Create Application Icon in Ubuntu
@@ -949,3 +947,23 @@ Terminal=false
 ```
 
 mv anaconda-navigator.desktop ~/.local/share/applications/
+
+
+## Debian
+
+* Creating and merging patches in Linux
+
+```shell
+$ diff -u file.old file.new >file.patch
+
+$ patch -p0 file.old <file.patch
+```
+
+* `git diff` will generate a file in the same format as what `diff -u` would do and `git apply` can do the same as `patch`.
+
+* Version control tools and their companies
+
+    subversion (svn) => Apache
+    git =>
+    bazaar (bzr) => canonical
+    mercurial (hg> =>
