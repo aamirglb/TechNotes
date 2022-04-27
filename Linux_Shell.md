@@ -419,7 +419,7 @@ fi
 [ -f /.datafile ] || touch /.datafile
 ```
 
-* [[]] - Extended Test Command is an advanced variation of []
+* [[ ]] - Extended Test Command is an advanced variation of [ ]
     * Allows pattern matching
     * =~ regular expresison matching
 ```bash
