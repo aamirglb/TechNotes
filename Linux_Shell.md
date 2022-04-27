@@ -29,7 +29,8 @@ Alt+.   Paste previous command's last argument
 
 * `/etc/shells` file lists all available shells on the systems
 
-* **Unoffical Bash Strict Mode**
+* [**Unoffical Bash Strict Mode**](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
+
 
 ```bash
     #!/bin/bash
