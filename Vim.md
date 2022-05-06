@@ -95,7 +95,7 @@ i/a/I/A/o/O |> Insert Mode
 | gt   | Move to next tab            |
 | gT   | Move to previous tab              |
 | _nnn_ gt     | Move to numbered tab              |
-  
+
 In visual mode you select the text first and then you type operator
 
 vim commands
@@ -105,6 +105,24 @@ y - yank
 p - paste
 g~ - toggle caps
 . - repeat the last change you made
+
+| CMD   | Description |
+|-------|-------------|
+| `d2w` | Delete two words |
+| `cis` | Change inside sentence (delete curr one and enter insert mode) |
+| `yip` | Yank inside parapgraph (copy curr paragraph) |
+| `ct<` | Change to open bracket (change till open bracket) |
+| `*`   | search for other instance of the word under cursor |
+| `C`   | change current line from where you're at |
+| `S`   | substitute the entire current line |
+| `dt.` | delete from where you are to the period |
+| `D`   | delete to the end of line |
+| `J`   | Join current line with next one |
+| `dw` - `5.` | delete a word - delete five more words |
+| `ddp` | switching lines of text |
+| `v`   | character-based visual mode |
+| `V`   | line-based visual mode |
+| `Ctrl-v` | paragraph-based visual mode |
 
 
 **Double an operator to make it operate on a whole line**: dd deletes a whole like, cc changes a whole line, etc.
