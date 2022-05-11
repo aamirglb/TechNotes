@@ -982,3 +982,203 @@ $ patch -p0 file.old <file.patch
 the three previous versions of filesystems historically used in Linux (ext, ext2 and
 ext3). Ext4 overcomes certain limitations of ext3 and is particularly appropriate for
 very large capacity hard drives
+
+# Bash
+
+* POSIX standardized the Unix libraries and utilities, including the shell. The
+standard shell was primarily based on the 1988 version of the Korn shell,
+with some C shell features and a bit of invention to fill in the gaps. bash was
+begun as part of the GNU Project’s effort to produce a complete POSIX
+system.
+
+* `pwd -P` displays your physical location
+
+* `cd -P dir` take symbolic link `dir` and navigate to physical location.
+
+* The bash builtin `type` command searches your environment (including aliases, keywords, functions, builtins,
+directories in $PATH, and the command hash table) for executable commands
+matching its arguments and displays the type and location of any matches.
+
+* `type -a <cmd-name>` display all matches.
+
+* The `which` command is similar but only searches your $PATH (and csh aliases).
+
+* `apropos` searches manpage names and descriptions for regular expressions supplied as arguments. This is the same as `man -k`:
+
+| CMD | Description |
+|-----|-------------|
+| `ls -A` | Skip . and .. |
+| `ls -F` | Show type of file with trailing type designators |
+| `ls -r` | Reverse sort order |
+| `ls -R` | Recurse through subdirectories |
+| `ls -S` | Sort by file size |
+| `ls -d` | list information about directory itself, rather than list contents of directory |
+| `ls -C` | to preserve formatting when redirecting ls output |
+
+* Use a backslash in front of the command name to avoid any alias. `\ls -d .v*/`
+
+* In `echo *`, * is expanded by the shell to everything in the current directory, which results in a list similar to
+what you’d get with ls.
+
+* Unquoted text and even text enclosed in double quotes is subject to shell expansion and substitution. Enclose a string in single quotes unless it contains elements that you want the
+shell to interpolate.
+
+* `enable -a` will list all builtins and their enabled or disabled status.
+
+* `help` displays help about shell builtins. `help cd`.
+
+* `$-` is a string listing of all the current shell option flags. On Ubuntu it displays `himBHs`.
+
+| h | Cache location of binaries in the $PATH. Speeds up execution, but fails if you move binaries around during the shell session. |
+| i | The current shell is interactive |
+| m | Job control is enabled |
+| B | Brace expansion is enabled |
+| H | History substitution like !-1 |
+
+* Ubuntu Personal Package Archive (PPA).
+
+* If you use double quotes (""), some shell substitutions do take place (variable, arithmetic, and tilde expansions and command substitutions).
+
+* `printf` is a builtin command which can be use for more control over the formatting and placement of output.
+
+* `echo -n`  or `echo -e 'hi\c'` produce output without default newline that echo provides.
+
+* redirect standard output and standard error to same file
+
+```shell
+$ both >& outile  # OR
+$ both &> outfile # OR
+$ both > outfile 2>&1 # older, more verbose
+$ both 2> outfile 1>&2
+
+# redirect both STDERR and STDOUT and append them to the specified file.
+$ ls &>> /tmp/ls.out
+```
+
+* `head` and `tail`, along with `cat`, `grep`, `sort`, `cut`, and `uniq`, are some of the most commonly used Unix text processing tools out there.
+
+* `tail -n +3 lines` skip first 2 lines of the file
+
+```shell
+$ tail -n 10 file # offset relative to end of file
+$ tail -n +10 file # offset relative to start of file
+```
+
+* Use braces ({ }) to group these commands together; then redirection applies to the output from all commands in the group.
+
+```shell
+{ pwd; ls; cd ../elsewhere; pwd; ls; } > /tmp/all.out
+```
+
+* `()` tell bash to run the commands in a subshell, then redirect the output of the entire subshell’s execution.
+
+```shell
+(pwd; ls; cd ../elsewhere; pwd; ls) > /tmp/all.out
+```
+
+* Use the `tee` command to split the output into
+two identical streams, one that is written to a file and the other that is written
+to standard output, so as to continue the sending of data along the pipes.
+
+* The tee command writes the output to the filename(s) specified as its parameter and also writes that same output to standard out.
+
+```shell
+$ uniq | tee /tmp/uniq.txt | awk -f transform.awk
+$ find / -name '*.c' -print 2>&1 | tee /tmp/all.c.src
+```
+
+* The `$()` encloses a command that is run in a subshell. The output from that command is substituted in place of the `$()` phrase. Newlines cause the output to become several parameters on the command line.
+
+* One important difference between standard output and standard error is that _standard output_ is __buffered__ but _standard error_ is __unbuffered__; that is, every character is written individually, and they aren’t collected together and written as a bunch.
+
+* As of the 4.x versions of bash, there is a shortcut syntax for redirecting both standard output and standard error into a pipe.
+
+```shell
+# redirect both stdin and stderr
+$ somecmd |& othercmd
+```
+
+* `tee -a` append instead of replace.
+
+* The `noclobber` option tells bash not to overwrite any existing files when you redirect output.
+
+```shell
+$ set -o noclobber # don't override
+$ set +o noclobber # override existing file
+```
+
+* Use `>|` to redirect your output. Even if `noclobber` is set, bash ignores its setting and overwrites the file.
+
+* Use a _here-document_ with the `<<` characters, redirecting the text from the command line rather than from a file. When put into a shell script, the script file then contains the data along with the script.
+
+```shell
+$ cat ext
+#
+# here is a "here" document
+#
+grep $1 <<EOF
+mike x.123
+joe x.234
+sue x.555
+pete x.818
+sara x.822
+bill x.919
+EOF
+$
+
+$ ext bill
+bill x.919
+```
+
+* EOF is just an arbitrary string (you can choose what you like)
+
+* `<<EOF` can be replaced with `<<\EOF`, or `<<'EOF'`, or even `<<E\OF` to tell bash to stop parameter expansion, command substitution and arithmetic expansion.
+
+* Use `<<-`, and then you can use tab characters (only!) at the beginning of lines to indent this portion of your shell script.
+
+* In its simplest form, a `read` statement with no arguments will read user input and place it into the shell variable `REPLY`.
+
+```shell
+$ read -p # print prompt
+$ read -t # set timeout in seconds
+$ read -s # don't echo the typed char
+```
+
+* Use bash’s builtin `select` construct to generate a menu, then have the user choose by typing the number of the selection
+
+```shell
+stty -echo # turn echo off
+stty sane  # turn on echo
+```
+
+* The shell variable `$?` is set with a nonzero value if the command fails. We recommend using only 0 to 127 because the
+shell uses 128+N to denote killed by signal N.
+
+* `(( ))` evaluates an arithmetic expression
+
+```shell
+cd mytmp
+if (( $? == 0 )); then rm * ; fi
+
+if (( 4+15 == 9 )); then echo "match"; else echo "not match"; fi
+```
+
+* Separating two commands by the double ampersands tells bash to run the first command and then to run the second command only if the first command succeeds.
+
+```shell
+$ (( 1 )) && echo "hello" # output: hello
+$ (( 0 )) && echo "hello" # output: -
+```
+
+* `set -e` will cause the shell to exit when a command fails.
+
+* If you want to run a job in the background and expect to exit the shell before the job completes, then you need to `nohup` the job.
+
+* The `nohup` command simply sets up the child process to ignore hangup signals. You can still kill the job with the kill command, because kill sends a `SIGTERM` signal, not a `SIGHUP` signal.
+
+* You don’t use the dollar sign on the variable name to assign it a value, but you do use the dollar sign to get the value of the variable. (The exception to this is using variables inside a $((
+)) expression.)
+
+* Perl usually comes with pod2* programs to convert POD to HTML, LaTeX, manpage, text, and usage files.
+
+* If you want to see a list of all the exported variables, just type the command `env` (or use the builtin `export -p`) for a list of each variable and its value.

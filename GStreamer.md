@@ -10,12 +10,12 @@ https://www.arducam.com/docs/cameras-for-raspberry-pi/native-raspberry-pi-camera
 ```
 $ apt-get install gstreamer1.0-tools \
                   libgstreamer1.0-dev \
-                  gstreamer1.0-plugins-\* 
-                  gstreamer1.0-libav 
-                  libgstrtspserver-1.0-0 
+                  gstreamer1.0-plugins-\*
+                  gstreamer1.0-libav
+                  libgstrtspserver-1.0-0
                   libgstrtspserver-1.0-dev
 ```
-### GStreamer Core: 
+### GStreamer Core:
 
 ![Gst Architecture](images/gstreamer/gst-arch.png)
 
@@ -38,7 +38,7 @@ $ apt-get install gstreamer1.0-tools \
 * Executes any command-line option intended for GStreamer
 
 ### gst_parse_launch
-* GStreamer is a framework designed to handle _multimedia flows_. Media travels from the **“source”** elements (the producers), down to the **“sink”** elements (the consumers), passing through a series of intermediate elements performing all kinds of tasks. 
+* GStreamer is a framework designed to handle _multimedia flows_. Media travels from the **“source”** elements (the producers), down to the **“sink”** elements (the consumers), passing through a series of intermediate elements performing all kinds of tasks.
 
 * The set of all the interconnected elements is called a **“pipeline”**.
 
@@ -93,7 +93,7 @@ $ apt-get install gstreamer1.0-tools \
 
 * `autovideosink` is a sink element (it consumes data), which dispalys on a window the images it receives. There exist several _video sinks_, depending on the operating system, with a varying range of capabilities. autovideosink _automatically selects_ and instantiates the best one.
 
-* All elements in GStreamer must typically be contained inside a pipeline before they can be used, because it takes care of some _clocking_ and _messaging_ functions. 
+* All elements in GStreamer must typically be contained inside a pipeline before they can be used, because it takes care of some _clocking_ and _messaging_ functions.
 
 * A **pipeline** is a particular type of _bin_, which is the element used to contain other elements.
 
@@ -185,7 +185,7 @@ Example: 1. RGB video with a resolution of 320x200 pixels and 30 fps
 
 * GStreamer depends heavily on Glib so you must make sure that the Glib Mainloop is running if you want to catch events on the bus.
 
-* The **playbin** element is an autoplugger which usually plays anything you throw at it, if you have the appropriate plugins installed. 
+* The **playbin** element is an autoplugger which usually plays anything you throw at it, if you have the appropriate plugins installed.
 
 ```
 gst-launch-1.0 audiotestsrc ! alsasink videotestsrc ! xvimagesink
@@ -201,7 +201,7 @@ gst-launch-1.0 audiotestsrc ! vorbisenc ! oggmux name=mux ! \
   filesink location=file.ogg videotestsrc ! theoraenc ! mux.
 ```
 
-* Capabilities, `Gst.Caps`, is a container where you may store information that you may pass on to a `Gst.PadTemplate`. When you set the pipeline state to either playing or paused the elements pads negotiates what caps to use for the stream. 
+* Capabilities, `Gst.Caps`, is a container where you may store information that you may pass on to a `Gst.PadTemplate`. When you set the pipeline state to either playing or paused the elements pads negotiates what caps to use for the stream.
 
 
  ```
@@ -302,7 +302,7 @@ $ gst-launch-1.0 v4l2src device=/dev/video0 \
 # compile source code
 $ gcc pattern_gen.c -o pattern_gen `pkg-config --cflags --libs gstreamer-1.0`
 
-# For generating all pattern 
+# For generating all pattern
 $ for i in {0..24}; do ./pattern_gen $i; done
 ```
 * To continuously show these images as video
@@ -383,7 +383,7 @@ $ v4l2-ctl --info -d /dev/video1 --list-formats
 
 * Record webcam to a file
 ```
-# -e is important because after press ctrl-c the pipeline will not just stop but is being 
+# -e is important because after press ctrl-c the pipeline will not just stop but is being
 # properly shut down by sending an EOS signal through the pipeline.
 $ gst-launch-1.0 -e v4l2src device=/dev/video0 \
 ! videoconvert \
@@ -409,7 +409,7 @@ $ gst-launch-1.0 rtspsrc location=rtsp://192.168.168.102:8554/camera/0 \
 
 * **FFmpeg** is a command line application which consists of a library of free / open source software. Includes **libavcodec**, a library for audio/video codecs used by several other projects, and **libavformat**, a library for audio/video container mux and demux container. The project name comes from the MPEG standard video group, append “FF” for “fast forward”.
 
-* GStreamer can also send data using UDP or TCP. GStreamer can also send one source to many using **multiudp** so that the client can receive streams simultaneously. 
+* GStreamer can also send data using UDP or TCP. GStreamer can also send one source to many using **multiudp** so that the client can receive streams simultaneously.
 
 * x264 [error]: baseline profile doesn't support 4:2:2
 Use caps filter "video/x-raw,format=i420" between video convert and x264enc. This should resolve the format issue.
@@ -559,7 +559,7 @@ gst-launch-1.0 videotestsrc ! intervideosink channel=vid0 intervideosrc channel=
 gst-launch-1.0 videotestsrc num-buffers=50 ! video/x-raw,width=640,height=512 ! clockoverlay !  videoconvert ! jpegenc snapshot=true ! filesink location="test.jpeg"
 ```
 
-# References: 
+# References:
 # https://gist.github.com/tylercubell/3bdf6e4ce7691907d1f0175a2d8747c0
 # https://github.com/gkralik/python-gst-tutorial/blob/master/basic-tutorial-4.py
 # https://coaxion.net/blog/2014/01/gstreamer-dynamic-pipelines/
