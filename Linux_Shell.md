@@ -1182,3 +1182,52 @@ $ (( 0 )) && echo "hello" # output: -
 * Perl usually comes with pod2* programs to convert POD to HTML, LaTeX, manpage, text, and usage files.
 
 * If you want to see a list of all the exported variables, just type the command `env` (or use the builtin `export -p`) for a list of each variable and its value.
+
+* Use the shell special variable `$*` to refer to all of your arguments, and use that in a for loop
+
+```shell
+ls $1 # treated as ls my
+ls ${1} => "my c file" treated as ls my c file
+ls "${1}" => "my c file" is treated as a single variable
+```
+
+* Difference between $* & $@
+
+```shell
+# input
+music.mp3 another music.mp3 third.mp3
+script *.mp3
+
+$*    # music.mp3 another music.mp3 third.mp3
+"$*"  # "music.mp3 another music.mp3 third.mp3"
+"$@"  #
+
+${#}       # gives the number of arguments
+${#VAR}    # gives the length of the value in the variable VAR
+${VAR#alt} # does a certain kind of substitution
+```
+
+* Left unquoted, `$*` and `$@` give you the same thing. A reference to `$*` inside of quotes gives the entire list inside one
+set of quotes, as we just saw. But a reference to `$@` inside of quotes returns not one string but a list of quoted strings, one for each argument.
+
+* Use `shift` to remove an argument after you’ve handled it.
+
+* Use the `${:-}` syntax when referring to the parameter, and use it to supply a default value.
+
+* Use the assignment operator in the shell variable reference the first time you
+refer to it to assign a value to the variable if it doesn’t already have one
+
+```shell
+FILEDIR=${1:-/tmp}
+cd ${HOME:=/tmp} # doesn't work with positional variables
+${1:-default}
+cd ${BASE:="$(pwd)"}
+```
+
+* _Parameter expansion_ means that we could use other shell variables in this expression, as in `${BASE:=${HOME}}.`
+
+* _Tilde expansion_ means that we can use an expression like ~bob, and it will expand that to refer to the home directory of the user bob.
+
+* _Command substitution_ will run the commands and take their output as the value for the variable. Commands are enclosed in the single parentheses syntax, `$(cmds)`.
+
+* Arithmetic expansion means that we can do integer arithmetic, using the `$(( ))` `echo ${BASE:=/home/uid$((ID+1))}`
