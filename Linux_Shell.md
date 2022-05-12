@@ -1384,3 +1384,33 @@ esac
 * The `select` statement will display input list of words, each preceded by a number, and the user will be prompted for input.
 
 * The bash environment variable `$PS3` is the prompt used by select.
+
+| grep options | description |
+|--------------|-------------|
+| `-h` | don't display filename |
+| `-c` | just count, not actual lines |
+| `-l` | display just the filename |
+| `-q` | quite output |
+| `-i` | ignore case |
+| `-v` | Invert the search |
+
+* `!!` history operator lets you repeat the previous command without retyping it.
+
+* `zgrep`, `zcat`, or `gzcat`
+
+* `zgrep` is simply a grep that understands various compressed and
+uncompressed file types
+
+* awk has a built-in variable called `NF` that holds the number
+of fields found on the current line, `$NF` always refers to the last field.
+
+```shell
+ls -l | awk '/^total/{next} {sum += $5}; END {print sum}'
+```
+
+* For any line of input matching that regex, the associated
+block of code will be executed.
+
+* The `next` command, which ends processing on this line of input and starts over with  next line of input.
+
+* awk’s associative arrays are same as hashes or dictionaries in other languages
