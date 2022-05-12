@@ -1231,3 +1231,59 @@ cd ${BASE:="$(pwd)"}
 * _Command substitution_ will run the commands and take their output as the value for the variable. Commands are enclosed in the single parentheses syntax, `$(cmds)`.
 
 * Arithmetic expansion means that we can do integer arithmetic, using the `$(( ))` `echo ${BASE:=/home/uid$((ID+1))}`
+
+| Inside `${...}` | Action taken |
+|-----------------|--------------|
+| `name:number:number` | Return a substring of name starting at number with length number |
+| `#name` | Return length of string |
+| `name#pattern` | Remove (shortest) front-anchored pattern |
+| `name##pattern` | Remove (longest) front-anchored pattern |
+| `name%pattern` | Remove (shortest) rear-anchored pattern |
+| `name%%pattern` | Remove (longest) rear-anchored pattern |
+| `name/pattern/string` | Replace first occurence |
+| `name//pattern/string` | Replace all occurances |
+
+* `MYVAR=${MYVAR#-}` remove -ve sign from the number
+
+* `FILE=${FULLPATHOFFILE##*/}` get the basename without using `basename` external executable.
+
+```shell
+FILE=$(basename $MYIMAGEFILE .jpg)
+
+# same as above
+FILE=${MYIMAGEFILE%/} # remove trailing slash
+FILE=${FILE##*/}      # remove everything upto last /
+FILE=${FILE%.jpg}     # remove .jpg suffix if present
+```
+
+| command | description |
+| `basename` | |
+| `dirname` | |
+
+* Bash array initialization
+
+```shell
+MYARRAY=(first second third fourth)
+
+echo ${MYARRAY[0]} and ${MYARRAY[2]}
+
+${FN,,} # convert FN value to all lowercase
+${FN^^} # convert FN value to all uppercase
+${FN~~} # toggle case
+```
+
+```shell
+declare -l lc
+declare -u UP
+declare -c Ca
+
+while read TXT; do
+	UP="${TXT}"
+	lc="${TXT}"
+	Ca="${TXT}"
+
+	echo $TXT $UP $lc $Ca
+done
+```
+
+* `${ARRAY[@]}` references all the elements of the array at once.
