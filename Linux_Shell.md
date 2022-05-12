@@ -1287,3 +1287,100 @@ done
 ```
 
 * `${ARRAY[@]}` references all the elements of the array at once.
+
+* Use `$(( ))` or `let` for integer arithmetic expressions.
+
+```shell
+COUNT=$((COUNT + 1))
+let COUNT+='5'
+```
+
+* `let` statement is a bash builtin and its arguments will undergo word expansion.
+
+* The $ sign is not needed inside the double parentheses `$(( ))`.
+
+* In bash, the semicolon serves the same purpose as a newline—it ends a statement.
+
+* The double parentheses `(( ))` are strictly for arithmetic
+expressions. The square brackets can also test for file characteristics, but the syntax is much less streamlined for arithmetic expressions.
+
+* Use the operators for logical AND (-a) and OR (-o) to combine more than one test in an expression.
+
+```shell
+# both read and write
+if [ -r $FILE -a -w $FILE ]
+
+if [ -r "$FN" -a \( -f "$FN" -o -p "$FN" \) ]
+```
+
+* Use the `-eq` operator for numeric comparisons and the equality primary `=` (or `==`) for string comparisons.
+
+* This is the opposite of Perl, in which `eq`, `ne`, etc. are the string operators, while `==`, `!=`, etc. are numeric.
+
+* Use the double-bracket compound statement in an if statement to enable shell-style pattern matches on the righthand side of the equality operator:
+
+```shell
+if [[ "${MYFILENAME}" == *.jpg ]]
+```
+
+* in the double-bracket `if [[ ]]` syntax the equals sign is a more powerful string comparator.
+
+```shell
+shopt -s extglob
+if [[ "$FN" == *.@(jpg|jpeg) ]]
+```
+
+* The `shopt -s` command is the way to turn on shell options. The `extglob` option deals with extended pattern matching (or globbing).
+
+* Use the regular expression matching of the `=~` operator. Once it has matched the string, the various parts of the pattern are available in the shell variable `$BASH_REMATCH`.
+
+```shell
+while read lineoftext
+do
+    process that line
+done < file.input
+
+# or using cat
+cat file.input |
+while read lineoftext
+do
+    process that line
+done
+```
+
+```shell
+for (( i=0 ; i < 10 ; i++ )) ; do echo $i ; done
+```
+
+* Use the seq command to generate your floating-point values
+
+```shell
+for fp in $(seq 1.0 .01 1.1); do
+    echo $fp;
+done
+
+# or this one, which is more efficient then above one
+# as seq and while will be run in parellel
+seq 1.0 .01 1.1 | while read fp; do echo $fp; done
+```
+
+* Use the case statement for a multiway branch
+
+```shell
+case $FN in
+    *.gif) gif2png $FN
+        ;;
+    *.png) pngOK $FN
+        ;;
+    *.jpg) jpg2gif $FN
+        ;;
+    *.tif | *.TIFF) tif2jpg $FN
+        ;;
+    *) printf "File not supported: %s" $FN
+        ;;
+esac
+```
+
+* The `select` statement will display input list of words, each preceded by a number, and the user will be prompted for input.
+
+* The bash environment variable `$PS3` is the prompt used by select.
