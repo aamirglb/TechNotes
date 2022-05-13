@@ -1414,3 +1414,66 @@ block of code will be executed.
 * The `next` command, which ends processing on this line of input and starts over with  next line of input.
 
 * awk’s associative arrays are same as hashes or dictionaries in other languages
+
+| sort option | description |
+| `sort -r` | sort in reverse order |
+| `sort -f` | fold lower- and uppercase (ignore case) |
+| `sort -n` | data as numbers |
+| `sort -u` | remove duplicate |
+| `sort -t .` | use . char as separator between fields |
+
+* A __stable sort__ preserves the original order in the sorted data when the sort fields are equal. Linux and Solaris do not default to a stable sort, but NetBSD does.
+
+* `cut -c12-15` cut from column 12 to 15
+
+* `cut -c58-` from column 58 till end of line
+
+```shell
+$ tar cf tarball_name.tar directory_of_files
+$ gzip tarball_name.tar
+```
+
+* GNU tar use `-Z` for _compress_ (obsolete), `-z` for _gzip_ (safest) or `-j` for _bzip2_ (highest compression)
+
+```shell
+$ tar czf tarball.tgz directory_of_files
+$ zip -r zipfile_name directory_of_files
+```
+
+```shell
+# list contents
+$ tar tf tarball.tar
+
+# extract contents
+$ tar xf tarball.tar
+
+# GNU tar, list contents
+$ tar tzf tarball.tar.gz
+
+# GNU tar, extract contents
+$ tar xzf tarball.tar.gz
+```
+
+* Some tar programs strip the leading / by default (e.g., GNU tar) or optionally. That’s a much safer way to create a tarball.
+
+* Use the tr command to translate one character to another.
+
+```shell
+tr ';' ',' <be.fore >af.ter
+tr 'A-Z' 'a-z'
+echo "hello; hope ur fine: What's ur name?" | tr ';:.!?' ',*'
+```
+
+* a semicolon has special meaning to bash, so if we didn’t quote it bash would break our command into two commands, resulting in an error.
+
+* Just make sure that both arguments end up with the same number
+of characters. If the second argument is shorter, its last character will be repeated to match the length of the first argument. If the first argument is shorter, the second argument will be truncated to match the length of the first.
+
+* a very simplistic encoding of a text message using a simple
+substitution cypher that offsets each character by 13 places (i.e., ROT13). An interesting characteristic of ROT13 is that the same process is used to both encipher and decipher the text.
+
+* Use the `-d` option on `tr` to delete the character(s) in the supplied list.
+
+* `fmt` and `pr` command
+
+* use the `$LESS` variable with `~/.lessfilter` and `~/.lesspipe` files. `less` takes options from the $LESS variable,
