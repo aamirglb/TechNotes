@@ -1257,6 +1257,7 @@ FILE=${FILE%.jpg}     # remove .jpg suffix if present
 ```
 
 | command | description |
+|---------|-------------|
 | `basename` | |
 | `dirname` | |
 
@@ -1416,6 +1417,7 @@ block of code will be executed.
 * awk’s associative arrays are same as hashes or dictionaries in other languages
 
 | sort option | description |
+|-------------|-------------|
 | `sort -r` | sort in reverse order |
 | `sort -f` | fold lower- and uppercase (ignore case) |
 | `sort -n` | data as numbers |
