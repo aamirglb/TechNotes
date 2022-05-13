@@ -1477,3 +1477,7 @@ substitution cypher that offsets each character by 13 places (i.e., ROT13). An i
 * `fmt` and `pr` command
 
 * use the `$LESS` variable with `~/.lessfilter` and `~/.lesspipe` files. `less` takes options from the $LESS variable,
+
+```shell
+find . -name '*.mp3' -print -exec mv '{}' ~/songs \;
+```
