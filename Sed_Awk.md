@@ -11,6 +11,9 @@ sed [options] -f {sed-cmd-in-a-file} {input-file}
 $ sed -n 'p' /etc/passed
 ```
 
+* One of the major differences between `sed` and `ed` is that `sed` looks at every line in the file automatically. Additionally,
+`sed` will print out every line in the file regardless of whether it was changed, unless we tell it no t to with the `-n` flag.
+
 * sed reads one line at a time from input-file and executes the command on that particular line.
 
 * sed substitute command: s. The substitute command changes all occurrences of regular expression into a new value.
@@ -460,3 +463,31 @@ use the sed command line option `-i`, which lets sed directly modify the input f
 $ sed -i 's/John/Johnny/' employee.txt
 ```
 
+# Sed and Awk
+
+* The familiar UNIX utility `grep` is derived from the following global command in ed:
+`g/re/p` which stands for “global regular expression print.”
+
+* `Sed` differs from `ed` primarily in that it is _stream-oriented_. By default, all of the input to `sed` passes through and
+goes to standard output. The input file itself is not changed. `ed` is not stream-oriented and changes are made to the file itself.
+
+* One of the most distinctive features of `awk` is that it parses, or breaks up each input line and makes individual words available for processing with a script.
+
+* `nawk` to offer more support for writing larger programs and tackling general-purpose programming problems. This new version, with minor improvements, is now codified by the POSIX standard.
+
+* The enclosing single quotes prevent the
+shell from interpreting special characters or spaces found in the editing instruction.
+
+* There are three ways to specify multiple instructions on the command line:
+    * Separate instructions with a semicolon.
+    * Precede each instruction by -e.
+    * Use the multiline entry capability of the Bourne shell.
+
+```shell
+    sed ’s/ MA/, Massachusetts/; s/ PA/, Pennsylvania/’ list
+    sed -e ’s/ MA/, Massachusetts/’ -e ’s/ PA/, Pennsylvania/’ list
+    sed ’
+    > s/ MA/, Massachusetts/
+    > s/ PA/, Pennsylvania/
+    > s/ CA/, California/’ list
+```
