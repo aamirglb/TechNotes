@@ -465,6 +465,8 @@ $ sed -i 's/John/Johnny/' employee.txt
 
 # Sed and Awk
 
+## Sed
+
 * The familiar UNIX utility `grep` is derived from the following global command in ed:
 `g/re/p` which stands for “global regular expression print.”
 
@@ -491,3 +493,78 @@ shell from interpreting special characters or spaces found in the editing instru
     > s/ PA/, Pennsylvania/
     > s/ CA/, California/’ list
 ```
+
+* The `-n` option suppresses the automatic output. When specifying this option, each instruction intended to produce output must contain a print command, `p`.
+
+```shell
+$ sed -n -e ’s/MA/Massachusetts/p’ list
+```
+
+* `egrep` offered an extended set of regular expression metacharacters. Awk uses essentially the same set of metacharacters as egrep.
+
+| meta character | meaning |
+|----------------|---------|
+| `.` | match any single character |
+| `*` | match zero or more occurrences of _preceding_ regular expression |
+
+* The regular expression `.*` matches any number of characters, whereas in the shell,
+`*` has that meaning.
+
+![regex_metachar](./images/sed_awk/regex_metacharacter.png)
+
+![regex_extended_metachar](./images/sed_awk/regex_extended_metachar.png)
+
+* Inside square brackets, the standard metacharacters lose
+their meaning.
+
+* each character class matches a single character. If
+you specify multiple classes, you are describing multiple consecutive characters
+
+![POSIX char class](./images/sed_awk/posix_char_class.png)
+
+* GNU awk and GNU sed
+support the character class notation, but not the other two bracket notations.
+
+```shell
+# match any text inside quotes ("")
+$ grep "\".*\"" file
+$ grep '".*"' file
+```
+
+* The span matched by “.*” is always the longest possible.
+
+* The ability to match “zero or more” of something is known by the technical term __“closure.”__
+
+* Don’t confuse the ? in a regular expression with the ? wildcard
+in the shell. The shell’s ? represents a single character, equivalent to . in a regular
+expression.
+
+* In sed (and grep), “ˆ” and “$” are only special when they occur at the beginning
+or end of a regular expression, respectively.
+
+* \{ and \} are available in grep and sed. POSIX egrep and POSIX awk use { and }.
+
+* In `\{n,m\}`, `n` and `m` are integers between 0 and 255.
+
+  | pair of metacharacter | Description |
+  |----|-------------|
+  | `\{n\}` | exactly `n` occurrences of the preceding character or regular expression will be matched |
+  | `\{n,\}` | at least `n` occurrences will be matched |
+  | `\{n,m\}` | any number of occurrences between n and m will be matched |
+  | `“?”` | is equivalent to `"\{0,1\}"` |
+  | `"*"` | is equivalent to `"\{0,\}"` |
+  | `"+"` | is equivalent to `"\{1,\}"` |
+  | `"\{1\}"` | no modifier is equivalent to this |
+
+
+## awk
+
+* $0 represents the entire input line. $1, $2, . . . refer to the individual fields on the input line.
+
+```shell
+$ awk ’/MA/ { print $1 }’ list
+
+# use , as field seperator
+$ awk -F, ’/MA/ { print $1 }’ list
+```
+
