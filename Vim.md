@@ -125,6 +125,31 @@ g~ - toggle caps
 | `Ctrl-v` | paragraph-based visual mode |
 
 
+# ProVim
+
+| CMD | Description |
+|-----|--------------|
+| `:sp` | Split current buffer |
+| `:history` | static list |
+| `q:` | dynamic list |
+| `:read f2.txt` | read content of f2.txt into current file |
+| `:8read f2.txt` | insert in f2.txt at line 8 |
+
+### Moving between files
+
+| CMD | Description |
+| `:bn` | Move to next buffer |
+| `:b5` | Move to 5th buffer |
+| `:bp` | Move to previous buffer |
+| `:ls` | list all buffers |
+| `:b#` | move to alternative buffer |
+| `:bf` | Move to first buffer |
+| `:bl` | Move to last buffer |
+| `:bm` | Move to next modified buffer |
+| `:5,9wq` | Save changes from line 5-9 only |
+
+
+
 **Double an operator to make it operate on a whole line**: dd deletes a whole like, cc changes a whole line, etc.
 Capitalize an operator to make it operate from the cursor to the end of a line: D deletes from the cursor to the end of the line, C changes to the end of a line, etc.
 
