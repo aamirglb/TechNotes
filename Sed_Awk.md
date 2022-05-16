@@ -365,6 +365,7 @@ $ awk -F ':' '$NF ~ /\/bin\/bash/ { print; n++ }; END { print n }' /etc/passwd
 $ awk 'NR % 2 == 0 {print NR, $0}' /etc/passwd
 ```
 #### Regular expression operators
+
 | Operator | Description |
 |----------|-------------|
 | `~`      | Match operator |
@@ -556,6 +557,25 @@ or end of a regular expression, respectively.
   | `"+"` | is equivalent to `"\{1,\}"` |
   | `"\{1\}"` | no modifier is equivalent to this |
 
+* Sed applies the entire script to the first input line before reading the second input line and applying the editing script to it.
+
+* Sed maintains a _pattern space_, a workspace or temporary buffer where a single line of input is held while the editing commands are applied. Sed also maintains a second temporary buffer called the _hold space_. You can copy the contents of the pattern space to the hold space and retrieve them later.
+
+```shell
+# Apply address to limit the replacement to just line containing Sebastopol
+/Sebastopol/s/CA/California/g
+```
+
+* A sed command can specify zero, one, or two addresses. An address can be a reg-
+ular expression describing a pattern, a line number, or a line addressing symbol.
+
+```shell
+# delete from line 50 to the last line
+50,$d
+
+# delete from line 1 to first black line
+1,/^$/d
+```
 
 ## awk
 
