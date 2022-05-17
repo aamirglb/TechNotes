@@ -575,6 +575,52 @@ ular expression describing a pattern, a line number, or a line addressing symbol
 
 # delete from line 1 to first black line
 1,/^$/d
+
+# change content
+1,/^$/s/header/HEADER/
+```
+
+* Braces ({}) are used in sed to nest one address inside another or to apply multiple
+commands at the same address.
+
+```shell
+sed -n "/ˆ\.de$1/,/ˆ\.\.$/p" /usr/lib/macros/mmt
+```
+
+* the double quotes surrounding the sed script are necessary. Single quotes would not allow interpretation of “$1” by the shell.
+
+* The sed command set consists of __25__ commands.
+
+| sed cmd | Desciption |
+|---------|------------|
+| `d` | delete |
+| `a` | append |
+| `i` | insert |
+| `c` | change |
+| `s` | substitution |
+
+
+```shell
+[address]command
+
+[line-address]command
+
+address {
+    command1
+    command2
+    command3
+}
+
+[address]s/pattern/replacement/flags
+```
+
+* Unlike addresses, which require a slash (/) as a delimiter, the regular expression
+can be delimited by any character except a newline. Thus, if the pattern contained
+slashes, you could choose another character, such as an exclamation mark, as the
+delimiter.
+
+```shell
+s!/usr/mail!/usr2/mail!
 ```
 
 ## awk
