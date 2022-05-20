@@ -623,6 +623,20 @@ delimiter.
 s!/usr/mail!/usr2/mail!
 ```
 
+* As a metacharacter, the ampersand (&) represents the extent of the pattern match,
+not the line that was matched. The ampersand makes it possible to reference the entire match in the replacement
+string.
+
+```shell
+#Column1\tColumn2\tColumn3\tColumn4
+
+# replace the second occurance of a tab in the line with newline
+sed 's/\t/\n/2' text
+```
+
+* A _pair of escaped parentheses_ are used in sed to enclose any part of a regular expression and save it
+for recall. Up to nine “saves” are permitted for a single line.
+
 ## awk
 
 * $0 represents the entire input line. $1, $2, . . . refer to the individual fields on the input line.
