@@ -147,6 +147,10 @@ g~ - toggle caps
 | `:bl` | Move to last buffer |
 | `:bm` | Move to next modified buffer |
 | `:5,9wq` | Save changes from line 5-9 only |
+| `:new` | Create new empty buffer within horizontal split window |
+| `:enew` | Create new empty buffer within current window/viewport |
+| `:vnew` | Create new empty buffer within vertical split window |
+| `:tabnew` | Create new tabbed windown |
 
 
 
