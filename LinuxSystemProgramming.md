@@ -6,15 +6,15 @@
 
 * Linux is the kernel used by the GNU operating system.
 
-* /etc/passwd. composed of seven colon-separated fields: 
+* /etc/passwd. composed of seven colon-separated fields:
 `sar:x:205:105:Stephen Rago:/home/sar:/bin/ksh`
 
-1. the login name, 
-1. encrypted password, 
-1. numeric user ID (205), 
-1. numeric group ID (105), 
-1. a comment field, 
-1. home directory (/home/sar), and 
+1. the login name,
+1. encrypted password,
+1. numeric user ID (205),
+1. numeric group ID (105),
+1. a comment field,
+1. home directory (/home/sar), and
 1. shell program (/bin/ksh).
 
 * A `shell` is a command-line interpreter that reads user input and executes commands.
@@ -81,7 +81,7 @@ void perror(const char *msg);
 signal.
 1. Ignore the signal
 1. Let the default action occur
-1. Provide a function that is called when the signal occurs 
+1. Provide a function that is called when the signal occurs
 
 * UNIX systems maintain two different time values:
     1. **Calendar time**: number of seconds since the Epoch: 00:00:00 January 1, 1970. primitive system data type `time_t` holds these values.
@@ -121,7 +121,7 @@ programming language but also a standard library. This library is important beca
 library routines that are specified in the C standard.
 
 * **POSIX (Portable Operating System Interface)** is a family of standards initially developed by the **IEEE (Institute of Electrical
-and Electronics Engineers)**. 
+and Electronics Engineers)**.
 
 * POSIX originally referred only to operating system interface but later extended to include many standards including shell and utilities.
 
@@ -562,7 +562,7 @@ segments.
 
 * **Shared libraries** remove the common library routines from the executable file, instead maintaining a single copy of the library routine somewhere in memory that all processes reference. This reduces the size of each executable file but may add some runtime overhead, either when the program is first executed or the first time each shared library function is called. Another advantage of shared libraries is that library functions can be replaced with new versions without having to relink edit every program that uses the library (assuming that the number and type of arguments haven’t changed).
 
-* Process ID 0 is usually the scheduler process and is often known as the _swapper_. No program on disk corresponds to this process, which is part of the kernel and is known as a system process. 
+* Process ID 0 is usually the scheduler process and is often known as the _swapper_. No program on disk corresponds to this process, which is part of the kernel and is known as a system process.
 
 * Process ID 1 is usually the `init` process and is invoked by the kernel at the end of the bootstrap procedure. The program file for this process was `/etc/init` in older versions of the UNIX System and is `/sbin/init` in newer versions.
 
@@ -582,18 +582,18 @@ pid_t fork(void);
 * The child gets _a copy of the parent’s data space, heap, and stack_. Note that this is a copy for the child; the parent and the child do not share these portions of memory. The parent and the child do share the text segment.
 
 ```c
-if ((pid = fork()) < 0) 
+if ((pid = fork()) < 0)
 {
     printf("fork error");
 }
 /* child process */
-else if (pid == 0) 
+else if (pid == 0)
 {
     globvar++;
     var++;
 }
 /* parent process */
-else 
+else
 {
     sleep(2);
 }
@@ -637,7 +637,7 @@ from the size of a char *, the actual arguments to the exec function will be wro
 
 * The letter `p` means that the function takes a _filename_ argument and uses the `PATH` environment variable to find the executable file.
 
-* The letter `l` means that the function takes a _list_ of arguments and is mutually exclusive with the letter `v`, which means that it takes an _argv[] vector_. Finally, the letter `e` means that the function takes an `envp[]` array instead of using the current environment. 
+* The letter `l` means that the function takes a _list_ of arguments and is mutually exclusive with the letter `v`, which means that it takes an _argv[] vector_. Finally, the letter `e` means that the function takes an `envp[]` array instead of using the current environment.
 
 * every open descriptor in a process has a _close-on-exec_ flag (FD_CLOEXEC). If this flag is set, the descriptor is closed across an `exec`. Otherwise, the descriptor is left open
 across the `exec`. The default is to leave the descriptor open across the `exec` unless we specifically set the close-on-exec flag using `fcntl`.
@@ -665,7 +665,7 @@ Only a privileged process was allowed to increase its scheduling priority.
 
 * The `Curses` library forms a wrapper over working with raw terminal codes, and provides highly flexible and efficient API (Application Programming Interface). It provides functions to move the cursor, create windows, produce colors, play with mouse etc. The application programs need not worry about the underlying terminal capabilities.
 
-* `NCURSES` is a clone of the original System V Release 4.0 (SVr4) `curses`. It is a freely distributable library, fully compatible with older version of `curses`. 
+* `NCURSES` is a clone of the original System V Release 4.0 (SVr4) `curses`. It is a freely distributable library, fully compatible with older version of `curses`.
 
 * Its sister libraries `panel`, `menu` and `form` provide an extension to the basic curses library. These libraries usually come along with `curses`.
 
@@ -673,12 +673,12 @@ Only a privileged process was allowed to increase its scheduling priority.
 
 * don't forget to end the curses mode. Otherwise your terminal might behave strangely after the program quits. endwin() frees the memory taken by curses sub-system and its data structures and puts the terminal in normal mode.
 
-* `raw()` and `cbreak()` are use to disable line buffering. The difference between these two functions is in the way control characters like suspend (CTRL-Z), interrupt and quit (CTRL-C) are passed to the program. In the raw() mode these characters are directly passed to the program without generating a signal. In the cbreak() mode these control characters are interpreted as any other character by the terminal driver. 
+* `raw()` and `cbreak()` are use to disable line buffering. The difference between these two functions is in the way control characters like suspend (CTRL-Z), interrupt and quit (CTRL-C) are passed to the program. In the raw() mode these characters are directly passed to the program without generating a signal. In the cbreak() mode these control characters are interpreted as any other character by the terminal driver.
 
-* `echo()` and `noecho()`: 
+* `echo()` and `noecho()`:
 * `keypad()`: It enables the reading of function keys like F1, F2, arrow keys etc.
 
-* `halfdelay()`: enable the half-delay mode, which is similar to the cbreak() mode in that characters typed are immediately available to program. However, it waits for 'X' tenths of a second for input and then returns ERR, if no input is available. 
+* `halfdelay()`: enable the half-delay mode, which is similar to the cbreak() mode in that characters typed are immediately available to program. However, it waits for 'X' tenths of a second for input and then returns ERR, if no input is available.
 
 *  1. `addch()` class: Print single character with attributes
    1. `printw()` class: Print formatted output similar to printf()
@@ -711,7 +711,7 @@ $ sudo tail -f /var/log/messages   # RedHat
 
 * By default rsyslog listens on port 514.
 
-* To log a message from command line 
+* To log a message from command line
 ```shell
 $ logger "I just logged a message"
 ```
@@ -755,4 +755,81 @@ $ logger "I just logged a message"
 }
 ```
 
-* By default, the installation of logrotate creates a crontab file inside /etc/cron.daily named logrotate. 
+* By default, the installation of logrotate creates a crontab file inside /etc/cron.daily named logrotate.
+
+
+# C++ System Programming
+
+```shell
+# to add a new user
+$ adduser aamir --ingroup developers
+
+# login
+$ login aamir
+
+# change password
+$ passwd
+
+# add a user to a group
+$ usermod -a -G aamir developers
+
+$ userdel -r aamir
+
+$ groups
+```
+
+| gdb command | Description |
+|-------------|-------------|
+| `l` | list |
+| `b 5` | set break point at code line number 5 |
+| `r` | run program and stop at first break point |
+| `n` | step over |
+| `s` | step into a function |
+| `p x` | print content of x |
+| `c` | continue, run program till end or till next break point |
+| `bt` | backtrace, prints call stack |
+| `d 1` | delete, remove first breakpoint |
+
+* A process in Linux is defined by the `task_struct` structure defined in the `sched.h`. A thread is defined by the `thread_info` structure in
+the `thread_info.h`.
+
+* On Linux, a thread is just like a process that shares some resources with some other processes. For this reason, in Linux, threads are often referred to as a **lightweight process (LWP)**.
+
+* To get info on a process (and its threads) is to look in the `/proc/PID` folder
+
+* GNU Network Object Model Environment (GNOME)
+
+* Linux exposes its kernel features through commands, as
+well as through a programming API.
+
+* `strerror` translates errno (which is cryptic) into a user friendly message.
+
+* The C++ standard does not define the size of each type, but it does define the _minimum width_ :
+    * char: Minimum width = 8 (1 byte)
+    * short int: Minimum width = 16 (2 bytes)
+    * int: Minimum width = 16 (2 bytes)
+    * long int: Minimum width = 32 (4 bytes)
+    * long int int: Minimum width = 64 (8 bytes)
+
+* psABI (platform-specific Application Binary Interfaces (ABIs))
+
+* The `i386.h` GCC header file contains the size of the primitive data types for that architecture:
+
+* Data types
+
+    * Modifiers: `signed`, `unsigned`, `long`, and `short`
+    * Qualifiers: `const` and `restrict`
+    * Storage type: `auto`, `static`, `extern`, and `mutable`
+
+Lambda can be decomposed into six parts:
+    1. Capture clause: []
+    1. Parameter list: ()
+    1. Mutable specification: mutable
+    1. Exception specification: noexcept
+    1. Trailing return type: -> type
+    1. Body: {}
+Here, 1, 2, and 6 are mandatory.
+
+* The basic operations for atomic are `load`, `store`, `swap`, and `cas` (short for compare and swap), which are available on all types of atomics.
+
+* The use of atomics imposes restrictions on the compiler regarding how the code can be reordered.

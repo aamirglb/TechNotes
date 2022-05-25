@@ -2094,4 +2094,4 @@ Page 71
 
 # C++ Libraries
 
-* [Skia](https://skia.org/) is an open source 2D graphics library which provides common APIs that work across a variety of hardware and software platforms. It serves as the graphics engine for Google Chrome and Chrome OS, Android, Flutter, and many other products. 
+* [Skia](https://skia.org/) is an open source 2D graphics library which provides common APIs that work across a variety of hardware and software platforms. It serves as the graphics engine for Google Chrome and Chrome OS, Android, Flutter, and many other products.
