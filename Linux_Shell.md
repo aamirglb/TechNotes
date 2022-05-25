@@ -1027,8 +1027,10 @@ shell to interpolate.
 
 * `help` displays help about shell builtins. `help cd`.
 
-* `$-` is a string listing of all the current shell option flags. On Ubuntu it displays `himBHs`.
+* `$-` is a string listing of all the current shell option flags. On Ubuntu it displays `himBHs`
 
+| option | desciption |
+|:--:|
 | h | Cache location of binaries in the $PATH. Speeds up execution, but fails if you move binaries around during the shell session. |
 | i | The current shell is interactive |
 | m | Job control is enabled |
