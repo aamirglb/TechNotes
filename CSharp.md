@@ -602,7 +602,9 @@ dotnet build Project-Name.csproj // just build the project
 
 * 69 keywords
 
-![CS Keywords](images/cs/cs_keywords.png)
+| ![CS Keywords](images/cs/cs_keywords.png) |
+|:--:|
+| **C# Key Words** |
 
 * If you really want to use an identifier that clashes with a reserved keyword, you can do so by qualifying it with the @ prefix. `int @using = 123;`
 
@@ -614,9 +616,14 @@ dotnet build Project-Name.csproj // just build the project
 
 * **Reference types** comprise all _class_, _array_, _delegate_, and _interface types_. (This includes the predefined string type.)
 
-![Numeric Types](images/cs/numeric_types.png)
+| ![Numeric Types](images/cs/numeric_types.png) |
+|:--:|
+| **Numeric Types** |
 
-![Suffix](images/cs/cs_suffix.png)
+
+| ![Suffix](images/cs/cs_suffix.png) |
+|:--:|
+| **Suffixes** |
 
 * The static class `System.Convert` provides methods that round while converting between various numeric types.
 
