@@ -833,3 +833,5 @@ Here, 1, 2, and 6 are mandatory.
 * The basic operations for atomic are `load`, `store`, `swap`, and `cas` (short for compare and swap), which are available on all types of atomics.
 
 * The use of atomics imposes restrictions on the compiler regarding how the code can be reordered.
+
+* C++17 marks another huge milestone in terms of new features. The filesystem library provides a simpler way of interacting with the filesystem. It was inspired by `Boost.Filesystem`.
