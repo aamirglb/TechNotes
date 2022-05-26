@@ -19,6 +19,8 @@ https://web.stanford.edu/class/cs101/image-1-introduction.html
 ### Mit Courses
 https://ocw.mit.edu/courses/
 
+### Stream live video to browser using GStreamer
+http://4youngpadawans.com/stream-live-video-to-browser-using-gstreamer/
 
 Combine two pdfs into a single page
 
