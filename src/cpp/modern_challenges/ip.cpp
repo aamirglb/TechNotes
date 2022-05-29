@@ -66,6 +66,42 @@ public:
         }
         return is;
     }
+
+    ipv4& operator++() {
+        *this = ipv4(1+ to_ulong());
+        return *this;
+    }
+
+    ipv4 operator++(int) {
+        ipv4 result(*this);
+        ++(*this);
+        return result;
+    }
+
+    friend bool operator==(const ipv4 &ip1, const ipv4 &ip2) noexcept {
+        return ip1.data == ip2.data;
+    }
+
+    friend bool operator!=(const ipv4 &ip1, const ipv4& ip2) noexcept {
+        return !(ip1 == ip2);
+    }
+
+    friend bool operator<(const ipv4 &ip1, const ipv4 &ip2) noexcept {
+        return ip1.to_ulong() < ip2.to_ulong();
+    }
+
+    friend bool operator>(const ipv4 &ip1, const ipv4 &ip2) noexcept {
+        return ip2 < ip1;
+    }
+
+    friend bool operator<=(const ipv4 & ip1, const ipv4 &ip2) noexcept {
+        return !(ip1 > ip2);
+    }
+
+    friend bool operator>=(const ipv4 &ip1, const ipv4 &ip2) noexcept {
+        return !(ip1 < ip2);
+    }
+
 private:
     std::array<u8, 4> data;
 };
@@ -80,5 +116,20 @@ int main()
     std::cin >> ip;
     if(!std::cin.fail()) {
         std::cout << ip << std::endl;
+    }
+    std::cout << ip++ << std::endl;
+    std::cout << ip << std::endl;
+
+    std::cout << "Input IP range: ";
+    ipv4 low, high;
+
+    std::cin >> low >> high;
+
+    if(high > low) {
+        for(ipv4 ip = low; ip <= high; ++ip ) {
+            std::cout << ip << std::endl;
+        }
+    } else {
+        std::cerr << "Invalid Range!" << std::endl;
     }
 }
