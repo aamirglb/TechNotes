@@ -583,3 +583,24 @@ ffmpeg  -f video4linux2 -list_formats all -i /dev/video2
 
 gst-launch-1.0 v4l2src device=/dev/video2 ! image/jpeg,width=800,height=600,framerate=30/1 ! decodebin !  autovideosink
 ```
+
+# GStreamer on Windows
+
+* To access the webcam on windows, select "Complete" instead of "Typical" while installing the GStreamer.
+
+```shell
+gst-launch-1.0.exe ksvideosrc device-index=0 ! videoconvert ! autovideosink
+
+gst-launch-1.0.exe ksvideosrc device-index=0 ! videoconvert ! clockoverlay shaded-background=true font-desc="Snas, 24" ! autovideosink
+```
+
+* stream as hls
+
+```
+gst-launch-1.0.exe ksvideosrc device-index=0 \
+    ! videoconvert \
+    ! clockoverlay \
+    ! x264enc tune=zerolatency \
+    ! mpegtsmux \
+    ! hlssink playlist-root=http://192.168.0.107:8080 location=D:\hlstest\segment_%05d.ts target-duration=4 max-files=4
+```
