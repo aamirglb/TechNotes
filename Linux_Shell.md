@@ -69,7 +69,6 @@ bar=${foo:-alpha}  #bar is set to "alpha"
 empty_str=${undef_var:-}  #empty_str is set to ""
 ```
 
-
 ```bash
 $ cat /etc/shells
 # /etc/shells: valid login shells
@@ -85,8 +84,7 @@ $ cat /etc/shells
 
 * "#!" is called sha bang.
 
-* `/bin/sh` is a
-link to `bash` shell in Linux.
+* `/bin/sh` is a link to `bash` shell in Linux.
 
 * shell command line provides two modes to edit the commands in command line.
     1. emacs mode
@@ -187,7 +185,7 @@ $ export PS2="continue-> "
 # dark blue prompt
 $ export PS1="\e[1;34m\u@\h \w$ \e[m"
 ```
-* \e[ - indicates begining of color prompt
+* \e[ - indicates beginning of color prompt
 * x;ym - indicate color code
 * \e[m - indicate end of color prompt
 
