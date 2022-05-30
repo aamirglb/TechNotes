@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <iterator>
+#include <typeinfo>
 
 template <typename T, size_t R, size_t C>
 class array2d
@@ -68,7 +69,31 @@ public:
         arr.swap(other.arr);
     }
 
+    std::vector<T> get_row(size_t row) {
+        if(row > R) throw std::out_of_range("Row out of range!!");
+
+        std::vector<T> r;
+        for(size_t i = row*C; i < (row*C)+C; ++i) {
+            r.push_back(arr[i]);
+        }
+        return r;
+    }
+
+    void pretty_print() const {
+        std::cout << "\n[ ";
+        for(size_t r = 0; r < R; ++r) {
+            for(size_t c = 0; c < C; ++c) {
+                std::cout << arr[(r*C)+c] << " ";
+            }
+            if( r != (R - 1))
+                std::cout << "\n  ";
+            else
+                std::cout << "]\n\n";
+        }
+    }
+
     friend std::ostream& operator<<(std::ostream& os, array2d a) {
+        os << "array2d<" << typeid(T).name() << ", " << R << ", " << C << ">: ";
         for(size_t i = 0; i < a.arr.size() - 1; ++i) {
             os << a.arr[i] << ", ";
         }
@@ -101,8 +126,7 @@ int main()
     array2d<int32_t, 4, 3> b;
     b.fill(2);
 
-    std::cout << "b: ";
-    std::cout << b;
+    std::cout << "b: " << b;
 
     array2d<int32_t, 4, 3> c;
     c.fill(3);
@@ -117,5 +141,13 @@ int main()
     array2d<double, 2, 5> d;
     d.auto_fill(0, 0.1);
     std::cout << "d: " << d;
+
+    c.pretty_print();
+
+    std::vector<int32_t> r = c.get_row(1);
+    for(const auto & e : r) {
+        std::cout << e << ", ";
+    }
+    std::cout << std::endl;
 
 }
