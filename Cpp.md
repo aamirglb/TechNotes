@@ -1956,6 +1956,32 @@ public:
 };
 ```
 
+# A Tour of C++
+
+![literal suffixes](./images/cpp/literal_suffixes.png)
+
+* A template is a class or a function that we parameterize with a set of types or values.
+
+* `std::map` uses a _red-black tree_ as the data structure, so the elements you put in there are sorted, and insert/delete is O(log(n)). The elements need to implement at least `operator<`.
+
+* `std::hashmap` uses a _hash_, so elements are unsorted, insert/delete is O(1). Elements need to implement at least `operator==` and you need a hash function.
+
+* **equivalence** means `!(a<b || b<a)`, i.e. "neither is smaller than the other".
+
+* In addition to type arguments, a template can take value arguments. For example:
+
+```c++
+template<typename T, int N>
+struct Buffer {
+    using value_type = T;
+    constexpr int size() { return N; }
+    T[N];
+    // ...
+};
+```
+
+* The type of a C-style string literal is `const char∗` use the `s` suffix to make it a proper string.
+
 # C++ Template Complete Guide
 
 * The keyword `typename` introduces a type parameter. This is by far the most common kind of template parameter in C++ programs, but other parameters are possible.
