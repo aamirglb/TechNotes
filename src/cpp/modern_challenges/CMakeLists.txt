@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(hello LANGUAGES CXX)
-set (CMAKE_CXX_FLAGS "-Wall")
+set (CMAKE_CXX_FLAGS "-Wall -std=c++20")
 
 add_executable(hello hello.cpp)
 add_executable(sum sum.cpp)
@@ -12,3 +12,5 @@ add_executable(pi compute_pi.cpp)
 add_executable(ip ip.cpp)
 add_executable(array2d array2d.cpp)
 add_executable(min minimum.cpp)
+add_executable(fold_expr fold_expr.cpp)
+add_executable(spaceship spaceship.cpp)
