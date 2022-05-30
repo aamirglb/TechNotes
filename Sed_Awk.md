@@ -11,6 +11,9 @@ sed [options] -f {sed-cmd-in-a-file} {input-file}
 $ sed -n 'p' /etc/passed
 ```
 
+* One of the major differences between `sed` and `ed` is that `sed` looks at every line in the file automatically. Additionally,
+`sed` will print out every line in the file regardless of whether it was changed, unless we tell it no t to with the `-n` flag.
+
 * sed reads one line at a time from input-file and executes the command on that particular line.
 
 * sed substitute command: s. The substitute command changes all occurrences of regular expression into a new value.
@@ -362,6 +365,7 @@ $ awk -F ':' '$NF ~ /\/bin\/bash/ { print; n++ }; END { print n }' /etc/passwd
 $ awk 'NR % 2 == 0 {print NR, $0}' /etc/passwd
 ```
 #### Regular expression operators
+
 | Operator | Description |
 |----------|-------------|
 | `~`      | Match operator |
@@ -458,5 +462,189 @@ use the sed command line option `-i`, which lets sed directly modify the input f
 
 ```bash
 $ sed -i 's/John/Johnny/' employee.txt
+```
+
+# Sed and Awk
+
+## Sed
+
+* The familiar UNIX utility `grep` is derived from the following global command in ed:
+`g/re/p` which stands for “global regular expression print.”
+
+* `Sed` differs from `ed` primarily in that it is _stream-oriented_. By default, all of the input to `sed` passes through and
+goes to standard output. The input file itself is not changed. `ed` is not stream-oriented and changes are made to the file itself.
+
+* One of the most distinctive features of `awk` is that it parses, or breaks up each input line and makes individual words available for processing with a script.
+
+* `nawk` to offer more support for writing larger programs and tackling general-purpose programming problems. This new version, with minor improvements, is now codified by the POSIX standard.
+
+* The enclosing single quotes prevent the
+shell from interpreting special characters or spaces found in the editing instruction.
+
+* There are three ways to specify multiple instructions on the command line:
+    * Separate instructions with a semicolon.
+    * Precede each instruction by -e.
+    * Use the multiline entry capability of the Bourne shell.
+
+```shell
+    sed ’s/ MA/, Massachusetts/; s/ PA/, Pennsylvania/’ list
+    sed -e ’s/ MA/, Massachusetts/’ -e ’s/ PA/, Pennsylvania/’ list
+    sed ’
+    > s/ MA/, Massachusetts/
+    > s/ PA/, Pennsylvania/
+    > s/ CA/, California/’ list
+```
+
+* The `-n` option suppresses the automatic output. When specifying this option, each instruction intended to produce output must contain a print command, `p`.
+
+```shell
+$ sed -n -e ’s/MA/Massachusetts/p’ list
+```
+
+* `egrep` offered an extended set of regular expression metacharacters. Awk uses essentially the same set of metacharacters as egrep.
+
+| meta character | meaning |
+|----------------|---------|
+| `.` | match any single character |
+| `*` | match zero or more occurrences of _preceding_ regular expression |
+
+* The regular expression `.*` matches any number of characters, whereas in the shell,
+`*` has that meaning.
+
+![regex_metachar](./images/sed_awk/regex_metacharacter.png)
+
+![regex_extended_metachar](./images/sed_awk/regex_extended_metachar.png)
+
+* Inside square brackets, the standard metacharacters lose
+their meaning.
+
+* each character class matches a single character. If
+you specify multiple classes, you are describing multiple consecutive characters
+
+![POSIX char class](./images/sed_awk/posix_char_class.png)
+
+* GNU awk and GNU sed
+support the character class notation, but not the other two bracket notations.
+
+```shell
+# match any text inside quotes ("")
+$ grep "\".*\"" file
+$ grep '".*"' file
+```
+
+* The span matched by “.*” is always the longest possible.
+
+* The ability to match “zero or more” of something is known by the technical term __“closure.”__
+
+* Don’t confuse the ? in a regular expression with the ? wildcard
+in the shell. The shell’s ? represents a single character, equivalent to . in a regular
+expression.
+
+* In sed (and grep), “ˆ” and “$” are only special when they occur at the beginning
+or end of a regular expression, respectively.
+
+* \{ and \} are available in grep and sed. POSIX egrep and POSIX awk use { and }.
+
+* In `\{n,m\}`, `n` and `m` are integers between 0 and 255.
+
+  | pair of metacharacter | Description |
+  |----|-------------|
+  | `\{n\}` | exactly `n` occurrences of the preceding character or regular expression will be matched |
+  | `\{n,\}` | at least `n` occurrences will be matched |
+  | `\{n,m\}` | any number of occurrences between n and m will be matched |
+  | `“?”` | is equivalent to `"\{0,1\}"` |
+  | `"*"` | is equivalent to `"\{0,\}"` |
+  | `"+"` | is equivalent to `"\{1,\}"` |
+  | `"\{1\}"` | no modifier is equivalent to this |
+
+* Sed applies the entire script to the first input line before reading the second input line and applying the editing script to it.
+
+* Sed maintains a _pattern space_, a workspace or temporary buffer where a single line of input is held while the editing commands are applied. Sed also maintains a second temporary buffer called the _hold space_. You can copy the contents of the pattern space to the hold space and retrieve them later.
+
+```shell
+# Apply address to limit the replacement to just line containing Sebastopol
+/Sebastopol/s/CA/California/g
+```
+
+* A sed command can specify zero, one, or two addresses. An address can be a reg-
+ular expression describing a pattern, a line number, or a line addressing symbol.
+
+```shell
+# delete from line 50 to the last line
+50,$d
+
+# delete from line 1 to first black line
+1,/^$/d
+
+# change content
+1,/^$/s/header/HEADER/
+```
+
+* Braces ({}) are used in sed to nest one address inside another or to apply multiple
+commands at the same address.
+
+```shell
+sed -n "/ˆ\.de$1/,/ˆ\.\.$/p" /usr/lib/macros/mmt
+```
+
+* the double quotes surrounding the sed script are necessary. Single quotes would not allow interpretation of “$1” by the shell.
+
+* The sed command set consists of __25__ commands.
+
+| sed cmd | Desciption |
+|---------|------------|
+| `d` | delete |
+| `a` | append |
+| `i` | insert |
+| `c` | change |
+| `s` | substitution |
+
+
+```shell
+[address]command
+
+[line-address]command
+
+address {
+    command1
+    command2
+    command3
+}
+
+[address]s/pattern/replacement/flags
+```
+
+* Unlike addresses, which require a slash (/) as a delimiter, the regular expression
+can be delimited by any character except a newline. Thus, if the pattern contained
+slashes, you could choose another character, such as an exclamation mark, as the
+delimiter.
+
+```shell
+s!/usr/mail!/usr2/mail!
+```
+
+* As a metacharacter, the ampersand (&) represents the extent of the pattern match,
+not the line that was matched. The ampersand makes it possible to reference the entire match in the replacement
+string.
+
+```shell
+#Column1\tColumn2\tColumn3\tColumn4
+
+# replace the second occurance of a tab in the line with newline
+sed 's/\t/\n/2' text
+```
+
+* A _pair of escaped parentheses_ are used in sed to enclose any part of a regular expression and save it
+for recall. Up to nine “saves” are permitted for a single line.
+
+## awk
+
+* $0 represents the entire input line. $1, $2, . . . refer to the individual fields on the input line.
+
+```shell
+$ awk ’/MA/ { print $1 }’ list
+
+# use , as field seperator
+$ awk -F, ’/MA/ { print $1 }’ list
 ```
 

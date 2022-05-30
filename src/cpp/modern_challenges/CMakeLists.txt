@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+project(hello LANGUAGES CXX)
+set (CMAKE_CXX_FLAGS "-Wall")
+
+add_executable(hello hello.cpp)
+add_executable(sum sum.cpp)
+add_executable(out out.cpp)
+add_executable(prime prime.cpp)
+add_executable(amstrong amstrong.cpp)
+add_executable(roman roman.cpp)
+add_executable(pi compute_pi.cpp)
+add_executable(ip ip.cpp)
+add_executable(array2d array2d.cpp)

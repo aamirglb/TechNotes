@@ -2090,8 +2090,13 @@ void Stack<T>::push(T const& e) {
 
 * The term **_concept_** is often used to denote a set of constraints that is repeatedly required in a template library.
 
+* A __concept__ is a compile-time predicate that's used in conjunction with templates. Concept can be visualize as requirements (or constraints) the user of the template must adhere to.
+
+* `std::span` gives the user a view into a contiguous sequence of elements.
+
+
 Page 71
 
 # C++ Libraries
 
-* [Skia](https://skia.org/) is an open source 2D graphics library which provides common APIs that work across a variety of hardware and software platforms. It serves as the graphics engine for Google Chrome and Chrome OS, Android, Flutter, and many other products. 
+* [Skia](https://skia.org/) is an open source 2D graphics library which provides common APIs that work across a variety of hardware and software platforms. It serves as the graphics engine for Google Chrome and Chrome OS, Android, Flutter, and many other products.

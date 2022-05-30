@@ -527,7 +527,7 @@
 
 * C# has a _unified type system_ in which all types ultimately share a common base type.
 
-* An _interface_ is like a class that cannot hold data. is means that it can define only _behavior_ (and not _state_),
+* An _interface_ is like a class that cannot hold data. This means that it can define only _behavior_ (and not _state_),
 
 * Using _delegates_, C# allows functions to be passed as values to and from other functions.
 
@@ -588,6 +588,8 @@ global using System.Collection.Generic;
 using System; // Import the System namespace
 ```
 
+* The presence of top-level statements implicitly creates an entry point for a console or Windows application. (Without top-level statements, a Main method denotes an application’s entry point
+
 * Unlike .NET Framework, .NET 6 assemblies never have a .exe extension. The .exe that you see after building a .NET 6 application is a platform-specific native loader responsible for starting your application’s .dll assembly.
 
 * To compile an application, the dotnet tool requires a _project file_ as well as one or more C# files.
@@ -600,19 +602,28 @@ dotnet build Project-Name.csproj // just build the project
 
 * 69 keywords
 
-![CS Keywords](images/cs/cs_keywords.png)
+| ![CS Keywords](images/cs/cs_keywords.png) |
+|:--:|
+| **C# Key Words** |
 
 * If you really want to use an identifier that clashes with a reserved keyword, you can do so by qualifying it with the @ prefix. `int @using = 123;`
 
-![Contextual KW](images/cs/cs_contextual_kw.png)
+| ![](images/cs/cs_contextual_kw.png) |
+|:--:|
+| *Contextual Key Words* |
 
 * **Value types** comprise most built-in types (specifically, _all numeric types_, the _char type_, and the _bool type_) as well as _custom struct_ and _enum types_.
 
 * **Reference types** comprise all _class_, _array_, _delegate_, and _interface types_. (This includes the predefined string type.)
 
-![Numeric Types](images/cs/numeric_types.png)
+| ![Numeric Types](images/cs/numeric_types.png) |
+|:--:|
+| **Numeric Types** |
 
-![Suffix](images/cs/cs_suffix.png)
+
+| ![Suffix](images/cs/cs_suffix.png) |
+|:--:|
+| **Suffixes** |
 
 * The static class `System.Convert` provides methods that round while converting between various numeric types.
 

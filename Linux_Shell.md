@@ -29,7 +29,8 @@ Alt+.   Paste previous command's last argument
 
 * `/etc/shells` file lists all available shells on the systems
 
-* **Unoffical Bash Strict Mode**
+* [**Unoffical Bash Strict Mode**](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
+
 
 ```bash
     #!/bin/bash
@@ -76,6 +77,8 @@ $ cat /etc/shells
 /bin/rbash
 /bin/dash
 ```
+
+* `cat /etc/issue` will show which Linux distro the container is running,
 
 * Last filed of every user record in `/etc/passwd` indicates default shell for that user.
 
@@ -182,7 +185,7 @@ $ export PS2="continue-> "
 # dark blue prompt
 $ export PS1="\e[1;34m\u@\h \w$ \e[m"
 ```
-* \e[ - indicates begining of color prompt
+* \e[ - indicates beginning of color prompt
 * x;ym - indicate color code
 * \e[m - indicate end of color prompt
 
@@ -416,7 +419,7 @@ fi
 [ -f /.datafile ] || touch /.datafile
 ```
 
-* [[]] - Extended Test Command is an advanced variation of []
+* [[ ]] - Extended Test Command is an advanced variation of [ ]
     * Allows pattern matching
     * =~ regular expresison matching
 ```bash
@@ -948,7 +951,6 @@ Terminal=false
 
 mv anaconda-navigator.desktop ~/.local/share/applications/
 
-
 ## Debian
 
 * Creating and merging patches in Linux
@@ -966,4 +968,518 @@ $ patch -p0 file.old <file.patch
     subversion (svn) => Apache
     git =>
     bazaar (bzr) => canonical
-    mercurial (hg> =>
+    mercurial (hg) =>
+
+* `/etc/debian_version` contains the version number for the installed Debian system.
+
+* The `apt-show-versions` program (from the Debian package of the same name) checks the list of installed packages and identifies the available versions.
+
+* `/etc/apt/sources.list` file (and `/etc/apt/sources.list.d/` directory) will show where the installed Debian packages likely came from.
+
+* Ext4, the default filesystem for Debian, is a good compromise, based on
+the three previous versions of filesystems historically used in Linux (ext, ext2 and
+ext3). Ext4 overcomes certain limitations of ext3 and is particularly appropriate for
+very large capacity hard drives
+
+# Bash
+
+* POSIX standardized the Unix libraries and utilities, including the shell. The
+standard shell was primarily based on the 1988 version of the Korn shell,
+with some C shell features and a bit of invention to fill in the gaps. bash was
+begun as part of the GNU Project’s effort to produce a complete POSIX
+system.
+
+* `pwd -P` displays your physical location
+
+* `cd -P dir` take symbolic link `dir` and navigate to physical location.
+
+* The bash builtin `type` command searches your environment (including aliases, keywords, functions, builtins,
+directories in $PATH, and the command hash table) for executable commands
+matching its arguments and displays the type and location of any matches.
+
+* `type -a <cmd-name>` display all matches.
+
+* The `which` command is similar but only searches your $PATH (and csh aliases).
+
+* `apropos` searches manpage names and descriptions for regular expressions supplied as arguments. This is the same as `man -k`:
+
+| CMD | Description |
+|-----|-------------|
+| `ls -A` | Skip . and .. |
+| `ls -F` | Show type of file with trailing type designators |
+| `ls -r` | Reverse sort order |
+| `ls -R` | Recurse through subdirectories |
+| `ls -S` | Sort by file size |
+| `ls -d` | list information about directory itself, rather than list contents of directory |
+| `ls -C` | to preserve formatting when redirecting ls output |
+
+* Use a backslash in front of the command name to avoid any alias. `\ls -d .v*/`
+
+* In `echo *`, * is expanded by the shell to everything in the current directory, which results in a list similar to
+what you’d get with ls.
+
+* Unquoted text and even text enclosed in double quotes is subject to shell expansion and substitution. Enclose a string in single quotes unless it contains elements that you want the
+shell to interpolate.
+
+* `enable -a` will list all builtins and their enabled or disabled status.
+
+* `help` displays help about shell builtins. `help cd`.
+
+* `$-` is a string listing of all the current shell option flags. On Ubuntu it displays `himBHs`
+
+| option | desciption |
+|:--:|:--:|
+| h | Cache location of binaries in the $PATH. Speeds up execution, but fails if you move binaries around during the shell session. |
+| i | The current shell is interactive |
+| m | Job control is enabled |
+| B | Brace expansion is enabled |
+| H | History substitution like !-1 |
+
+* Ubuntu Personal Package Archive (PPA).
+
+* If you use double quotes (""), some shell substitutions do take place (variable, arithmetic, and tilde expansions and command substitutions).
+
+* `printf` is a builtin command which can be use for more control over the formatting and placement of output.
+
+* `echo -n`  or `echo -e 'hi\c'` produce output without default newline that echo provides.
+
+* redirect standard output and standard error to same file
+
+```shell
+$ both >& outile  # OR
+$ both &> outfile # OR
+$ both > outfile 2>&1 # older, more verbose
+$ both 2> outfile 1>&2
+
+# redirect both STDERR and STDOUT and append them to the specified file.
+$ ls &>> /tmp/ls.out
+```
+
+* `head` and `tail`, along with `cat`, `grep`, `sort`, `cut`, and `uniq`, are some of the most commonly used Unix text processing tools out there.
+
+* `tail -n +3 lines` skip first 2 lines of the file
+
+```shell
+$ tail -n 10 file # offset relative to end of file
+$ tail -n +10 file # offset relative to start of file
+```
+
+* Use braces ({ }) to group these commands together; then redirection applies to the output from all commands in the group.
+
+```shell
+{ pwd; ls; cd ../elsewhere; pwd; ls; } > /tmp/all.out
+```
+
+* `()` tell bash to run the commands in a subshell, then redirect the output of the entire subshell’s execution.
+
+```shell
+(pwd; ls; cd ../elsewhere; pwd; ls) > /tmp/all.out
+```
+
+* Use the `tee` command to split the output into
+two identical streams, one that is written to a file and the other that is written
+to standard output, so as to continue the sending of data along the pipes.
+
+* The tee command writes the output to the filename(s) specified as its parameter and also writes that same output to standard out.
+
+```shell
+$ uniq | tee /tmp/uniq.txt | awk -f transform.awk
+$ find / -name '*.c' -print 2>&1 | tee /tmp/all.c.src
+```
+
+* The `$()` encloses a command that is run in a subshell. The output from that command is substituted in place of the `$()` phrase. Newlines cause the output to become several parameters on the command line.
+
+* One important difference between standard output and standard error is that _standard output_ is __buffered__ but _standard error_ is __unbuffered__; that is, every character is written individually, and they aren’t collected together and written as a bunch.
+
+* As of the 4.x versions of bash, there is a shortcut syntax for redirecting both standard output and standard error into a pipe.
+
+```shell
+# redirect both stdin and stderr
+$ somecmd |& othercmd
+```
+
+* `tee -a` append instead of replace.
+
+* The `noclobber` option tells bash not to overwrite any existing files when you redirect output.
+
+```shell
+$ set -o noclobber # don't override
+$ set +o noclobber # override existing file
+```
+
+* Use `>|` to redirect your output. Even if `noclobber` is set, bash ignores its setting and overwrites the file.
+
+* Use a _here-document_ with the `<<` characters, redirecting the text from the command line rather than from a file. When put into a shell script, the script file then contains the data along with the script.
+
+```shell
+$ cat ext
+#
+# here is a "here" document
+#
+grep $1 <<EOF
+mike x.123
+joe x.234
+sue x.555
+pete x.818
+sara x.822
+bill x.919
+EOF
+$
+
+$ ext bill
+bill x.919
+```
+
+* EOF is just an arbitrary string (you can choose what you like)
+
+* `<<EOF` can be replaced with `<<\EOF`, or `<<'EOF'`, or even `<<E\OF` to tell bash to stop parameter expansion, command substitution and arithmetic expansion.
+
+* Use `<<-`, and then you can use tab characters (only!) at the beginning of lines to indent this portion of your shell script.
+
+* In its simplest form, a `read` statement with no arguments will read user input and place it into the shell variable `REPLY`.
+
+```shell
+$ read -p # print prompt
+$ read -t # set timeout in seconds
+$ read -s # don't echo the typed char
+```
+
+* Use bash’s builtin `select` construct to generate a menu, then have the user choose by typing the number of the selection
+
+```shell
+stty -echo # turn echo off
+stty sane  # turn on echo
+```
+
+* The shell variable `$?` is set with a nonzero value if the command fails. We recommend using only 0 to 127 because the
+shell uses 128+N to denote killed by signal N.
+
+* `(( ))` evaluates an arithmetic expression
+
+```shell
+cd mytmp
+if (( $? == 0 )); then rm * ; fi
+
+if (( 4+15 == 9 )); then echo "match"; else echo "not match"; fi
+```
+
+* Separating two commands by the double ampersands tells bash to run the first command and then to run the second command only if the first command succeeds.
+
+```shell
+$ (( 1 )) && echo "hello" # output: hello
+$ (( 0 )) && echo "hello" # output: -
+```
+
+* `set -e` will cause the shell to exit when a command fails.
+
+* If you want to run a job in the background and expect to exit the shell before the job completes, then you need to `nohup` the job.
+
+* The `nohup` command simply sets up the child process to ignore hangup signals. You can still kill the job with the kill command, because kill sends a `SIGTERM` signal, not a `SIGHUP` signal.
+
+* You don’t use the dollar sign on the variable name to assign it a value, but you do use the dollar sign to get the value of the variable. (The exception to this is using variables inside a $((
+)) expression.)
+
+* Perl usually comes with pod2* programs to convert POD to HTML, LaTeX, manpage, text, and usage files.
+
+* If you want to see a list of all the exported variables, just type the command `env` (or use the builtin `export -p`) for a list of each variable and its value.
+
+* Use the shell special variable `$*` to refer to all of your arguments, and use that in a for loop
+
+```shell
+ls $1 # treated as ls my
+ls ${1} => "my c file" treated as ls my c file
+ls "${1}" => "my c file" is treated as a single variable
+```
+
+* Difference between $* & $@
+
+```shell
+# input
+music.mp3 another music.mp3 third.mp3
+script *.mp3
+
+$*    # music.mp3 another music.mp3 third.mp3
+"$*"  # "music.mp3 another music.mp3 third.mp3"
+"$@"  #
+
+${#}       # gives the number of arguments
+${#VAR}    # gives the length of the value in the variable VAR
+${VAR#alt} # does a certain kind of substitution
+```
+
+* Left unquoted, `$*` and `$@` give you the same thing. A reference to `$*` inside of quotes gives the entire list inside one
+set of quotes, as we just saw. But a reference to `$@` inside of quotes returns not one string but a list of quoted strings, one for each argument.
+
+* Use `shift` to remove an argument after you’ve handled it.
+
+* Use the `${:-}` syntax when referring to the parameter, and use it to supply a default value.
+
+* Use the assignment operator in the shell variable reference the first time you
+refer to it to assign a value to the variable if it doesn’t already have one
+
+```shell
+FILEDIR=${1:-/tmp}
+cd ${HOME:=/tmp} # doesn't work with positional variables
+${1:-default}
+cd ${BASE:="$(pwd)"}
+```
+
+* _Parameter expansion_ means that we could use other shell variables in this expression, as in `${BASE:=${HOME}}.`
+
+* _Tilde expansion_ means that we can use an expression like ~bob, and it will expand that to refer to the home directory of the user bob.
+
+* _Command substitution_ will run the commands and take their output as the value for the variable. Commands are enclosed in the single parentheses syntax, `$(cmds)`.
+
+* Arithmetic expansion means that we can do integer arithmetic, using the `$(( ))` `echo ${BASE:=/home/uid$((ID+1))}`
+
+| Inside `${...}` | Action taken |
+|-----------------|--------------|
+| `name:number:number` | Return a substring of name starting at number with length number |
+| `#name` | Return length of string |
+| `name#pattern` | Remove (shortest) front-anchored pattern |
+| `name##pattern` | Remove (longest) front-anchored pattern |
+| `name%pattern` | Remove (shortest) rear-anchored pattern |
+| `name%%pattern` | Remove (longest) rear-anchored pattern |
+| `name/pattern/string` | Replace first occurence |
+| `name//pattern/string` | Replace all occurances |
+
+* `MYVAR=${MYVAR#-}` remove -ve sign from the number
+
+* `FILE=${FULLPATHOFFILE##*/}` get the basename without using `basename` external executable.
+
+```shell
+FILE=$(basename $MYIMAGEFILE .jpg)
+
+# same as above
+FILE=${MYIMAGEFILE%/} # remove trailing slash
+FILE=${FILE##*/}      # remove everything upto last /
+FILE=${FILE%.jpg}     # remove .jpg suffix if present
+```
+
+| command | description |
+|---------|-------------|
+| `basename` | |
+| `dirname` | |
+
+* Bash array initialization
+
+```shell
+MYARRAY=(first second third fourth)
+
+echo ${MYARRAY[0]} and ${MYARRAY[2]}
+
+${FN,,} # convert FN value to all lowercase
+${FN^^} # convert FN value to all uppercase
+${FN~~} # toggle case
+```
+
+```shell
+declare -l lc
+declare -u UP
+declare -c Ca
+
+while read TXT; do
+	UP="${TXT}"
+	lc="${TXT}"
+	Ca="${TXT}"
+
+	echo $TXT $UP $lc $Ca
+done
+```
+
+* `${ARRAY[@]}` references all the elements of the array at once.
+
+* Use `$(( ))` or `let` for integer arithmetic expressions.
+
+```shell
+COUNT=$((COUNT + 1))
+let COUNT+='5'
+```
+
+* `let` statement is a bash builtin and its arguments will undergo word expansion.
+
+* The $ sign is not needed inside the double parentheses `$(( ))`.
+
+* In bash, the semicolon serves the same purpose as a newline—it ends a statement.
+
+* The double parentheses `(( ))` are strictly for arithmetic
+expressions. The square brackets can also test for file characteristics, but the syntax is much less streamlined for arithmetic expressions.
+
+* Use the operators for logical AND (-a) and OR (-o) to combine more than one test in an expression.
+
+```shell
+# both read and write
+if [ -r $FILE -a -w $FILE ]
+
+if [ -r "$FN" -a \( -f "$FN" -o -p "$FN" \) ]
+```
+
+* Use the `-eq` operator for numeric comparisons and the equality primary `=` (or `==`) for string comparisons.
+
+* This is the opposite of Perl, in which `eq`, `ne`, etc. are the string operators, while `==`, `!=`, etc. are numeric.
+
+* Use the double-bracket compound statement in an if statement to enable shell-style pattern matches on the righthand side of the equality operator:
+
+```shell
+if [[ "${MYFILENAME}" == *.jpg ]]
+```
+
+* in the double-bracket `if [[ ]]` syntax the equals sign is a more powerful string comparator.
+
+```shell
+shopt -s extglob
+if [[ "$FN" == *.@(jpg|jpeg) ]]
+```
+
+* The `shopt -s` command is the way to turn on shell options. The `extglob` option deals with extended pattern matching (or globbing).
+
+* Use the regular expression matching of the `=~` operator. Once it has matched the string, the various parts of the pattern are available in the shell variable `$BASH_REMATCH`.
+
+```shell
+while read lineoftext
+do
+    process that line
+done < file.input
+
+# or using cat
+cat file.input |
+while read lineoftext
+do
+    process that line
+done
+```
+
+```shell
+for (( i=0 ; i < 10 ; i++ )) ; do echo $i ; done
+```
+
+* Use the seq command to generate your floating-point values
+
+```shell
+for fp in $(seq 1.0 .01 1.1); do
+    echo $fp;
+done
+
+# or this one, which is more efficient then above one
+# as seq and while will be run in parellel
+seq 1.0 .01 1.1 | while read fp; do echo $fp; done
+```
+
+* Use the case statement for a multiway branch
+
+```shell
+case $FN in
+    *.gif) gif2png $FN
+        ;;
+    *.png) pngOK $FN
+        ;;
+    *.jpg) jpg2gif $FN
+        ;;
+    *.tif | *.TIFF) tif2jpg $FN
+        ;;
+    *) printf "File not supported: %s" $FN
+        ;;
+esac
+```
+
+* The `select` statement will display input list of words, each preceded by a number, and the user will be prompted for input.
+
+* The bash environment variable `$PS3` is the prompt used by select.
+
+| grep options | description |
+|--------------|-------------|
+| `-h` | don't display filename |
+| `-c` | just count, not actual lines |
+| `-l` | display just the filename |
+| `-q` | quite output |
+| `-i` | ignore case |
+| `-v` | Invert the search |
+
+* `!!` history operator lets you repeat the previous command without retyping it.
+
+* `zgrep`, `zcat`, or `gzcat`
+
+* `zgrep` is simply a grep that understands various compressed and
+uncompressed file types
+
+* awk has a built-in variable called `NF` that holds the number
+of fields found on the current line, `$NF` always refers to the last field.
+
+```shell
+ls -l | awk '/^total/{next} {sum += $5}; END {print sum}'
+```
+
+* For any line of input matching that regex, the associated
+block of code will be executed.
+
+* The `next` command, which ends processing on this line of input and starts over with  next line of input.
+
+* awk’s associative arrays are same as hashes or dictionaries in other languages
+
+| sort option | description |
+|-------------|-------------|
+| `sort -r` | sort in reverse order |
+| `sort -f` | fold lower- and uppercase (ignore case) |
+| `sort -n` | data as numbers |
+| `sort -u` | remove duplicate |
+| `sort -t .` | use . char as separator between fields |
+
+* A __stable sort__ preserves the original order in the sorted data when the sort fields are equal. Linux and Solaris do not default to a stable sort, but NetBSD does.
+
+* `cut -c12-15` cut from column 12 to 15
+
+* `cut -c58-` from column 58 till end of line
+
+```shell
+$ tar cf tarball_name.tar directory_of_files
+$ gzip tarball_name.tar
+```
+
+* GNU tar use `-Z` for _compress_ (obsolete), `-z` for _gzip_ (safest) or `-j` for _bzip2_ (highest compression)
+
+```shell
+$ tar czf tarball.tgz directory_of_files
+$ zip -r zipfile_name directory_of_files
+```
+
+```shell
+# list contents
+$ tar tf tarball.tar
+
+# extract contents
+$ tar xf tarball.tar
+
+# GNU tar, list contents
+$ tar tzf tarball.tar.gz
+
+# GNU tar, extract contents
+$ tar xzf tarball.tar.gz
+```
+
+* Some tar programs strip the leading / by default (e.g., GNU tar) or optionally. That’s a much safer way to create a tarball.
+
+* Use the tr command to translate one character to another.
+
+```shell
+tr ';' ',' <be.fore >af.ter
+tr 'A-Z' 'a-z'
+echo "hello; hope ur fine: What's ur name?" | tr ';:.!?' ',*'
+```
+
+* a semicolon has special meaning to bash, so if we didn’t quote it bash would break our command into two commands, resulting in an error.
+
+* Just make sure that both arguments end up with the same number
+of characters. If the second argument is shorter, its last character will be repeated to match the length of the first argument. If the first argument is shorter, the second argument will be truncated to match the length of the first.
+
+* a very simplistic encoding of a text message using a simple
+substitution cypher that offsets each character by 13 places (i.e., ROT13). An interesting characteristic of ROT13 is that the same process is used to both encipher and decipher the text.
+
+* Use the `-d` option on `tr` to delete the character(s) in the supplied list.
+
+* `fmt` and `pr` command
+
+* use the `$LESS` variable with `~/.lessfilter` and `~/.lesspipe` files. `less` takes options from the $LESS variable,
+
+```shell
+find . -name '*.mp3' -print -exec mv '{}' ~/songs \;
+```
