@@ -7,13 +7,22 @@ project(sfml_test LANGUAGES CXX)
 # Enable C++17 support
 add_compile_options(-std=c++17)
 
-# SFML library
-find_package(SFML REQUIRED graphics window system network audio)
+if(WIN32)
+    list(APPEND CMAKE_MODULE_PATH "D:/SW/SFML/cmake")
+    include_directories("D:/SW/SFML/include")
+    link_directories("D:/SW/SFML/build/lib")
+else()
+    # SFML library
+    find_package(SFML REQUIRED graphics window system network audio)
+    include_directories(${SFML_INCLUDE_DIR})
+endif()
 
-include_directories(${SFML_INCLUDE_DIR})
-
-add_executable(sfml_test 1.cpp) 
-add_executable(shape_circle shape_circle.cpp) 
+add_executable(sfml_test sfml_test.cpp)
+add_executable(shape_circle shape_circle.cpp)
+add_executable(rand_gen rand_gen.cpp)
+add_executable(game game.cpp)
 
 target_link_libraries(sfml_test m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(shape_circle sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(rand_gen sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(game sfml-graphics sfml-window sfml-system sfml-audio ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

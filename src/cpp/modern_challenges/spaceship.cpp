@@ -59,7 +59,7 @@ int main()
         std::cout << "myInt2011 < int2014" << std::endl;
     }
 
-    if(myInt2011 <=> int2014) {
-        std::cout << "myInt2011 < int2014" << std::endl;
-    }
+    // if(myInt2011 <=> int2014) {
+    //     std::cout << "myInt2011 < int2014" << std::endl;
+    // }
 }

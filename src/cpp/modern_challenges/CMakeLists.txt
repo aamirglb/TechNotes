@@ -14,3 +14,16 @@ add_executable(array2d array2d.cpp)
 add_executable(min minimum.cpp)
 add_executable(fold_expr fold_expr.cpp)
 add_executable(spaceship spaceship.cpp)
+add_executable(temperature temperature.cpp)
+add_executable(bin_to_hex bin_to_hex.cpp)
+
+add_executable(utility utility.cpp)
+target_link_libraries(utility PUBLIC shlwapi)
+
+add_executable(game game.cpp)
+list(APPEND CMAKE_MODULE_PATH "D:/SW/SFML/cmake")
+# find_package(SFML REQUIRED graphics window system network autio)
+target_include_directories(game PRIVATE "D:/SW/SFML/include")
+target_link_directories(game PRIVATE "D:/SW/SFML/build/lib")
+
+target_link_libraries(game PUBLIC sfml-graphics sfml-window sfml-system sfml-audio ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

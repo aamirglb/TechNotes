@@ -606,36 +606,31 @@ automatically adds support for != as well.
 
 # C++ Annotation
 
-1. In C, sizeof('c') equals sizeof(int), 'c' being any ASCII character.
-  In C++, sizeof('c') is always 1, while an int is still an int.
+* In C, `sizeof('c')` equals `sizeof(int)`, 'c' being any ASCII character.
+  In C++, `sizeof('c')` is always 1, while an `int` is still an `int`.
 
-1. C++ requires very strict prototyping of external functions.
+* C++ requires very strict prototyping of external functions.
 
 ### Differences between C and C++
 
-   i) End-of-line comment
-   ii) NULL-pointers vs. 0-pointers
-   iii) Strict type checking
-   iv) New syntax for casts
+   * End-of-line comment
+   * NULL-pointers vs. 0-pointers
+   * Strict type checking
+   * New syntax for casts
        C style : (typename)expression   eg: (float)salary
        C++ style : typename(expression) eg: float(salary)
 
 ### C++ new-style casts
 
-   i) The standard cast to convert one type to another is
-                static_cast<type>(expression)
-   ii) There is a special cast to do away with the const type-modification:
-                const_cast<type>(expression)
-   iii) A third cast is used to change the interpretation of information:
-                reintrepret_cast<type>(expression)
-    iv) And, finally, there is a cast form which is used in combination with
-        polymorphism is performed run-time to convert.
-                dynamic_cast<type>(expression)
+    * The standard cast to convert one type to another is `static_cast<type>(expression)`
+    * There is a special cast to do away with the const type-modification: `const_cast<type>(expression)`
+    * A third cast is used to change the interpretation of information: `reintrepret_cast<type>(expression)`
+    * And, finally, there is a cast form which is used in combination with polymorphism is performed run-time to convert.
+                `dynamic_cast<type>(expression)`
 
 ### The 'static_cast'- operator
 
-   The static_cast<type>(expression) operator is used to convert one type to an
-   acceptable other type. E.g., double to int.
+* The `static_cast<type>(expression)` operator is used to convert one type to an acceptable other type. E.g., double to int.
 
 ```c++
    intVar = static_cast<int>(12.45);
@@ -647,10 +642,9 @@ automatically adds support for != as well.
 
 ### The 'const_cast'- operator
 
-   The const_cast<type>(expression) operator is used to do away with the
-   const-ness of a (pointer) type.
+* The `const_cast<type>(expression)` operator is used to do away with the const-ness of a (pointer) type.
 
-   eg: string_op(char *s); passing a string
+    eg: string_op(char *s); passing a string
    char const hello[] = "Hello world" will produces the warning
    passing `const char *' as argument 1 of `fun(char *)' discards const
    which can be prevented using the call
