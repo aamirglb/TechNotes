@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Config.hpp>
 
 int main()
 {
@@ -51,7 +52,11 @@ int main()
         }
         // angle += 1.f;
         // if(angle > 359.) angle = 0.f;
-        square.rotate(sf::degrees(90));
+#if SFML_VERSION_MAJOR != 3
+		square.rotate(90.f);
+#else
+	    square.rotate(sf::degrees(90));
+#endif
         window.clear();
         window.draw(shape);
         window.draw(shape2);
