@@ -26,6 +26,7 @@ add_executable(rand_gen rand_gen.cpp)
 add_executable(game game.cpp)
 add_executable(brick brick.cpp)
 add_executable(square_game square_game.cpp)
+add_executable(font_test font_test.cpp)
 
 target_link_libraries(window m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(render m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -36,3 +37,4 @@ target_link_libraries(rand_gen sfml-graphics sfml-window sfml-system ${SFML_LIBR
 target_link_libraries(game sfml-graphics sfml-window sfml-system sfml-audio ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(brick sfml-graphics sfml-window sfml-system sfml-audio ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(square_game sfml-graphics sfml-window sfml-system sfml-audio ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(font_test sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

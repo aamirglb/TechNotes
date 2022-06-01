@@ -162,6 +162,7 @@ int main()
     window.setFramerateLimit(60);
 
     while(true) {
+		sf::sleep(sf::milliseconds(10));
         window.clear(Color::Black);
 
         if(Keyboard::isKeyPressed(Keyboard::Key::Escape))

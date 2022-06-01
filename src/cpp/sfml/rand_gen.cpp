@@ -3,7 +3,7 @@
 #include <random>
 // #include <SFML/System/Mutex.hpp>
 // #include <SFML/System/Lock.hpp>
-#include <SFML/config.hpp>
+#include <SFML/Config.hpp>
 
 class RandomGenerator {
 public:
