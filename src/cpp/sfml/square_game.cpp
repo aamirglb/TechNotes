@@ -23,7 +23,7 @@ int main()
     sf::RectangleShape targetRect(sf::Vector2f(50, 50));
     initShape(targetRect, sf::Vector2f(400, 50), sf::Color::Blue);
 
-    sf::RectangleShape badRect(sf::Vector2f(50, 50));
+    sf::RectangleShape badRect(sf::Vector2f(50, 100));
     initShape(badRect, sf::Vector2f(250, 50), sf::Color::Red);
 
     while(window.isOpen()) {

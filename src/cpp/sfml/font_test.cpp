@@ -1,10 +1,12 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(1280u, 720u), "SFML");
+	sf::RenderWindow window(sf::VideoMode({1280, 720}), "SFML");
 
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
+	if(!font.loadFromFile("arial.ttf"))
+		return -1;
+
 	sf::Text text;
 	text.setFont(font);
 	text.setCharacterSize(60);
