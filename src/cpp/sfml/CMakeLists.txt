@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(sfml_test LANGUAGES CXX)
 
 # Enable C++17 support
-add_compile_options(-std=c++17)
+add_compile_options(-Wall -Wextra -Wpedantic -std=c++17)
 
 if(WIN32)
     list(APPEND CMAKE_MODULE_PATH "D:/SW/SFML/cmake")
@@ -30,6 +30,7 @@ add_executable(square_game square_game.cpp)
 add_executable(font_test font_test.cpp)
 add_executable(asset_test asset_test.cpp AssetManager.cpp)
 add_executable(animation animation.cpp AssetManager.cpp)
+add_executable(tetris tetris.cpp)
 
 target_link_libraries(window m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(render m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -44,3 +45,4 @@ target_link_libraries(square_game sfml-graphics sfml-window sfml-system sfml-aud
 target_link_libraries(font_test sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(asset_test sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(animation sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(tetris sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
