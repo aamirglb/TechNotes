@@ -39,6 +39,7 @@ add_executable(client client.cpp)
 add_executable(udp_server udp_server.cpp)
 add_executable(udp_client udp_client.cpp)
 add_executable(nt_game nt_game.cpp)
+add_executable(game2 game2.cpp)
 
 target_link_libraries(window m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(render m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -62,4 +63,5 @@ target_link_libraries(client sfml-graphics sfml-window sfml-system sfml-network 
 target_link_libraries(udp_server sfml-graphics sfml-window sfml-system sfml-network ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(udp_client sfml-graphics sfml-window sfml-system sfml-network ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_link_libraries(nt_game sfml-graphics sfml-window sfml-system sfml-network ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(game2 sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 
