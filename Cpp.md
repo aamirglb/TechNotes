@@ -1260,6 +1260,20 @@ template<class T>
 
 ![C++ Containers](images/cpp/stl_container_types.png)
 
+### STL Algorithm
+
+| STL Algorithms |
+|----------------|
+| ![Non Modifying](./images/cpp/algo/01.non_modifying_algo.png) |
+| ![Comparision](./images/cpp/algo/02.comp_algo.png) |
+| ![Modifying](./images/cpp/algo/03.modifying_algo.png) |
+| ![Removing](./images/cpp/algo/04.removing_algo.png) |
+| ![Mutating](./images/cpp/algo/05.mutating_algo.png) |
+| ![Sorting](./images/cpp/algo/06.sorting_algo.png) |
+| ![Sort Checking](./images/cpp/algo/07.sort_check_algo.png) |
+| ![Sort Range](./images/cpp/algo/08.sort_range_algo.png) |
+| ![Numeric](./images/cpp/algo/09.numeric_algo.png) |
+
 # Large Scale C++
 
 * C++ is not just an extension of C: it supports an entirely new paradigm. The object oriented paradigm is notorious for demanding more design effort and savvy than its procedural counterpart.
