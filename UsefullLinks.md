@@ -22,6 +22,9 @@ https://ocw.mit.edu/courses/
 ### Stream live video to browser using GStreamer
 http://4youngpadawans.com/stream-live-video-to-browser-using-gstreamer/
 
+### C++ Operator Overloading
+https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading/4421719#4421719
+
 Combine two pdfs into a single page
 
 ```shell
