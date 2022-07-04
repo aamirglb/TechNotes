@@ -51,7 +51,7 @@ int main()
     // std::cout << "min: " << asString(tp) << std::endl;
 
     tp = std::chrono::system_clock::time_point::max();
-    std::cout << "max:   " << asString(tp) << std::endl;
+    std::cout << "max:    " << asString(tp) << std::endl;
 
     // high resolution clock
     std::chrono::high_resolution_clock::time_point hctp;
