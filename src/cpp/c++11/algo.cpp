@@ -5,6 +5,7 @@
 #include <iterator>
 #include <algorithm>
 #include <cstdlib>  // for abs
+#include <functional>
 
 bool isPrime(int32_t number)
 {
@@ -33,6 +34,12 @@ int main()
     std::cout << std::endl;
     std::copy(v.begin(), v.end(),
         std::ostream_iterator<int32_t>(std::cout, " "));
+    std::cout << std::endl;
+
+    std::transform(v.begin(), v.end(), v.begin(), std::negate<int32_t>());
+    std::copy(v.begin(), v.end(),
+        std::ostream_iterator<int32_t>(std::cout, " "));
+    std::cout << std::endl;
 
     std::list<int32_t> l;
 
