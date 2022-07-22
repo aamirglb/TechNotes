@@ -20,6 +20,8 @@ public:
     void draw();
     std::string getStats() const;
     void reset();
+    void setFill(bool fill);
+    void showTracer(bool show);
 
 private:
     sf::RenderWindow&     m_window;
@@ -30,6 +32,7 @@ private:
     uint32_t              m_rows;
     uint32_t              m_cols;
     uint32_t              m_totalCells;
+    uint32_t              m_totalMoves;
     std::vector<CellPtr>  m_grid;
     CellPtr               m_current;
     std::stack<CellPtr>   m_stack;

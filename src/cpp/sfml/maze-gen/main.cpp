@@ -16,6 +16,8 @@ int main()
     uint32_t winWidth = std::stoi(appSettings.getValue("winWidth")) + 4;    // add some offset
     uint32_t winHeight = std::stoi(appSettings.getValue("winHeight")) + 4;  // add some offset
     uint32_t cellWidth = std::stoi(appSettings.getValue("cellWidth"));
+    bool   pause { false };
+    bool   fill { true };
 
     sf::RenderWindow window(sf::VideoMode({winWidth, winHeight}), "Maze Generator");
     // window.setFramerateLimit(1);
@@ -39,14 +41,30 @@ int main()
                     case sf::Keyboard::Key::Space:
                         maze->reset();
                         break;
+                    // pause
+                    case sf::Keyboard::Key::P:
+                        pause = true;
+                        break;
+                    // restart
+                    case sf::Keyboard::Key::R:
+                        pause = false;
+                        break;
+                    // toggle grid fill
+                    case sf::Keyboard::Key::F:
+                        fill = !fill;
+                        maze->setFill(fill);
+                        maze->showTracer(fill);
+                        break;
                 }
             }
         }
 
-        window.clear(sf::Color::Black);
-        maze->update();
-        maze->draw();
-        window.display();
+        if(!pause) {
+            window.clear(sf::Color::Black);
+            maze->update();
+            maze->draw();
+            window.display();
+        }
 
         auto end(std::chrono::high_resolution_clock::now());
         auto elapsedTime(end - start);

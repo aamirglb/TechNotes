@@ -5,6 +5,7 @@
 Maze::Maze(sf::RenderWindow& win, Settings& settings)
     : m_window{win}
     , m_settings{settings}
+    , m_totalMoves{0}
 {
     // Read appliation settings
     m_width = std::stoi(m_settings.getValue("winWidth"));
@@ -119,6 +120,7 @@ void Maze::update()
         removeWalls(m_current, nextCell);
         m_current = nextCell;
         m_current->setHighlight(true);
+        ++m_totalMoves;
     } else {
         // backtrack - check if previous cell has any unvisited neighbor
         if(!m_stack.empty()) {
@@ -127,11 +129,7 @@ void Maze::update()
             m_stack.pop();
             m_current = cell;
             m_current->setHighlight(true);
-        } else {
-            // TODO: remove cell background
-            for(auto cell : m_grid) {
-                cell->setFill(false);
-            }
+            ++m_totalMoves;
         }
     }
 }
@@ -150,7 +148,11 @@ std::string Maze::getStats() const
                                 [](auto cell){
                                     return cell->getVisited();
                                 });
-    return std::to_string(visited) + "/" + std::to_string(m_totalCells);
+    return std::to_string(visited)
+           + "/"
+           + std::to_string(m_totalCells)
+           + "     Moves:  "
+           + std::to_string(m_totalMoves);
 }
 
 void Maze::reset()
@@ -160,7 +162,20 @@ void Maze::reset()
         cell->reset();
         // cell->draw();
     }
+    m_totalMoves = 0;
     m_current = m_grid[0];
     m_current->setVisited(true);
     m_current->setHighlight(true);
+}
+
+void Maze::setFill(bool fill) {
+    for(auto cell : m_grid) {
+        cell->setFill(fill);
+    }
+}
+
+void Maze::showTracer(bool show) {
+    if(m_stack.empty()) {
+        m_current->setHighlight(show);
+    }
 }
