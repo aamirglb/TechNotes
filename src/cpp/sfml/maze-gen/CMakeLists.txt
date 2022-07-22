@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(maze_generator LANGUAGES CXX)
 
 # Enable C++17 support
-add_compile_options( /std:c++17 /w4514 /w5219 /w4244 /c5045)
+add_compile_options( /std:c++17 /wd4514 /wd5219 /wd4244 /wd5045)
 
 if(WIN32)
     list(APPEND CMAKE_MODULE_PATH "D:/SW/SFML/cmake")

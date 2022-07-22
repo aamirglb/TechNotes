@@ -13,14 +13,15 @@ int main()
 {
     // Read application settings
     Settings appSettings("settings.ini");
-    uint32_t winWidth = std::stoi(appSettings.getValue("winWidth")) + 4;
-    uint32_t winHeight = std::stoi(appSettings.getValue("winHeight")) + 4;
+    uint32_t winWidth = std::stoi(appSettings.getValue("winWidth")) + 4;    // add some offset
+    uint32_t winHeight = std::stoi(appSettings.getValue("winHeight")) + 4;  // add some offset
     uint32_t cellWidth = std::stoi(appSettings.getValue("cellWidth"));
 
     sf::RenderWindow window(sf::VideoMode({winWidth, winHeight}), "Maze Generator");
     // window.setFramerateLimit(1);
 
-    Maze maze(window, appSettings);
+    // create maze class
+    auto maze = std::make_unique<Maze>(window, appSettings);
 
     while(window.isOpen()) {
         auto start(std::chrono::high_resolution_clock::now());
@@ -30,15 +31,21 @@ int main()
         while(window.pollEvent(e)) {
             if(e.type == sf::Event::EventType::Closed)
                 window.close();
-            else if(e.type == sf::Event::EventType::KeyReleased &&
-                    e.key.code == sf::Keyboard::Key::Escape) {
-                window.close();
+            else if(e.type == sf::Event::EventType::KeyReleased) {
+                switch(e.key.code) {
+                    case sf::Keyboard::Key::Escape:
+                        window.close();
+                        break;
+                    case sf::Keyboard::Key::Space:
+                        maze->reset();
+                        break;
+                }
             }
         }
 
         window.clear(sf::Color::Black);
-        maze.update();
-        maze.draw();
+        maze->update();
+        maze->draw();
         window.display();
 
         auto end(std::chrono::high_resolution_clock::now());
@@ -49,6 +56,10 @@ int main()
         auto ftSeconds(ft / 100.f);
         auto fps(1.f/ ftSeconds);
 
-        window.setTitle("FT: " + std::to_string(ft) + "       FPS: " + std::to_string(fps));
+        window.setTitle("Maze Generator          Visited: "
+                        + maze->getStats()
+                        + "        FT: "
+                        + std::to_string(ft)
+                        + "       FPS: " + std::to_string(fps));
     }
 }
