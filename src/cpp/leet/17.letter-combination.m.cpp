@@ -7,7 +7,7 @@
 
 using namespace std;
 
-map<string, string> m {
+map<char, string> m {
     {'2', "abc"},
     {'3', "def"},
     {'4', "ghi"},
@@ -21,7 +21,7 @@ map<string, string> m {
 
 
 void backtrack(int idx, string curStr, string digits, vector<string> &res) {
-    // cout << "curStr: " << curStr << endl;
+    cout << "curStr: " << curStr << " idx: " << idx << endl;
     if(curStr.length() == digits.length()) {
         res.push_back(curStr);
         return;
@@ -47,15 +47,15 @@ int main()
     auto result = letterCombinations("23");
     for(const auto &s : result) cout << s << endl;
 
-    cout << "TC-2: digits = ""\n";
-    result = letterCombinations("");
-    for(const auto &s : result) cout << s << endl;
+    // cout << "TC-2: digits = ""\n";
+    // result = letterCombinations("");
+    // for(const auto &s : result) cout << s << endl;
 
-    cout << "TC-3: digits = 2\n";
-    result = letterCombinations("2");
-    for(const auto &s : result) cout << s << endl;
+    // cout << "TC-3: digits = 2\n";
+    // result = letterCombinations("2");
+    // for(const auto &s : result) cout << s << endl;
 
-    cout << "TC-4: digits = 999\n";
-    result = letterCombinations("999");
-    for(const auto &s : result) cout << s << endl;
+    // cout << "TC-4: digits = 999\n";
+    // result = letterCombinations("999");
+    // for(const auto &s : result) cout << s << endl;
 }
