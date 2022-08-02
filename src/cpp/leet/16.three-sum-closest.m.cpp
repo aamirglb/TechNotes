@@ -9,7 +9,7 @@ using namespace std;
 
 int threeSumClosest(vector<int>& nums, int target) {
     sort(nums.begin(), nums.end());
-    int bestSum {numeric_limits<int>::max()};
+    int bestSum {100000};
 
     for(size_t i = 0; i < nums.size()-2; ++i) {
         auto a = nums[i];
