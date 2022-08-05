@@ -40,52 +40,77 @@ void display(ListNode *head) {
     cout << tmp->val << endl;
 }
 
-ListNode* reverseKGroup(ListNode* head, int k) {
+// Reverse link list upto k nodes and return previous and current head of rotated list
+pair<ListNode*, ListNode *> reverseLinkList(ListNode* head, int k) {
+    ListNode *prev {nullptr};
+    ListNode *curr {nullptr};
+    ListNode *next {head};
+    ListNode *prevHead = head;
 
-    if(!head || !head->next) return head;
-    // if(!head->next) return head;
-
-    ListNode* dummy = new ListNode(-1, head);
-
-    ListNode* curr = head;
-    ListNode* prev = dummy;
-
-    while(curr && curr->next) {
-        auto n = k;
-        auto tmp = curr;
-        while(n) {
-            --n;
-            tmp = tmp->next;
-            if(!tmp) break;
-        }
-        // continue since we have enough nodes in the list
-        if(n == 0) {
-
-        }
-
-        // save pointer
-        ListNode *nextPair = curr->next->next;
-        ListNode *second = curr->next;
-
-        // swap links of curr and second
-        second->next = curr;
-        curr->next = nextPair;
-        // IMP!!
-        prev->next = second;
-
-        // update pointers for next iteration
+    while(k > 0) {
         prev = curr;
-        curr = nextPair;
+        curr = next;
+        next = next->next;
+        curr->next = prev;
+        --k;
     }
+    // cout << "** Reversed list with k = " << n << endl;
+    // display(curr);
+    return make_pair(prevHead, curr);
+}
 
-    return dummy->next;
+ListNode* reverseKGroup(ListNode* head, int k) {
+    if(!head || !head->next) return head;
+
+    ListNode *tmp = head;
+    ListNode *newHead {nullptr};
+    ListNode *lastNode {nullptr};
+    int n = k;
+
+    // check if there are enough nodes to proceed
+    while(--n) {
+        tmp = tmp->next;
+        if(!tmp) return head;
+    }
+    tmp = head;
+    while(tmp) {
+        // tmp will always point to next kth node
+        ListNode *nextKthNode = tmp;
+        n = k;
+        // move tmp to the next kth node
+        while(--n >= 0 && tmp) {
+            tmp = tmp->next;
+        }
+
+        // if enough nodes to continue
+        if(n < 0) {
+            auto [prev, curr] = reverseLinkList(nextKthNode, k);
+            // set new node of modified list
+            if(!newHead) newHead = curr;
+
+            // maintain a pointer to the last node of the list, so that we can attach it to
+            // next kth node
+            if(!lastNode) {
+                lastNode = prev;
+            } else {
+                lastNode->next = curr;
+                lastNode = prev;
+            }
+        } else {
+            // if there are any left out nodes, attach it to the tail
+            lastNode->next = nextKthNode;
+        }
+    }
+    return newHead;
 }
 
 int main()
 {
     ListNode *first {};
-    insertAtTail(first, {1, 2, 3, 4, 5, 6});
+    insertAtTail(first, {1, 2, 3, 4});
     display(first);
 
+    auto newHead = reverseKGroup(first, 3);
+    display(newHead);
 
 }
