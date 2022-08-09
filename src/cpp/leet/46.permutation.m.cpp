@@ -50,13 +50,41 @@ vector<vector<int>> permuteV2(vector<int>& nums) {
     return rr;
 }
 
-int main() {
-    vector<int> v {1, 2, 3,4};
-    auto r = permuteV2(v);
-    for(auto &p : r) {
-        for(auto &e : p) cout << e << ' ';
-        cout << endl;
+string mySwap(string s, int left, int right)
+{
+    swap(s[left], s[right]);
+    return s;
+}
+
+int cnt {};
+// one more backtracking implementation
+void findPermutations(string s, int left, int right)
+{
+    if(left == right) {
+        cout << ++cnt << ": " << s << endl;
+        return;
     }
+    for(int i = left; i <= right; ++i) {
+        // swap
+        s = mySwap(s, left, i);
+        findPermutations(s, left+1, right);
+        s = mySwap(s, left, i);
+    }
+}
+int main(int argc, char *argv[]) {
+
+    string s = "abcd";
+    if(argc > 1) s = argv[1];
+
+    findPermutations(s, 0, s.length() - 1);
+    // vector<int> v {1, 2, 3,4};
+    // auto r = permuteV2(v);
+    // for(auto &p : r) {
+    //     for(auto &e : p) cout << e << ' ';
+    //     cout << endl;
+    // }
+
+
     // permute(v);
     // result.clear();
 
