@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <chrono>
+#include <thread>
 
-#ifdef _WIN32
-    #define _WIN32_WINNT 0x0A00
-#endif
+// #ifdef _WIN32
+//     #define _WIN32_WINNT 0x0A00
+// #endif
 
 #define ASIO_STANDALONE
 
@@ -56,14 +57,14 @@ int main() {
     if(socket.is_open()) {
         GrabSomeData(socket);
 
-        std::string sRequest = 
+        std::string sRequest =
             "GET /index.html HTTP/1.1\r\n"
             "Host: example.com\r\n"
             "Connection: close\r\n\r\n";
 
         socket.write_some(asio::buffer(sRequest.data(), sRequest.size()), ec);
 
-        
+
         // socket.wait(socket.wait_read);
 
         using namespace std::chrono_literals;
