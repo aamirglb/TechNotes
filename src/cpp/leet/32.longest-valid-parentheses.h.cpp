@@ -4,32 +4,28 @@
 #include <string>
 #include <vector>
 #include <stack>
-
+#include <fmt/format.h>
+#include <fmt/ranges.h>
 using namespace std;
 
 int longestValidParentheses(string s) {
-    stack<char> stk;
-    int maxValid = 0;
-    int currCnt {};
+    stack<int> stk;
+    int maxLen {};
+    stk.push(-1);
 
-    for(size_t i = 0; i < s.length(); ++i) {
-        if(s[i] == '(') {
-            stk.push(s[i]);
-        } else {
-            if(!stk.empty() && stk.top() == '(') {
-                stk.pop();
-                currCnt+=2;
-                if(currCnt > maxValid)
-                    maxValid = currCnt;
+    for(int i = 0; i < s.length(); ++i) {
+        if(s[i] == '(') stk.push(i);
+        else {
+            stk.pop();
+            if(stk.empty()) {
+                stk.push(i);
             } else {
-                if(currCnt > maxValid) {
-                    maxValid = currCnt;
-                }
-                currCnt = 0;
+                int len = i - stk.top();
+                maxLen = std::max(maxLen, len);
             }
         }
     }
-    return maxValid;
+    return maxLen;
 }
 
 int main() {
