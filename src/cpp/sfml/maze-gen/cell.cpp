@@ -82,32 +82,43 @@ void Cell::draw() {
         auto width = m_cellWidth - thickness;
         auto height = m_cellWidth - thickness;
 
-        sf::Vector2f pos = { (m_position.y * m_cellWidth) + m_lineThickness, (m_position.x * m_cellWidth)+m_lineThickness};
+        // sf::Vector2f pos = { (m_position.y * m_cellWidth) + m_lineThickness, (m_position.x * m_cellWidth)+m_lineThickness};
 
-        if(!m_walls.left) {
-            pos.x -= m_lineThickness;
-            width += thickness;
-        }
-        if(!m_walls.right) {
-            pos.x += m_lineThickness;
-            width += thickness;
-        }
+        // if(!m_walls.left) {
+        //     pos.x -= m_lineThickness;
+        //     width += thickness;
+        // }
+        // if(!m_walls.right) {
+        //     pos.x += m_lineThickness;
+        //     width += thickness;
+        // }
 
-        if(!m_walls.top) {
-            pos.y -= m_lineThickness;
-            height += thickness;
-        }
-        if(!m_walls.bottom) {
-            pos.y += m_lineThickness;
-            height += thickness;
-        }
+        // if(!m_walls.top) {
+        //     pos.y -= m_lineThickness;
+        //     height += thickness;
+        // }
+        // if(!m_walls.bottom) {
+        //     pos.y += m_lineThickness;
+        //     height += thickness;
+        // }
 
         // std::cout << "pos: " << (m_position.x * m_cellWidth) << " " << (m_position.y * m_cellWidth) << std::endl;
         // std::cout << "new pos: " << pos.x << " " << pos.y << std::endl;
-        // std::cout << m_walls.top << " " << m_walls.right << " " << m_walls.bottom << " " << m_walls.left << std::endl;
-        // std::cout << width << " " << height << std::endl;
+        if(m_position.x == 0 && m_position.y == 0) {
+        std::cout << m_walls.top << " " << m_walls.right << " " << m_walls.bottom << " " << m_walls.left << std::endl;
+        std::cout << width << " " << height << std::endl;
+        }
 
-        m_fillRect.setSize(sf::Vector2f(width, height));
+        sf::Vector2f size = sf::Vector2f(m_cellWidth, m_cellWidth);
+        sf::Vector2f pos = {(m_position.y * m_cellWidth) + m_lineThickness, (m_position.x  * m_cellWidth)+m_lineThickness};
+
+        if(!m_walls.bottom) {
+            size.y += m_lineThickness;
+        }
+        if(!m_walls.right) {
+            size.x += m_lineThickness;
+        }
+        m_fillRect.setSize(size);
         m_fillRect.setPosition(pos);
         m_window.draw(m_fillRect);
     }

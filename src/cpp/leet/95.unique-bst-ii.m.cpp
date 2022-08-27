@@ -1,5 +1,5 @@
-//
-//
+// Given an integer n, return all the structurally unique BST's (binary search trees), which has
+// exactly n nodes of unique values from 1 to n. Return the answer in any order.
 
 #include <iostream>
 #include <vector>
@@ -86,40 +86,43 @@ void postorder(TreeNode* root) {
     }
 }
 
-bool checkSymmetric(TreeNode *left, TreeNode *right) {
-    if(!left || !right) return left == right;
+vector<TreeNode*> helper(int first, int last) {
 
-    if(left->val != right->val) return false;
-    return checkSymmetric(left->left, right->right) &&
-           checkSymmetric(left->right, right->left);
+    if(first > last) return {nullptr};
+    TreeNode *root {};
+    vector<TreeNode *> ans;
+
+    for(int i = first; i <= last; ++i) {
+        vector<TreeNode *> left = helper(first, i - 1);
+        vector<TreeNode *> right = helper(i+1, last);
+
+        for(auto l : left) {
+            for(auto r : right) {
+                root = new TreeNode(i);
+                root->left = l;
+                root->right = r;
+                ans.push_back(root);
+            }
+        }
+    }
+    return ans;
 }
 
-// TODO!! NOT working as expected
-bool isSymmetric(TreeNode* root) {
-    if(!root) return true;
-    return checkSymmetric(root->left, root->right);
+vector<TreeNode*> generateTrees(int n) {
+    auto res = helper(1, n);
+    cout << "number of trees: " << res.size() << endl;
+    for(auto p : res) {
+        postorder(p);
+        std::cout << std::endl;
+        // if(p) {
+        //     cout << p->val << " ";
+        // } else {
+        //     cout << " null ";
+        // }
+    }
+    return res;
 }
 
-int main()
-{
-    TreeNode *root {nullptr};
-    TreeNode *r2 {nullptr};
-
-    createBinaryTree(root, {3, 9, 20, -1, -1, 15, 7});
-    inorder(root);
-
-
-    // createBinarySearchTree(root, {9, 15, 5, 20, 16, 8, 12, 3, 6});
-    // createBinarySearchTree(root, {10, 5, 20, 8, 30});
-    createBinaryTree(root, {1, 2, 2, 3, 4, 4, 3});
-    createBinaryTree(r2, {1, 2, 2, -1, 3, -1, 3});
-
-    cout << boolalpha << isSymmetric(root) << endl;
-    cout << boolalpha << isSymmetric(r2) << endl;
-    // std::cout << "Level order traversal: \n";
-    // levelOrderTraversal(root);
-
-    // std::cout << "\nPostorder traversal: \n";
-    // postorder(root);
+int main() {
+    generateTrees(5);
 }
-

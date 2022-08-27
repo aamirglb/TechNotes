@@ -20,7 +20,7 @@ class Particle {
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.set(0, 0);
-        this.lifespan -= 2.5;
+        this.lifespan -= 5.5;
         // this.acceleration.mult(0);
 
     }
@@ -71,42 +71,5 @@ class Particle {
     }
 }
 
-let particles = [];
+// let particles = [];
 
-function setup() {
-    createCanvas(400, 400);
-    // particles.push(new Particle(200, 200))
-    // for(let i = 0; i < 100; ++i) {
-    //     particles[i] = new Particle(width/2, 20);
-    // }
-}
-
-function draw() {
-    background(0);
-    for(let i = 0; i < 5; ++i) {
-        particles.push(new Particle(200, 20));
-    }
-    for(let p of particles) {
-        let gravity = createVector(0, 0.2);
-        p.applyForce(gravity);
-        p.update();
-        // p.edges();s
-        p.show();
-    }
-
-    // particles.push(new Particle(width/2, 20));
-    for(let i = particles.length - 1; i >= 0; --i) {
-        if(particles[i].isDead()) {
-            particles.splice(i, 1);
-        }
-    }
-    // for(let p of particles) {
-    //     p.update();
-    //     p.show();
-    //     if(p.isDead()) {
-    //     }
-    // }
-    // if(particles.length > 100) {
-    //     particles.shift();
-    // }
-}

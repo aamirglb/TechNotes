@@ -25,7 +25,17 @@ int binarySearch(vector<int>& nums, int target) {
 }
 
 int searchInsert(vector<int>& nums, int target) {
-    return binarySearch(nums, target);
+
+    auto itr = std::find(nums.begin(), nums.end(), target);
+    if(itr == nums.end()) {
+        itr = std::lower_bound(nums.begin(), nums.end(), target);
+    }
+    return std::distance(nums.begin(), itr);
+
+    // Solution-2
+    //return binarySearch(nums, target);
+
+
     // return binarySearch(nums, target);
     // if(target < nums[0]) return 0;
     // if(target > nums[ nums.size() - 1] ) return nums.size();

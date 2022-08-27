@@ -110,8 +110,11 @@ void Maze::removeWalls(CellPtr curr, CellPtr next) {
 
 void Maze::update()
 {
+    // static int test = 0;
+    // ++test;
+    // if(test > 5) return;
     auto nextCell = getNextCell();
-
+    // return;
     // if current cell has unvisited neighbor
     if(nextCell != nullptr) {
         nextCell->setVisited(true);
