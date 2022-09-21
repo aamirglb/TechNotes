@@ -1,3 +1,0 @@
-D:/PlayArea/Projects/GitHub/TechNotes/src/cpp/raylib/ping-pong/build/CMakeFiles/ping-pong.dir
-D:/PlayArea/Projects/GitHub/TechNotes/src/cpp/raylib/ping-pong/build/CMakeFiles/ALL_BUILD.dir
-D:/PlayArea/Projects/GitHub/TechNotes/src/cpp/raylib/ping-pong/build/CMakeFiles/ZERO_CHECK.dir
