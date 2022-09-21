@@ -1,0 +1,7 @@
+﻿  main.cpp
+D:\PlayArea\Projects\GitHub\TechNotes\src\cpp\raylib\ping-pong\main.cpp(101,30): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\PlayArea\Projects\GitHub\TechNotes\src\cpp\raylib\ping-pong\main.cpp(101,53): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\PlayArea\Projects\GitHub\TechNotes\src\cpp\raylib\ping-pong\main.cpp(102,42): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\PlayArea\Projects\GitHub\TechNotes\src\cpp\raylib\ping-pong\main.cpp(103,39): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\PlayArea\Projects\GitHub\TechNotes\src\cpp\raylib\ping-pong\main.cpp(103,63): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+  ping-pong.vcxproj -> D:\PlayArea\Projects\GitHub\TechNotes\src\cpp\raylib\ping-pong\build\Debug\ping-pong.exe
