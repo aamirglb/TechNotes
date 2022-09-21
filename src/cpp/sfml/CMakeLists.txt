@@ -3,20 +3,27 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 # Project name and suppported language
 project(sfml_test LANGUAGES CXX)
+# add_definitions(-DSFML_STATIC)
 
 # Enable C++17 support
-# add_compile_options(-Wall -Wextra -Wpedantic -std=c++17)
-add_compile_options( /std:c++17 /wd4514 /wd5219 /wd4244 /wd5045)
+set (SFML_INCLUDE_DIRS "d:/SW/sfml-2.6/include/")
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    add_compile_options( /std:c++17 /wd4514 /wd5219 /wd4244 /wd5045)
+    set (SFML_LIB_DIRS "d:/SW/sfml-2.6/msvc-22/lib")
+    list(APPEND SFML_LIBS sfml-graphics-d sfml-window-d sfml-system-d sfml-network-d)
+else()
+    add_compile_options(-Wall -Wextra -Wpedantic -std=c++17)
+    set (SFML_LIB_DIRS "d:/SW/sfml-2.6/mingw/lib")
+    list(APPEND SFML_LIBS sfml-graphics sfml-window sfml-system sfml-network)
+endif()
+
+add_definitions(-DGLEW_STATIC)
 
 if(WIN32)
-    # FOR GCC
     # list(APPEND CMAKE_MODULE_PATH "D:/SW/SFML/cmake")
-    # include_directories("D:/SW/SFML/include")
-    # link_directories("D:/SW/SFML/build/lib")
-
-    list(APPEND CMAKE_MODULE_PATH "D:/SW/SFML/cmake")
-    include_directories("D:/SW/SFML/include")
-    link_directories("D:/SW/SFML/build/lib/Debug")
+    include_directories(${SFML_INCLUDE_DIRS})
+    link_directories(${SFML_LIB_DIRS})
 
 else()
     # SFML library
@@ -46,8 +53,15 @@ endif()
 # add_executable(udp_server udp_server.cpp)
 # add_executable(udp_client udp_client.cpp)
 # add_executable(nt_game nt_game.cpp)
-# add_executable(game2 game2.cpp)
+add_executable(game2 game2.cpp)
 add_executable(ran_circle random-circle.cpp)
+add_executable(mandelbroth mandelbroth.cpp)
+add_executable(menu so_main.cpp mainMenu.cpp)
+add_executable(so2 so2.cpp)
+add_executable(so3 so3.cpp)
+add_executable(so4 so4.cpp)
+add_executable(bounce bounce.cpp)
+add_executable(so5 so5.cpp)
 
 # target_link_libraries(window m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # target_link_libraries(render m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -73,6 +87,14 @@ add_executable(ran_circle random-circle.cpp)
 # target_link_libraries(nt_game sfml-graphics sfml-window sfml-system sfml-network ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # target_link_libraries(game2 sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # target_link_libraries(ran_circle sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-
-target_link_libraries(ran_circle sfml-graphics-d sfml-window-d sfml-system-d ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+# target_link_libraries(ran_circle sfml-graphics-d sfml-window-d sfml-system-d ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(game2 ${SFML_LIBS})
+target_link_libraries(ran_circle ${SFML_LIBS})
+target_link_libraries(mandelbroth ${SFML_LIBS})
+target_link_libraries(menu ${SFML_LIBS})
+target_link_libraries(so2 ${SFML_LIBS})
+target_link_libraries(so3 ${SFML_LIBS})
+target_link_libraries(so4 ${SFML_LIBS})
+target_link_libraries(bounce ${SFML_LIBS})
+target_link_libraries(so5 ${SFML_LIBS})
 

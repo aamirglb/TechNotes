@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <sstream>
 
 uint32_t winWidth {1080}, winHeight{840};
 const float boxWidth { winWidth * .8f };
