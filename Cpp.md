@@ -926,8 +926,7 @@ automatically adds support for != as well.
 
     | Member Function  |    Purpose |
     |------------------|------------|
-    | c_str()      |        convert a string object to a standard C-string
-                         eg: char const *Cstring = str.c_str(); |
+    | c_str()      |        convert a string object to a standard C-string eg: char const *Cstring = str.c_str(); |
     | at()         |        To get a character from the string.
                          eg: stringOne.at(6) = stringOne.at(0); |
     | compare()    |        To compare two strings
@@ -1074,7 +1073,7 @@ std::thread f() {
 
 * _invariants_ (never changing)
 
-* One of the most common cause of bugs in concurrent code is a _race condition_. A race condition is anything where the outcome depends on the relative ordering of execution of operations on tow or more threads.
+* One of the most common cause of bugs in concurrent code is a _race condition_. A race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads.
 
 * A great deal of complexity in writing software that uses concurrency comes from avoiding problematic race conditions.
 
@@ -1096,7 +1095,7 @@ std::thread f() {
 
 * The ease with which data can be shared between multiple threads in a single process is not only a benefit; it can also be a big drawback.
 
-* In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads; the threads race to perform their respective operations.
+* In concurrency, a **_race condition_** is anything where the outcome depends on the relative ordering of execution of operations on two or more threads; the threads race to perform their respective operations.
 
 * Because race conditions are generally timing-sensitive, they can often disappear entirely when the application is run under the debugger, because the debugger affects the timing of the program, even if only slightly.
 
@@ -1112,6 +1111,13 @@ std::thread f() {
 std::lock_guard guard(some_mutex); // C++17
 std::lock_guard<std::mutex> guard(some_mutex); // < C++11
 ```
+
+```cpp
+// Locks more then 1 mutex at the same time
+std::scoped_lock<std::mutex, std::mutex> lock(mutex1, mutex2);
+```
+
+* `std::scoped_lock` has a variadic constructor taking more than one mutex.
 
 * Don’t pass pointers and references to protected data outside the scope of the lock, whether by returning them from a function, storing them in externally visible memory, or passing them as arguments to user-supplied functions.
 
@@ -1146,6 +1152,10 @@ _same order_: if you always lock mutex A before mutex B, then you’ll never dea
 * Attempting to acquire a lock on `std::mutex` when you already hold it is undefined behavior. (A mutex that does permit multiple locks by the same thread is provided in
 the form of `std::recursive_mutex`.
 
+* Read-write mutex
+
+    * `std::shared_mutex`   (C++17)
+    * `std::shared_timed_mutex` (C++14/C++17)
 # C++17 The Complete Guide
 
 ### Structure Binding
