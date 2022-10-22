@@ -62,6 +62,7 @@ add_executable(so3 so3.cpp)
 add_executable(so4 so4.cpp)
 add_executable(bounce bounce.cpp)
 add_executable(so5 so5.cpp)
+add_executable(focus focus.cpp)
 
 # target_link_libraries(window m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 # target_link_libraries(render m sfml-graphics sfml-window sfml-system ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -97,4 +98,5 @@ target_link_libraries(so3 ${SFML_LIBS})
 target_link_libraries(so4 ${SFML_LIBS})
 target_link_libraries(bounce ${SFML_LIBS})
 target_link_libraries(so5 ${SFML_LIBS})
+target_link_libraries(focus ${SFML_LIBS})
 
