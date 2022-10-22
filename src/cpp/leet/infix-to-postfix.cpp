@@ -1,4 +1,4 @@
-// Convert an infix expression into post fix
+// Convert an infix expression into postfix
 
 #include <iostream>
 #include <string>
@@ -8,6 +8,8 @@
 
 // For left to right assosiative operator, prcedence increase from out to in
 // For right to left assosiative operator (like ^), prcedence decrease from out to in
+
+// Outside stack precedence
 std::map<char, int> precedenceOutStack {
     {'(', 7}, {')', 0},
     {'*', 3}, {'/', 3},
@@ -15,6 +17,7 @@ std::map<char, int> precedenceOutStack {
     {'^', 6},
 };
 
+// Inside stack precedence
 std::map<char, int> precedenceInStack {
     {'(', 0}, /*{')', 3},*/
     {'*', 4}, {'/', 4},
@@ -43,7 +46,9 @@ std::string infixToPostfix(std::string infix) {
     std::stack<char> stk;
 
     size_t i {};
+    // loop through the input string
     while(infix[i]) {
+        // if its an operand add it to postfix
         if(std::isalpha(infix[i])) {
             postfix.push_back(infix[i++]);
         } else {
@@ -51,12 +56,18 @@ std::string infixToPostfix(std::string infix) {
                 auto outPrec = getOutPrecedence(infix[i]);
                 auto inPrec = getInPrecedence(stk.top());
 
+                // check the out precedence of input char with in precedence of stack top
+                // if its greater push the operator to stack
                 if( outPrec > inPrec ) {
                     stk.push(infix[i++]);
-                } else if(outPrec < inPrec ) {
+                }
+                // remove the operator from top of stack
+                else if(outPrec < inPrec ) {
                     postfix.push_back(stk.top());
                     stk.pop();
-                } else if(outPrec == inPrec) {
+                }
+                // only '(' and ')' has equal out and in precedence, ignore them
+                else if(outPrec == inPrec) {
                     stk.pop();
                     ++i;
                 }
@@ -66,6 +77,7 @@ std::string infixToPostfix(std::string infix) {
         }
     }
 
+    // pop out remaining opreator from the stack and append them to postfix
     while(!stk.empty()) {
         postfix.push_back(stk.top());
         stk.pop();
@@ -83,6 +95,7 @@ int main()
         "A+B+C+D",        // AB+C+D+
         "((a+b)*c)-d^e^f", // ab+c*def^^-
         "A+B*(C+D)/F+D*E",
+        "(a-b/c)*(a/k-l)"  // abc/-ak/l-*
 
     };
     // std::string infix {"a+b*c-d/e"};
