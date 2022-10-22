@@ -5,7 +5,7 @@ Sam Oscar Latinga. It provides low-level access to input (via mouse, keyboard, a
 gamepads/joysticks), 3D hardware, and the 2D video frame buffer. SDL is written
 in the C programming language, yet has native support for C++. The library also
 has bindings for several other languages such as Pascal, Objective-C, Python, Ruby,
-and Java; a full list of supported languages is available at 
+and Java; a full list of supported languages is available at
 
 * http://www.libsdl.org/languages.php
 
@@ -75,7 +75,7 @@ as EAX and A3D.
 (degradation of sound over distance), the Doppler effect (change in frequency as
 a result of motion), and material densities.
 
-* `libpng` and `libjpeg`: These two libraries allow you to load **Portable Network Graphic (.png)** and **JPEG (.jpg)** images, respectively. 
+* `libpng` and `libjpeg`: These two libraries allow you to load **Portable Network Graphic (.png)** and **JPEG (.jpg)** images, respectively.
 
 * PNG is an excellent general-purpose image format that compresses images without loss in detail. It is based on a completely open specification, and it is widely supported by image manipulation programs.
 
@@ -118,3 +118,8 @@ regions of data stored in surfaces are often called _bitmaps_ or _pixmaps_.
 * The most important property of surfaces is that they can be copied onto each
 other very quickly. That is, one surface’s pixels can be transferred to an
 identically sized rectangular area of another surface. This operation is called a _blit_, or _block image transfer_.
+
+* An *SDL surface* is just an image data type that contains the pixels of an image along with all data needed to render it. SDL surfaces use software rendering which means it uses the CPU to render.
+
+* _SDL_Renderer_ is hardware accelerated on most systems, and falls back to software rendering when hardware rendering isn't for some reason supported. _SDL_Surfaces_ are always software rendered, meaning that you'll always have worse (or in some rare and odd cases, equal) performance. There's really no reason not to use SDL_Renderer over plain old surface blitting.
+
