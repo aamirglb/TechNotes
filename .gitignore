@@ -10,3 +10,9 @@ src/dotnet/**/bin/
 src/**/node_modules
 src/cs/**/obj/
 src/cs/**/bin/
+src/boost/**/*.exe
+src/cpp/**/*.exe
+src/cpp/modern_challenges/b/
+src/cpp/raylib/msvc/
+src/cpp/raylib/mingw/
+src/cpp/raylib/ping-pong/build/
