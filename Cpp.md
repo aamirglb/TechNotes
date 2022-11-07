@@ -1156,6 +1156,55 @@ the form of `std::recursive_mutex`.
 
     * `std::shared_mutex`   (C++17)
     * `std::shared_timed_mutex` (C++14/C++17)
+
+
+# Concurrency with Modern C++
+
+* C++11 has basic building blocks like `atomic` `variables`, `threads`, `locks`, and `condition variables`.
+
+* _Atomic operations_ are operations that can be performed without interruption.
+
+* A _joinable_ thread calls `std::terminate` in its destructor, and the program terminates.
+
+* A **mutex** is different than a semaphore as it is a **_locking mechanism_** while a **semaphore** is a **_signalling mechanism_**. A binary semaphore can be used as a Mutex but a Mutex can never be used as a semaphore.
+
+* C++ has five different mutexes.
+
+* C++ has a `std::lock_guard`, `std::scoped_lock` for the simple use cases, and a `std::unique_lock`, `std::shared_lock` for the advanced use cases.
+
+* Thread-safe Initialisation of Data: `std::call_once` in combination with the flag `std::once_flag`.
+
+* **Condition variables** enable threads to be synchronized via messages. One thread acts as the sender while the other one acts as the receiver of the message, where the receiver blocks waiting for the message from the sender.
+
+* **Tasks** have a lot in common with threads. While you explicitly create a thread, a task is just a job you start. The C++ runtime automatically handles, in the simple case of `std::async`, the lifetime of
+the task.
+
+* With C++17, most of the STL algorithms are available in a parallel implementation. This makes it possible for you to invoke an algorithm with a so-called execution policy. This policy specifies
+whether the algorithm runs sequentially (`std::execution::seq`), in parallel (`std::execution::par`), or in parallel with additional vectorisation (`std::execution::par_unseq`).
+
+* Condition variables may be victim to two phenomena:
+    * **spurious wakeup:** the receiver of the message wakes up, although no notification happened
+    * **lost wakeup:** the sender sends its notification before the receiver gets to a wait state.
+
+* The condition variable _notifies_ the waiting thread _(push principle)_ while the atomic boolean repeatedly asks for the value _(pull principle)_.
+
+* A **mutex** can only be acquired/released by the _same_ thread. Whereas a semaphore can be acquired/released by _different_ threads.
+
+
+* **Dynamic binding** allows old code to call new code without the old code needing to be modified or even recompiled.
+
+* **Composition** (sometimes called aggregation) is the process of putting an object (a part) inside another object (the composite). It models the _has-a_ relationship.
+
+* An **abstraction** is a simplified view of an object in the user’s own vocabulary
+
+
+
+
+
+
+
+
+
 # C++17 The Complete Guide
 
 ### Structure Binding
