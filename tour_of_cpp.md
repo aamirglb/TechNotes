@@ -39,7 +39,7 @@ class is also part of the function type. For example:
 
     ```cpp
     constexpr int dmv = 17;
-    
+
     int var {17};
     const double sqv = sqrt(var);
     ```
@@ -79,7 +79,7 @@ labels_, _template value arguments_, and _constants declared using constexpr_.
     		Node *p;
     		int i;
     	};
-    
+
     struct Entry {
     	string name;
     	Type t;
@@ -94,7 +94,7 @@ labels_, _template value arguments_, and _constants declared using constexpr_.
     	string name;
     	variant<Node *, int> v;
     };
-    
+
     void f(Entry *pe) {
     	if(holds_alternative<int>(pe->v)) {
     		cout << get<int>(pe->v);
@@ -109,10 +109,10 @@ of their enum and implicitly converts to their integer value.
 
     ```cpp
     using std::swap;       // using declaration
-    using namespace std;   // using directive 
+    using namespace std;   // using directive
     ```
 
-* A function that should never throw an exception can be declared `noexcept`. 
+* A function that should never throw an exception can be declared `noexcept`.
 
     ```cpp
     void user(int sz) noexcept
@@ -207,7 +207,7 @@ trouble.
     	// ...
     	Vector(const Vector& a);            // copy constructor
     	Vector& operator=(const Vector& a); // copy assignment
-    
+
     	Vector(Vector&& a);                 // move constructor, no const argument
     	Vector& operator=(Vector&& a);      // move assignment, no const argument
     };
@@ -221,7 +221,7 @@ trouble.
 
 * The standard-library `unordered_map<K,V>` is a hash table with `K` as the key type and `V` as the value type. To use a type `X` as a key, we must define `hash<X>`. The standard library does that for us for common types, such as `std::string`.
 
-* A _template_ is a class or a function that we parameterize with a set of types or values. 
+* A _template_ is a class or a function that we parameterize with a set of types or values.
 
 * Templates are a compile-time mechanism, so their use incurs no run-time overhead compared to hand-crafted code.
 
@@ -251,15 +251,15 @@ template_.
 
 * There is no separate compilation of templates: #include template definitions in every translation unit that uses them.
 
-* Most template arguments must meet specific requirements for the template to compile properly and for the generated code to work properly. That is, most templates must be constrained templates. 
+* Most template arguments must meet specific requirements for the template to compile properly and for the generated code to work properly. That is, most templates must be constrained templates.
 
 * The type-name introducer `typename` is the least constraining, requiring only that the argument be a type.
 
 
 | #  |  header  filename |  example |
 |----|-------------------|----------|
-| 1  | `<algorithm>`     | copy(), find(), sort() | 
-| 2  | `<array>`         | array | 
+| 1  | `<algorithm>`     | copy(), find(), sort() |
+| 2  | `<array>`         | array |
 | 3  | `<chrono>`        | duration, time_point |
 | 4  | `<cmath>`         | sqrt(), pow() |
 | 5  | `<complex>`       | complex, sqrt(), pow() |
@@ -347,7 +347,7 @@ the **Max Munch rule**.
     {
         T tmp {move(a)};   // the T constructor sees an rvalue and moves
         a = move(b);       // the T assignment sees an rvalue and moves
-        b = move(tmp);     // the T assignment sees an rvalue and moves 
+        b = move(tmp);     // the T assignment sees an rvalue and moves
     }
     ```
 
@@ -358,3 +358,42 @@ the **Max Munch rule**.
 * Use `std::mem_fn()` to make a function object from a member function.
 
 * The standard-library `function` is a type that can hold any object you can invoke using the call operator `()`. That is, an object of type `function` is a function object.
+
+* A random number generator consists of two parts:
+    * An engine that produces a sequence of random or pseudo-random values
+    * A distribution that maps those values into a mathematical distribution in a range
+
+* The standard library directly supports concurrent execution of multiple threads in a single
+address space.
+
+* We call a computation that can potentially be executed concurrently with other computations a _task_.
+A _thread_ is the system-level representation of a _task_ in a program.
+
+* A _task_ is a function or a function object.
+
+* To "join" a thread means to "wait for the thread to terminate."
+
+* This `scoped_lock` will proceed only after acquiring all its mutexes arguments and will never block
+("go to sleep") while holding a mutex.
+
+* The basic `mutex` allows one thread at a time to access data. One of the most common ways of
+sharing data is among many readers and a single writer. This **"reader-writer lock" idiom** is supported
+be `shared_mutex`. A reader will acquire the mutex "shared" so that other readers can still
+gain access, whereas a writer will demand exclusive access.
+
+    ```cpp
+    shared_mutex mx; // a mutex that can be shared
+    void reader()
+    {
+        shared_lock lck {mx}; // willing to share access with other readers
+        // ... read ...
+    }
+
+    void writer()
+    {
+        unique_lock lck {mx}; // needs exclusive (unique) access
+        // ... write ...
+    }
+    ```
+
+* The basic support for communicating using external events is provided by `condition_variables`. A `condition_variable` is a mechanism allowing one thread to wait for another. In particular, it allows a thread to wait for some condition (often called an event) to occur as the result of work done by other threads.
