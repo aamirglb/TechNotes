@@ -29,7 +29,7 @@ namespace MyFTP = NetLib::Networking::FTP; // namespace alias
 3+(ABC/16^-3) * (2^-10)
 3+0.6708984375 * (2^-10) = 0.0035848617553...
 
-// Digit separators
+// Digit separators, use ' for digit separator
 23'456'789
 0.123'456f
 ```
