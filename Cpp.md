@@ -207,7 +207,7 @@ fmt::print("2nd: {}", arr[1]);
 std::array arr2 {9, 6, 3};
 ```
 
-* C++ supports so-called **class template argument deduction (CTAD)**. vector class template supports CTAD.
+* C++ supports so-called **class template argument deduction (CTAD)**, to avoid having to specify the template types between angle brackets for certain class templates. vector class template supports CTAD.
 
 * `std::pair` in `<utility>`, groups two values of possibly different types.
 
@@ -335,7 +335,7 @@ const char* str { R"(Hello "World"!)"};
 
 * `c_str()` get const char pointer
 
-  `data()` return const char* until C++14, starting C++17, return a char* when called on a non-const string.
+  `data()` return `const char*` until C++14, starting C++17, return a `char*` when called on a non-const string.
 
 * string methods
 
@@ -344,6 +344,20 @@ const char* str { R"(Hello "World"!)"};
    find(str)
    replace(pos, len, str)
    starts_with(str)/ends_with(str) C++20
+```
+
+* Everything that is declared in an **_inline namespace_** is automatically available in the parent
+namespace. To define an inline namespace yourself, you use the _inline_ keyword. For example, the
+`string_literals` inline namespace is defined as follows:
+
+```cpp
+namespace std {
+    inline namespace literals {
+        inline namespace string_literals {
+            // ...
+        }
+    }
+}
 ```
 
 * Use the standard user-defined literal `s` to interpret a string literal as an ```std::string```
@@ -362,7 +376,9 @@ const char* str { R"(Hello "World"!)"};
 
 * `std::string_view` class // C++17
 
-* A string_view is basically a drop-in replacement for const string& but without the overhead. It never copies strings!. no `c_str()` but `data()` is available. Add methods `remove_prefix(size_t)` and `remove_suffix(size_t)`
+* When a parameter to a function is `const string&` and if you passed a string literal, the compiler silently created a temporary string object that contained a copy of your string literal and passed that object to your function, so there was a bit of overhead.
+
+* A string_view is basically a drop-in replacement for `const string&` but without the overhead. It never copies strings!. no `c_str()` but `data()` is available. Add methods `remove_prefix(size_t)` and `remove_suffix(size_t)`
 
 * C++20 introduces `std::format()`, defined in `<format>`, to format strings.
 
@@ -372,8 +388,7 @@ const char* str { R"(Hello "World"!)"};
 
 * The computing term _cruft_ refers to the gradual accumulation of small amounts of code that eventually turns a once-elegant piece of code into a mess of patches and special cases.
 
-* Since C++20, the Standard Library includes a collection of predefined
-mathematical constants, all defined in `<numbers>` in the `std::numbers`
+* Since C++20, the Standard Library includes a collection of predefined mathematical constants, all defined in `<numbers>` in the `std::numbers`
 namespace. For example, it defines `std::numbers::e`, `pi`, `sqrt2`, `phi`, and many more.
 
 * Scrum, an agile software development methodology, is one example of such an iterative process whereby the application is developed in cycles, known as _sprints_. With each sprint, designs can be modified, and new requirements can be taken into account.
@@ -382,8 +397,9 @@ namespace. For example, it defines `std::numbers::e`, `pi`, `sqrt2`, `phi`, and 
 
 * A framework is a collection of code around which you design a program.
 
-* 90/10 rule: 90 percent of the running time of most programs is
-spent in only 10 percent of the code
+* 90/10 rule: 90 percent of the running time of most programs is spent in only 10 percent of the code.
+
+* Unlike the **procedural approach**, which is based on the question _"What does this program do?"_ the **object-oriented approach** asks another question: _"What real-world objects am I modeling?"_
 
 * mixin class?
 
