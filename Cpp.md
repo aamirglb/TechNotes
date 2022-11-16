@@ -403,16 +403,20 @@ namespace. For example, it defines `std::numbers::e`, `pi`, `sqrt2`, `phi`, and 
 
 * mixin class?
 
+* single responsibility principle (SRP).
+
 * `std::any` class, available since C++17, you can store any type of object in
 an instance of the any class. The underlying implementation of `std::any` does use a `void*` pointer in certain cases, but it also keeps track of the type stored, so everything remains type safe.
 
 * An `std::any` object can store a value of any type, while an `std::variant` object can store a value of a selection of types.
 
-* A possible disadvantage of templates is so-called code bloat: an increased size of the final binary code.
+* A possible disadvantage of templates is so-called _code bloat_: an increased size of the final binary code.
 
 * templates can be specialized for specific types to treat those types differently.
 
-* open/closed principle (OCP)
+* **design-by-contract** means that the documentation for a function or a class represents a contract with a detailed description of what the responsibility of the client code is and what the responsibility of your function or class is. There are three important aspects of design-by-contract: _preconditions_, _postconditions_, and _invariants_.
+
+* open/closed principle (OCP): Open for extension close for modification
 
 * you are allowed to call `delete` on a `nullptr` pointer; it simply will not do anything.
 
@@ -424,13 +428,52 @@ an instance of the any class. The underlying implementation of `std::any` does u
 int* ptr { new(nothrow) int };
 ```
 
-* C++20: `std::span` wraps a pointer to an array and its size!
+* For two dimensional array allocate one big block of memory with a size equal to `xDimension * yDimension * elementSize`, and access elements
+with a formula such as `x * yDimension + y`.
+
+* A `static_cast` offers a bit more safety. The compiler refuses to perform a static cast on pointers to unrelated data types.
+
+* C++20: `std::span` wraps a pointer to an array and its size.
+
+* With garbage collectors, you have so-called non-deterministic destructors.
+
+* Enable memory leak detection in Microsoft visual C++
+
+```cpp
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+```
+
+* redefine `new` operator as follows:
+
+```cpp
+#ifdef _DEBUG
+    #ifndef DBG_NEW
+        #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+        #define new DBG_NEW
+    #endif
+#endif // _DEBUG
+```
+
+* **Valgrind** is a free open-source tool for Linux that, among other things, pinpoints the exact line in your code where a leaked object was allocated.
 
 * standard smart pointers, `unique_ptr` and `shared_ptr`, are defined in `<memory>`.
 
 * The `get()` method can be used to get direct access to the underlying pointer.
 
-* Copy constructor takes a reference-to- const to the source object.
+* `unique_ptr` `reset()`: free the underlying pointer or optionally change it to another pointer
+
+* `unique_ptr` `release()` disconnect the underlying pointer
+
+* `shared_ptr` also supports the `get()` and `reset()` methods. `shared_ptr` does not support `release()` use the
+`use_count()` method to retrieve the number of `shared_ptr` instances that are sharing the same resource
+
+* Since C++20, for performance critical code, instead of `make_unique()`, `make_unique_for_overwrite()` function can be used instead to create an array with default-initialized values, which means uninitialized for primitive types.
+
+* The functions that are available to cast `shared_ptrs` are `const_pointer_cast()`, `dynamic_pointer_cast()`, `static_pointer_cast()`, and `reinterpret_pointer_cast()`.
+
+* Copy constructor takes a reference-to-const to the source object.
 
 ```cpp
 class Foo {
