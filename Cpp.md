@@ -485,6 +485,13 @@ class Foo {
 * If a class has data members that have a deleted copy constructor, then the
 copy constructor for the class is automatically deleted as well.
 
+* This compiler-generated _default constructor_ calls the default constructor on all object members of the class but **does not initialize the
+language primitives such as `int` and `double`**. Nonetheless, it allows you to create objects of that class.
+
+* _Ctor-initializers_ allow initialization of data members at the time of their creation.
+
+* There is one important caveat with ctor-initializers: they initialize data members in the order that they appear in the class definition, not their order in the ctor-initializer.
+
 * A single parameter constructor can be used to convert a different type to a class type. Such constructors are called _converting constructors_. To prevent compiler from doing such implicit conversions, mark single parameter constructor as `explicit`.
 
 * Since C++11, _converting constructors_ can have multiple parameters because of support for list initialization.
@@ -510,7 +517,7 @@ Foo& operator=(const Foo& rhs) {
 }
 ```
 
-* C++11 has deprecated the generation of a **copy constructor** if the class has a user-declared copy assignment operator or destructor. If you still need a compiler-generated copy constructor in such a case, you can explicitly default one:
+* C++11 has deprecated the generation of a **copy constructor** if the class has a user-declared **copy assignment operator or destructor**. If you still need a compiler-generated copy constructor in such a case, you can explicitly default one:
 
 ```cpp
 MyClass(const MyClass& src) = default;
@@ -540,15 +547,29 @@ class Foo {
 };
 ```
 
-* To implement an exception-safe assignment operator, the **copy-and-swap** idiom is used.
+* A class **must** know which other classes, methods, or functions want to be its friends.
+
+* Destructors should never throw any exceptions
+
+* To implement an exception-safe assignment operator, the  **copy-and-swap** idiom is used.
+
+* When implementing an **assignment operator**, use the **copy-and-swap** idiom to avoid code duplication and to guarantee strong exception safety.
 
 * A function can be marked with the `noexcept` keyword to specify that it won’t throw any exceptions. If a `noexcept` function does throw an exception, the program is terminated.
+
+* _move constructor_ and a _move assignment operator_ can be used by the compiler when the source object is a temporary object that will be destroyed after the operation is finished or, explicitly when using `std::move()`.
+
+* In C++, an _lvalue_ is something of which **you can take an address**, for example, a named variable.
+
+* An _rvalue_ reference parameter (string&&) will never be bound to an _lvalue_. You can force the compiler to call the _rvalue_ reference overload by using `std::move()`. The only thing `move()` does is cast an lvalue to an rvalue reference; that is, it does not do any actual moving.
+
+* A named `rvalue` reference, such as an `rvalue` reference parameter, itself is an `lvalue` because it has a name!
 
 ```cpp
 void myNonThrowingFunction() noexcept { /* ... */ }
 ```
-* `std::exchange()`, defined in `<utility>`, replaces a value with a new value and returns the old
-value. `exchange()` is useful in implementing move assignment operators.
+
+* `std::exchange()`, defined in `<utility>`, replaces a value with a new value and returns the old value. `exchange()` is useful in implementing move assignment operators.
 
 ```cpp
 void Spreadsheet::moveFrom(Spreadsheet& src) noexcept
@@ -561,13 +582,20 @@ void Spreadsheet::moveFrom(Spreadsheet& src) noexcept
 
 * Prefer pass-by-value for parameters that a function inherently would copy, but only if the parameter is of a type that supports move semantics. Otherwise, use reference-to- const parameters.
 
+* Statements of the form `return object`; are treated as rvalue expressions if object is a local variable, a parameter to the function, or a temporary value, and they trigger return value optimization (RVO). Furthermore, if object is a local variable, named return value optimization (NRVO) can kick
+in.
+
+* When returning a local variable or parameter from a function, simply write `return object`; and do not use `std::move()`.
+
 * The **rule of zero** states that you should design your classes in such a way that they do not require any of those five special member functions (destructor, copy and move constructors and copy and move assignment operators).
+
+* A static method is just like a regular function. The only difference is that it can access `private` and `protected` static members of the class.
 
 * If you have a const, reference to const, or pointer to a const object, the compiler does not let you call any methods on that object unless those methods guarantee that they won’t change any data members.
 
 * The const specification is part of the method prototype and must accompany its definition as well
 
-* You cannot declare a static method const, because it is redundant. Static methods do not have an
+* You cannot declare a `static` method `const`, because it is redundant. Static methods do not have an
 instance of the class, so it would be impossible for them to change internal values.
 
 * `mutable`, tells the compiler that it’s OK to change mutable variable in a const method.
@@ -591,7 +619,7 @@ public:
 };
 ```
 
-* **Ref-Qualified Methods**: If a method should be called only on non-temporary instances, a `&` qualifier is added after the method header. Similarly, if a method should be called only on temporary instances, a `&&` qualifier is added.
+* **Ref-Qualified Methods**: It is possible to explicitly specify on what kind of instances a certain method can be called. If a method should be called only on non-temporary instances, a `&` qualifier is added after the method header. Similarly, if a method should be called only on temporary instances, a `&&` qualifier is added.
 
 ```cpp
 class TextHolder {
@@ -624,13 +652,16 @@ private:
 
 * Overloaded operator should be defined in global workspace to support commutative property.
 
+* The arithmetic shorthand operators (`+=`, `-=` etc) always require an object on the left-hand side, so you
+should write them as methods, not as global functions.
+
 ```cpp
 class SpreadsheetCell {
 public:
-    SpreadsheetCell& operator+=(const
-    SpreadsheetCell& operator-=(const
-    SpreadsheetCell& operator*=(const
-    SpreadsheetCell& operator/=(const
+    SpreadsheetCell& operator+=(const SpreadsheetCell& rhs);
+    SpreadsheetCell& operator-=(const SpreadsheetCell& rhs);
+    SpreadsheetCell& operator*=(const SpreadsheetCell& rhs);
+    SpreadsheetCell& operator/=(const SpreadsheetCell& rhs);
 };
 
 SpreadsheetCell& SpreadsheetCell::operator+=(const SpreadsheetCell& rhs) {
@@ -641,18 +672,51 @@ SpreadsheetCell& SpreadsheetCell::operator+=(const SpreadsheetCell& rhs) {
 
 * with C++20, it is actually recommended to implement operator== as a member function of the class instead of a global function.
 
-* An expression such as 10==myCell is rewritten by a C++20 compiler as myCell==10 for which the
-operator== member function can be called. Additionally, by implementing operator== , C++20
-automatically adds support for != as well.
+* An expression such as `10==myCell` is rewritten by a C++20 compiler as `myCell==10` for which the `operator==` member function can be called. Additionally, by implementing `operator==`, C++20 automatically adds support for `!=` as well.
 
-* Once your class has an overload for operator== and <=> , C++20 automatically provides support for all six comparison operators
+* Pre-C++20: you’ve implemented `==` and `<`, you can write the rest of the comparison operators in terms of those two.
+
+* Once your class has an overload for `operator==` and <=> , C++20 automatically provides support for all six comparison operators
 
 * Full support for all six comparison operators with one declaraton:
 
+* To implement support for the full suite of comparison operators, in C++20 you just need to implement one additional overloaded operator, `operator<=>`.
+
+* `operator==` and `<=>` can also be defaulted in which case the compiler writes them for you and implements them by comparing each data member in turn.
+
 ```cpp
-[[nodiscard]] std::partial_ordering operator<=>(
-                    const SpreadsheetCell&) const = default;
+[[nodiscard]] std::partial_ordering operator<=>(const SpreadsheetCell&) const = default;
 ```
+
+* **pimpl idiom/private implementation idiom**: is used to keep the interface stable
+
+* The basic principle is to define two classes for every class you want to write: the _interface class_ and the _implementation class_.
+The implementation class is identical to the class you would have written if you were not taking this approach. The interface class presents public methods identical to those of the implementation class, but it has **only one data member**: a pointer to an implementation class object. This is called the _pimpl idiom_, _private implementation idiom_, or _bridge pattern_.
+
+* C++ allows you to mark a class as final, which means trying to inherit from it will result in a compilation error.
+
+```cpp
+class Foo final { };
+```
+
+* Only methods that are declared as `virtual` in the base class can be overridden properly by derived classes.
+
+* Once a method or destructor is marked as `virtual`, it is `virtual` for _all derived classes_ even if the `virtual` keyword is removed from derived classes.
+
+* Always use the `override` keyword on methods that are meant to be overriding methods from a base class.
+
+* Since C++11, the generation of a _copy constructor_ and _copy assignment operator_ is deprecated if the class has a user-declared destructor. Basically, once you have a user-declared destructor, the rule of five kicks in.
+
+* Besides marking an entire class as `final`, C++ also allows you to mark individual methods as `final`.
+
+* Under the rules of name resolution for C++, it first resolves against the local scope, then resolves against the class scope
+
+* `dynamic_cast()`, uses the object’s built-in knowledge of its type to refuse a cast that doesn’t make sense. This built-in knowledge typically
+resides in the vtable, which means that `dynamic_cast()` works only for objects with a vtable, that is, objects with at least one virtual member.
+
+* _Pure virtual methods_ are methods that are explicitly undefined in the class definition.
+
+* A derived class _must_ implement all of the pure virtual methods inherited from their parent. If a derived class does not implement all pure virtual methods from the base class, then the derived class is _abstract_ as well, and clients will not be able to instantiate objects of the derived class.
 
 
 

@@ -397,3 +397,182 @@ gain access, whereas a writer will demand exclusive access.
     ```
 
 * The basic support for communicating using external events is provided by `condition_variables`. A `condition_variable` is a mechanism allowing one thread to wait for another. In particular, it allows a thread to wait for some condition (often called an event) to occur as the result of work done by other threads.
+
+
+# ISO C++ FAQ's Notes
+
+* object-oriented techniques using classes and virtual functions (run time polymorphism), generic programming techniques using templates (compile time polymorphism).
+
+* run-time dispatch or dynamic dispatch.
+
+* C++ can also be used as a traditional, imperative programming language.
+
+* Generic programming is a way of developing software that maximizes code reuse in a way that does not sacrifice performance.
+
+* Generic programming is programming based on parameterization.
+
+* C++ without virtual is not OO. Programming with classes but without dynamic binding is called **"object based,"** but not "object oriented."
+
+* With OO and generic programming, reuse can also be accomplished by having old code call new code.
+
+* In C++ `f()` declares a function that takes _no parameters_ (in C, a function declared using `f()` can be passed an arbitrary number of parameters of arbitrary types).
+
+* There are some very subtle differences as well, like `sizeof('x')` is equal to `sizeof(char)` in C++ but is equal to `sizeof(int)` in C. Also, C++ puts structure "tags" in the same namespace as other names, whereas C requires an explicit `struct`.
+
+* "undefined", "unspecified", "implementation defined", and "well-formed"; see the ISO C++ standard.
+
+* Software Development Is Decision Making.
+
+* C++ guaranteed _minimum sizes_
+
+* C++ guarantees
+    * a char is exactly one byte which is at least 8 bits,
+    * short is at least 16 bits,
+    * int is at least 16 bits, and
+    * long is at least 32 bits.
+
+* It also guarantees the unsigned version of each of these is the same size as the original
+
+    ```cpp
+    #include <stdint.h> /* not part of the C++ standard */
+    ```
+
+    ```c++
+    class Fred {
+        static const int max_ = 107;
+    };
+
+    // add the following line in exactly one .cpp file
+    int Fred::max_;
+    ```
+
+* Every `#define` macro effectively creates a new keyword in every source file and every scope until that symbol is `#undefd`. The preprocessor lets you create a `#define` symbol that is always replaced independent of the {...} scope where that symbol appears.
+
+* the goal of all programming rules is to _reduce_ time, cost and risk. If a rule actually makes things worse, it is a bad rule, period.
+
+* Mixing signed and unsigned values in a single arithmetic expression is often confusing for programmers — the compiler doesn’t always do what you expect it should do.
+
+* programmers should choose between !A && !B and !(A || B) based on which one is more obvious to whoever will be maintaining the code.
+
+    ```cpp
+    inline bool my_isnan(double x) {
+        return x != x;
+    }
+    ```
+
+* The headers in ISO Standard C++ don't have a `.h` suffix.
+
+* The C++ standard library is guaranteed to have **18** standard headers from the C language.
+
+* `<cxxx>` versions provide their declarations in the `std` namespace only, and the `<xxx.h>` versions make them available both in `std` namespace and in the global namespace.
+
+* The C++ standard library is also guaranteed to have **32** additional standard headers that have no direct counterparts in C.
+
+* `using std::cout;` // a using-declaration that lets you use cout without qualification
+
+* Code must be written to be read, not by the compiler, but by another human being.
+
+* When initializing an object's member objects in the constructor, always use _initialization lists_ rather than _assignment_. The performance difference for user-defined classes can be substantial (3x!)
+
+* Instead of global variables, using static data member or use unnamed namespace.
+
+    ```cpp
+    class Foo {
+        static int xyz;
+    };
+
+    namespace {
+        int xyz;
+    }
+    ```
+
+* there are three major considerations: _visibility_, _lifetime_, and _thread safety_.
+
+* **templates** go beyond that, and support generic programming, template metaprogramming, etc. through a combination of features such as _integer template arguments_, _specialization_, and _uniform treatment of built-in and user-defined types_.
+
+* a less desirable result of C++'s template flexibility is late detection of errors and horrendously bad error messages.
+
+* C++11 adopted all of C99's preprocessor extensions and library extensions, but not C99's new language features, so language features like the `restrict` keyword that were added in C99 are generally not part of ISO C++.
+
+* Calling an undeclared function is _poor style_ in C and _illegal_ in C++.
+
+* In C, you can implicitly convert a `void*` to a `T*`.
+
+* a C compiler won't understand the `extern "C"` construct, you must wrap the `extern "C" {` and `}` lines in an `#ifdef` so they won't be seen by normal C compilers.
+
+    ```cpp
+    #ifdef __cplusplus
+    extern "C" {
+    #endif
+
+    ....
+
+    #ifdef __cplusplus
+    }
+    #endif
+    ```
+
+* the symbol `__cplusplus` is `#defined` if and only-if the compiler is a C++ compiler.
+
+* The `extern "C"` line tells the compiler that the external information sent to the linker should use C calling conventions and name mangling
+
+* C++ allows you to model the problem domain itself, which allows you to program in the language of the problem domain rather than in the language of the solution domain.
+
+* The C++ language gives you a way to find out how many bits are in a byte in your particular implementation: include the header `<climits>`, then the actual number of bits per byte will be given by the `CHAR_BIT` macro.
+
+* C++ language requires that your operator overloads take at least one operand of a "class type" or enumeration type.
+
+* the stream `std::cin` goes into a "failed state," and all subsequent input attempts return immediately without doing anything.
+
+* In text mode, end-of-line sequences and possibly other things are translated; in binary mode, they are not.
+
+* you can never reseat a reference to make it refer to a different object.
+
+* const overloading helps you achieve **const correctness**.
+
+* const overloading is when you have an _inspector_ method and a _mutator_ method with the same name and the same number of and types of parameters. The two distinct methods differ only in that the _inspector_ is **const** and the _mutator_ is **non-const**.
+
+* subscript operators often come in pairs.
+
+    ```c++
+    const Fred& operator[] (unsigned index) const;
+    Fred& operator[] (unsigned index);
+    ```
+
+* `delete p` delete the pointed-to-data `*p`
+
+* it is not safe to delete the same pointer twice
+
+    ```cpp
+    Foo *p = new Foo;
+    delete p;
+    delete p; // DISASTER!!
+    ```
+
+* The C++ language guarantees that `delete p` will do nothing if p is `null`.
+
+* with the **Named Constructor Idiom**, the constructors are all private or protected, and there are one or more `public static create()` methods (the so-called "named constructors"),
+
+* In C, encapsulation was accomplished by making things static in a compilation unit or module
+
+* encapsulation is for code, not people.
+
+* The fact that C++ allows a class's methods and friends to access the non-public parts of all its objects, not just the this object.
+
+* **Construct On First Use idiom**
+
+
+
+Encapsulate what varies
+Favor Composition over inheritance
+Program to Interfaces, not implementations
+Strive for loosely coupled designs between objects that interact
+
+Design Principle:
+Identify the aspects of your
+application that vary and separate
+them from what stays the same.
+
+All patterns provide a way to let some part of a system
+vary independently of all other parts.
+
