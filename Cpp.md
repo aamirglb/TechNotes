@@ -854,6 +854,9 @@ template <typename T>
 constexpr T pi { T { 3.141592653589793238462643383279502884 } };
 ```
 
+* C++20 introduces **concepts**, named requirements used to constrain template type and non-type parameters of class and function templates.
+
+* concepts such as _sortable_ and _swappable_ are good examples of concepts modeling some semantic meaning.
 
 
 
