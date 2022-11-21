@@ -718,11 +718,141 @@ resides in the vtable, which means that `dynamic_cast()` works only for objects 
 
 * A derived class _must_ implement all of the pure virtual methods inherited from their parent. If a derived class does not implement all pure virtual methods from the base class, then the derived class is _abstract_ as well, and clients will not be able to instantiate objects of the derived class.
 
+* `using Base::Base;` The `using` declaration inside a derived class, inherits all constructors from the parent class.
 
+* A method cannot be both `static` and `virtual`.
 
+* C++ uses the compile-time type of the expression to bind _default arguments_, not the run-time type.
 
+* If the derived class does provide its own copy constructor or operator=, it needs to explicitly call the base class versions.
 
+* Run-Time Type Information (RTTI) provides a number of useful features for working with information about an object’s class membership.
 
+* Using `dynamic_cast()` on a class without a vtable, that is, without any virtual methods, causes a compilation error.
+
+* A second RTTI feature is the `typeid` operator, which lets you query an object at run time to find out its type.
+
+* You can use `static_cast()` to perform explicit conversions that are supported directly by the language.
+
+* C++20 introduces `std::bit_cast()`, defined in `<bit>`. It’s the only cast that’s part of the Standard Library; the other casts are part of the C++ language itself.
+
+* `bit_cast()` creates a new object of a given target type and copies the bits from a source object to this new object.
+
+* `consts` and `typedefs` have internal linkage by default. You can use `extern` to give them external linkage.
+
+* All global variables and static class data members in a program are initialized
+before main() begins.
+
+* The fundamental tools for generic programming in C++ are templates.
+
+* The biggest advantage of generic programming is type safety.
+
+* once you have a user-declared **destructor**, it’s deprecated for the compiler to implicitly generate a copy constructor or copy assignment operator.
+
+* _Explicit template instantiation_ helps with finding errors, as it forces all
+your class template methods to be compiled even when unused.
+
+```cpp
+// Explicit template instantiation
+template class Grid<int>;
+```
+
+* C++20 introduces **concepts**, which allow you to write _requirements_ for template parameters that the compiler can interpret and validate. The compiler can generate more readable errors if the template arguments passed to instantiate a template do not satisfy these requirements.
+
+* Non-type template parameters can only be integral types (`char`, `int`, `long`, and so on), enumeration types, pointers, references, `std::nullptr_t`, `auto`, `auto&`, and `auto*`. C++20 additionally allows non-type template parameters of floating-point types, and even class types.
+
+* C-style arrays do not support move semantics anyway by default.
+
+* Non-type template parameters become part of the type specification of instantiated objects.
+
+```cpp
+export template <typename T = int, size_t WIDTH = 10, size_t HEIGHT = 10>
+class Grid
+{};
+
+Grid<>  myIntGrid;  // OK
+Grid    myIntGrid;  // Compilation Error!! required <>
+```
+
+* Function templates have always supported the automatic deduction of template
+parameters based on the arguments passed to the function template.
+
+* `make_pair()` is capable of automatically deducing the template type parameters based on the values passed to it. With class template argument deduction (CTAD), such helper function templates are not necessary anymore.
+
+* This type deduction is disabled for `std::unique_ptr` and `shared_ptr`. For `unique_ptr` and `shared_ptr`, you need to keep using `make_unique()` and `make_shared()`.
+
+* user-defined deduction guide
+
+```cpp
+SpreadsheetCell(const char*) -> SpreadsheetCell<std::string>;
+```
+
+* Virtual methods and destructors cannot be method templates.
+
+* Alternate implementations of templates are called _template specializations_.
+
+```cpp
+// const char* specialization of the Grid class
+template <>
+class Grid<const char* >
+{};
+```
+
+* function template specializations do not participate in overload resolution and hence might behave unexpectedly.
+
+* Since C++14 you can ask the compiler to automatically deduce the return type for a function. So, you can simply write add() as follows:
+
+```cpp
+template <typename T1, typename T2>
+auto add(const T1& t1, const T2& t2) { return t1 + t2; }
+```
+
+* Use `decltype(auto)` to avoid stripping any const and reference qualifiers.
+
+```cpp
+const std::string message { "Test" };
+const std::string& getString() { return message; }
+
+auto s1 { getString() };  // s1 is of type string, auto strips reference and const qualifier,
+
+const auto& s2 { getString() };            // s2 is const string&
+decltype(getString()) s3 { getString() };  // s3 is const string&
+decltype(auto) s4 { getString() };         // s4 is const string&, avoid writing getString() twice
+```
+
+```cpp
+// pre-C++11
+template <typename T1, typename T2>
+auto add(const T1& t1, const T2& t2) -> decltype(t1+t2)
+{
+    return t1 + t2;
+}
+
+// since c++14
+template <typename T1, typename T2>
+decltype(auto) add(const T1& t1, const T2& t2) { return t1+t2; }
+```
+
+* Abbreviated Function Template Syntax
+
+```cpp
+template <typename T1, typename T2>
+decltype(auto) add(const T1& t1, const T2& t2) { return t1+t2; }
+
+// no template<> specification
+decltype(auto) add(const auto& t1, const auto& t2) { return t1+t2; }
+```
+
+* Two caveats for abbreviated function template syntax
+    * In `decltype(auto) add(const auto& t1, const auto& t2)`, t1 and t2 are of two different types.
+    * You cannot use the deduced types explicitly in the implementation, as these automatically deduced types have no names.
+
+* C++ supports variable templates.
+
+```cpp
+template <typename T>
+constexpr T pi { T { 3.141592653589793238462643383279502884 } };
+```
 
 
 
