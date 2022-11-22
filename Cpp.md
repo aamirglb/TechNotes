@@ -858,6 +858,76 @@ constexpr T pi { T { 3.141592653589793238462643383279502884 } };
 
 * concepts such as _sortable_ and _swappable_ are good examples of concepts modeling some semantic meaning.
 
+| STREAM | Description |
+|--------|-------------|
+| cin    | Input stream |
+| cout   | Buffered output stream |
+| cerr   | Unbuffered output stream |
+| clog   | Buffered version of cerr |
+
+
+* In C++, there are three common sources and destinations for streams: _console_, _file_, and _string_.
+
+* C++ file streams subsume the functionality of the C functions `fprintf()`, `fwrite()`, and `fputs()` for output, and `fscanf()`, `fread()`, and `fgets()` for input.
+
+* String streams subsume the functionality of `sprintf()`, `sprintf_s()`, `sscanf()`, and other forms of C string-formatting functions.
+
+* `put()` and `write()` are raw output methods. The data passed to these methods is output as is, without any special formatting or processing.
+
+| stream method | description |
+|---------------|-------------|
+| `good()`      | to check if stream is in normal usable state (obtain validity of stream) |
+| `bad()`  | If return `true` a fatal error has occurred |
+| `fail()` | return true if most recent operations has failed |
+| `clear()` | reset the error state of a stream |
+
+* both `good()` and `fail()` return `false` if the end-of-file is reached. The
+relation is as follows: `good() == (!fail() && !eof())`.
+
+* **IO manipulators** are objects that make a change to the behavior of the stream
+instead of, or in addition to, providing data for the stream to work with.
+
+* The return value of `get()` is stored in an int, not in a char, because `get()` can return special non-character values such as `std::char_traits<char>::eof()` (end-of-file).
+
+* The `noskipws` input manipulator tells the stream not to skip whitespace; that is, whitespace is read like any other characters.
+
+```cpp
+char buffer[BufferSize] {0};
+std::cin.getline(buffer, BufferSize);
+
+std::string myStr;
+std::getline(std::cin, myStr);
+```
+
+* Turning an object into a "flattened" type, like a string, is often called
+**marshaling**. _Marshaling_ is useful for saving objects to disk or sending them across a network.
+
+* For an input stream, the method is `seekg()` (the g is for get), and for an output
+stream, it is `seekp()` (the p is for put). streams are both input and output, for example, file streams.
+
+* A link can be established between any input and output streams to give them _flush-on-access_ behavior. When data is requested from an input stream, its linked output stream is automatically flushed.
+
+* Stream linking is accomplished with the `tie()` method.
+
+* The `directory_entry` interface supports operations such as `exists()`, `is_directory()`, `is_regular_file()`, `file_size()`, `last_write_time()`, and others.
+
+* Java enforce the use of a language feature called _exceptions_ as an error-handling mechanism.
+
+* Each thread has its own `errno` value. `errno` acts as a thread-local integer variable that functions can use to communicate errors back to calling functions.
+
+* `setjmp()/longjmp()` mechanism cannot be used correctly in C++, because it bypasses scoped destructors on the stack.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # C++ Annotation
