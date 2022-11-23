@@ -5,8 +5,16 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <source_location>
 
 namespace fs = std::filesystem;
+
+void logMessage(std::string_view msg,
+    const std::source_location& loc = std::source_location::current())
+{
+    fmt::print("{}({}): {}: {}\n", loc.file_name(), loc.line(),
+        loc.function_name(), msg);
+}
 
 void printDirectoryStructure(const fs::path& p)
 {
@@ -30,7 +38,7 @@ void printDirectoryStructure(const fs::path& p)
             std::string ext { entry.path().extension().string() };
             ++file_count[ext];
 
-            fmt::print("{}File: {} ({} bytes)\n", spacer,
+            fmt::print("{} = > {}File: {} ({} bytes)\n", total_files, spacer,
                 entry.path().string(),
                 fs::file_size(entry));
         } else if(fs::is_directory(entry)) {
@@ -56,11 +64,15 @@ void printDirectoryStructure(const fs::path& p)
     for(const auto& [key, value] : vec_file_count) {
         fmt::print("{:8} -> {}\n", key, value);
     }
+
+    logMessage("printDirectoryStructure() finished executing.");
 }
 
 
 int main()
 {
+    logMessage("Starting main()");
+
     fs::path p{ R"(C:\Foo\Bar)" };
     for(const auto& component : p) {
         // fmt::print("{}\n", component);
@@ -86,4 +98,10 @@ int main()
 
     fs::path p4 {R"(D:/Books)"};
     printDirectoryStructure(p4);
+
+    // const std::source_location loc = std::source_location::current();
+    // fmt::print("Filename: {}\n", loc.file_name());
+    // fmt::print("Line No:  {}\n", loc.line());
+    // fmt::print("Column:   {}\n", loc.column());
+    // fmt::print("Function: {}\n", loc.function_name());
 }
