@@ -917,6 +917,18 @@ stream, it is `seekp()` (the p is for put). streams are both input and output, f
 
 * `setjmp()/longjmp()` mechanism cannot be used correctly in C++, because it bypasses scoped destructors on the stack.
 
+* Always catch exception objects as _reference-to-const!_ This avoids object
+slicing, which could happen when you catch exception objects by value.
+
+![Exception-Hierarchy](./images/cpp/exception.png)
+
+* A feature of exception hierarchies is that you can catch exceptions polymorphically.
+
+* When a piece of code throws an exception, the object or value thrown is moved or copied, using either the move constructor or the copy constructor. Thus, if you write a class whose objects will be thrown as exceptions, you must make sure those objects are copyable and/or moveable.
+
+* C++20 introduces a proper object-oriented replacement for `__func__` and these C-style preprocessor macros in the form of an `std::source_location` class, defined in `<source_location>`.
+
+
 
 
 
