@@ -928,8 +928,34 @@ slicing, which could happen when you catch exception objects by value.
 
 * C++20 introduces a proper object-oriented replacement for `__func__` and these C-style preprocessor macros in the form of an `std::source_location` class, defined in `<source_location>`.
 
+* Use `std::throw_with_nested()` to throw an exception with another exception nested inside it.
 
+* Always use `throw;` to rethrow an exception. Never do something like `throw e;` to rethrow a caught exception e!.
 
+* _Stack unwinding_ means that the destructors for all locally scoped variables are called. During stack unwinding, pointer variables are obviously not freed, and other cleanup is not performed either.
+
+* The default behaviors of `new` and `new[]` are to throw an exception of type `bad_alloc`, defined in `<new>`, if they cannot allocate memory.
+
+* C++ provides `nothrow` versions of `new` and `new[]`, which return `nullptr` instead of throwing an exception if they fail to allocate memory.
+
+```cpp
+int* ptr { new(nothrow) int[1'00'000] };
+```
+
+* If an exception leaves a constructor, the destructor for that object will never be called!.
+
+* How should you handle exceptions thrown from inside a _ctor-initializer_ of a
+constructor? This is done using a feature called _function-try-blocks_, which are capable of catching those exceptions.
+
+```cpp
+MyClass::MyClass()
+try
+: <ctor-initializer>
+{
+    /* ... constructor body ... */
+} catch (const exception& e) {
+}
+```
 
 
 
