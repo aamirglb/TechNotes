@@ -16,3 +16,5 @@ src/cpp/modern_challenges/b/
 src/cpp/raylib/msvc/
 src/cpp/raylib/mingw/
 src/cpp/raylib/ping-pong/build/
+src/cpp/**/b/
+
