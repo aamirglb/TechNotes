@@ -17,4 +17,9 @@ src/cpp/raylib/msvc/
 src/cpp/raylib/mingw/
 src/cpp/raylib/ping-pong/build/
 src/cpp/**/b/
+src/cpp/sfml/mingw/
+src/cpp/sfml/msvc/
+src/cpp/sfml/test/
+src/sdl/msvc/
+src/cpp/so/
 
