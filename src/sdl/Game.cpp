@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "game.h"
 #include <iostream>
 
 bool Game::init(const char *title, int xpos, int ypos, int width,
@@ -37,7 +37,11 @@ bool Game::init(const char *title, int xpos, int ypos, int width,
         std::cout << "SDL init fail\n";
         return false; // SDL init fail
     }
-    SDL_Surface* pTempSurface = SDL_LoadBMP("assets/rider.png");
+    SDL_Surface* pTempSurface = SDL_LoadBMP("../assets/rider.bmp");
+    if (!pTempSurface) {
+        std::cerr << "Unable to load rider.bmp: ";
+        std::cerr << SDL_GetError() << std::endl;
+    }
     m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
     SDL_FreeSurface(pTempSurface);
 
@@ -81,6 +85,9 @@ void Game::handleEvents()
         case SDL_QUIT:
             m_bRunning = false;
             break;
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == SDLK_ESCAPE)
+                m_bRunning = false;
         default:
             break;
         }
