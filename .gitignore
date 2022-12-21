@@ -22,4 +22,4 @@ src/cpp/sfml/msvc/
 src/cpp/sfml/test/
 src/sdl/msvc/
 src/cpp/so/
-
+src/wx/**/build/
