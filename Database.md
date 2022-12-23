@@ -351,3 +351,23 @@ epoch (January 1, 1970)
 hexadecimal digits
 
 * `Mongoose` is a Object Data Modeling (ODM) library for MongoDB distributed as an npm package. Mongoose is a Node.js-based Object Data Modeling (ODM) library for MongoDB. The problem that Mongoose aims to solve is allowing developers to enforce a specific schema at the application layer.
+
+### mongodb getting started
+
+* Install `mongosh` to connect to mongodb server
+
+```bash
+# connect to server
+mongosh.exe "mongodb://localhost:27017"
+
+# show all databases
+show databases
+show dbs
+
+# show all collections
+db.getCollectionNames()
+
+# list content of a collection
+db.<collection-name>.find()
+
+```
