@@ -322,3 +322,8 @@ foreach() construct can be used in four different ways
 * `foreach(loop_var IN ITEMS [item1 [...]])`
 
 Page-120
+
+* There are three ways to access a CMake project from another CMake project: 
+    * subdirectory, 
+    * exported build directories, and 
+    * importing prebuilt package which is already installed. 
