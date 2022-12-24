@@ -117,3 +117,8 @@ private:
 
 * Call `wxEvent::Skip` to indicate that the search for the event handler should continue. Pass the events to the original event handler using `wxEvent::Skip`.
 
+* top-level windows (`wxFrame`, `wxDialog`, `wxPopup`)
+
+* When a window needs to be painted, it receives two events, `wxEVT_ERASE_BACKGROUND` to paint the background, and `wxEVT_PAINT` to paint the foreground.
+
+* When a window is resized, either by the application or by the user, it receives a `wxEVT_SIZE` event.
