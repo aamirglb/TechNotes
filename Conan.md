@@ -49,7 +49,7 @@
     conan new hello/0.1 -t -s
     ```
 
-* By setting )generators = "cmake", Conan generates a _conanbuildinfo.cmake_ file that can be included when we build the package with **CMake**.
+* By setting generators = "cmake", Conan generates a _conanbuildinfo.cmake_ file that can be included when we build the package with **CMake**.
 
 * The `exports_sources = src/*` is indicating to Conan to copy all the files from the local _src/_ folder to the local Conan cache when exporting _conanfile.py_. 
 
