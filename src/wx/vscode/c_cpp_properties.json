@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Windows",
+            "includePath": [
+                "C:/Users/aamir.ali/Documents/playground/Programs/libraries/wx321/include/*",
+                "C:/Users/aamir.ali/Documents/playground/Programs/libraries/wx321/include/msvc/*"
+            ],
+            "defines": [
+                "__WXMSW__",
+                "_UNICODE",
+                "_DEBUG"
+            ],
+            "compilerPath": "cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
