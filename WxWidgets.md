@@ -1,8 +1,12 @@
 # WxWidget
 
-* `wxWidgets` has bindings for a variety of other languages such as **Python**, **Perl**, a **BASIC** variant, **Lua**, **Eiffel**, **JavaScript**, **Java**, **Ruby**, **Haskell**, and **C#**. Some of these bindings are more advanced than others. 
+* `wxWidgets` has bindings for a variety of other languages such as **Python**, **Perl**, a **BASIC** variant, **Lua**, **Eiffel**, **JavaScript**, **Java**, **Ruby**, **Haskell**, and **C#**. Some of these bindings are more advanced than others.
 
 * http://www.wxwidgets.org
+
+```
+ taskkill /F /IM wx_hello.exe
+```
 
 * We need the GTK development libraries which wxWidgets depend on.
 
@@ -14,29 +18,41 @@ $ sudo apt-get install libgtk-3-dev build-essential checkinstall
 
 * **DialogBlocks** is a sizer-based resource editor that quickly gets you creating professional-looking dialogs, wizards and frames for deployment on Windows, Linux, Mac or any other supported wxWidgets platform.
 
-* wxWidgets is a programmer's toolkit for writing desktop or mobile applications
-with graphical user interfaces (GUIs). It's a _framework_, in the sense that
-it does a lot of the housekeeping work and provides default application behavior.
+* wxWidgets is a programmer’s toolkit for writing desktop or mobile applications with graphical user interfaces (GUIs). It’s a _framework_, in the sense that it does a lot of the housekeeping work and provides default application behavior.
 
-* wxWidgets provides classes for files and streams, multiple threads, application
-settings, interprocess communication, online help, database access, and
-much more.
+* wxWidgets provides classes for
+    * files and streams,
+    * multiple threads,
+    * application settings,
+    * interprocess communication,
+    * online help,
+    * database access, and much more.
 
 * wxWidgets provides a native look and feel. wxWidgets uses the native widgets wherever possible (and its own widget set in other cases) so that not only does the application look native on the major platforms, but it actually is native.
 
-* Initially, wxWidgets targeted XView and MFC 1.0; Borland C++ users complained about the requirement for MFC, so it was rewritten to use pure Win32. Because XView was giving way to Motif, a Motif port quickly followed.
+* Initially, wxWidgets targeted XView and MFC 1.0; Borland C++ users complained about the requirement for MFC, so it was rewritten to use pure Win32.
+Because XView was giving way to Motif, a Motif port quickly followed.
 
 * Wolfram Gloger suggested that wxWidgets should be ported to GTK+, the up-and-coming widget set being adopted for the GNOME desktop environment.
 
 * Robert Roebling became the lead developer for wxGTK, which is now the main Unix/Linux port of wxWidgets.
 
-* wxUniversal, wxWidgets's own set of widgets for use on platforms that have no widget set of their own. wxUniversal was first used in SciTech's port to MGL, their low-level graphics layer.
+* wxUniversal, wxWidgets’s own set of widgets for use on platforms A Brief History of wxWidgets 5 that have no widget set of their own. wxUniversal was first used in SciTech’s port to MGL, their low-level graphics layer.
 
-* In 2002, Julian Smart and Robert Roebling added the wxX11 port using the wxUniversal widgets. Requiring only Unix and X11, wxX11 is suitable for any Unix environment and can be used in fairly low-spec systems.
+* In 2002, Julian Smart and Robert Roebling added the wxX11 port using the wxUniversal widgets. Requiring only Unix and X11, wxX11 is suitable for
+any Unix environment and can be used in fairly low-spec systems.
 
 * The object-oriented language Smalltalk designed by Alan Kay and others in the 1970s was an important milestone in GUI history, making innovations in user interface technology as well as language design, and although wxWidgets uses a different language and API, the principles employed are broadly the same.
 
 ![](images/wx/wx_port.png)
+
+* wxWidgets code base is divided into 6 layers
+    1. Common code
+    1. Generic code
+    1. wxUniversal
+    1. Platform-specific code
+    1. Contributed code
+    1. Third-party code
 
 * Every wxWidgets application defines an application class deriving from `wxApp`.
 
@@ -98,20 +114,20 @@ private:
 * All event handler functions have the same form—their return type is void, they are not virtual, and they take a single event object argument.
 
 * A list of system events that will not get sent to the parent’s event handler:
-    * `wxActivateEvent`, 
-    * `wxCloseEvent`, 
-    * `wxEraseEvent`, 
-    * `wxFocusEvent`, 
-    * `wxKeyEvent`, 
+    * `wxActivateEvent`,
+    * `wxCloseEvent`,
+    * `wxEraseEvent`,
+    * `wxFocusEvent`,
+    * `wxKeyEvent`,
     * `wxIdleEvent`,
-    * `wxInitDialogEvent`, 
-    * `wxJoystickEvent`, 
-    * `wxMenuEvent`, 
-    * `wxMouseEvent`, 
+    * `wxInitDialogEvent`,
+    * `wxJoystickEvent`,
+    * `wxMenuEvent`,
+    * `wxMouseEvent`,
     * `wxMoveEvent`,
-    * `wxPaintEvent`, 
-    * `wxQueryLayoutInfoEvent`, 
-    * `wxSizeEvent`, 
+    * `wxPaintEvent`,
+    * `wxQueryLayoutInfoEvent`,
+    * `wxSizeEvent`,
     * `wxScrollWinEvent`, and
     * `wxSysColourChangedEvent`
 
@@ -123,11 +139,11 @@ private:
 
 * When a window is resized, either by the application or by the user, it receives a `wxEVT_SIZE` event.
 
-* Most stock windows have a notion of a default size and position if you pass them `wxDefaultSize` or `wxDefaultPosition` (or -1 as an individual size or position value). 
+* Most stock windows have a notion of a default size and position if you pass them `wxDefaultSize` or `wxDefaultPosition` (or -1 as an individual size or position value).
 
 * Each control implements `DoGetBestSize`, which returns a reasonable default size based on the control content, current font, and other factors.
 
-* The `wxEVT_SET_FOCUS` event is sent to a window that is receiving the focus; `wxEVT_KILL_FOCUS` is sent when the focus is moving to a different window. 
+* The `wxEVT_SET_FOCUS` event is sent to a window that is receiving the focus; `wxEVT_KILL_FOCUS` is sent when the focus is moving to a different window.
 
 * All windows are (unless otherwise specified) recipients of _idle_ events (`wxEVT_IDLE`), which are sent when all other events have been processed, specified
 with the `EVT_IDLE(func)` macro.
