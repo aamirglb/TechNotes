@@ -5,7 +5,8 @@
 
 namespace fs = std::filesystem;
 
-wxDEFINE_EVENT(IMAGE_SELECTED, wxCommandEvent);
+wxDEFINE_EVENT(IMAGE_SELECTION_CHANGED, wxCommandEvent);
+wxDEFINE_EVENT(IMAGE_DOUBLE_CLICKED, wxCommandEvent);
 
 ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, const wxSize &size, long style)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, style)
@@ -21,6 +22,7 @@ ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, con
     Bind(wxEVT_PAINT, &ImagePanel::OnPaint, this);
     Bind(wxEVT_SIZE, &ImagePanel::OnSize, this);
     Bind(wxEVT_LEFT_DOWN, &ImagePanel::OnMouseDown, this);
+    Bind(wxEVT_LEFT_DCLICK, &ImagePanel::OnDoubleClick, this);
     Bind(wxEVT_KEY_DOWN, &ImagePanel::OnKeyDown, this);
 }
 
@@ -60,6 +62,8 @@ void ImagePanel::RenderImage(wxAutoBufferedPaintDC &dc)
                 gc->SetBrush(*wxTRANSPARENT_BRUSH);
                 gc->SetPen({*wxRED, 4});
                 gc->DrawRectangle(2, 2, m_ImageWidth - 2, m_ImageHeight - 2);
+
+                SetFocusFromKbd();
             }
         };
 
@@ -114,7 +118,6 @@ wxSize ImagePanel::GetImageSize() const
 
 void ImagePanel::OnMouseDown(wxMouseEvent &event)
 {
-    SetFocusFromKbd();
     m_IsSelected = !m_IsSelected;
     m_IsClicked = true;
     // std::cout << "ImagePanel mouse down: " << m_ImageName << " " << m_IsSelected << std::endl;
@@ -123,6 +126,17 @@ void ImagePanel::OnMouseDown(wxMouseEvent &event)
 
     // event.ResumePropagation(wxEVENT_PROPAGATE_MAX);
     // event.Skip();
+}
+
+void ImagePanel::OnDoubleClick(wxMouseEvent &event)
+{
+    wxString msg;
+    msg.Printf("Image %s DOUBLE CLICKED", m_ImageName);
+
+    wxCommandEvent e(IMAGE_DOUBLE_CLICKED, GetId());
+    e.SetEventObject(this);
+    e.SetString(msg);
+    ProcessWindowEvent(e);
 }
 
 void ImagePanel::OnKeyDown(wxKeyEvent &event)
@@ -138,9 +152,12 @@ void ImagePanel::OnRightClick(wxContextMenuEvent &event)
 
 void ImagePanel::SendImageSelectedEvent()
 {
-    wxCommandEvent event(IMAGE_SELECTED, GetId());
+    wxString msg;
+    msg.Printf("Image %s CLICKED.", m_ImageName);
+
+    wxCommandEvent event(IMAGE_SELECTION_CHANGED, GetId());
     event.SetEventObject(this);
-    event.SetString(m_ImageName);
+    event.SetString(msg);
 
     ProcessWindowEvent(event);
 }

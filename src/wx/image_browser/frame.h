@@ -12,8 +12,11 @@ public:
     void OnMouseDown(wxMouseEvent &event);
     void OnKeyDown(wxKeyEvent &event);
 
-    void OnImageSelected(wxCommandEvent &event);
+    void OnImageSelectionChange(wxCommandEvent &event);
     void AddConsoleMessage(const wxString &message);
+    void SelectClickedImage(bool isMultiSelection);
+    void OnImageDoubleClick(wxCommandEvent &event);
+
     static std::vector<std::string> GetImageList(const std::string &path, int max_images_to_load = 20);
 
 private:
@@ -21,4 +24,5 @@ private:
     wxGridSizer *m_GridSizer;
     std::vector<std::string> m_ImageList;
     std::vector<ImagePanel *> m_ImagePanels;
+    std::vector<int> m_SelectedImageIdx;
 };

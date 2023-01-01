@@ -23,7 +23,8 @@ Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long
     for (const auto &image : m_ImageList)
     {
         auto panel = new ImagePanel(browser, image, wxBITMAP_TYPE_JPEG, wxSize(300, 400));
-        panel->Bind(IMAGE_SELECTED, &Frame::OnImageSelected, this);
+        panel->Bind(IMAGE_SELECTION_CHANGED, &Frame::OnImageSelectionChange, this);
+        panel->Bind(IMAGE_DOUBLE_CLICKED, &Frame::OnImageDoubleClick, this);
 
         auto imageWidth = panel->GetImageSize().GetWidth();
         auto frameWidth = this->GetSize().GetWidth();
@@ -96,16 +97,34 @@ void Frame::OnMouseDown(wxMouseEvent &event)
 
 void Frame::OnKeyDown(wxKeyEvent &event)
 {
-    std::cout << "Frame key down" << std::endl;
+    if (event.GetKeyCode() == WXK_RIGHT || event.GetKeyCode() == WXK_LEFT)
+    {
+        // get number of selected images
+        int totalSelected = std::count_if(m_ImagePanels.begin(), m_ImagePanels.end(), [](const auto p)
+                                          { return p->GetSelected(); });
+        if (totalSelected > 1)
+        {
+            // clear the selection
+            for (auto &pane : m_ImagePanels)
+            {
+                pane->SetSelected(false);
+            }
+            return;
+        }
+    }
+
     if (event.GetKeyCode() == WXK_RIGHT)
     {
         for (auto i = 0; i < m_ImagePanels.size() - 1; ++i)
         {
             if (m_ImagePanels[i]->GetSelected() &&
-                !m_ImagePanels[i + i]->GetSelected())
+                !m_ImagePanels[i + 1]->GetSelected())
             {
+                std::cout << "Selected image index: " << i << std::endl;
                 m_ImagePanels[i]->SetSelected(false);
                 m_ImagePanels[i + 1]->SetSelected(true);
+
+                AddConsoleMessage("Moved RIGHT...");
                 break;
             }
         }
@@ -120,13 +139,14 @@ void Frame::OnKeyDown(wxKeyEvent &event)
             {
                 m_ImagePanels[i]->SetSelected(false);
                 m_ImagePanels[i - 1]->SetSelected(true);
+                AddConsoleMessage("Moved LEFT...");
                 break;
             }
         }
     }
 }
 
-void Frame::OnImageSelected(wxCommandEvent &event)
+void Frame::OnImageSelectionChange(wxCommandEvent &event)
 {
     AddConsoleMessage(event.GetString());
 
@@ -137,26 +157,13 @@ void Frame::OnImageSelected(wxCommandEvent &event)
         std::for_each(m_ImagePanels.begin(), m_ImagePanels.end(), [](auto p)
                       { p->SetSelected(false); });
 
-        for (auto &panel : m_ImagePanels)
-        {
-            if (panel->GetClicked())
-            {
-                panel->SetSelected(true);
-                panel->SetClicked(false);
-            }
-        }
+        m_SelectedImageIdx.clear();
+        SelectClickedImage(false);
     }
     // Multi-selection
     else
     {
-        for (auto &panel : m_ImagePanels)
-        {
-            if (panel->GetClicked())
-            {
-                panel->SetSelected(panel->GetSelected());
-                panel->SetClicked(false);
-            }
-        }
+        SelectClickedImage(true);
     }
 }
 
@@ -165,12 +172,33 @@ void Frame::AddConsoleMessage(const wxString &message)
     static int id{1};
 
     wxListItem item;
-    wxString msg;
-    msg.Printf("Image %s SELECTED.", message);
-    item.SetText(msg);
+    item.SetText(message);
     item.SetId(id++);
     item.SetTextColour(*wxWHITE);
     m_MessagePanel->InsertItem(item);
+
+    m_MessagePanel->EnsureVisible(m_MessagePanel->GetItemCount() - 1);
+}
+
+void Frame::SelectClickedImage(bool isMultiSelection)
+{
+    for (int i = 0; i < m_ImagePanels.size(); ++i)
+    {
+        if (m_ImagePanels[i]->GetClicked())
+        {
+            if (isMultiSelection)
+                m_ImagePanels[i]->SetSelected(m_ImagePanels[i]->GetSelected());
+            else
+                m_ImagePanels[i]->SetSelected(true);
+            m_ImagePanels[i]->SetClicked(false);
+            m_SelectedImageIdx.push_back(i);
+        }
+    }
+}
+
+void Frame::OnImageDoubleClick(wxCommandEvent &event)
+{
+    AddConsoleMessage(event.GetString());
 }
 
 std::vector<std::string> Frame::GetImageList(const std::string &path, int max_images_to_load)
