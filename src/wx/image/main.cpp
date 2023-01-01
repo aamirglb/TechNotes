@@ -49,9 +49,10 @@ class wxImagePanel : public wxPanel
     int w, h;
     bool isSelected{};
     bool isClicked{};
+    wxMenu *contextMenu = nullptr;
 
 public:
-    wxImagePanel(wxFrame *parent, wxString file, wxBitmapType format, const wxSize &size = wxDefaultSize);
+    wxImagePanel(wxFrame *parent, wxString file, wxBitmapType format, const wxSize &size = wxDefaultSize, long style = wxWANTS_CHARS);
 
     void paintEvent(wxPaintEvent &evt);
     void paintNow();
@@ -67,6 +68,9 @@ public:
     bool getClicked() const { return isClicked; }
 
     void mouseDown(wxMouseEvent &event);
+    void OnKeyDown(wxKeyEvent &event);
+    void OnRightClick(wxContextMenuEvent &event);
+
     // some useful events
     /*
      void mouseMoved(wxMouseEvent& event);
@@ -101,6 +105,8 @@ EVT_PAINT(wxImagePanel::paintEvent)
 EVT_SIZE(wxImagePanel::OnSize)
 // Mouse Release
 EVT_LEFT_DOWN(wxImagePanel::mouseDown)
+EVT_KEY_DOWN(wxImagePanel::OnKeyDown)
+EVT_CONTEXT_MENU(wxImagePanel::OnRightClick)
 END_EVENT_TABLE()
 
 // some useful events
@@ -115,8 +121,8 @@ END_EVENT_TABLE()
  void wxImagePanel::keyReleased(wxKeyEvent& event) {}
  */
 
-wxImagePanel::wxImagePanel(wxFrame *parent, wxString file, wxBitmapType format, const wxSize &size)
-    : wxPanel(parent, wxID_ANY, wxDefaultPosition, size)
+wxImagePanel::wxImagePanel(wxFrame *parent, wxString file, wxBitmapType format, const wxSize &size, long style)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, style)
 {
     // parent = parent;
     // load the file... ideally add a check to see if loading was successful
@@ -125,6 +131,9 @@ wxImagePanel::wxImagePanel(wxFrame *parent, wxString file, wxBitmapType format, 
     h = -1;
     fs::path p{file.ToStdString()};
     imageName = p.filename().string();
+
+    // contextMenu = new wxMenu;
+    // contextMenu->Append(10'001, wxT("Remove Image"));
 }
 
 /*
@@ -223,6 +232,24 @@ void wxImagePanel::mouseDown(wxMouseEvent &event)
     event.Skip();
 }
 
+void wxImagePanel::OnKeyDown(wxKeyEvent &event)
+{
+    std::cout << __FUNCTION__ << std::endl;
+    event.ResumePropagation(wxEVENT_PROPAGATE_MAX);
+    event.Skip();
+}
+
+void wxImagePanel::OnRightClick(wxContextMenuEvent &event)
+{
+    // if (isSelected)
+    // {
+    //     PopupMenu(contextMenu);
+    //     // this->Destroy();
+    //     event.ResumePropagation(wxEVENT_PROPAGATE_MAX);
+    //     // event.Skip();
+    // }
+}
+
 class MyFrame : public wxFrame
 {
 public:
@@ -231,6 +258,8 @@ public:
     void mouseDown(wxMouseEvent &event);
     void deSelectAll();
     void onAddImageButtonClick(wxCommandEvent &event);
+    void OnKeyDown(wxKeyEvent &event);
+    void OnRightClick(wxContextMenuEvent &event);
 
 private:
     std::vector<wxImagePanel *> drawPanes;
@@ -247,20 +276,23 @@ MyFrame::MyFrame(const wxString &title, const wxPoint &pos, const wxSize &size, 
     sizer = new wxGridSizer(3);
 
     images = getImageList("C:/Users/aamir.ali/Pictures/demo-lib/thumbnail/");
-    // for (const auto &image : images)
-    // {
-    //     auto drawPane = new wxImagePanel(this, image, wxBITMAP_TYPE_JPEG, wxSize(300, 400));
-    //     sizer->Add(drawPane, 1, wxEXPAND | wxALL, 5);
-    //     drawPanes.push_back(drawPane);
-    // }
+    for (const auto &image : images)
+    {
+        auto drawPane = new wxImagePanel(this, image, wxBITMAP_TYPE_JPEG, wxSize(300, 400));
+        sizer->Add(drawPane, 1, wxEXPAND | wxALL, 5);
+        drawPanes.push_back(drawPane);
+    }
 
     addImageButton = new wxButton(this, wxID_ANY, "Add Image", wxDefaultPosition, wxSize(120, 22));
-    this->Bind(wxEVT_LEFT_DOWN, &MyFrame::mouseDown, this);
     addImageButton->Bind(wxEVT_BUTTON, &MyFrame::onAddImageButtonClick, this);
 
+    this->Bind(wxEVT_LEFT_DOWN, &MyFrame::mouseDown, this);
+    this->Bind(wxEVT_KEY_DOWN, &MyFrame::OnKeyDown, this);
+    // this->Bind(wxEVT_CONTEXT_MENU, &MyFrame::OnRightClick, this);
+
     mainSizer = new wxBoxSizer(wxVERTICAL);
-    mainSizer->Add(addImageButton, 0, wxALIGN_LEFT | wxRIGHT | wxTOP | wxBOTTOM, 10);
-    mainSizer->Add(sizer, 1, wxEXPAND | wxALL, 10);
+    mainSizer->Add(addImageButton, 0, wxALIGN_LEFT | wxLEFT | wxTOP | wxBOTTOM, 5);
+    mainSizer->Add(sizer, 0, wxEXPAND | wxALL, 5);
     this->SetSizer(mainSizer);
 }
 
@@ -283,15 +315,28 @@ void MyFrame::mouseDown(wxMouseEvent &event)
         {
             pane->setSelected(false);
         }
-    }
-    for (auto &pane : drawPanes)
-    {
-        if (pane->getClicked())
+
+        for (auto &pane : drawPanes)
         {
-            pane->setSelected(true);
-            pane->setClicked(false);
+            if (pane->getClicked())
+            {
+                pane->setSelected(true);
+                pane->setClicked(false);
+            }
         }
     }
+    else
+    {
+        for (auto &pane : drawPanes)
+        {
+            if (pane->getClicked())
+            {
+                pane->setSelected(pane->getSelected());
+                pane->setClicked(false);
+            }
+        }
+    }
+
     event.Skip();
 }
 
@@ -307,6 +352,69 @@ void MyFrame::onAddImageButtonClick(wxCommandEvent &event)
 {
     if (imageCount < images.size())
         addImage(images[imageCount++]);
+}
+
+void MyFrame::OnKeyDown(wxKeyEvent &event)
+{
+    // get number of selected images
+    int total_selected = std::count_if(drawPanes.begin(), drawPanes.end(), [](const auto p)
+                                       { return p->getSelected(); });
+    std::cout << "total selected = " << total_selected << std::endl;
+
+    if (total_selected > 1 && (event.GetKeyCode() == WXK_RIGHT || event.GetKeyCode() == WXK_LEFT))
+    {
+        // clear the selection
+        for (auto &pane : drawPanes)
+        {
+            pane->setSelected(false);
+        }
+        return;
+    }
+
+    if (event.GetKeyCode() == WXK_RIGHT)
+    {
+        for (auto i = 0; i < drawPanes.size() - 1; ++i)
+        {
+            if (drawPanes[i]->getSelected() && !drawPanes[i + 1]->getSelected())
+            {
+                drawPanes[i]->setSelected(false);
+                drawPanes[i + 1]->setSelected(true);
+                break;
+            }
+        }
+
+        // while (total_selected > 0)
+        // {
+        //     for (auto i = 0; i < drawPanes.size() - 1; ++i)
+        //     {
+        //         if (drawPanes[i]->getSelected() && !drawPanes[i + 1]->getSelected())
+        //         {
+        //             drawPanes[i]->setSelected(false);
+        //             drawPanes[i + 1]->setSelected(true);
+        //             break;
+        //         }
+        //     }
+        //     --total_selected;
+        // }
+    }
+
+    if (event.GetKeyCode() == WXK_LEFT)
+    {
+        for (int i = drawPanes.size() - 1; i > 0; --i)
+        {
+            if (drawPanes[i]->getSelected() && !drawPanes[i - 1]->getSelected())
+            {
+                drawPanes[i]->setSelected(false);
+                drawPanes[i - 1]->setSelected(true);
+                break;
+            }
+        }
+    }
+}
+
+void MyFrame::OnRightClick(wxContextMenuEvent &event)
+{
+    std::cout << "FRAME RECEIVED RIGHT CLICK EVENT!!" << std::endl;
 }
 
 // ----------------------------------------
