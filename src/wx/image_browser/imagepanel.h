@@ -4,6 +4,7 @@
 
 // declare custom event for image panel
 wxDECLARE_EVENT(IMAGE_SELECTION_CHANGED, wxCommandEvent);
+wxDECLARE_EVENT(IMAGE_DESELECTED, wxCommandEvent);
 wxDECLARE_EVENT(IMAGE_DOUBLE_CLICKED, wxCommandEvent);
 
 class ImagePanel : public wxPanel
@@ -13,13 +14,15 @@ public:
 
     void OnPaint(wxPaintEvent &evt);
     void OnSize(wxSizeEvent &event);
-    void RenderImage(wxAutoBufferedPaintDC &dc);
+    void RenderImageResized(wxAutoBufferedPaintDC &dc);
+    void RenderImageAsIs(wxAutoBufferedPaintDC &dc);
 
     void SetSelected(bool select);
     bool GetSelected() const;
     void SetClicked(bool click);
     bool GetClicked() const;
     wxSize GetImageSize() const;
+    const wxString GetImageName() const;
 
     void OnMouseDown(wxMouseEvent &event);
     void OnDoubleClick(wxMouseEvent &event);
@@ -27,6 +30,7 @@ public:
     void OnRightClick(wxContextMenuEvent &event);
 
     void SendImageSelectedEvent();
+    void SendImageUnSelectedEvent();
 
 private:
     wxImage m_Image;

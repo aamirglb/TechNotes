@@ -15,36 +15,41 @@ Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long
     CreateMessagePanel();
 
     m_ImageList = Frame::GetImageList("C:/Users/aamir.ali/Pictures/demo-lib/thumbnail/", 20);
-    wxScrolledWindow *browser = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxSize(1000, 600) /*, wxWANTS_CHARS*/);
+    m_ImageBrowser = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxSize(1000, 600) /*, wxWANTS_CHARS*/);
+    // m_ImageBrowser->SetBackgroundColour(wxColor(24, 24, 24));
     // browser->Bind(wxEVT_KEY_DOWN, &Frame::OnKeyDown, this);
 
     m_GridSizer = new wxGridSizer(3);
     // For each loaded image, create a image panel and add to sizer
-    for (const auto &image : m_ImageList)
+    for (int i = 0; i < 3; ++i)
     {
-        auto panel = new ImagePanel(browser, image, wxBITMAP_TYPE_JPEG, wxSize(300, 400));
-        panel->Bind(IMAGE_SELECTION_CHANGED, &Frame::OnImageSelectionChange, this);
-        panel->Bind(IMAGE_DOUBLE_CLICKED, &Frame::OnImageDoubleClick, this);
-
-        auto imageWidth = panel->GetImageSize().GetWidth();
-        auto frameWidth = this->GetSize().GetWidth();
-
-        auto colCount = frameWidth / (imageWidth + 10);
-        // std::cout << "Column Count: " << colCount << " Frame: " << frameWidth << " image width: " << size << std::endl;
-        m_GridSizer->SetCols(colCount);
-
-        m_GridSizer->Add(panel, 1, wxEXPAND | wxALL, 5);
-        m_ImagePanels.push_back(panel);
+        CreateImagePanel(m_ImageList[m_InsertedImageCount++]);
     }
-    browser->SetSizer(m_GridSizer);
-    browser->SetScrollRate(5, 5);
 
-    Bind(wxEVT_LEFT_DOWN, &Frame::OnMouseDown, this);
+    wxBoxSizer *browserSizer = new wxBoxSizer(wxVERTICAL);
+    browserSizer->Add(m_GridSizer);
+    browserSizer->AddStretchSpacer(1);
+    m_ImageBrowser->SetSizer(browserSizer);
+    m_ImageBrowser->SetScrollRate(5, 5);
+
+    m_AddImageButton = new wxButton(this, INSERT_IMAGE_BUTTON_ID, "Insert Image", wxDefaultPosition, wxSize(120, 24));
+
+    // clang-format off
+    m_AddImageButton->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
+    { 
+        if (m_InsertedImageCount < m_ImageList.size())
+            CreateImagePanel(m_ImageList[m_InsertedImageCount++]);
+    });
+    // clang-format on
+
+    // Bind(wxEVT_LEFT_DOWN, &Frame::OnMouseDown, this);
     Bind(wxEVT_KEY_DOWN, &Frame::OnKeyDown, this);
 
     wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
-    mainSizer->Add(browser, 0, wxALL, 4);
-    // mainSizer->AddStretchSpacer(1);
+    mainSizer->Add(m_ImageBrowser, 0, wxALL, 4);
+    mainSizer->AddStretchSpacer(1);
+    mainSizer->Add(m_AddImageButton, 0, wxLEFT, 4);
+
     mainSizer->Add(m_MessagePanel, 1, wxEXPAND | wxALL, 4);
     SetSizer(mainSizer);
     Layout();
@@ -52,7 +57,7 @@ Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long
 
 void Frame::CreateMessagePanel()
 {
-    m_MessagePanel = new wxListCtrl(this, 4'001, wxDefaultPosition, wxDefaultSize, wxLC_REPORT);
+    m_MessagePanel = new wxListCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT);
     m_MessagePanel->SetBackgroundColour(wxColor(64, 64, 64));
 
     wxListItem col0;
@@ -63,36 +68,37 @@ void Frame::CreateMessagePanel()
     m_MessagePanel->InsertColumn(0, col0);
 }
 
-void Frame::OnMouseDown(wxMouseEvent &event)
+void Frame::CreateImagePanel(const std::string &image)
 {
-    // // Single selection
-    // if (!wxGetKeyState(WXK_CONTROL))
-    // {
-    //     // de-select all currently selected images
-    //     std::for_each(m_ImagePanels.begin(), m_ImagePanels.end(), [](auto p)
-    //                   { p->SetSelected(false); });
+    wxBitmapType imageType;
+    // get image type
+    fs::path path{image};
+    if (path.extension() == ".jpg" || path.extension() == ".jpeg")
+    {
+        imageType = wxBITMAP_TYPE_JPEG;
+    }
+    else if (path.extension() == ".png")
+    {
+        imageType = wxBITMAP_TYPE_PNG;
+    }
 
-    //     for (auto &panel : m_ImagePanels)
-    //     {
-    //         if (panel->GetClicked())
-    //         {
-    //             panel->SetSelected(true);
-    //             panel->SetClicked(false);
-    //         }
-    //     }
-    // }
-    // // Multi-selection
-    // else
-    // {
-    //     for (auto &panel : m_ImagePanels)
-    //     {
-    //         if (panel->GetClicked())
-    //         {
-    //             panel->SetSelected(true);
-    //             panel->SetClicked(false);
-    //         }
-    //     }
-    // }
+    auto panel = new ImagePanel(m_ImageBrowser, image, wxBITMAP_TYPE_JPEG, GetImageSize(image, imageType));
+    panel->Bind(IMAGE_SELECTION_CHANGED, &Frame::OnImageSelectionChange, this);
+    panel->Bind(IMAGE_DOUBLE_CLICKED, &Frame::OnImageDoubleClick, this);
+
+    auto imageWidth = panel->GetImageSize().GetWidth();
+    auto frameWidth = this->GetSize().GetWidth();
+
+    auto colCount = frameWidth / (imageWidth + 10);
+    m_GridSizer->SetCols(colCount);
+
+    m_GridSizer->Add(panel, 1, wxEXPAND | wxALL, 5);
+    m_ImagePanels.push_back(panel);
+
+    this->Layout();
+
+    if (m_InsertedImageCount == m_ImageList.size())
+        m_AddImageButton->Disable();
 }
 
 void Frame::OnKeyDown(wxKeyEvent &event)
@@ -158,12 +164,12 @@ void Frame::OnImageSelectionChange(wxCommandEvent &event)
                       { p->SetSelected(false); });
 
         m_SelectedImageIdx.clear();
-        SelectClickedImage(false);
+        ProcessImageClickEvent();
     }
     // Multi-selection
     else
     {
-        SelectClickedImage(true);
+        ProcessImageClickEvent();
     }
 }
 
@@ -180,25 +186,53 @@ void Frame::AddConsoleMessage(const wxString &message)
     m_MessagePanel->EnsureVisible(m_MessagePanel->GetItemCount() - 1);
 }
 
-void Frame::SelectClickedImage(bool isMultiSelection)
+void Frame::ProcessImageClickEvent()
 {
     for (int i = 0; i < m_ImagePanels.size(); ++i)
     {
         if (m_ImagePanels[i]->GetClicked())
         {
-            if (isMultiSelection)
-                m_ImagePanels[i]->SetSelected(m_ImagePanels[i]->GetSelected());
+            if (m_ImagePanels[i]->GetSelected() == true)
+            {
+                m_ImagePanels[i]->SetSelected(false);
+                m_SelectedImageIdx.erase(std::remove_if(m_SelectedImageIdx.begin(), m_SelectedImageIdx.end(), [=](auto idx)
+                                                        { return idx == i; }));
+            }
             else
+            {
                 m_ImagePanels[i]->SetSelected(true);
+                m_SelectedImageIdx.push_back(i);
+            }
+
             m_ImagePanels[i]->SetClicked(false);
-            m_SelectedImageIdx.push_back(i);
         }
     }
+
+    wxString images;
+    for (const auto &idx : m_SelectedImageIdx)
+    {
+        images += m_ImagePanels[idx]->GetImageName() + " ";
+    }
+    AddConsoleMessage(wxString::Format("SELECTED Images (%zu): %s", m_SelectedImageIdx.size(), images));
 }
 
 void Frame::OnImageDoubleClick(wxCommandEvent &event)
 {
     AddConsoleMessage(event.GetString());
+}
+
+void Frame::OnAddImageButtonClick(wxCommandEvent &event)
+{
+}
+
+wxSize Frame::GetImageSize(const std::string &filename, wxBitmapType format)
+{
+    wxImage image;
+    if (image.LoadFile(filename, format))
+    {
+        return image.GetSize();
+    }
+    return wxSize(0, 0);
 }
 
 std::vector<std::string> Frame::GetImageList(const std::string &path, int max_images_to_load)
