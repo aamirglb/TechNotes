@@ -252,7 +252,7 @@ std::vector<std::string> Frame::GetImageList(const std::string &path, int max_im
             extensions.count(entry.path().extension().string()) > 0)
         {
             ++image_count;
-            auto fn = p / entry.path();
+            auto fn = p / entry.path().filename();
             images.push_back(fn.string());
 
             if (image_count >= max_images_to_load)

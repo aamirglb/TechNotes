@@ -10,6 +10,7 @@ namespace fs = std::filesystem;
 wxDEFINE_EVENT(IMAGE_SELECTION_CHANGED, wxCommandEvent);
 wxDEFINE_EVENT(IMAGE_DESELECTED, wxCommandEvent);
 wxDEFINE_EVENT(IMAGE_DOUBLE_CLICKED, wxCommandEvent);
+wxDEFINE_EVENT(REMOVE_SELECTED_IMAGE, wxCommandEvent);
 
 ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, const wxSize &size, long style)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, style)
@@ -208,6 +209,17 @@ void ImagePanel::OnKeyDown(wxKeyEvent &event)
 
 void ImagePanel::OnRightClick(wxContextMenuEvent &event)
 {
+    if (m_IsSelected)
+    {
+        // // this->Destroy();
+        // event.ResumePropagation(wxEVENT_PROPAGATE_MAX);
+        // // event.Skip();
+    }
+
+    // wxCommandEvent e(REMOVE_SELECTED_IMAGE, GetId());
+    // e.SetEventObject(this);
+    // e.SetString(m_ImageName);
+    // ProcessWindowEvent(e);
 }
 
 void ImagePanel::SendImageSelectedEvent()

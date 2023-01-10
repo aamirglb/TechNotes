@@ -15,5 +15,8 @@ if(wxWidgets_FOUND)
 endif()
 
 add_executable(hello WIN32 app.cpp)
+add_executable(hello2 WIN32 main.cpp)
+
 target_link_libraries(hello PRIVATE ${wxWidgets_LIBRARIES})
+target_link_libraries(hello2 PRIVATE ${wxWidgets_LIBRARIES})
 # target_link_libraries(hello PRIVATE wx::net wx::core wx::base)

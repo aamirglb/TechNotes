@@ -6,6 +6,7 @@
 wxDECLARE_EVENT(IMAGE_SELECTION_CHANGED, wxCommandEvent);
 wxDECLARE_EVENT(IMAGE_DESELECTED, wxCommandEvent);
 wxDECLARE_EVENT(IMAGE_DOUBLE_CLICKED, wxCommandEvent);
+wxDECLARE_EVENT(REMOVE_SELECTED_IMAGE, wxCommandEvent);
 
 class ImagePanel : public wxPanel
 {
