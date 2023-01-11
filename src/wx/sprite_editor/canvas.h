@@ -14,6 +14,7 @@ public:
 
     void OnMouseLeftDown(wxMouseEvent &event);
     void OnMouseMove(wxMouseEvent &event);
+    void OnResize(wxSizeEvent &event);
 
 private:
     virtual wxCoord OnGetRowHeight(size_t row) const override;

@@ -16,6 +16,7 @@ public:
     bool New(int r, int c);
 
     void OnZoomChange(wxCommandEvent &event);
+    void OnResize(wxSizeEvent &event);
 
 private:
     Canvas *m_Canvas = nullptr;
@@ -24,4 +25,5 @@ private:
     wxButton *m_CurrentColour = nullptr;
     olc::olcSprite sprBase;
     unsigned char *m_Sprite = nullptr;
+    wxBoxSizer *m_MainSizer = nullptr;
 };

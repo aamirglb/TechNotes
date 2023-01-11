@@ -4,7 +4,9 @@
 Editor::Editor(wxMDIParentFrame *parent, const wxString &name)
     : wxMDIChildFrame(parent, wxID_ANY, name)
 {
+    m_MainSizer = new wxBoxSizer(wxVERTICAL);
     m_Canvas = new Canvas(this);
+    m_MainSizer->Add(m_Canvas, 1, wxEXPAND | wxALL, 1);
 
     m_StatusBar = this->CreateStatusBar(3, wxSTB_DEFAULT_STYLE, wxID_ANY);
     wxRect rect;
@@ -12,6 +14,10 @@ Editor::Editor(wxMDIParentFrame *parent, const wxString &name)
     m_ZoomSlider = new wxSlider(m_StatusBar, 20'001, 8, 1, 32);
     m_CurrentColour = new wxButton(this, 20'002, "", wxPoint(10, 10), wxSize(rect.GetSize()));
     m_ZoomSlider->Bind(wxEVT_SLIDER, &Editor::OnZoomChange, this);
+    this->Bind(wxEVT_SIZE, &Editor::OnResize, this);
+
+    this->SetSizer(m_MainSizer);
+    this->Layout();
 }
 
 Editor::~Editor()
@@ -73,6 +79,7 @@ bool Editor::Open(const wxString &filename)
             }
         }
         m_Canvas->SetSpriteData(sprBase.nHeight, sprBase.nWidth, m_Sprite);
+        Layout();
         return true;
     }
 }
@@ -90,5 +97,11 @@ void Editor::OnZoomChange(wxCommandEvent &event)
 {
     m_StatusBar->SetStatusText(wxString("Zoom: ") << m_ZoomSlider->GetValue(), 2);
     m_Canvas->SetPixelSize(m_ZoomSlider->GetValue());
+    event.Skip();
+}
+
+void Editor::OnResize(wxSizeEvent &event)
+{
+    Refresh();
     event.Skip();
 }

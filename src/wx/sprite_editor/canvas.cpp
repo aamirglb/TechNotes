@@ -120,3 +120,9 @@ void Canvas::OnMouseMove(wxMouseEvent & event)
     event.Skip();
     }
 }
+
+void Canvas::OnResize(wxSizeEvent & event)
+{
+    Refresh();
+    event.Skip();
+}
