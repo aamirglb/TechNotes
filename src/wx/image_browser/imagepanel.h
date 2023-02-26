@@ -12,6 +12,7 @@ class ImagePanel : public wxPanel
 {
 public:
     ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, const wxSize &size = wxDefaultSize, long style = wxWANTS_CHARS);
+    ImagePanel(wxWindow *parent, wxBitmap bitmap, const wxSize &size = wxDefaultSize, long style = wxWANTS_CHARS);
 
     void OnPaint(wxPaintEvent &evt);
     void OnSize(wxSizeEvent &event);

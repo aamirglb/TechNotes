@@ -40,6 +40,22 @@ ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, con
     SetFocusFromKbd();
 }
 
+ImagePanel::ImagePanel(wxWindow *parent, wxBitmap bitmap, const wxSize &size, long style)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, style)
+{
+    this->SetBackgroundStyle(wxBG_STYLE_PAINT);
+    m_Image = bitmap.ConvertToImage();
+    m_ImageName = "raw";
+    auto [w, h] = m_Image.GetSize();
+    this->SetSize(w, h);
+
+    Bind(wxEVT_PAINT, &ImagePanel::OnPaint, this);
+    Bind(wxEVT_SIZE, &ImagePanel::OnSize, this);
+    Bind(wxEVT_LEFT_DOWN, &ImagePanel::OnMouseDown, this);
+    Bind(wxEVT_LEFT_DCLICK, &ImagePanel::OnDoubleClick, this);
+    Bind(wxEVT_KEY_DOWN, &ImagePanel::OnKeyDown, this);
+}
+
 void ImagePanel::OnPaint(wxPaintEvent &evt)
 {
     wxAutoBufferedPaintDC dc(this);
@@ -102,11 +118,15 @@ void ImagePanel::RenderImageResized(wxAutoBufferedPaintDC &dc)
 
 void ImagePanel::RenderImageAsIs(wxAutoBufferedPaintDC &dc)
 {
+    static int cnt{};
     dc.Clear();
     wxGraphicsContext *gc = wxGraphicsContext::Create(dc);
 
     if (gc)
     {
+        if (m_ImageName == "raw")
+            ++cnt;
+
         auto [imageWidth, imageHeight] = m_Image.GetSize();
 
         if (!m_IsSelected)
