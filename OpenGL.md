@@ -1,9 +1,16 @@
 # OpenGL
 
+* Windows has graphics API, directX or direct3d.
+* Apple uses Matel graphics API
+
+* OpenGL functions are implemnted in graphics driver
+* GLEW (OpenGL Extenstion Wrangler) Library which pull the opengl functions from opengl driver and provides all the function prototypes, constants etc
+
+
 * For building Win32 application using CMake use the following command
 
 ```
-cmake -H\. -Bb -A Win32
+cmake -S. -Bb -A Win32
 cmake --build release --config release  // for release build
 ```
 

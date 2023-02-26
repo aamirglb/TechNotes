@@ -352,3 +352,41 @@ you manually call `io_service::stop()`.
 
 * `dispatch()` will call the handler before it returns, if the current thread has called `service.run()` , while `post()` always returns immediately.
 
+
+## Boost.ASIO documentation
+
+* I/O execution context (program's link to operating system's IO service)
+  * `boost::asio::io_context` object, 
+  * `boost::asio::thread_pool` object, or 
+  * `boost::asio::system_context`
+
+* I/O objects
+  * tcp socket
+
+* The I/O execution context translates any error resulting from the operation into an object of type `boost::system::error_code`
+
+* The I/O object throws an exception of type `boost::system::system_error` if the operation failed. 
+
+```cpp
+// asynchronous operation
+socket.async_connect(server_endpoint, your_completion_handler);
+
+// handler is a function or function object with signature
+void your_completion_handler(const boost::system::error_code& ec);
+```
+
+* The asynchronous support is based on the **Proactor design pattern**
+
+* synchronous-only or **Reactor approach**
+
+* `select`, `epoll` or `kqueue`
+
+* Asynchronous completion handlers will only be called from threads that are currently calling io_context::run().
+
+* A strand is defined as a strictly sequential invocation of event handlers (i.e. no concurrent invocation).
+
+* Buffers
+  * `mutable_buffer`
+  * `const_buffer`
+  * `MutableBufferSequence` and 
+  * `ConstBufferSequence`
