@@ -31,3 +31,4 @@ src/cpp/**/build-msvc/
 src/cpp/sfml/maze-gen/build/
 src/opengl/setup/build/
 src/sdl/build/
+src/opengl/learn_opengl/build/
