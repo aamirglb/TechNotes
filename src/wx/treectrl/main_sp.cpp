@@ -1,18 +1,21 @@
 #include "wx/wx.h"
 #include "wx/dataview.h"
+#include <memory>
+#include <vector>
+
 /////////
 // Implement a simple model with 2 columns
 // FileName FileSize
 /////////
 
-class DataModelNode;
-WX_DEFINE_ARRAY_PTR(DataModelNode *, DataModelNodePtrArray);
+// class DataModelNode;
+// WX_DEFINE_ARRAY_PTR(DataModelNode *, DataModelNodePtrArray);
 
 class DataModelNode
 {
 public:
     DataModelNode(
-        DataModelNode *parent,
+        std::shared_ptr<DataModelNode> parent,
         const wxString &name,
         const wxString &size)
         : m_Parent{parent},
@@ -23,7 +26,7 @@ public:
     }
 
     DataModelNode(
-        DataModelNode *parent,
+        std::shared_ptr<DataModelNode> parent,
         const wxString &branch)
         : m_Parent{parent},
           m_FileName{branch},
@@ -33,30 +36,41 @@ public:
 
     ~DataModelNode()
     {
-        size_t count = m_Children.GetCount();
-        for (size_t i = 0; i < count; ++i)
-        {
-            DataModelNode *child = m_Children[i];
-            std::cout << "Deleting child: " << child->m_FileName << std::endl;
-            delete child;
-        }
+        // size_t count = m_Children.GetCount();
+        // for (size_t i = 0; i < count; ++i)
+        // {
+        //     DataModelNode *child = m_Children[i];
+        //     std::cout << "Deleting child: " << child->m_FileName << std::endl;
+        //     delete child;
+        // }
     }
 
     bool IsContainer() const { return m_IsContainer; }
-    DataModelNode *GetParent() { return m_Parent; }
-    DataModelNodePtrArray &GetChildren() { return m_Children; }
-    DataModelNode *GetNthChild(size_t n) { return m_Children.Item(n); }
-    void Insert(DataModelNode *child, size_t n) { m_Children.Insert(child, n); }
-    void Append(DataModelNode *child)
+    std::shared_ptr<DataModelNode> GetParent() { return m_Parent; }
+    std::vector<std::shared_ptr<DataModelNode>> &GetChildren() { return m_Children; }
+    std::shared_ptr<DataModelNode> GetNthChild(size_t n) { return m_Children.at(n); }
+    void Insert(std::shared_ptr<DataModelNode> child, size_t n) { m_Children.insert(m_Children.begin() + n, child); }
+    void Append(std::shared_ptr<DataModelNode> child) { m_Children.push_back(child); }
+    size_t GetChildCount() const { return m_Children.size(); }
+    void Remove(std::shared_ptr<DataModelNode> child)
     {
-        std::cout << "Adding child " << child->m_FileName.ToStdString() << " to " << m_FileName << std::endl;
-        // if (m_Parent != nullptr)
-        //     std::cout << "Adding child " << child->m_FileName.ToStdString() << " to " << m_FileName << std::endl;
-        // else
-        //     std::cout << "Adding child " << child->m_FileName.ToStdString() << " to *** " << std::endl;
-        m_Children.Add(child);
+        m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(), [&](auto p)
+                                        { return p == child; }),
+                         m_Children.end());
     }
-    size_t GetChildCount() const { return m_Children.GetCount(); }
+    // DataModelNodePtrArray &GetChildren() { return m_Children; }
+    // DataModelNode *GetNthChild(size_t n) { return m_Children.Item(n); }
+    // void Insert(DataModelNode *child, size_t n) { m_Children.Insert(child, n); }
+    // void Append(DataModelNode *child)
+    // {
+    //     std::cout << "Adding child " << child->m_FileName.ToStdString() << " to " << m_FileName << std::endl;
+    //     // if (m_Parent != nullptr)
+    //     //     std::cout << "Adding child " << child->m_FileName.ToStdString() << " to " << m_FileName << std::endl;
+    //     // else
+    //     //     std::cout << "Adding child " << child->m_FileName.ToStdString() << " to *** " << std::endl;
+    //     m_Children.Add(child);
+    // }
+    // size_t GetChildCount() const { return m_Children.GetCount(); }
 
 public:
     wxString m_FileName;
@@ -64,8 +78,9 @@ public:
     bool m_IsContainer;
 
 private:
-    DataModelNode *m_Parent{};
-    DataModelNodePtrArray m_Children;
+    std::shared_ptr<DataModelNode> m_Parent{};
+    std::vector<std::shared_ptr<DataModelNode>> m_Children;
+    // DataModelNodePtrArray m_Children;
 };
 
 class DataModel : public wxDataViewModel
@@ -73,20 +88,22 @@ class DataModel : public wxDataViewModel
 public:
     DataModel()
     {
-        m_Root = new DataModelNode(nullptr, "Root");
-        std::cout << "Roots location: " << m_Root << std::endl;
-        // m_DataItems.Add(wxDataViewItem{m_Root});
+        // m_Root = new DataModelNode(nullptr, "Root");
+        // std::cout << "Roots location: " << m_Root << std::endl;
+        // // m_DataItems.Add(wxDataViewItem{m_Root});
         // Add child nodes
         AddNewEntry();
     }
 
-    ~DataModel() { delete m_Root; }
-
-    wxDataViewItem GetRootItem() const
-    {
-        wxDataViewItem rootItem{static_cast<void *>(m_Root)};
-        return rootItem;
+    ~DataModel()
+    { /*delete m_Root;*/
     }
+
+    // wxDataViewItem GetRootItem() const
+    // {
+    //     wxDataViewItem rootItem{static_cast<void *>(m_Root)};
+    //     return rootItem;
+    // }
 
     const wxDataViewItemArray &GetAllItems() const
     {
@@ -96,28 +113,29 @@ public:
     unsigned int GetColumnCount() const override { return 2; };
     wxString GetColumnType(unsigned int col) const override { return "string"; }
 
-    wxDataViewItem AddNewEntry(int childCount = 3)
+    wxDataViewItem AddNewEntry(int childCount = 1)
     {
         wxDateTime now = wxDateTime::Now();
         std::cout << now.Format("%F %T") << std::endl;
         wxDataViewItemArray items;
-        auto parentNode = new DataModelNode(m_Root, wxString::Format("Directory-%d", ++m_DirCount));
-        m_Root->Append(parentNode);
+
+        auto parentNode = std::make_shared<DataModelNode>(nullptr, wxString::Format("Directory-%d", ++m_DirCount));
+        // m_Root->Append(parentNode);
         for (int i = 0; i < childCount; ++i)
         {
-            auto *childNode = new DataModelNode(parentNode,
-                                                wxString::Format("File-%d", i + 1),
-                                                wxString::Format("%d.%d KB", m_DirCount, i + 1));
+            auto childNode = std::make_shared<DataModelNode>(parentNode,
+                                                             wxString::Format("file-%d", i + 1),
+                                                             wxString::Format("%d.%d KB", m_DirCount, i + 1));
             parentNode->Append(childNode);
             // items.Add(childNode);
 
-            wxDataViewItem child{static_cast<void *>(childNode)};
-            wxDataViewItem parent{static_cast<void *>(parentNode)};
+            wxDataViewItem child{static_cast<void *>(childNode.get())};
+            wxDataViewItem parent{static_cast<void *>(parentNode.get())};
             ItemAdded(parent, child);
         }
-        Cleared();
-        wxDataViewItem parent{static_cast<void *>(parentNode)};
-        ItemAdded(GetRootItem(), parent);
+        // Cleared();
+        wxDataViewItem parent{static_cast<void *>(parentNode.get())};
+        // ItemAdded(GetRootItem(), parent);
         m_DataItems.Add(parent);
         return parent;
     }
@@ -130,20 +148,22 @@ public:
             auto modelItem = static_cast<DataModelNode *>(selectedItem.GetID());
 
             // Add directory child to root item
-            if (modelItem == m_Root)
-            {
-                return AddNewEntry(1);
-            }
+            // if (modelItem == m_Root)
+            // {
+            //     return AddNewEntry(1);
+            // }
 
             auto now = wxDateTime::Now();
-            if (modelItem->GetParent() == m_Root)
+            if (modelItem->GetParent() == nullptr)
             {
                 // Add a child to selected root
-                auto childItem = new DataModelNode(modelItem, wxString::Format("File-%d", m_DirCount),
-                                                   wxString::Format("%d.%d KB", m_DirCount, 1));
+                auto childItem = std::make_shared<DataModelNode>(std::shared_ptr<DataModelNode>(modelItem),
+                                                                 wxString::Format("FILE-%d", m_DirCount),
+                                                                 wxString::Format("%d.%d KB", m_DirCount, 1));
+
                 modelItem->Append(childItem);
 
-                wxDataViewItem child{static_cast<void *>(childItem)};
+                wxDataViewItem child{static_cast<void *>(childItem.get())};
                 ItemAdded(selectedItem, child);
                 returnItem = wxDataViewItem{modelItem};
             }
@@ -151,16 +171,16 @@ public:
             {
                 // Add a sibling item
                 auto parentItem{modelItem->GetParent()};
-                auto childItem = new DataModelNode(parentItem, wxString::Format("File-%d", m_DirCount),
-                                                   wxString::Format("%d.%d KB", m_DirCount, 1));
+                auto childItem = std::make_shared<DataModelNode>(parentItem, wxString::Format("File-%d", m_DirCount),
+                                                                 wxString::Format("%d.%d KB", m_DirCount, 1));
                 parentItem->Append(childItem);
-                wxDataViewItem child{static_cast<void *>(childItem)};
-                wxDataViewItem parent{static_cast<void *>(parentItem)};
+                wxDataViewItem child{static_cast<void *>(childItem.get())};
+                wxDataViewItem parent{static_cast<void *>(parentItem.get())};
                 ItemAdded(parent, child);
                 returnItem = parent;
             }
         }
-        Cleared();
+        // Cleared();
         return returnItem;
     }
 
@@ -189,46 +209,45 @@ public:
         if (node == nullptr)
             return;
 
-        wxDataViewItem parent{node->GetParent()};
-        DataModelNode *parentNode = node->GetParent();
+        wxDataViewItem parent{node->GetParent().get()};
+        auto parentNode = node->GetParent();
 
         if (!parent.IsOk())
         {
-            assert(node == m_Root);
+            // assert(node == m_Root);
             std::cout << "Cannot remove root item!!" << std::endl;
             return;
         }
 
-        if (node->GetParent() == m_Root)
+        if (node->GetParent() == nullptr)
         {
             m_DataItems.Remove(nodeItem);
         }
 
-        node->GetParent()->GetChildren().Remove(node);
+        node->GetParent()->Remove(std::shared_ptr<DataModelNode>(node));
         delete node;
         ItemDeleted(parent, item);
 
-        if (parentNode->GetChildCount() == 0 && parentNode != m_Root)
-        {
-            m_Root->GetChildren().Remove(parentNode);
-            delete parentNode;
-            wxDataViewItem rootItem{static_cast<void *>(m_Root)};
-            m_DataItems.Remove(parent);
-            ItemDeleted(rootItem, parent);
-        }
-        Cleared();
+        // if (parentNode->GetChildCount() == 0 /*&& parentNode != m_Root*/)
+        // {
+        //     m_Root->GetChildren().Remove(parentNode);
+        //     delete parentNode;
+        //     wxDataViewItem rootItem{static_cast<void *>(m_Root)};
+        //     m_DataItems.Remove(parent);
+        //     ItemDeleted(rootItem, parent);
+        // }
     }
 
     void Clear()
     {
-        while (!m_Root->GetChildren().IsEmpty())
-        {
-            DataModelNode *node = m_Root->GetNthChild(0);
-            m_Root->GetChildren().Remove(node);
-            delete node;
-        }
-        m_DataItems.Clear();
-        Cleared();
+        // while (!m_Root->GetChildren().IsEmpty())
+        // {
+        //     DataModelNode *node = m_Root->GetNthChild(0);
+        //     m_Root->GetChildren().Remove(node);
+        //     delete node;
+        // }
+        // m_DataItems.Clear();
+        // Cleared();
     }
 
     int Compare(const wxDataViewItem &item1, const wxDataViewItem &item2,
@@ -310,9 +329,9 @@ public:
             return wxDataViewItem(0);
 
         DataModelNode *node = static_cast<DataModelNode *>(item.GetID());
-        if (node == m_Root)
-            return wxDataViewItem(0);
-        return wxDataViewItem(static_cast<void *>(node->GetParent()));
+        // if (node == m_Root)
+        //     return wxDataViewItem(0);
+        return wxDataViewItem(static_cast<void *>(node->GetParent().get()));
     }
 
     virtual bool IsContainer(const wxDataViewItem &item) const wxOVERRIDE
@@ -330,34 +349,13 @@ public:
 
         if (node == nullptr)
         {
-            size_t count = m_Root->GetChildren().GetCount();
-            for (size_t i = 0; i < count; ++i)
-            {
-                DataModelNode *child = m_Root->GetChildren().Item(i);
-                array.Add(wxDataViewItem(static_cast<void *>(child)));
-            }
-            return count;
-
-            for (int i = 0; i < m_DataItems.size(); ++i)
-            {
-                array.Add(m_DataItems[i]);
-            }
-            return m_DataItems.size();
-
-            // unsigned int total = m_DataItems.size();
-            // for (int i = 0; i < m_DataItems.size(); ++i)
+            // size_t count = m_Root->GetChildren().GetCount();
+            // for (size_t i = 0; i < count; ++i)
             // {
-            //     array.Add(wxDataViewItem(static_cast<void *>(m_DataItems[i])));
-            //     DataModelNode *n = static_cast<DataModelNode *>(m_DataItems[i].GetID());
-            //     size_t count = n->GetChildren().GetCount();
-            //     total += count;
-            //     for (size_t i = 0; i < count; ++i)
-            //     {
-            //         DataModelNode *child = n->GetChildren().Item(i);
-            //         array.Add(wxDataViewItem(static_cast<void *>(child)));
-            //     }
+            //     DataModelNode *child = m_Root->GetChildren().Item(i);
+            //     array.Add(wxDataViewItem(static_cast<void *>(child)));
             // }
-            // return total;
+            // return count;
             // return GetChildren(wxDataViewItem(m_Root), array);
             array.Add(wxDataViewItem(static_cast<void *>(m_DataItems[0])));
             return 1;
@@ -368,18 +366,18 @@ public:
             return 0;
         }
 
-        size_t count = node->GetChildren().GetCount();
+        size_t count = node->GetChildren().size();
         for (size_t i = 0; i < count; ++i)
         {
-            DataModelNode *child = node->GetChildren().Item(i);
-            array.Add(wxDataViewItem(static_cast<void *>(child)));
+            auto child = node->GetChildren()[i];
+            array.Add(wxDataViewItem(static_cast<void *>(child.get())));
         }
         return count;
     }
 
 private:
     int m_DirCount{};
-    DataModelNode *m_Root{};
+    // DataModelNode *m_Root{};
     wxDataViewItemArray m_DataItems;
 };
 
@@ -419,7 +417,7 @@ public:
         m_DataModel = new DataModel;
         m_DataViewCtrl = new wxDataViewCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
         m_DataViewCtrl->AssociateModel(m_DataModel.get());
-        m_DataViewCtrl->Expand(m_DataModel->GetRootItem());
+        // m_DataViewCtrl->Expand(m_DataModel->GetRootItem());
 
         m_MainSizer->Add(m_DataViewCtrl, 1, wxEXPAND | wxALL, 5);
         m_MainSizer->Add(buttonSizer, 0, wxEXPAND | wxALL, 5);
@@ -453,10 +451,8 @@ private:
     void OnAddNewEntry(wxCommandEvent &WXUNUSED(event))
     {
         auto item = m_DataModel->AddNewEntry(2);
-        wxCommandEvent e;
-        OnExpandAll(e);
         // m_DataViewCtrl->Expand(m_DataModel->GetRootItem());
-        // m_DataViewCtrl->Expand(item);
+        m_DataViewCtrl->Expand(item);
     }
 
     void DeleteSelectedItems()
@@ -475,17 +471,14 @@ private:
     void OnDeleteSelected(wxCommandEvent &WXUNUSED(event))
     {
         DeleteSelectedItems();
-        wxCommandEvent e;
-        OnExpandAll(e);
     }
 
     void OnAddToSelected(wxCommandEvent &event)
     {
         auto item{m_DataViewCtrl->GetSelection()};
         auto newItem = m_DataModel->AddNewChildItem(item);
-        wxCommandEvent e;
-        OnExpandAll(e);
-        // m_DataViewCtrl->Expand(newItem);
+
+        m_DataViewCtrl->Expand(newItem);
         // m_DataViewCtrl->Select( newItem );
     }
     void OnCollapseAll(wxCommandEvent &WXUNUSED(event))
@@ -529,7 +522,7 @@ class MyApp : public wxApp
 public:
     bool OnInit() override
     {
-        MyFrame *frame = new MyFrame("wxDataViewCtrl Test - main2", wxDefaultPosition, wxSize(640, 480));
+        MyFrame *frame = new MyFrame("wxDataViewCtrl-SharedPointer Model", wxDefaultPosition, wxSize(640, 480));
         frame->Show();
         return true;
     }

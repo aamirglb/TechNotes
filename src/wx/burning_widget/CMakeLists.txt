@@ -1,15 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
-project(events)
+project(burning_app)
 
 set(wxWidgets_ROOT_DIR "C:/Users/aamir.ali/Documents/playground/Programs/libraries/wx321")
 set(wxWidgets_LIB_DIR "C:/Users/aamir.ali/Documents/playground/Programs/libraries/wx321/lib/vc_x64_lib")
 set(wxWidgets_CONFIGURATION "mswd")
 
-find_package(wxWidgets REQUIRED gl core base OPTIONAL_COMPONENTS net)
+find_package(wxWidgets REQUIRED gl core base propgrid OPTIONAL_COMPONENTS net)
 include(${wxWidgets_USE_FILE})
 
-add_executable(main WIN32 main.cpp)
-target_link_libraries(main PRIVATE ${wxWidgets_LIBRARIES})
-
-add_executable(child_repaint WIN32 child_repaint.cpp)
-target_link_libraries(child_repaint PRIVATE ${wxWidgets_LIBRARIES})
+add_executable(burning_app WIN32 main.cpp burning.cpp widget.cpp)
+target_link_libraries(burning_app ${wxWidgets_LIBRARIES})

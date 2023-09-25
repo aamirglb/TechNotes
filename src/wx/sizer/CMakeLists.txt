@@ -14,6 +14,9 @@ if(wxWidgets_FOUND)
     message(STATUS "wxWidget Libraries: ${wxWidgets_LIBRARIES}")
 endif()
 
-add_executable(sizer WIN32 main.cpp)
+add_executable(sizer WIN32 main2.cpp)
 target_link_libraries(sizer PRIVATE ${wxWidgets_LIBRARIES})
+
+add_executable(main WIN32 main.cpp)
+target_link_libraries(main PRIVATE ${wxWidgets_LIBRARIES})
 # target_link_libraries(hello PRIVATE wx::net wx::core wx::base)

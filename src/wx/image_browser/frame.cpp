@@ -80,41 +80,45 @@ static const char *TEST_XPM[] = {
     "abaabaababaaabaabababaabaabaababaabaaababaabaaab",
     "abaabaababaaabaabababaabaabaababaabaaababaabaaab"};
 
+// constexpr const char* get_xpm_img(int w, int h)
+// {
+//     char *buffer = new buffer()
+// }
 static const char *PLACEHOLDER_XPM[] = {
-    "16 16 1 1",
-    " c Black",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                "};
+    "32 32 1 1",
+    "  c Black",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                "};
 
 Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long style)
     : wxFrame(nullptr, wxID_ANY, title, pos, size, style)
@@ -128,7 +132,8 @@ Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long
 
     m_GridSizer = new wxGridSizer(3);
 
-    wxBitmap testBitmap(None_xpm);
+    // wxBitmap testBitmap(None_xpm);
+    wxBitmap testBitmap(PLACEHOLDER_XPM);
     auto testPanel = new ImagePanel(m_ImageBrowser, testBitmap);
     m_GridSizer->Add(testPanel, 1, wxEXPAND | wxALL, 5);
     m_ImagePanels.push_back(testPanel);
