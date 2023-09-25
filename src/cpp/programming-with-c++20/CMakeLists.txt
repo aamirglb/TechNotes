@@ -32,29 +32,6 @@ link_directories(${FMT_LIB_DIR})
 link_directories(${SPDLOG_LIB_DIR})
 
 # add_executable(list0101 list0101.cpp)
-add_executable(list0102 list0102.cpp)
-add_executable(list0301 list0301.cpp)
+add_executable(generic_add generic_add.cpp)
 
-
-add_executable(shared_future shared_future.cpp)
-add_executable(superfloat superfloat.cpp)
-add_executable(container_union container_union.cpp)
-add_executable(basic_variant basic_variant.cpp)
-add_executable(variant_creation variant_creation.cpp)
-
-add_executable(work_queue work_queue.cpp)
-
-# add_executable(module-test module-test.cpp)
-
-# target_link_libraries(list0101 ${LIBS})
-target_link_libraries(list0102 ${LIBS})
-target_link_libraries(list0301 ${LIBS})
-
-
-target_link_libraries(shared_future ${LIBS})
-target_link_libraries(superfloat ${LIBS})
-target_link_libraries(container_union ${LIBS})
-target_link_libraries(basic_variant ${LIBS})
-target_link_libraries(variant_creation ${LIBS})
-target_link_libraries(work_queue ${LIBS})
-# target_link_libraries(module-test ${LIB})
+target_link_libraries(generic_add ${LIBS})
