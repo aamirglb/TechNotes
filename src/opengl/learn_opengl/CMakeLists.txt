@@ -17,5 +17,7 @@ include_directories(${GLAD_INC_DIR})
 link_directories(${GLFW_LIB_DIR})
 
 add_executable(hello hello.cpp glad.c)
+add_executable(elem_buf elem_buf.cpp glad.c)
 
 target_link_libraries(hello ${LIBRARIES})
+target_link_libraries(elem_buf ${LIBRARIES})
