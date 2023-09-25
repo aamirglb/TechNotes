@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>assets/plus.png</file>
+        <file>assets/minus.png</file>
+    </qresource>
+</RCC>
