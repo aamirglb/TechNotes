@@ -192,3 +192,7 @@ const fireball = function(target){
 ### Operator commands
 
 ![operator_command](./images/vim/operator_command.png)
+
+### Insert Mode Deletion
+
+![](./images/vim/insert_mode_deletion.png)
