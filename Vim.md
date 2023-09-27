@@ -6,95 +6,105 @@ i/a/I/A/o/O |> Insert Mode
 
 | Command | Description |
 |---------|-------------|
-| ESC or Ctrl-c | Go back to **Normal Mode** |
-| i | Go to **Insert Mode** |
-|  h | |
-| j | |
-| k | |
-| l | |
-| w | jump from word to work (forward) |
-| b | jump from word to work (backward) |
-| e | jump to the end of the word |
-| ge | jump to the end of word (backword) |
-| W, B, E, GE | Include special character with w, b, e, ge |
-| f{char} | find the next occurance of {char} |
-| t{char} | (until) move curser just before the occurance of {char}, After using f{char}, use `;` to go to next occurance, `,` to go to previous |
-| 0 | Move to first character in a line |
-| ^ | Move to first non-blank character of a line |
-| $ | Move to end of line |
-| g_ | Move to non-blank character at the end of line |
-| } | jump entire paragrahp downward |
-| { | jump entire paragraph upward |
-| Ctrl-D | move down half page |
-| Ctrl-U | move up half page |
-| /{pattern} | search forward, `n` to jump to next match, `N` to jump to previous |
-| ?{backward} | search backward |
-| /<Enter> | run last search forward |
-| ?<Enter> | run last search backward |
-| * | search for the word under cursor |
-| {count}motion | multiply a motion count times |
-| 2w | move cursor 2 word forward |
-| gd | jump to definition of whatever is under the cursor |
-| gf | jump to a file in import |
-| gg | jump to the top of the file |
-| {line}gg | jump to a specific line |
-| G | go to end of file |
-| % | jump to matching ({[]}) |
-| {operator}{count}{motion} | |
-| d5j or d5 | delete 5 lines down |
-| df' | deletes everything in the current line until the first occurrence of the ' including ' |
-| dt' | deletes everything in the current line until the first occurrence of the ' excluding ' |
-| d/hello | delete everything until the first occurance of hello |
-| dd | delete whole line |
-| cc | change a whole line |
-| D | delete from cursor till end of line |
-| C | change from cursor till end of line |
-| . |
-| i | insert mode before cursor |
-| a | append, insert mode after cursor |
-| I | insert mode at the beginning of current line |
-| A | insert mode at the end of current line |
-| o | Insert new line below |
-| O | Insert new line above |
-| gi | puts u into insert mode at the last place you left insert mode |
-| Ctrl-h | delete last character you typed |
-| Ctrl-w | delete last word you typed |
-| Ctrl-u | delete last line you type |
-| v | visual mode character-wise |
-| V | visual mode line-wise |
-| Ctrl-V | visual mode block-wise |
-| :sp {name-of-file} | horizontal split |
-| :vsp {name-of-file} | vertical split |
-| <Ctrl-W> + hjkl | move between split windows |
-| :tabnew {file} | open a file in new tab |
-| :tabn | go to next tab |
-| :tabp | go to previous tab |
-| yiw | yank in current word |
-| yaw | yank all word (includes a trailing space) |
-| yy | yank the current line |
-| 3yy | yank three lines starting at the current one |
-| yap | yank all paragraph (includes trailing newline) |
-| ~    | Changes the case of current character |
-| guu  | Change current line from upper to lower |
-| gUU  | Change current LINE from lower to upper |
-| guw  | Change to end of current WORD from upper to lower |
-| guaw | Change all of current WORD to lower |
-| gUw  | Change to end of current WORD from lower to upper |
-| gUaw | Change all of current WORD to upper |
-| g~~  | Invert case to entire line |
-| g~w  | Invert case to current WORD |
-| guG  | Change to lowercase until the end of document |
-| gU)  | Change until end of sentence to upper case |
-| gu}  | Change to end of paragraph to lower case |
-| gU5j | Change 5 lines below to upper case |
-| gu3k | Change 3 lines above to lower case |
-| yw   | Yank word              |
-| yaw  | Yank entire word irrespecitive of where the cursor is located    |
-| yiw  | Yank entire word            |
-| :tabnew | open new tab |
-| gt   | Move to next tab            |
-| gT   | Move to previous tab              |
-| _nnn_ gt     | Move to numbered tab              |
+| **ESC** or **Ctrl-c-- | Go back to **Normal Mode** |
+| **i** | Go to **Insert Mode** |
+| **h**, **gh** | Move left,  |
+| **j**, **gj** | Move down one line, Move down of visual line |
+| **k**, **gk** | Move up one line, Move up of visual line |
+| **g0** | Move to the end of visual line |
+| **g$** | Move to the begining of the visual line |
+| **gq** | Make visual line as actual lines |
+| **gu{txt object}, gu$** | uncapitalize till end of line |
+| **gU{txt object}** | capitalize |
+| **gf** | open the file under cursor |
+| **gv** | reselect the previous selected text |
+| **gJ** | join selected lines without adding extra spece btn lines |
+| **g&** | run previous substitution command on the entire document |
+| **l**, **gl** | Move right |
+| **w** | jump from word to work (forward) |
+| **b** | jump from word to work (backward) |
+| **e** | jump to the end of the word |
+| **ge** | jump to the end of word (backword) |
+| **W**, **B**, **E**, **GE** | Include special character with w, b, e, ge |
+| **f{char}** | find the next occurance of {char} |
+| **t{char}** | (until) move curser just before the occurance of {char}, After using f{char}, use `;` to go to next occurance, `,` to go to previous |
+| **;** | repeat the last search which f{char} performed |
+| **0** | Move to first character in a line |
+| **^** | Move to first non-blank character of a line |
+| **$** | Move to end of line |
+| **g_** | Move to non-blank character at the end of line |
+| **}** | jump entire paragrahp downward |
+| **{** | jump entire paragraph upward |
+| **Ctrl-D** | move down half page |
+| **Ctrl-U** | move up half page |
+| **/{pattern}** | search forward, `n` to jump to next match, `N` to jump to previous |
+| **?{backward}** | search backward |
+| **/<Enter>** | run last search forward |
+| **?<Enter>** | run last search backward |
+| **\*** | search for the word under cursor |
+| **{count}motion** | multiply a motion count times |
+| **2w** | move cursor 2 word forward |
+| **gd** | jump to definition of whatever is under the cursor |
+| **gf** | jump to a file in import |
+| **gg** | jump to the top of the file |
+| **{line}gg** | jump to a specific line |
+| **G** | go to end of file |
+| **%** | jump to matching ({[]}) |
+| **{operator}{count}{motion}** | |
+| **d5j** or **d5** | delete 5 lines down |
+| **df'** | deletes everything in the current line until the first occurrence of the ' including ' |
+| **dt'** | deletes everything in the current line until the first occurrence of the ' excluding ' |
+| **d/hello** | delete everything until the first occurance of hello |
+| **dd** | delete whole line |
+| **cc** | change a whole line |
+| **D** | delete from cursor till end of line |
+| **C** | change from cursor till end of line |
+| **.** |
+| **i** | insert mode before cursor |
+| **a** | append, insert mode after cursor |
+| **I** | insert mode at the beginning of current line |
+| **A** | insert mode at the end of current line |
+| **o** | Insert new line below |
+| **O** | Insert new line above |
+| **gi** | puts u into insert mode at the last place you left insert mode |
+| **Ctrl-h** | delete last character you typed |
+| **Ctrl-w** | delete last word you typed |
+| **Ctrl-u** | delete last line you type |
+| **v** | visual mode character-wise |
+| **V** | visual mode line-wise |
+| **Ctrl-V** | visual mode block-wise |
+| **:sp {name-of-file}** | horizontal split |
+| **:vsp {name-of-file}** | vertical split |
+| **<Ctrl-W> + hjkl** | move between split windows |
+| **:tabnew {file}** | open a file in new tab |
+| **:tabn** | go to next tab |
+| **:tabp** | go to previous tab |
+| **yiw** | yank in current word |
+| **yaw** | yank all word (includes a trailing space) |
+| **yy** | yank the current line |
+| **3yy** | yank three lines starting at the current one |
+| **yap** | yank all paragraph (includes trailing newline) |
+| **~**    | Changes the case of current character |
+| **guu**  | Change current line from upper to lower |
+| **gUU**  | Change current LINE from lower to upper |
+| **guw**  | Change to end of current WORD from upper to lower |
+| **guaw** | Change all of current WORD to lower |
+| **gUw**  | Change to end of current WORD from lower to upper |
+| **gUaw** | Change all of current WORD to upper |
+| **g~~**  | Invert case to entire line |
+| **g~w**  | Invert case to current WORD |
+| **guG**  | Change to lowercase until the end of document |
+| **gU)**  | Change until end of sentence to upper case |
+| **gu}**  | Change to end of paragraph to lower case |
+| **gU5j** | Change 5 lines below to upper case |
+| **gu3k** | Change 3 lines above to lower case |
+| **yw**   | Yank word              |
+| **yaw**  | Yank entire word irrespecitive of where the cursor is located    |
+| **yiw**  | Yank entire word            |
+| **:tabnew** | open new tab |
+| **gt**   | Move to next tab            |
+| **gT**   | Move to previous tab              |
+| **_nnn_ gt**     | Move to numbered tab              |
 
 In visual mode you select the text first and then you type operator
 
@@ -167,3 +177,7 @@ const fireball = function(target){
 :set nowrapscan; this prevents Vim from wrapping to top when it hits the bottom.
 
 %s/old/new/gc => interactive replace, [c] confirm each substitution
+
+### Two for the price of one
+
+![two_for_one](./images/vim/two_for_one.png)
