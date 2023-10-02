@@ -100,7 +100,7 @@
 | 0 (zero) | Go to the starting of current line |
 | $ (dollar sign) | Go to the end of current line |
 | ^ (caret sign) | Go to the first non blank character of current line |
-| g_ | Go to the last non blank character of | current line |
+| g_ | Go to the last non blank character of current line |
 
 ## Paragraph, Section, Sentence Navigations
 
@@ -139,7 +139,7 @@
 | :$ | Go to the bottom of the file – method 1 |
 | G  | Go to the bottom of the file – method 2 |
 
-## Navigate to N th Character, N th Percentage of a File
+## Navigate to Nth Character, Nth Percentage of a File
 
 | Navigation Key | Description |
 |----------------|-------------|
