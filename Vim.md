@@ -168,7 +168,19 @@ In visual mode you select the text first and then you type operator
 | `:vnew` | Create new empty buffer within vertical split window |
 | `:tabnew` | Create new tabbed windown |
 
+### G command
 
+| CMD | Description |
+|-----|-------------|
+| `:ga` | Get ASCII value of current character under cursor |
+| `:gq` | Within a paragraph, make the line more readable |
+| `:gf` | Open the file under string if it is a path |
+| `ctrl+6` | To go back to original file |
+| `g+` | Navigate undo branches |
+| `g-` | Navigate undo branches |
+| `g&` | To apply previous search/replace to entire document |
+| `gi` | |
+| `gv` | Go back to previous visual mode selection |
 
 **Double an operator to make it operate on a whole line**: dd deletes a whole like, cc changes a whole line, etc.
 Capitalize an operator to make it operate from the cursor to the end of a line: D deletes from the cursor to the end of the line, C changes to the end of a line, etc.
@@ -196,3 +208,12 @@ const fireball = function(target){
 ### Insert Mode Deletion
 
 ![](./images/vim/insert_mode_deletion.png)
+
+
+### vim.plug
+
+vim plug is a neovim package manager.
+:PlugInstall -- Install the plugin
+:PlugClean -- Remove unused plugins.
+:PlugStatus -- 
+:PlugDiff -- 
