@@ -129,6 +129,7 @@ In visual mode you select the text first and then you type operator
 | `ct<` | Change to open bracket (change till open bracket) |
 | `*`   | search for other instance of the word under cursor |
 | `C`   | change current line from where you're at |
+| `s`   | delete the char under cursor and enter into Insert mode |
 | `S`   | substitute the entire current line |
 | `dt.` | delete from where you are to the period |
 | `D`   | delete to the end of line |
@@ -196,10 +197,29 @@ const fireball = function(target){
 
 %s/old/new/gc => interactive replace, [c] confirm each substitution
 
+
+### vim.plug
+
+vim plug is a neovim package manager.
+:PlugInstall -- Install the plugin
+:PlugClean -- Remove unused plugins.
+:PlugStatus -- 
+:PlugDiff --
+
+
+## Practical vim
+
+| Command |  Description |
+|---------|--------------|
+| `daw`   | delete a word using aw text object |
+| `count<C-a>` | Add [count] to the number _at or after the cursor_ |
+| `count<C-x>` | Perform subtraction |
+| `5<C-a>` | add 5 to current number |
+| `10<C-x>` | subtract 10 from current number |
+
 ### Two for the price of one
 
 ![two_for_one](./images/vim/two_for_one.png)
-
 
 ### Operator commands
 
@@ -209,11 +229,25 @@ const fireball = function(target){
 
 ![](./images/vim/insert_mode_deletion.png)
 
+### Ex Commands
+![](./images/vim/ex_commands.png)
 
-### vim.plug
+### Operators
 
-vim plug is a neovim package manager.
-:PlugInstall -- Install the plugin
-:PlugClean -- Remove unused plugins.
-:PlugStatus -- 
-:PlugDiff -- 
+`d{motion}` -
+`c{motion}` -
+`y{motion}` -
+
+### Ex Command Line
+
+| Command | Description |
+|---------|-------------|
+| `:[range]delete [x]` | Delete specified lines [into register x] |
+| `:[range]yank [x]` | Yank specified lines [into register x] |
+| `:[range]put [x]` | Put text from register x after specified line |
+| `:[range]copy {address}`| Copy the specified lines to below the line specified by {address} |
+| `:[range]move {address}` | Move the specified lines to below the line specified by {address}|
+| `:[range]join` | Join the specified lines |
+| `:[range]normal {commands}` | Execute Normal mode {commands} on each specified line |
+| `:[range]substitude/{pattern}/{string}/[flags]` | Replace occurrences of {pattern} with {string} on each specified line |
+| `:[range]global/{pattern}/cmd` | Execute the Ex command [cmd] on all specified lines where the {pattern} matches |

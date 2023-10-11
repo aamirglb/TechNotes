@@ -72,3 +72,22 @@
 | **Alt+LeftArrow**  | Move focus to one pane left |
 | **Alt+RightArrow**  | Move focus to one pane right |
 | **Alt+F4** | Close Windows terminal (entire program) |
+
+
+## Visual Studio Code (VSCode)
+
+* advance-new-file
+* File Utils
+
+| Shortcut Keys | Description |
+|---------------|-------------|
+| Ctrl+w | Close Window/Tab |
+| Ctrl+p | Open File |
+| Ctrl+Shift+p | Open command palette |
+| Ctrl+Tab | Switch between open tabs |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
