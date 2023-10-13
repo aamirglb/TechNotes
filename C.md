@@ -48,7 +48,6 @@ Ex: invalid parameters to functions,
 
 
 ### 6.1 Environment
-===============
 
 | Rule     |            | Description |
 |----------|------------|-------------|
@@ -59,103 +58,99 @@ Ex: invalid parameters to functions,
 | Rule 1.5 | (advisory) | Floating-point implementations should comply with a defined floating-point standard. |       
 
 ### 6.2 Language extensions
-=======================
 
-Rule 2.1 (required): Assembly language shall be encapsulated and isolated.
-Rule 2.2 (required): Source code shall only use /* ... */ style comments.
-Rule 2.3 (required): The character sequence /* shall not be used within a comment.
-Rule 2.4 (advisory): Section of code should not be "commented out".
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 2.1 | (required) | Assembly language shall be encapsulated and isolated. |
+| Rule 2.2 | (required) | Source code shall only use /* ... */ style comments. |
+| Rule 2.3 | (required) | The character sequence /* shall not be used within a comment. |
+| Rule 2.4 | (advisory) | Section of code should not be "commented out". |
 
-6.3 Documentation
-=================
+### 6.3 Documentation
 
-Rule 3.1 (required): All usage of implementation-defined behaviour shall be documented. 
-Rule 3.2 (required): The character set and the corresponding encoding shall be documented.
-Rule 3.3 (advisory): The implementation of integer division in the chosen compiler should be 
-                      determined, documented and taken into account.
-Rule 3.4 (required): All uses of the #pragma directive shall be documented and explained.
-Rule 3.5 (required): If it is being relied upon, the implementation-defined behaviour and 
-                     packing of bitfields shall be documented. 
-Rule 3.6 (required): All libraries used in production code shall be written to comply with
-                     the provisions of this document, and shall have been subject to appropriate validation.
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 3.1 | (required) | All usage of implementation-defined behaviour shall be documented.  |
+| Rule 3.2 | (required) | The character set and the corresponding encoding shall be documented. |
+| Rule 3.3 | (advisory) | The implementation of integer division in the chosen compiler should be determined, documented and taken into account. |
+| Rule 3.4 | (required) | All uses of the #pragma directive shall be documented and explained. |
+| Rule 3.5 | (required) | If it is being relied upon, the implementation-defined behaviour and packing of bitfields shall be documented.  |
+| Rule 3.6 | (required) | All libraries used in production code shall be written to comply with the provisions of this document, and shall have been subject to appropriate validation. |
 
-6.4 Character sets
-==================
+### 6.4 Character sets
 
-Rule 4.1 (required): Only those escape sequences that are defined in the ISO C standard shall be used.
-Rule 4.2 (required): Trigraphs shall not be used.
+| Rule     |            | Description |
+|----------|------------|-------------|
+ Rule 4.1 | (required) | Only those escape sequences that are defined in the ISO C standard shall be used. |
+ Rule 4.2 | (required) | Trigraphs shall not be used. |
 
-6.5 identifiers
-===============
+### 6.5 identifiers
 
-Rule 5.1 (required): Identifiers (internal and external) shall not rely on the significance of more than 31 characters.
-Rule 5.2 (required): Identifiers in an inner scope shall not use the same name as an identifier in an 
-                     outer scope, and therefore hide that identifier.
-Rule 5.3 (required): A typedef name shall be a unique identifier.
-Rule 5.4 (required): A tag name shall be a unique identifier.
-Rule 5.5 (advisory): No object or function identifier with static storage duration should be reused.
-Rule 5.6 (advisory): No identifier in one namespace should have the same spelling as an identifier in 
-                     another namespace, with the exception of structure and union member names.
-Rule 5.7 (advisory): No identifier name should be reused.
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 5.1 | (required) | Identifiers (internal and external) shall not rely on the significance of more than 31 characters. |
+| Rule 5.2 | (required) | Identifiers in an inner scope shall not use the same name as an identifier in an outer scope, and therefore hide that identifier. |
+| Rule 5.3 | (required) | A typedef name shall be a unique identifier. |
+| Rule 5.4 | (required) | A tag name shall be a unique identifier. |
+| Rule 5.5 | (advisory) | No object or function identifier with static storage duration should be reused. |
+| Rule 5.6 | (advisory) | No identifier in one namespace should have the same spelling as an identifier in another namespace, with the exception of structure and union member names. |
+| Rule 5.7 | (advisory) | No identifier name should be reused. |
 
-6.6 Types
-=========
+### 6.6 Types
 
-Rule 6.1 (required): The plain 'char' type shall be used only for the storage and use of character values.
-Rule 6.2 (required): 'signed' and 'unsigned char' type shall be used only for the storage and use of numeric values.
-Rule 6.3 (advisory): typedefs that indicate size and signedness should be used in place of the basic types.
-Rule 6.4 (required): Bit fields shall only be defined to be of type 'unsigned int' or 'signed int'.
-Rule 6.5 (required): Bit fields of type signed int shall be at least 2 bits long.
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 6.1 | (required) | The plain 'char' type shall be used only for the storage and use of character values. |
+| Rule 6.2 | (required) | 'signed' and 'unsigned char' type shall be used only for the storage and use of numeric values. |
+| Rule 6.3 | (advisory) | typedefs that indicate size and signedness should be used in place of the basic types. |
+| Rule 6.4 | (required) | Bit fields shall only be defined to be of type 'unsigned int' or 'signed int'. |
+| Rule 6.5 | (required) | Bit fields of type signed int shall be at least 2 bits long. |
 
-6.7 Constants
-=============
+### 6.7 Constants
 
-Rule 7.1 (required): Octal constants (other than zero) and octal escape sequences shall not be used.
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 7.1 | (required) | Octal constants (other than zero) and octal escape sequences shall not be used. |
 
-6.8 Declarations and definitions
-================================
+### 6.8 Declarations and definitions
 
-Rule 8.1 (required): Functions shall have prototype declarations and the prototype shall be visible at
-                     both the function definition and call.
-Rule 8.2 (required): Whenever an object or function is declared or defined, its type shall be explicitly stated.
-Rule 8.3 (required): For each function parameter the type given in the declaration and definition shall be
-                     identical, and the return type shall also be identical.
-Rule 8.4 (required): If objects or functions are declared more than once their type shall be compatible.
-Rule 8.5 (required): There shall be no definitions of objects or functions in a header file.
-Rule 8.6 (required): Functions shall be declared at file scope.
-Rule 8.7 (required): Objects shall be defined at block scope if they are only accessed from within a single function.
-Rule 8.8 (required): An external object or function shall be declared in one and only one file.
-Rule 8.9 (required): An identifier with external linkage shall have exactly one external definition.
-Rule 8.10 (required): All declarations and definitions of objects or functions at file scope shall have 
-                      internal linkage unless external linkage is required. 
-Rule 8.11 (required): The 'static' storage class specifier shall be used in definitions and declarations of 
-                      objects and functions that have internal linkage.
-Rule 8.12 (required): When an array is declared with external linkage, its size shall be stated explicitly or 
-                      defined implicitly by initialisation.
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 8.1 | (required): | Functions shall have prototype declarations and the prototype shall be visible at both the function definition and call. |
+| Rule 8.2 | (required): | Whenever an object or function is declared or defined, its type shall be explicitly stated. |
+| Rule 8.3 | (required): | For each function parameter the type given in the declaration and definition shall be identical, and the return type shall also be  identical. |
+| Rule 8.4 | (required): | If objects or functions are declared more than once their type shall be compatible. |
+| Rule 8.5 | (required): | There shall be no definitions of objects or functions in a header file. |
+| Rule 8.6 | (required): | Functions shall be declared at file scope. |
+| Rule 8.7 | (required): | Objects shall be defined at block scope if they are only accessed from within a single function. |
+| Rule 8.8 | (required): | An external object or function shall be declared in one and only one file. |
+| Rule 8.9 | (required): | An identifier with external linkage shall have exactly one external definition. |
+| Rule 8.10 |  (required):|  All declarations and definitions of objects or functions at file scope shall have internal linkage unless external linkage is required. |
+| Rule 8.11 |  (required):|  The 'static' storage class specifier shall be used in definitions and declarations of objects and functions that have internal linkage. |
+| Rule 8.12 |  (required):|  When an array is declared with external linkage, its size shall be stated explicitly or defined implicitly by initialisation. |
 
-6.9 Initialisation
-==================
-Rule 9.1 (required): All automatic variables shall have been assigned a value before being used.
-Rule 9.2 (required): Braces shall be used to indicate and match the structure in the non-zero initialisation 
-                     of arrays and structures.
-Rule 9.3 (required): In an enumerator list, the "=" construct shall not be used to explicitly initialise members
-                     others than the first, unless all items are explicitly nitialised.
+### 6.9 Initialisation
 
-6.10 Arithmetic type conversions
-================================
-Rule 10.1 (required): The value of an expression of integer type shall not be implicitly converted to a different 
-                      underlying type if: ...
-Rule 10.2 (required): The value of an expression of floating type shall not be implicitly converted to a different 
-                      type if: ...
-Rule 10.6 (required): A "U" suffix shall be applied to all constants of unsigned type.
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 9.1 | (required) | All automatic variables shall have been assigned a value before being used.|
+| Rule 9.2 | (required) | Braces shall be used to indicate and match the structure in the non-zero initialisation of arrays and structures.|
+| Rule 9.3 | (required) | In an enumerator list, the "=" construct shall not be used to explicitly initialise members others than the first, unless all items are explicitly nitialised. |
 
-6.11 Pointer type conversions
-=============================
-Rule 11.1 (required): Conversions shall not be performed between a pointer to a function and any type other than 
-                      an integral type.
-Rule 11.2 (required): Conversions shall not be performed between a pointer to object and any type other than an 
-                      integral type, another pointer to object type or a pointer to void.
+### 6.10 Arithmetic type conversions
 
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 10.1 | (required) | The value of an expression of integer type shall not be implicitly converted to a different underlying type if: ... |
+| Rule 10.2 | (required) | The value of an expression of floating type shall not be implicitly converted to a different type if: ... |
+| Rule 10.6 | (required) | A "U" suffix shall be applied to all constants of unsigned type. |
+
+### 6.11 Pointer type conversions
+
+| Rule     |            | Description |
+|----------|------------|-------------|
+| Rule 11.1 | (required) | Conversions shall not be performed between a pointer to a function and any type other than an integral type. |
+| Rule 11.2 | (required) | Conversions shall not be performed between a pointer to object and any type other than an integral type, another pointer to object type or a pointer to void. |
 
 The *Curiously Recurring Template Pattern (CRTP)* is a C++ idiom.
 
