@@ -407,17 +407,25 @@ those lines after or before the line where the cursor is resting on.
 `yy{count}p` n-plicate a line
 `dlp` `xp` swap characters
 
+### Vim Registers
+
 Registers in Vim are like a special clipboard where you can save multiple things at once.
 **unnamed register** - `"` - the default register, where you copy and cut stuff to when no explicit register is specified
-**named registers** - `a-z` - registers you can use explicitly to copy and cut text
-**yank register** - `0` - stores last thing yanked (copied)
-**cut registers** - `1-9` - store the last 9 things cut by using either delete or the change command
+**named registers** - `"a-"z` - registers you can use explicitly to copy and cut text
+**yank register** - `"0` - stores last thing yanked (copied)
+**cut registers** - `"1-"9` - store the last 9 things cut by using either delete or the change command
+**black hole register** - `"_` - `"_d{motion}`
+**system clipboard** - `"+` 
+**selection register** - `"*`
+**named registers** let us save bits of texts for later pasting.
+**expression register** execute vim script expression
 
-The **named registers** let us save bits of texts for later pasting.
+`"{name of register}y{motion}`
+`"{name of register}d{motion}`
+`"{name of register}c{motion}`
 
-`{name of register}y{motion}`
-`{name of register}d{motion}`
-`{name of register}c{motion}`
+#### Readonly register
+![readonly_reg](./images/vim/readonly_register.png)
 
 `"ayas` - yank a sentence and store it in register `a`.
 `"ap` - Paste the content of register `a` somewhere.
@@ -426,10 +434,15 @@ The **named registers** let us save bits of texts for later pasting.
 
 The **yank register** lets you have access to what you copied last via the `y` command. This is helpful because deletes and changes don't overwrite this register like they do the unnamed register.
 
+The `x`, `s`, `d{motion}`, `c{motion}` and `y{motion}` commands (and their uppercase equivalents) all set the contents of the unnamed register.
+
+When we address a named register with a lowercase letter, it _overwrites_ the specified register, whereas when we use an uppercase letter, it _appends_ to the specified register.
+
 To paste the content of a register in **INSERT MODE**, use the following:
 `ctrl-R "`  pastes the contents of unnamed register
 `ctrl-R a`  pastes the contents of register `a`
 `ctrl-R 0`  pastes the contents of yank register
+`ctrl-R +`  pastes the contents copied by external application 
 
 VSCodeVim has support for only a very limited number of Ex commands but they can be greatly enhanced by integrating VSCodeVim with Neovim. 
 
@@ -529,3 +542,6 @@ Using the surround operator we can operate on the surroundings (quotes, parenthe
 | `gu}`  | Change to end of paragraph to lower case. |
 | `gU5j` | Change 5 lines below to upper case. |
 | `gu3k` | Change 3 lines above to lower case. |
+
+`xp` Transpose the next two characters
+`ddp` Transpose the order of this line and its successor
