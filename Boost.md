@@ -10,7 +10,7 @@ C++ GCC get all warnings: gcc -Q --help=warning
 
 * Boost.Signals2 library is an implementation of a _managed_ signals and slots system. Boost.Signals2 allows the user to specify the manner in which multiple return values are combined. 
 
-```
+```cpp
 // define a signal with no arguments and void return value
 boost::signals2::signal<void ()> sig;
 
@@ -25,13 +25,13 @@ sig();
 
 * The Boost.Signals2 library allows slots to be placed into groups that are ordered in some way. supply an extra parameter at the beginning of the connect call that specifies the group. Group values are, by default, ints, and are ordered by the integer < relation.
 
-```
+```cpp
 sig.connect(1, World());
 sig.connect(0, Hello());
 ```
 
 * pass argument to slot
-```
+```cpp
   boost::signals2::signal<void (float, float)> sig;
 ```
 
