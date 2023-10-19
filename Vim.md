@@ -545,3 +545,32 @@ Using the surround operator we can operate on the surroundings (quotes, parenthe
 
 `xp` Transpose the next two characters
 `ddp` Transpose the order of this line and its successor
+
+The `:normal @a` command tells Vim to execute the macro once for each line in the selection.
+
+
+`dG`  delete till end of document
+`dgg` delete till the beginning of document
+`S`   go to insert mode with proper indentation
+LMH: Low, Mid, High
+
+`L`
+`M`
+`H`
+`ctrl-u` - up half screen
+`ctrl-d` - down half screen
+
+Deleteing in Insert Mode
+`<ctrl>-w`  delete the previous word from the current position
+`<ctrl>-h`  delete previous character (like backspace)
+`<ctrl>-u`  delete from cursor position till end of line
+`<ctrl>-o`  allow executing normal mode command, enter normal mode command and get back to insert mode again
+`<ctrl>-p`  Auto complete
+`<ctrl>-n`  Auto complete
+
+`:set spell` to turn on spell check
+`:set no spell` turn off spell check
+`:set spell&` turn off spell check
+`:help j` get help for j key
+
+
