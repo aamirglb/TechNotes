@@ -2,28 +2,28 @@
 
 #include <SDL.h>
 
-SDL_Window* g_pWindow = 0;
-SDL_Renderer* g_pRenderer = 0;
+SDL_Window *g_pWindow = 0;
+SDL_Renderer *g_pRenderer = 0;
 
-int main(int argc, char* args[])
+int main(int argc, char *args[])
 {
-// initialize SDL
-    if(SDL_Init(SDL_INIT_EVERYTHING) >= 0)
+    // initialize SDL
+    if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
     {
-    // if succeeded create our window
-    g_pWindow = SDL_CreateWindow("Chapter 1: Setting up SDL",
-    SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-    640, 480,
-    SDL_WINDOW_SHOWN);
-    // if the window creation succeeded create our renderer
-    if(g_pWindow != 0)
-    {
-    g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, 0);
-    }
+        // if succeeded create our window
+        g_pWindow = SDL_CreateWindow("Chapter 1: Setting up SDL",
+                                     SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                     640, 480,
+                                     SDL_WINDOW_SHOWN);
+        // if the window creation succeeded create our renderer
+        if (g_pWindow != 0)
+        {
+            g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, 0);
+        }
     }
     else
     {
-    return 1; // sdl could not initialize
+        return 1; // sdl could not initialize
     }
     // everything succeeded lets draw the window
     // set to black // This function expects Red, Green, Blue and
@@ -39,6 +39,3 @@ int main(int argc, char* args[])
     SDL_Quit();
     return 0;
 }
-
-
-

@@ -1522,6 +1522,28 @@ the form of `std::recursive_mutex`.
     * `std::shared_timed_mutex` (C++14/C++17)
 
 
+* There are two sorts of futures in the C++ Standard Library, implemented as two class templates declared in the `<future>` library header: unique futures (`std::future<>`) and shared futures (`std::shared_future<>`).
+
+* Use `std::async` (declared in the `<future>` header) to start an _asynchronous task_ for which you don't need the result right away. Rather than giving you a `std::thread` object to wait on, `std::async`
+returns a `std::future` object, which will eventually hold the return value of the function.
+
+std::chrono::system_clock
+std::chrono::steady_clock
+std::chrono::high_resolution_clock
+
+
+* The tick period is specified as fractional number of seconds `std::ratio<1, 25>` (25 times per second), `std::ratio<5, 2>` tick every 2.5 seconds.
+
+* The `std::memory_order` enumeration has six possible values: 
+    * `std::memory_order_relaxed`, 
+    * `std::memory_order_acquire`, 
+    * `std::memory_order_consume`, 
+    * `std::memory_order_acq_rel`,
+    * `std::memory_order_release`, and 
+    * `std::memory_order_seq_cst`.
+
+
+
 # Concurrency with Modern C++
 
 * C++11 has basic building blocks like `atomic` `variables`, `threads`, `locks`, and `condition variables`.

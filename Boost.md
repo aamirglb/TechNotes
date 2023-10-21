@@ -10,7 +10,7 @@ C++ GCC get all warnings: gcc -Q --help=warning
 
 * Boost.Signals2 library is an implementation of a _managed_ signals and slots system. Boost.Signals2 allows the user to specify the manner in which multiple return values are combined. 
 
-```
+```cpp
 // define a signal with no arguments and void return value
 boost::signals2::signal<void ()> sig;
 
@@ -25,13 +25,13 @@ sig();
 
 * The Boost.Signals2 library allows slots to be placed into groups that are ordered in some way. supply an extra parameter at the beginning of the connect call that specifies the group. Group values are, by default, ints, and are ordered by the integer < relation.
 
-```
+```cpp
 sig.connect(1, World());
 sig.connect(0, Hello());
 ```
 
 * pass argument to slot
-```
+```cpp
   boost::signals2::signal<void (float, float)> sig;
 ```
 
@@ -352,3 +352,41 @@ you manually call `io_service::stop()`.
 
 * `dispatch()` will call the handler before it returns, if the current thread has called `service.run()` , while `post()` always returns immediately.
 
+
+## Boost.ASIO documentation
+
+* I/O execution context (program's link to operating system's IO service)
+  * `boost::asio::io_context` object, 
+  * `boost::asio::thread_pool` object, or 
+  * `boost::asio::system_context`
+
+* I/O objects
+  * tcp socket
+
+* The I/O execution context translates any error resulting from the operation into an object of type `boost::system::error_code`
+
+* The I/O object throws an exception of type `boost::system::system_error` if the operation failed. 
+
+```cpp
+// asynchronous operation
+socket.async_connect(server_endpoint, your_completion_handler);
+
+// handler is a function or function object with signature
+void your_completion_handler(const boost::system::error_code& ec);
+```
+
+* The asynchronous support is based on the **Proactor design pattern**
+
+* synchronous-only or **Reactor approach**
+
+* `select`, `epoll` or `kqueue`
+
+* Asynchronous completion handlers will only be called from threads that are currently calling io_context::run().
+
+* A strand is defined as a strictly sequential invocation of event handlers (i.e. no concurrent invocation).
+
+* Buffers
+  * `mutable_buffer`
+  * `const_buffer`
+  * `MutableBufferSequence` and 
+  * `ConstBufferSequence`

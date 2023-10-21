@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "hellocs"
+		},
+		{
+			"path": "myenv"
+		},
+		{
+			"path": "arguments"
+		},
+		{
+			"path": "asyncconsole"
+		},
+		{
+			"path": "list_pattern"
+		}
+	]
+}

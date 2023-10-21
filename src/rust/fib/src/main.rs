@@ -15,7 +15,7 @@ fn main() {
     print!("{} {} ", f0, f1);
     std::io::stdout().flush().unwrap();
 
-    for _i in (3..len+1) {
+    for _i in 3..len+1 {
         let f2: u64 = f0 + f1;
         print!(" {} ", f2);
         std::io::stdout().flush().unwrap();

@@ -10,3 +10,6 @@ include(${wxWidgets_USE_FILE})
 
 add_executable(main WIN32 main.cpp)
 target_link_libraries(main PRIVATE ${wxWidgets_LIBRARIES})
+
+add_executable(child_repaint WIN32 child_repaint.cpp)
+target_link_libraries(child_repaint PRIVATE ${wxWidgets_LIBRARIES})

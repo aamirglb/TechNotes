@@ -10,6 +10,7 @@ namespace fs = std::filesystem;
 wxDEFINE_EVENT(IMAGE_SELECTION_CHANGED, wxCommandEvent);
 wxDEFINE_EVENT(IMAGE_DESELECTED, wxCommandEvent);
 wxDEFINE_EVENT(IMAGE_DOUBLE_CLICKED, wxCommandEvent);
+wxDEFINE_EVENT(REMOVE_SELECTED_IMAGE, wxCommandEvent);
 
 ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, const wxSize &size, long style)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, style)
@@ -37,6 +38,22 @@ ImagePanel::ImagePanel(wxWindow *parent, wxString file, wxBitmapType format, con
     Bind(wxEVT_KEY_DOWN, &ImagePanel::OnKeyDown, this);
 
     SetFocusFromKbd();
+}
+
+ImagePanel::ImagePanel(wxWindow *parent, wxBitmap bitmap, const wxSize &size, long style)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, style)
+{
+    this->SetBackgroundStyle(wxBG_STYLE_PAINT);
+    m_Image = bitmap.ConvertToImage();
+    m_ImageName = "raw";
+    auto [w, h] = m_Image.GetSize();
+    this->SetSize(w, h);
+
+    Bind(wxEVT_PAINT, &ImagePanel::OnPaint, this);
+    Bind(wxEVT_SIZE, &ImagePanel::OnSize, this);
+    Bind(wxEVT_LEFT_DOWN, &ImagePanel::OnMouseDown, this);
+    Bind(wxEVT_LEFT_DCLICK, &ImagePanel::OnDoubleClick, this);
+    Bind(wxEVT_KEY_DOWN, &ImagePanel::OnKeyDown, this);
 }
 
 void ImagePanel::OnPaint(wxPaintEvent &evt)
@@ -101,11 +118,15 @@ void ImagePanel::RenderImageResized(wxAutoBufferedPaintDC &dc)
 
 void ImagePanel::RenderImageAsIs(wxAutoBufferedPaintDC &dc)
 {
+    static int cnt{};
     dc.Clear();
     wxGraphicsContext *gc = wxGraphicsContext::Create(dc);
 
     if (gc)
     {
+        if (m_ImageName == "raw")
+            ++cnt;
+
         auto [imageWidth, imageHeight] = m_Image.GetSize();
 
         if (!m_IsSelected)
@@ -208,6 +229,17 @@ void ImagePanel::OnKeyDown(wxKeyEvent &event)
 
 void ImagePanel::OnRightClick(wxContextMenuEvent &event)
 {
+    if (m_IsSelected)
+    {
+        // // this->Destroy();
+        // event.ResumePropagation(wxEVENT_PROPAGATE_MAX);
+        // // event.Skip();
+    }
+
+    // wxCommandEvent e(REMOVE_SELECTED_IMAGE, GetId());
+    // e.SetEventObject(this);
+    // e.SetString(m_ImageName);
+    // ProcessWindowEvent(e);
 }
 
 void ImagePanel::SendImageSelectedEvent()

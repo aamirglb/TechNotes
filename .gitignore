@@ -23,3 +23,12 @@ src/cpp/sfml/test/
 src/sdl/msvc/
 src/cpp/so/
 src/wx/**/build/
+src/boost/**/build-mingw/
+src/boost/**/build-msvc/
+src/catch2/build-mingw/
+src/catch2/build-msvc/
+src/cpp/**/build-msvc/
+src/cpp/sfml/maze-gen/build/
+src/opengl/setup/build/
+src/sdl/build/
+src/opengl/learn_opengl/build/

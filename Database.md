@@ -370,4 +370,9 @@ db.getCollectionNames()
 # list content of a collection
 db.<collection-name>.find()
 
+# find number of documents in a collection
+db.<collectoin-name>.count()
+
+# delete all documents from the collection
+db.<collection-name>.deleteMany({})
 ```

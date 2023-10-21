@@ -5,6 +5,10 @@ set(wxWidgets_ROOT_DIR "C:/Users/aamir.ali/Documents/playground/Programs/librari
 set(wxWidgets_LIB_DIR "C:/Users/aamir.ali/Documents/playground/Programs/libraries/wx321/lib/vc_x64_lib")
 set(wxWidgets_CONFIGURATION "mswd")
 
+# set(wxWidgets_ROOT_DIR "c:/sw/wx321")
+# set(wxWidgets_LIB_DIR "c:/sw/wx321/build-msvc/lib/vc_x64_dll")
+# set(wxWidgets_CONFIGURATION "mswd")
+
 find_package(wxWidgets REQUIRED gl core base OPTIONAL_COMPONENTS net)
 include(${wxWidgets_USE_FILE})
 # add_definitions(wx-config --libs std,richtext)

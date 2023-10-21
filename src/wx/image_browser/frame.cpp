@@ -9,6 +9,117 @@
 
 namespace fs = std::filesystem;
 
+static const char *None_xpm[] = {
+    "32 32 2 1",
+    " 	c None",
+    ".	c #3A3A3A",
+    "......                    ......",
+    "......                    ......",
+    "..                            ..",
+    "..                            ..",
+    "..                            ..",
+    "..                            ..",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "..                            ..",
+    "..                            ..",
+    "..                            ..",
+    "..                            ..",
+    "......                    ......",
+    "......                    ......"};
+
+static char *open_xpm[] = {
+    /* columns rows colors chars-per-pixel */
+    "16 15 5 1",
+    "  c None",
+    ". c Red",
+    "X c Yellow",
+    "o c Gray100",
+    "O c #bfbf00",
+    /* pixels */
+    "                ",
+    "          ...   ",
+    "           . . .",
+    "              ..",
+    " ...         ...",
+    " .XoX.......    ",
+    " .oXoXoXoXo.    ",
+    " .XoXoXoXoX.    ",
+    " .oXoX..........",
+    " .XoX.OOOOOOOOO.",
+    " .oo.OOOOOOOOO. ",
+    " .X.OOOOOOOOO.  ",
+    " ..OOOOOOOOO.   ",
+    " ...........    ",
+    "                "};
+
+static const char *TEST_XPM[] = {
+    "48 4 2 1",
+    "a c #FFFFFF",
+    "b c #000000",
+    "abaabaababaaabaabababaabaabaababaabaaababaabaaab",
+    "abaabaababaaabaabababaabaabaababaabaaababaabaaab",
+    "abaabaababaaabaabababaabaabaababaabaaababaabaaab",
+    "abaabaababaaabaabababaabaabaababaabaaababaabaaab"};
+
+// constexpr const char* get_xpm_img(int w, int h)
+// {
+//     char *buffer = new buffer()
+// }
+static const char *PLACEHOLDER_XPM[] = {
+    "32 32 1 1",
+    "  c Black",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                ",
+    "                                "};
+
 Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long style)
     : wxFrame(nullptr, wxID_ANY, title, pos, size, style)
 {
@@ -20,6 +131,13 @@ Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long
     // browser->Bind(wxEVT_KEY_DOWN, &Frame::OnKeyDown, this);
 
     m_GridSizer = new wxGridSizer(3);
+
+    // wxBitmap testBitmap(None_xpm);
+    wxBitmap testBitmap(PLACEHOLDER_XPM);
+    auto testPanel = new ImagePanel(m_ImageBrowser, testBitmap);
+    m_GridSizer->Add(testPanel, 1, wxEXPAND | wxALL, 5);
+    m_ImagePanels.push_back(testPanel);
+
     // For each loaded image, create a image panel and add to sizer
     for (int i = 0; i < 3; ++i)
     {
@@ -52,6 +170,8 @@ Frame::Frame(const wxString &title, const wxPoint &pos, const wxSize &size, long
 
     mainSizer->Add(m_MessagePanel, 1, wxEXPAND | wxALL, 4);
     SetSizer(mainSizer);
+    Layout();
+
     Layout();
 }
 
@@ -252,7 +372,7 @@ std::vector<std::string> Frame::GetImageList(const std::string &path, int max_im
             extensions.count(entry.path().extension().string()) > 0)
         {
             ++image_count;
-            auto fn = p / entry.path();
+            auto fn = p / entry.path().filename();
             images.push_back(fn.string());
 
             if (image_count >= max_images_to_load)
