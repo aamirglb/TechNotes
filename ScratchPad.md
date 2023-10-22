@@ -1,11 +1,13 @@
 Pragmatic: Concerned with practical matters
            Guided by practical experience and observation rather than theory
 
+# The Pragmatic Programmer
+
 Tip-1: Care About Your Craft
 Tip-2: Think! About your work
-Tip-3: You have agency
+Tip-3: You have agency - You can change your organization or change your organization
 Tip-4: Provide options, don't make lame excuses
-Tip-5: Don’t Live with Broken Windows
+Tip-5: Don’t Live with Broken Windows - Don’t leave "broken windows" (bad designs, wrong decisions, or poor code) unrepaired.
 Tip-6: Be a Catalyst for Change
 Tip-7: Remember the Big Picture
 Tip-8: Make Quality a Requirements Issue
@@ -25,16 +27,45 @@ Tip-21: Prototype to Learn
 Tip-22: Program Close to the Problem Domain
 Tip-23: Estimate to Avoid Surprises
 Tip-24: Iterate the Schedule with the Code
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+Tip-xx: 
+
+* The greatest of all weaknesses is the fear of apprearing weak.
 
 * Entropy is a term from physics that refers to the amount of "disorder" in a system.
 Unfortunately, the laws of thermodynamics guarantee that the entropy in the universe tends toward a maximum.
 
-* hopelessness can be contagious
+* When disorder increases in software, we call it "software rot." (more optimistic term: "technical debt")
+
+* hopelessness can be contagious, neglect accelerates the software rot faster than any other factor.
+
+* Great software today is often preferable to the fantasy of perfect software tomorrow.
+
+* Don't spoil a perfectly good program by overembellishment and overrefinement. Move on, and let your code stand in its own right for a while.
+
+* software that suffers from feature bloat
 
 * An investment in knowledge always pays the best interest. -- Benjamin Franklin
 
-* Learn at least one new language every year
+* Your ability to learn new things is your most important strategic asset. But how do you learn how to learn, and how do you know what to learn?
+
+* Learn at least one new language every year 
+
 * Read a technical book each month
+
+* A good idea is an orphan without effective communication.
+* The meaning of your communication is the response you get
+
+* Pragmatic Programmers embrace documentation as an integral part of the overall development process.
 
 * ETC principle: Easier to Change.
 
@@ -200,32 +231,32 @@ OpenCV was originally developed at Intel
 2012 - non-profit foundation
 2013 - version 3.0 (improve usability of library, large module split into smaller one)
 
-* opencv_core module that contains the core functionalities of the library, in
+* opencv\_core module that contains the core functionalities of the library, in
 particular, basic data structures and arithmetic functions
 
-* opencv_imgproc module that contains the main image-processing
+* opencv\_imgproc module that contains the main image-processing
 functions
 
-* opencv_highgui module that contains the image and video reading and
+* opencv\_highgui module that contains the image and video reading and
 writing functions along with some user interface functions
 
-* opencv_features2d module that contains the feature point detectors and
+* opencv\_features2d module that contains the feature point detectors and
 descriptors and the feature point matching framework
 
-* opencv_calib3d module that contains the camera calibration, two-view
+* opencv\_calib3d module that contains the camera calibration, two-view
 geometry estimation, and stereo functions
 
-* opencv_video module that contains the motion estimation, feature
+* opencv\_video module that contains the motion estimation, feature
 tracking, and foreground extraction functions and classes
 
-* opencv_objdetect module that contains the object detection functions
+* opencv\_objdetect module that contains the object detection functions
 such as the face and people detectors
 
-machine learning functions (opencv_ml),
-computational geometry algorithms (opencv_flann),
-contributed code (opencv_contrib)
-opencv_photo for computational photography
-opencv_stitching for image-stitching algorithms
+machine learning functions (opencv\_ml),
+computational geometry algorithms (opencv\_flann),
+contributed code (opencv\_contrib)
+opencv\_photo for computational photography
+opencv\_stitching for image-stitching algorithms
 
 
 old notes
@@ -262,8 +293,8 @@ Core Concepts
 
 C:\Users\Aamir\AppData\Local\Programs\Python\Python37\Lib\site-packages\numpy\core\include
 
-OpenCV 4.3.0 build failing on generating vs_version.rc using mingw-w64
-Ans: Hi @alalek adding the -DOPENCV_ALLOCATOR_STATS_COUNTER_TYPE=int64_t option to CMAKE allows the build to complete.
+OpenCV 4.3.0 build failing on generating `vs_version.rc` using mingw-w64
+Ans: Hi @alalek adding the `-DOPENCV_ALLOCATOR_STATS_COUNTER_TYPE=int64_t` option to CMAKE allows the build to complete.
 
 dense multidimensional array, Mat
 Image Process include
@@ -488,9 +519,11 @@ shared mutex - technically uses more resources
 shared read by multiple threads at once
 exclusive write - only one thread at a time
 
+```cpp
 std::shared_mutex marker
 marker.lock_shared();    // shared read lock
 marker.unlock_shared();
 
 marker.lock();     // exclusive write lock
 marker.unlock();
+```

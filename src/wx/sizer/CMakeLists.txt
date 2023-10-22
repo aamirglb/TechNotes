@@ -6,6 +6,8 @@ set(wxWidgets_LIB_DIR "C:/Users/aamir.ali/Documents/playground/Programs/librarie
 set(wxWidgets_CONFIGURATION "mswd")
 # set(wxWidgets_LIBRARIES )
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
+
 find_package(wxWidgets REQUIRED gl core base OPTIONAL_COMPONENTS net)
 include(${wxWidgets_USE_FILE})
 

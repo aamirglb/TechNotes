@@ -1,0 +1,9 @@
+[
+
+{ 
+    "directory": "./build",
+    "command": "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.37.32822/bin/Hostx64/x64/cl.exe-o main.o -c ./main.cpp",
+    "file": "./main.cpp" 
+}
+ 
+]
