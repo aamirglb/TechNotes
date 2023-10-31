@@ -27,16 +27,36 @@ Tip-21: Prototype to Learn
 Tip-22: Program Close to the Problem Domain
 Tip-23: Estimate to Avoid Surprises
 Tip-24: Iterate the Schedule with the Code
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
-Tip-xx: 
+Tip-25: Keep Knowledge in Plain Text (HTML, JSON, YAML, HTTP, SMTP, IMAP) 
+Tip-26: Use the Power of Command Shells
+Tip-27: Achieve Editor Fluency 
+Tip-28: Always Use Version Control
+Tip-29: Fix the Problem, Not the Blame 
+Tip-30: Don't Panic
+Tip-31: Failing Test Before Fixing Code
+Tip-32: Read the Damn Error Message
+Tip-33: "select" Isn't Broken
+Tip-34: Don't Assume It - Prove It
+Tip-35: Learn a Text Manipulation Language [sed, awk, perl]
+Tip-36: You Can't Write Perfect Software
+Tip-37**: Design with Contracts (DBC)
+Tip-38: Crash Early
+Tip-39: Use Assertions to Prevent the Impossible
+Tip-40: Finish What You Start (Deallocate resource)
+Tip-41: Act Locally
+Tip-42: Take Small Steps - Always
+Tip-43: Avoid Foutune-Telling
+Tip-44: Decoupled Code Is Easier to Change
+Tip-45: Tell, Don't Ask
+Tip-46: Don't Chain Method Calls
+Tip-47: Avoid Global Data
+Tip-48: If It's Important Enough to Be Global, Wrap It in an API
+Tip-49: Programming Is About Code, But Programs Are About Data
+Tip-50: Don't Hoard State, Pass It Around
+Tip-51: Don't Pay Inheritance Tax
+Tip-52: Prefer Interfaces to Express Polymorphism
+Tip-53: Delegate to Services: Has-A Trumps Is-A
+Tip-54: Use Mixins to Share Functionality
 Tip-xx: 
 
 * The greatest of all weaknesses is the fear of apprearing weak.
@@ -69,10 +89,14 @@ Unfortunately, the laws of thermodynamics guarantee that the entropy in the univ
 
 * ETC principle: Easier to Change.
 
+* Every piece of knowledge must have a single, unambiguous, authoritative representation within a system
+
 * Object-Oriented Software Construction [Mey97],
 
 * the term "orthogonality" has come to signify a kind of independence or decoupling. Two or more things are orthogonal
 if changes in one do not affect any of the others
+
+* Two or more things are orthogonal if changes in one do not affect any of the others.
 
 * helicopters have four basic controls.
 1) The _cyclic_ is the stick you hold in your right hand. Move it, and the helicopter moves in the corresponding direction.
@@ -87,13 +111,65 @@ your code is easier to understand and maintain if you explicitly pass any requir
 In object-oriented applications, context is often passed as parameters to objects' constructors. In other code, you can create
 structures containing the context and pass around references to them.
 
+* The term _tracer bullet development_ refer to visually illustrate the need for immediate feedback under actual conditions with a moving goal.
+
+* Human-readable forms of data, and self-describing data, will outlive all other forms of data and the applications thats created them.
+
+* Bertrand Meyer (Object-Oriented Software Construction) developed the concept of _Design by Contract_ for the language **Eiffel**.
+    * Preconditions
+    * Postconditions
+    * Class invariants
+
+* Don't use assertions in place of real error handling. Assertions check for things that should never happen.
+
+* In the _Observer Pattern_, we have a source of events, called the _observable_ and a list of clients, the _observers_, who are interested in those events.
+
+* Publish/Subscribe (pubsub) generalizes the observer pattern, at the same time solving the problems of coupling and performance.
+
+* Inheritance first appeared in __Simula 67__ in 1969.
+
+* Three techniques that to replace inheritance
+    * Interfaces and protocols
+    * Delegation
+    * Mixins and traits
+
+* Mixin: The basic idea is simple: we want to be able to extend classes and objectes with new functionality without using inheritance.
+
+#### Read-World Domain Language
+* RSpec is a testing library for Ruby.
+* Cucumber is a programming language neutral way of specifying tests.
+* Phoenix Routes - Web framework for mapping incoming HTTP requests onto handler functions in the code.
+* Ansible is a tool that configures software, typically on a bunch of remote servers.
+
+# Code Complete
+================
+
+* "Coding" isn't really the best word because it implies the mechanical translation of a preexisting design into a computer language; construction is not at all mechanical and involves substantial creativity and judgment
+
+* In many projects, the only documentation available to programmers is the code itself.
+
+* The most challenging part of programming is conceptualizing the problem, and many errors in programming are conceptual errors
+
+* Fred Brooks’s The Mythical Man-Month
+
+* A good craftsman knows the right tool for the job and knows how to use it correctly. 
+
+* Measure Twice, Cut Once
+
+* The acronym "Cobol" stands for COmmon Business-Oriented Language. 
+
+* "Fortran" stands for FORmula TRANslation
+
+
+
+
 C++
 ===
 * `std::enable_if_t<condition, type>` evaluates to type if condition is true. Otherwise, the std::enable_if_t expression does not evaluate to
 anything.
 
 * When the compiler sees different template functions with the same name and has to choose one of them, an important principle comes into play: **SFINAE**, which stands for _Substitution Failure is not an Error_. In this case, this means that the compiler does not
-error out if the return value of one of those functions cannot be deduced from an erroneous template expression (which std::enable_if is, in case its condition evaluates to false).  It will simply look further and try the other function implementation. That is the trick; that is
+error out if the return value of one of those functions cannot be deduced from an erroneous template expression (which std::enable\_if is, in case its condition evaluates to false).  It will simply look further and try the other function implementation. That is the trick; that is
 how this works.
 
 If we use `std::unordered_map` instead of `std::map`, we have a different degree of freedom for the choice of the key type which shall be used.
@@ -527,3 +603,12 @@ marker.unlock_shared();
 marker.lock();     // exclusive write lock
 marker.unlock();
 ```
+
+# CMake
+* CMake and its siblings, CTest, CPack and CDash leading toolset for building software from source.
+
+* CMake's goal was to provide a set of tools that would make it easier to configure, build, test, and deploy the same project across different platforms.
+
+* CMake is a _build-system generator_, offering a powerful domain-specific language (DSL) to describe what the build system should achieve.
+
+* The __Ninja__ program is a different build-automation tool that works on GNU/Linux, macOS and Windows. Ninja is a new build tool, with a focus on speed, especially for incremental rebuilds.
