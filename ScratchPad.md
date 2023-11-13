@@ -141,6 +141,10 @@ structures containing the context and pass around references to them.
 * Phoenix Routes - Web framework for mapping incoming HTTP requests onto handler functions in the code.
 * Ansible is a tool that configures software, typically on a bunch of remote servers.
 
+* An object is a region of memory with a type that specifies what kind of information can be placed in it. A named object is called a variable.
+
+* End-of-input character: (end of file) - On a Windows machine, that's Ctrl+Z followed by an Enter. On a Unix or Linux machine that's Ctrl+D.
+
 # Code Complete
 ================
 
@@ -612,3 +616,105 @@ marker.unlock();
 * CMake is a _build-system generator_, offering a powerful domain-specific language (DSL) to describe what the build system should achieve.
 
 * The __Ninja__ program is a different build-automation tool that works on GNU/Linux, macOS and Windows. Ninja is a new build tool, with a focus on speed, especially for incremental rebuilds.
+
+# Linux Command Line
+
+* To see the current amount of free space on disk: `df -h`
+
+* To display the amount of free memory: `free`
+
+* cd shortcuts
+```
+cd # changes the working directory to home directory
+cd - # Changes the working directory to previous working directory
+cd ~user_name # Changes the working directory to home directory of user_name
+```
+![cd_shortcuts](./images/linux_cmd_line/cd_shortcuts.png)
+![ls_shortcuts](./images/linux_cmd_line/ls_shortcuts.png)
+
+
+* ls ~ /usr - We can specify multiple directories to ls
+
+* ls options:
+-l long format output
+-t sort the result by file's modification time
+--reverse to reverse the order of sort
+
+* Use `file` command to determine a file's type.
+
+* The `less` command is a program to view text file.
+
+* The less program was designed as an improved replacement of an earlier Unix program called more
+
+a symbolic link (also known as a soft link or symlink). In most Unix-like systems, it is possible to
+have a file referenced by multiple names.
+
+* `Nautilus` file manager for GNOME
+* `Dolphin` and `Konqueror` - File manager for KDE.
+
+* Hard links are the original Unix way of creating links, compared to symbolic
+* Hard links have two important limitations.
+    * A hard link cannot reference a file outside its own file system. This means a link cannot reference a file that is not on the same disk partition as the link itself.
+    * A hard link may not reference a directory.
+
+* Symbolic links create a special type of file that contains a text pointer to the referenced file or directory.
+links, which are more modern
+
+* `type` - Display a command's type (external/shell builtin etc)
+
+* `which` - Display an executable's location (which only works for executables)
+
+* `whatis` - Display one line manual page descriptions
+
+* The GNU Project provides an alternative to man pages for their programs, called _info_
+
+* The gzip package includes a special version of _less_ called _zless_ that will display the contents of gzip compressed text files
+
+* It's possible to put more than one command on a line by separating each command with a semicolon
+
+* `alias foo='cd /usr; ls; cd -'`
+
+* `unalias foo`
+
+* if we ever need to actually truncate a file (or create a new, empty file), we can use a trick `> out.txt`
+
+* Redirecting Standard Output and Standard Error to One File `ls -l /usr/bin > output.txt 2>&1`
+
+* Recent versions of bash provide a second, more streamlined method `ls -l /usr/bin &> output.txt`
+`ls -l /bin/usr &>> out.txt`
+
+* wildcards always expand in sorted order
+
+* The _uniq_ command is often used in conjunction with _sort_ command. _uniq_ accepts a sorted list of data from either standard input or a single filename argument and, by default, removes any duplicates from the list.
+
+* grep is a powerful program used to find text patterns within files
+
+* The head command prints the first 10 lines of a file, and the tail command prints the last 10 lines.
+
+* tail has an option that allows you to view files in real time. `tail -f /var/log/messages`
+
+* Linux provides a command called tee that creates a "tee" fitting on our pipe. The tee program reads standard input and copies it to both standard output (allowing the data to continue down the pipeline) and to one or more files.
+
+* `ls /usr/bin | tee ls.txt | grep zip`
+
+* echo is a shell builtin that performs a very simple task. It prints its text arguments on standard output
+
+* The shell allows arithmetic to be performed by expansion `$((expression))`
+
+* Perhaps the strangest expansion is called _brace expansion_. With it, you can create multiple text strings from a pattern containing braces
+
+```
+echo Front-{A,B,C}-Back
+Front-A-Back Front-B-Back Front-C-Back
+
+echo Number_{1..5}
+echo {01..15}
+```
+
+* Command substitution allows us to use the output of a command as an expansion. `echo $(ls)` `ls -l $(which cp)`
+
+* Adding the -e option to echo will enable interpretation of escape sequences. You can also place them inside $' '.
+
+* _bash_ uses a library (a shared collection of routines that different programs can use) called **Readline** to implement command line editing.
+
+* To find out information about your identity, use the id command.
