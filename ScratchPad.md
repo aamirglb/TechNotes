@@ -718,3 +718,29 @@ echo {01..15}
 * _bash_ uses a library (a shared collection of routines that different programs can use) called **Readline** to implement command line editing.
 
 * To find out information about your identity, use the id command.
+
+![arithmetic-expression](./images/linux_cmd_line/arithmetic_expression.png)
+
+![wild-card](./images/linux_cmd_line/wildcard.png)
+
+![wild-card-examples](./images/linux_cmd_line/wildcard_example.png)
+
+![char-class](./images/linux_cmd_line/char_class.png)
+
+![cp-options](./images/linux_cmd_line/cp_options.png)
+
+![cursor-movement](./images/linux_cmd_line/cursor_movement.png)
+
+![less-command](./images/linux_cmd_line/less_command.png)
+
+![man-page](./images/linux_cmd_line/man_page.png)
+
+![mv-options](./images/linux_cmd_line/mv_option.png)
+
+![rm_options](./images/linux_cmd_line/rm_option.png)
+
+![text-editiong](./images/linux_cmd_line/8-2.text-editing.png)
+
+![cut-paste](./images/linux_cmd_line/8-3.cut-paste.png)
+
+![history-command](./images/linux_cmd_line/8-5.history-command.png)
