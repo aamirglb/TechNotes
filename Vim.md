@@ -422,6 +422,7 @@ Registers in Vim are like a special clipboard where you can save multiple things
 
 | Register Name | Register | Description |
 |---------|-------------|--------------|
+
 | **unnamed register** | `""` | the default register, where you copy and cut stuff to when no explicit register is specified |
 | **named registers** | `"a-"z` - registers you can use explicitly to copy and cut text |
 | **yank register** | `"0` | stores last thing yanked (copied) |
