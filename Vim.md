@@ -427,10 +427,15 @@ Registers in Vim are like a special clipboard where you can save multiple things
 | **yank register** | `"0` | stores last thing yanked (copied) |
 | **cut registers** | `"1-"9` | store the last 9 things cut by using either delete or the change command |
 | **black hole register** | `"_` | `"_d{motion}` |
-| **system clipboard** | `"+`  | |
-| **selection register** | `"*` | |
+| **system clipboard** | `"+`  | When we want to copy some text from inside of Vim and paste into external program |
+| **selection register** | `"*` | X11 primary, used with middle mouse button. No primary clipboard in Windows and Mac OS X  |
 | **named registers** | | let us save bits of texts for later pasting. |
-| **expression register** | | execute vim script expression |
+| **expression register** | `"=` | execute vim script expression |
+
+| `"+p` | Paste text from system clipboard to vim |
+| `<C-r>+` | From INSERT mode |
+
+
 
 `"{name of register}y{motion}`
 `"{name of register}d{motion}`
