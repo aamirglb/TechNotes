@@ -31,8 +31,10 @@ include_directories(${SPDLOG_INCLUDE_DIR})
 link_directories(${FMT_LIB_DIR})
 link_directories(${SPDLOG_LIB_DIR})
 
-# add_executable(list0101 list0101.cpp)
+add_executable(list0101 list0101.cpp)
 add_executable(list0102 list0102.cpp)
+add_executable(min-max min-max.cpp)
+add_executable(sort-num sort-num.cpp)
 add_executable(list0301 list0301.cpp)
 
 
@@ -46,7 +48,7 @@ add_executable(work_queue work_queue.cpp)
 
 # add_executable(module-test module-test.cpp)
 
-# target_link_libraries(list0101 ${LIBS})
+target_link_libraries(list0101 ${LIBS})
 target_link_libraries(list0102 ${LIBS})
 target_link_libraries(list0301 ${LIBS})
 
