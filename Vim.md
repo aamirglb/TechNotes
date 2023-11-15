@@ -252,45 +252,47 @@ vim plug is a neovim package manager.
 | `:[range]substitude/{pattern}/{string}/[flags]` | Replace occurrences of {pattern} with {string} on each specified line |
 | `:[range]global/{pattern}/cmd` | Execute the Ex command [cmd] on all specified lines where the {pattern} matches |
 
-
-`w`  jump to the beginning of the word
-`b`  jump to the beginning of a word backwards
-`e`  jump to the end of the word
-`ge` jump to the end of a word backwards
-`W`  jump to the beginning of the WORD
-`B`  jump to the beginning of a WORD backwards
-`E`  jump to the end of the WORD
-`gE` jump to the end of a WORD backwards
-`f{char}` _find_  Move to next occurrence of a character in a line
-`F{char}` _find_  Move to previous occurrence of a character
-`t{char}` _until_ Move the cursor just before the next occurrence of a character 
-`T{char}`   Move the cursor just before the previous occurrence of a character
-`;`  Go to next occurrence of `f{char}`
-`,`  Go to previous occurance of `f{char}`
-`0`  Move to the first character of a line
-`^`  Move to the first non-blank character of a line
-`$`  Moves to the end of a line
-`g_` Moves to the non-blank character at the end of a line
-`}`  jumps entire paragraphs downwards
-`{`  jumps entire paragraphs upwards
-`Ctrl-D`  move down half a page by scrolling the page
-`Ctrl-U`  move up half a page by scrolling the page
-`/{pattern}`  search forward inside a file
-`?{pattern}`  search backwards inside a file
-`n`  jump to the next match
-`N`  jump to the previous match
-`/Enter` run the last search forward
-`?Enter` run the last search backwards
-`\*`  search for word under the cursor
-`#`   search for word under the cursor backwards
-`3;`  go to the next third occurrence of a character
-`2/search` sends you to the second occurrence of `search`
-`gd`  jump to the definition under the cursor
-`gf`  jump to a file in an import
-`gg`  go to the top of the file
-`{line}gg`  go to a specific line
-`G`  go to the end of file
-`%`  jump to matching `({[]})`
+| Command | Description |
+|---------|-------------|
+| `:[range]delete [x]` | Delete specified lines [into register x] |
+| `w` | jump to the beginning of the word |
+| `b` | jump to the beginning of a word backwards |
+| `e` | jump to the end of the word |
+| `ge` | jump to the end of a word backwards |
+| `W` | jump to the beginning of the WORD |
+| `B` | jump to the beginning of a WORD backwards |
+| `E` | jump to the end of the WORD |
+| `gE` | jump to the end of a WORD backwards |
+| `f{char}` | _find_  Move to next occurrence of a character in a line |
+| `F{char}` | _find_  Move to previous occurrence of a character |
+| `t{char}` | _until_ Move the cursor just before the next occurrence of a character  |
+| `T{char}` |  Move the cursor just before the previous occurrence of a character |
+| `;` | Go to next occurrence of `f{char}` |
+| `,` | Go to previous occurance of `f{char}` |
+| `0` | Move to the first character of a line |
+| `^` | Move to the first non-blank character of a line |
+| `$` | Moves to the end of a line |
+| `g_` | Moves to the non-blank character at the end of a line |
+| `}` | jumps entire paragraphs downwards |
+| `{` | jumps entire paragraphs upwards |
+| `Ctrl-D` | move down half a page by scrolling the page |
+| `Ctrl-U` | move up half a page by scrolling the page |
+| `T`/{pattern}` | search forward inside a file |
+| `?{pattern}` | search backwards inside a file |
+| `n` | jump to the next match |
+| `N` | jump to the previous match |
+| `/Enter` | run the last search forward |
+| `?Enter` | run the last search backwards |
+| `\*` | search for word under the cursor |
+| `#`  | search for word under the cursor backwards |
+| `3;` | go to the next third occurrence of a character |
+| `2/search` | sends you to the second occurrence of `search` |
+| `gd` | jump to the definition under the cursor |
+| `T`gf` | jump to a file in an import |
+| `gg` | go to the top of the file |
+| `{line}gg` | go to a specific line |
+| `G` | go to the end of file |
+| `%` | jump to matching `({[]})` |
 
 `{operator}{count}{motion}`
 `{count}{operator}{motion}`
