@@ -314,6 +314,8 @@ vim plug is a neovim package manager.
 
 Examples:
 
+| Command | Description |
+|---------|-------------|
 | `c/hello` | changes everything until the first occurrence of hello |
 | `ggyG`| copies whole document |
 | `gUw` | capitalizes a word |
@@ -418,13 +420,15 @@ those lines after or before the line where the cursor is resting on.
 
 Registers in Vim are like a special clipboard where you can save multiple things at once.
 
-| **unnamed register** | `"` | the default register, where you copy and cut stuff to when no explicit register is specified |
+| Register Name | Register | Description |
+|---------|-------------|--------------|
+| **unnamed register** | `""` | the default register, where you copy and cut stuff to when no explicit register is specified |
 | **named registers** | `"a-"z` - registers you can use explicitly to copy and cut text |
-| **yank register** | `"0` - stores last thing yanked (copied) |
-| **cut registers** | `"1-"9` - store the last 9 things cut by using either delete or the change command |
-| **black hole register** | `"_` - `"_d{motion}` |
-| **system clipboard** | `"+`  |
-| **selection register** | `"*` |
+| **yank register** | `"0` | stores last thing yanked (copied) |
+| **cut registers** | `"1-"9` | store the last 9 things cut by using either delete or the change command |
+| **black hole register** | `"_` | `"_d{motion}` |
+| **system clipboard** | `"+`  | |
+| **selection register** | `"*` | |
 | **named registers** | | let us save bits of texts for later pasting. |
 | **expression register** | | execute vim script expression |
 
