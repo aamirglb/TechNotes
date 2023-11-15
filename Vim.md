@@ -277,7 +277,7 @@ vim plug is a neovim package manager.
 | `{` | jumps entire paragraphs upwards |
 | `Ctrl-D` | move down half a page by scrolling the page |
 | `Ctrl-U` | move up half a page by scrolling the page |
-| `T`/{pattern}` | search forward inside a file |
+| `T/{pattern}` | search forward inside a file |
 | `?{pattern}` | search backwards inside a file |
 | `n` | jump to the next match |
 | `N` | jump to the previous match |
@@ -288,7 +288,7 @@ vim plug is a neovim package manager.
 | `3;` | go to the next third occurrence of a character |
 | `2/search` | sends you to the second occurrence of `search` |
 | `gd` | jump to the definition under the cursor |
-| `T`gf` | jump to a file in an import |
+| `Tgf` | jump to a file in an import |
 | `gg` | go to the top of the file |
 | `{line}gg` | go to a specific line |
 | `G` | go to the end of file |
@@ -335,54 +335,61 @@ Examples:
 `{operator}{a|i}{text-object}`
 
 build-in text-objects are
+| Text Object | Description |
+|-------------|-------------|
+| `w` | Word |
+| `s` | Sentence |
+| `p` | Paragraph |
+| `b(` | Block surrounded by () |
+| `B{` | Block surrounded by {} |
+| `" ' ` | Quoted text |
+| `< >` | Block surrounded by <> |
+| `[ ]` | Block surrounded by [] |
+| `t` | for tag |
 
-`w` Word
-`s` Sentence
-`p` Paragraph
-`b(` Block surrounded by ()
-`B{` Block surrounded by {}
-`" ' ` Quoted text
-`< >` Block surrounded by <>
-`[ ]` Block surrounded by []
-`t` for tag
+Examples
 
-`daw` delete a word and trailing whitespaces
-`ciw` change inner word
-`das` delete a sentence 
-`dis` delete inner sentence
-`da"` delete something in double quotes including quotes
-`di"` delete only the content inside the quotes 
-`ci"` change something inside double quotes
-`dap` delete a paragraph
-`dab` `da(` `da)` delete a block surrounded by `(`
-`daB` `da{` `da}` delete a block surrounded by `{`
-`dat` delete an HTML tag
-`cit` change the contents of HTML tag
+| Command | Explanation |
+|---------|--------------|
+| `daw` | delete a word and trailing whitespaces |
+| `ciw` | change inner word |
+| `das` | delete a sentence  |
+| `dis` | delete inner sentence |
+| `da"` | delete something in double quotes including quotes |
+| `di"` | delete only the content inside the quotes  |
+| `ci"` | change something inside double quotes |
+| `dap` | delete a paragraph |
+| `dab` | `da(` `da)` delete a block surrounded by `(` |
+| `daB` | `da{` `da}` delete a block surrounded by `{` |
+| `dat` | delete an HTML tag |
+| `cit` | change the contents of HTML tag |
 
 The `.` command becomes even more useful if you get in the habit of using Text-objects. Text-objects are more reliable than other motions because you don't need to care as much where the cursor is positioned. 
 
 ### Single character command
-`x` `dl` deletes character under the cursor
-`X` `dh` deletes the character before the cursor
-`s` `ch` deletes character under the cursor and puts into insert mode
-`~` switch case for single character
+| `x` `dl` | deletes character under the cursor |
+| `X` `dh` | deletes the character before the cursor |
+| `s` `ch` | deletes character under the cursor and puts into insert mode |
+| `~` | switch case for single character |
 
 `u` undo last change
 `<Ctrl>-R` redo it
 
 ### Insert Mode
 
-`i`  Go to insert mode before the cursor
-`a`  append, Go to insert mode after the cursor
-`o`  Insert a new line below the current line and go to insert mode
-`I`  Go to insert mode at the beginning of the current line
-`A`  Go to insert mode at the end of current line
-`O`  Insert a new line above the current line and go to insert mode
-`gi` puts you into insert mode at the last place you made a change
-`ctrl-h` delete the last character you typed
-`ctrl-w` delete the last word you typed
-`ctrl-u` delete the last line you typed
-`<esc>` `ctrl-[` `ctrl-c` Exit insert mode
+| Command | Explanation |
+|---------|--------------|
+| `i` |  Go to insert mode before the cursor |
+| `a` |  append, Go to insert mode after the cursor |
+| `o` |  Insert a new line below the current line and go to insert mode |
+| `I` |  Go to insert mode at the beginning of the current line |
+| `A` |  Go to insert mode at the end of current line |
+| `O` |  Insert a new line above the current line and go to insert mode |
+| `gi` | puts you into insert mode at the last place you made a change |
+| `ctrl-h` | delete the last character you typed |
+| `ctrl-w` | delete the last word you typed |
+| `ctrl-u` | delete the last line you typed |
+| `<esc>` `ctrl-[` `ctrl-c` | Exit insert mode |
 
 
 ### Visual Mode
@@ -434,7 +441,6 @@ Registers in Vim are like a special clipboard where you can save multiple things
 
 | `"+p` | Paste text from system clipboard to vim |
 | `<C-r>+` | From INSERT mode |
-
 
 
 `"{name of register}y{motion}`
