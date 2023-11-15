@@ -43,7 +43,7 @@ i/a/I/A/o/O |> Insert Mode
 | `?{backward}` | search backward |
 | `/<Enter>` | run last search forward |
 | `?<Enter>` | run last search backward |
-| `\`* | search for the word under cursor |
+| `*` | search for the word under cursor |
 | `{count}motion` | multiply a motion count times |
 | `2w` | move cursor 2 word forward |
 | `gd` | jump to definition of whatever is under the cursor |
@@ -300,24 +300,29 @@ vim plug is a neovim package manager.
 `operator` - deleting, changing, yanking, formatting
 
 ### Vim Operators
-`c`  change
-`d`  delete
-`p`  paste
-`y`  yank
-`=`  format
-`g~` toggle case
-`>`  Adds indentation
-`<`  Removes indentation
 
-`c/hello`  changes everything until the first occurrence of hello
-`ggyG` copies whole document
-`gUw` capitalizes a word
-`dd` deletes a whole line
-`cc` changes a whole line
-`D` deletes from the cursor to the end of line
-`C` changes to the end of a line
-`Y` like `yy` copies a complete line
-`P` pastes something before the cursor
+| Command | Description |
+|---------|-------------|
+| `c` |  change |
+| `d` |  delete |
+| `p` |  paste |
+| `y` |  yank |
+| `=` |  format |
+| `g~` | toggle case |
+| `>` | Adds indentation |
+| `<` |  Removes indentation |
+
+Examples:
+
+| `c/hello` | changes everything until the first occurrence of hello |
+| `ggyG`| copies whole document |
+| `gUw` | capitalizes a word |
+| `dd` | deletes a whole line |
+| `cc` | changes a whole line |
+| `D` | deletes from the cursor to the end of line |
+| `C` | changes to the end of a line |
+| `Y` | like `yy` copies a complete line |
+| `P` | pastes something before the cursor |
 
 ### text objects
 
@@ -412,15 +417,16 @@ those lines after or before the line where the cursor is resting on.
 ### Vim Registers
 
 Registers in Vim are like a special clipboard where you can save multiple things at once.
-**unnamed register** - `"` - the default register, where you copy and cut stuff to when no explicit register is specified
-**named registers** - `"a-"z` - registers you can use explicitly to copy and cut text
-**yank register** - `"0` - stores last thing yanked (copied)
-**cut registers** - `"1-"9` - store the last 9 things cut by using either delete or the change command
-**black hole register** - `"_` - `"_d{motion}`
-**system clipboard** - `"+` 
-**selection register** - `"*`
-**named registers** let us save bits of texts for later pasting.
-**expression register** execute vim script expression
+
+| **unnamed register** | `"` | the default register, where you copy and cut stuff to when no explicit register is specified |
+| **named registers** | `"a-"z` - registers you can use explicitly to copy and cut text |
+| **yank register** | `"0` - stores last thing yanked (copied) |
+| **cut registers** | `"1-"9` - store the last 9 things cut by using either delete or the change command |
+| **black hole register** | `"_` - `"_d{motion}` |
+| **system clipboard** | `"+`  |
+| **selection register** | `"*` |
+| **named registers** | | let us save bits of texts for later pasting. |
+| **expression register** | | execute vim script expression |
 
 `"{name of register}y{motion}`
 `"{name of register}d{motion}`
