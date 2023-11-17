@@ -226,11 +226,11 @@ vim plug is a neovim package manager.
 
 ### Two for the price of one
 
-![two-for-one](./images/vim/two_for_one.png)
+![](./images/vim/two_for_one.png)
 
 ### Operator commands
 
-![operator-command](./images/vim/operator_command.png)
+![](./images/vim/operator_command.png)
 
 ### Insert Mode Deletion
 
@@ -375,7 +375,7 @@ Examples
 | `dat` | delete an HTML tag |
 | `cit` | change the contents of HTML tag |
 
-The `.` command becomes even more useful if you get in the habit of using Text-objects. Text-objects are more reliable than other motions because you don't need to care as much where the cursor is positioned. 
+* The `.` command becomes even more useful if you get in the habit of using Text-objects. Text-objects are more reliable than other motions because you don't need to care as much where the cursor is positioned. 
 
 ### Single character command
 | `x` `dl` | deletes character under the cursor |
@@ -476,7 +476,7 @@ Examples
 
 #### Readonly register
 
-![readonly-reg](./images/vim/readonly_register.png)
+![](./images/vim/readonly_register.png)
 
 Examples:
 | Examples | Description |
@@ -526,7 +526,7 @@ Other useful Ex command alternatives to _Normal mode_ commands are (Not supporte
 | `:move` | |
 | `:substitude` | |
 
-`:[range]s/{pattern}/{substitue}/flags`
+* `:[range]s/{pattern}/{substitue}/flags`
 
 Flags can be
 | Flags | Description |
@@ -611,34 +611,43 @@ Using the surround operator we can operate on the surroundings (quotes, parenthe
 | `gU5j` | Change 5 lines below to upper case. |
 | `gu3k` | Change 3 lines above to lower case. |
 
-`xp` Transpose the next two characters
-`ddp` Transpose the order of this line and its successor
+* `xp` Transpose the next two characters
+* `ddp` Transpose the order of this line and its successor
 
-The `:normal @a` command tells Vim to execute the macro once for each line in the selection.
+* The `:normal @a` command tells Vim to execute the macro once for each line in the selection.
 
 
-`dG`  delete till end of document
-`dgg` delete till the beginning of document
-`S`   go to insert mode with proper indentation
+| Command | Description |
+|---------|-------------|
+| `dG` |  delete till end of document |
+| `dgg` | delete till the beginning of document |
+| `S` | go to insert mode with proper indentation |
+
 LMH: Low, Mid, High
 
-`L`
-`M`
-`H`
-`ctrl-u` - up half screen
-`ctrl-d` - down half screen
+| Command | Description |
+|---------|-------------|
+| `L` | Low |
+| `M` | Mid |
+| `H` | High |
+| `ctrl-u` | up half screen |
+| `ctrl-d` | down half screen |
 
 Deleteing in Insert Mode
-`<ctrl>-w`  delete the previous word from the current position
-`<ctrl>-h`  delete previous character (like backspace)
-`<ctrl>-u`  delete from cursor position till end of line
-`<ctrl>-o`  allow executing normal mode command, enter normal mode command and get back to insert mode again
-`<ctrl>-p`  Auto complete
-`<ctrl>-n`  Auto complete
+| Command | Description |
+|---------|-------------|
+| `<ctrl>-w` |  delete the previous word from the current position |
+| `<ctrl>-h` |  delete previous character (like backspace) |
+| `<ctrl>-u` |  delete from cursor position till end of line |
+| `<ctrl>-o` |  allow executing normal mode command, enter normal mode command and get back to insert mode again |
+| `<ctrl>-p` |  Auto complete |
+| `<ctrl>-n` |  Auto complete |
 
-`:set spell` to turn on spell check
-`:set no spell` turn off spell check
-`:set spell&` turn off spell check
-`:help j` get help for j key
+| Command | Description |
+|---------|-------------|
+| `:set spell` | to turn on spell check |
+| `:set no spell` | turn off spell check |
+| `:set spell&` | turn off spell check |
+| `:help j` | get help for j key |
 
 
