@@ -545,11 +545,11 @@ ${string##substring}
 ```
 
 ### Bash Cli shortcut
-![Bash CLI shortcut](images/bash_cli.png)
+![](./images/bash_cli.png)
 
 
 ## 1. Symbolic Links
-[Table Of Contents](#table-of-contents)
+[](#table-of-contents)
 
 * A symlink (also called a symbolic link) is a type of file in Linux that points to another file or a folder on your computer.
 
