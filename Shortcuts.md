@@ -41,7 +41,7 @@
 
 | Shortcut Keys | Description |
 |---------------|-------------|
-| **WIN+Number** | Open _Number_th application from taskbar |
+| **WIN+Number** | Open _Number_ th application from taskbar |
 | **Ctrl+Shift+N**   | Open new Windows Terminal instance  |
 | **Ctrl+Shift+T** | Open a new default profile tab  |
 | **Ctrl+Shift+Number(1-9)** | Open a new tab, profile index: 1 to 9 |
@@ -85,9 +85,3 @@
 | Ctrl+p | Open File |
 | Ctrl+Shift+p | Open command palette |
 | Ctrl+Tab | Switch between open tabs |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
