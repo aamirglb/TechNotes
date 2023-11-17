@@ -305,7 +305,6 @@
 | `"a5yy` | Copy 5 lines to buffer `a` |
 | `"ap` | Paste copied lines from buffer `a` after the cursor |
 | `"aP` | Paste copied lines from buffer `a` before the cursor |
-
-| <Ctrl>-G | View basic file details |
-| g<Ctrl>-G | View advance file details |
+| `<Ctrl>-G` | View basic file details |
+| `g<Ctrl>-G` | View advance file details |
 
