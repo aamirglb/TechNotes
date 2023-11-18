@@ -10,11 +10,11 @@
 
 * ASP.NET Core works great in combination with JavaScript technologies like Angular and React/Redux.
 
-* C# started not only as an object-oriented general-purpose programming language but was a component-based programming     language that supported _properties_, _events_, _attributes_ (annotations), and building assemblies (binaries including metadata).
+* C# started not only as an object-oriented general-purpose programming language but was a component-based programming language that supported _properties_, _events_, _attributes_ (annotations), and building assemblies (binaries including metadata).
 
 * C# was enhanced with **Generics**, **Language Integrated Query (LINQ)**, **lambda expressions**, **dynamic features**, and easier **asynchronous** programming.
 
-* C# is not an easy programming language because of the many features it offers, but it’s continuously evolving with features that are practical to use.
+* C# is not an easy programming language because of the many features it offers, but it's continuously evolving with features that are practical to use.
 
 * C# is more than an object-oriented or component-based language; it also includes ideas of functional programming.
 
@@ -118,10 +118,10 @@
    * Readonly members
    * Default interface methods
    * Pattern matching enhancements:
-   *    * Switch expressions
-   *    * Property patterns
-   *    * Tuple patterns
-   *    * Positional patterns
+        * Switch expressions
+        * Property patterns
+        * Tuple patterns
+        * Positional patterns
    * Using declarations
    * Static local functions
    * Disposable ref structs
@@ -142,20 +142,20 @@
   *  Top-level statements
   *  Pattern matching enhancements
   *  Performance and interop
-  *   *   Native sized integers
-  *   *   Function pointers
-  *   *   Suppress emitting localsinit flag
+      *   Native sized integers
+      *   Function pointers
+      *   Suppress emitting localsinit flag
   *  Fit and finish features
-  *   *   Target-typed new expressions
-  *   *   static anonymous functions
-  *   *   Target-typed conditional expressions
-  *   *   Covariant return types
-  *   *   Extension GetEnumerator support for foreach loops
-  *   *   Lambda discard parameters
-  *   *   Attributes on local functions
+      *   Target-typed new expressions
+      *   static anonymous functions
+      *   Target-typed conditional expressions
+      *   Covariant return types
+      *   Extension GetEnumerator support for foreach loops
+      *   Lambda discard parameters
+      *   Attributes on local functions
   *  Support for code generators
-  *   *   Module initializers
-  *   *   New features for partial methods
+      *   Module initializers
+      *   New features for partial methods
 
 ## C# 10.0 Features
 
@@ -714,12 +714,9 @@ System.Text.StringBuilder sb2 = new ("Test");
 ```
 
 * C# provides three operators to make it easier to work with nulls:
-    *  **null-coalescing operator (??)**:
-        If the operand to the left is non-null, give it to me; otherwise, give me another value.
-    * **null-coalescing assignment operator (??=)**: (C# 8),
-     If the operand to the left is null, assign the right operand to the left operand.
-    * **null-conditional operator/Elvis (?.)**:
-    call methods and access members just like the standard dot operator except that if the operand on the left is `null`, the expression evaluates to `null` instead of throwing a `NullReferenceException`.
+    *  **null-coalescing operator (??)**: If the operand to the left is non-null, give it to me; otherwise, give me another value.
+    * **null-coalescing assignment operator (??=)**: (C# 8), If the operand to the left is null, assign the right operand to the left operand.
+    * **null-conditional operator/Elvis (?.)**: call methods and access members just like the standard dot operator except that if the operand on the left is `null`, the expression evaluates to `null` instead of throwing a `NullReferenceException`.
 
 ```c#
 // null-coalescing operator
@@ -733,12 +730,9 @@ myVar ??= someDefault;
 if(myVar == null) myVar = someDefault;
 ```
 
-* The scope of a local variable or local constant extends throughout the current block. You cannot
-declare another local variable with the same name in the current block or in any nested blocks.
+* The scope of a local variable or local constant extends throughout the current block. You cannot declare another local variable with the same name in the current block or _in any nested blocks_.
 
-* A variable’s scope extends in both directions throughout its code block. This is in
-contrast to C++ and is somewhat peculiar, given that it’s not legal to refer to a variable or constant before
-it’s declared.
+* A variable's scope extends in both directions throughout its code block. This is in contrast to C++ and is somewhat peculiar, given that it's not legal to refer to a variable or constant before it's declared.
 
 * You can also switch on types (from C# 7):
 
@@ -856,7 +850,7 @@ public void Deconstruct (out ﬂoat width, out ﬂoat height) { ... }
 
 * each optional parameter value is baked into the _calling site_.
 
-* **Properties** look like ﬁelds from the outside, but internally they contain logic, like methods do.
+* **Properties** look like fields from the outside, but internally they contain logic, like methods do.
 
 * A property is declared like a ﬁeld but with a get/set (property _accessors_) block added.
 
