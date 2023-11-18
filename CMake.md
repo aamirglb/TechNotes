@@ -5,8 +5,7 @@
 
 CMake and its siblings, CTest, CPack, and CDash, have emerged as the leading toolset for building software from sources
 
-CMake goal: provide a set of tools that would make it easier to configure, build, test, and
-deploy the same project across different platforms.
+CMake goal: provide a set of tools that would make it easier to configure, build, test, and deploy the same project across different platforms.
 [CMake Story](https://www.aosabook.org/en/cmake.html)
 
 CMake is a build-system generator, offering a powerful domain-specific language (DSL) to describe what the build system should achieve. CMake, allows the generation of *platform-native build systems* with the same set of CMake scripts.
@@ -32,9 +31,7 @@ $ export PATH=$HOME/Deps/cmake/${cmake_version}/bin${PATH:+:$PATH}
 $ cmake --version
 ```
 
-The Ninja program is a different build-automation tool that works on
-GNU/Linux, macOS, and Windows. Ninja is a new build tool, with a focus on
-speed, especially for incremental rebuilds.
+The Ninja program is a different build-automation tool that works on GNU/Linux, macOS, and Windows. Ninja is a new build tool, with a focus on speed, especially for incremental rebuilds.
 
 ```bash
 $ virtualenv --python=python3.5 venv
@@ -47,6 +44,7 @@ $ sudo apt-get install libatlas-dev liblapack-dev liblapacke-dev
 ```
 
 **Eigen** linear algebra template library
+
 ```bash
 $ eigen_version="3.3.4"
 $ mkdir -p eigen
@@ -87,8 +85,8 @@ The CMake language is case insensitive, but the arguments are case sensitive.
 In CMake, C++ is the default programming language. However, we suggest to always explicitly state the project’s language in the *project* command using the *LANGUAGES* option.
 
 ```bash
-cmake -H. -Bbuild
-# -H: Search for the root CMakeLists.txt in given directory (in above case current directory)
+cmake -S. -Bbuild
+# -S: Search for the root CMakeLists.txt in given directory (in above case current directory)
 # -B: Generate all files i directory build
 ```
 
@@ -102,11 +100,15 @@ $ cmake --build .
 $ cmake --build . --target help
 # Show a list of available targets in Makefile
 ```
+
 CMake generates the corresponding instructions for the chosen build system. By default, on GNU/Linux and macOS systems, CMake employs the *Unix Makefiles* generator. On Windows, *Visual Studio* is the default generator.
 
 CMake generate following files:
+
 **CMakeFiles** : Directory which contains temporary files, used by CMake for detecting the operating system, compiler, and so on. In addition, depending on the chosen generator, it also contains project-specific files.
+
 **cmake_install.cmake** : A CMake script handling install rules, which is used at install time.
+
 **CMakeCache.txt** : The CMake cache, as the filename suggests. This file is used by CMake when re-running the configuration.
 
 ```bash
@@ -173,12 +175,9 @@ endif()
 
 `if(USE_LIBRARY) ... else(USE_LIBRARY) ... endif(USE_LIBRARY)`
 
-The recommended way to toggle behavior in the build
-system generation for your project is to present logical switches as options in your CMakeLists.txt using the option() command.
+The recommended way to toggle behavior in the build system generation for your project is to present logical switches as options in your CMakeLists.txt using the option() command.
 
-Pass the information to CMake via its -D CLI option
-`cmake -D USE_LIBRARY=ON ... `. The -D switch is used to set any type of variable for CMake: logicals, paths,
-and so forth.
+Pass the information to CMake via its -D CLI option `cmake -D USE_LIBRARY=ON ... `. The -D switch is used to set any type of variable for CMake: logicals, paths, and so forth.
 
 ```option(<option_variable> "help string" [initial value])```
 
@@ -237,6 +236,7 @@ $ cmake --build . --target target1
 
 #### Controlling compiler flags
 Two main approaches:
+
 * CMake treats compile options as properties of targets. Thus, one can set compile options on a per target basis, without overriding CMake defaults.
 * You can directly modify the `CMAKE_<LANG>_FLAGS_<CONFIG>` ariables by using the -D CLI switch. These will affect all targets in the project and override or extend CMake defaults.
 
@@ -251,13 +251,11 @@ target_compile_options(geometry
     ${flags}
 )
 ```
+
 Compile options can be added with three levels of visibility: `INTERFACE`, `PUBLIC`, and `PRIVATE`.
-* `PRIVATE`: compile options will only be applied to the
-given target and not to other targets consuming it.
-* `INTERFACE`: compile options on a given target will only
-be applied to targets consuming it.
-* `PUBLIC`: compile options will be applied to the given
-target and all other targets consuming it.
+* `PRIVATE`: compile options will only be applied to the given target and not to other targets consuming it.
+* `INTERFACE`: compile options on a given target will only be applied to targets consuming it.
+* `PUBLIC`: compile options will be applied to the given target and all other targets consuming it.
 
 ```bash
 $ cmake --build . -- VERBOSE=1
