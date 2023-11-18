@@ -4,7 +4,7 @@ C++ GCC get all warnings: gcc -Q --help=warning
 
 * Most of Boost libraries consist solely of header files that can be used directly, some of the libraries require compilation.
 
-![boost_lib](images/cpp/boost_lib.png)
+![](images/cpp/boost_lib.png)
 
 ## Boost.Signals2
 
@@ -41,10 +41,9 @@ sig.connect(0, Hello());
 
 ## Boost.ASIO
 
-* Boost.Asio is a cross-platform C++ library mainly for networking and
-some other low-level input/output programming.
+* Boost.Asio is a cross-platform C++ library mainly for networking and some other low-level input/output programming.
 
-* The most important class that sits at the heart of Boost.Asio `io_service`. (In Boost 1.66, `io_service` is deprecated. Yes, you should use `io_context`. )
+* The most important class that sits at the heart of Boost.Asio `io_service`. (In Boost 1.66, `io_service` is deprecated. Yes, you should use `io_context`)
 
 * Boost.Asio has successfully abstracted the concepts of input and output that work not just for networking but for COM serial ports, files, and so on.
 
@@ -56,21 +55,19 @@ write(stream, buffer [, extra options])
 # asynchronous input/output
 async_read(stream, buffer [, extra options], handler)
 async_write(stream, buffer [, extra options], handler)
-
 ```
 
 * Boost.Asio was accepted into Boost 1.35 in December 2005
 
 * Boost.Asio depends on 
-* **Boost.System** (provide OS support) 
-* **Boost.Regex** (optional, required for `read_until()` or `async_read_until()`)
-* **Boost.DateTime** (optional: used for timers) 
-* **OpenSSL**
+    * **Boost.System** (provide OS support) 
+    * **Boost.Regex** (optional, required for `read_until()` or `async_read_until()`)
+    * **Boost.DateTime** (optional: used for timers) 
+    * **OpenSSL**
 
 * synchronous servers/clients are usually multi-threaded. [synchronous: blocking calls and multi-threading]
 
-* asynchronous programming is _event-driven_. You start an operation,
-but you don't know when it will end; you supply a _callback_, which the API will call when the operation ends, together with the operation result. [asynchronous: less-threads and events].
+* asynchronous programming is _event-driven_. You start an operation, but you don't know when it will end; you supply a _callback_, which the API will call when the operation ends, together with the operation result. [asynchronous: less-threads and events].
 
 * Boost.Asio uses `io_service` to talk to the operating system's input/output service.
 
@@ -82,21 +79,19 @@ ip::tcp::socket sock(service);
 sock.connect(ep);
 ```
 
-* `service.run()` loop will run as long as there are asynchronous
-operations pending.
+* `service.run()` loop will run as long as there are asynchronous operations pending.
 
 * Boost.Asio allows for both _exceptions_ or _error codes_. All the synchronous functions have overloads that either throw in case of error or can return an error code. In case the function throws, it will always throw a `boost::system::system_error` error.
 
-* All asynchronous functions return an error code, which you
-can examine in your callback. Asynchronous functions never throw an exception.
+* All asynchronous functions return an error code, which you can examine in your callback. Asynchronous functions never throw an exception.
 
 ```cpp
 void client_session(socket_ptr sock) {
-try {
-...
-} catch ( boost::system::system_error e) {
-// handle the error
-}
+    try {
+        ...
+    } catch ( boost::system::system_error e) {
+    // handle the error
+    }
 }
 ```
 
@@ -110,12 +105,9 @@ if (error == error::eof)
 
 * All Boost.Asio error codes are in namespace `boost::asio::error` Check out the boost/asio/error.hpp header for more details.
 
-* The `io_service` class is thread-safe. Several threads can call `io_service::run()`. If called from multiple threads, all threads will be blocked. All callbacks will be called in the context of any
-of the threads that called `io_service::run()`.
+* The `io_service` class is thread-safe. Several threads can call `io_service::run()`. If called from multiple threads, all threads will be blocked. All callbacks will be called in the context of any of the threads that called `io_service::run()`.
 
-* The `socket` classes are not thread-safe. Thus, you should avoid
-doing such as reading from a socket in one thread and write to it in a
-different thread.
+* The `socket` classes are not thread-safe. Thus, you should avoid doing such as reading from a socket in one thread and write to it in a different thread.
 
 * Boost.Asio, in addition to networking, provides other input/output facilities. Boost.Asio allows waiting for signals, such as **SIGTERM (software terminate)**, **SIGINT (signal interrupt)**, **SIGSEGV (segment violation)**, and so on.
 
@@ -174,7 +166,8 @@ work_ptr dummy_work(new io_service::work(service_));
 service_.stop()
 dummy_work.reset(0); // destroy dummy_work
 ```
-The preceding code will make sure that `service_.run()` never stops unless you either use `service_.stop()` or `dummy_work.reset(0); // destroy dummy_work` .
+
+The preceding code will make sure that `service_.run()` never stops unless you either use `service_.stop()` or `dummy_work.reset(0); // destroy dummy_work` 
 
 * `boost::asio`: core classes and functions. `io_service`, `streambuf`.
 * `boost::asio::ip`: `address`, `endpoing`, `tcp`, `udp`, `icmp`,
@@ -289,7 +282,9 @@ int main(int argc, char* argv[]) {
   service.run();
 }
 ```
+
 * A socket instance cannot be copied, as the Copy constructor and operator = are inaccessible:
+
 ```cpp
 ip::tcp::socket s1(service), s2(service);
 s1 = s2; // compile time error
@@ -301,9 +296,9 @@ socket_ptr sock2(sock1); // ok
 socket_ptr sock3;
 sock3 = sock1; // ok
 ```
-* When reading from or writing to a socket, you'll need a _buffer_, one that will hold the
-incoming data or the outgoing data. The memory in the buffer must outlive the I/O operation; you have to make sure if it is not deallocated or goes out of scope as long as the I/O operation lasts.
-This is extremely easy for synchronous operations, but not so straightforward for asynchronous operations.
+* When reading from or writing to a socket, you'll need a _buffer_, one that will hold the incoming data or the outgoing data. The memory in the buffer must outlive the I/O operation; you have to make sure if it is not deallocated or goes out of scope as long as the I/O operation lasts.
+
+* This is extremely easy for synchronous operations, but not so straightforward for asynchronous operations.
 
 * Boost.Asio buffer instance needs to meet some requirements, namely
 `ConstBufferSequence` or `MutableBufferSequence`.
