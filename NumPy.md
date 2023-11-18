@@ -109,14 +109,11 @@ Cython: Compiler that translates Python code into C.
 Jython
 PyPy: interpreter is a JIT (just-in-time) compiler and it converts the Python code directly in machine code at runtime.
 
-* There is another distribution very similar to Anaconda and it is the Canopy distribution
-provided by Enthought, a company founded in 2001 and known for the SciPy project
+* There is another distribution very similar to Anaconda and it is the Canopy distribution provided by Enthought, a company founded in 2001 and known for the SciPy project
 (https://www.enthought.com/products/canopy/).
 
-* The package manager of Canopy, as
-opposed to conda, is graphical.
+* The package manager of Canopy, as opposed to conda, is graphical.
 
-* SciPy (pronounced “sigh pie”) is a set of open-source Python libraries specialized for
-scientific computing.
+* SciPy (pronounced "sigh pie") is a set of open-source Python libraries specialized for scientific computing.
 
 
