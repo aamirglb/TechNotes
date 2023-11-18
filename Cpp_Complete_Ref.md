@@ -2,76 +2,47 @@
 
 * The version of C defined by the 1989 standard is commonly referred to as **C89**.
 
-* The **C99** standardization committee focused on two main areas: the addition of
-several _numeric libraries_ and the development of some special-use, but highly
-innovative, new features, such as _variable-length arrays_ and there _strict pointer
-qualifier_.
+* The **C99** standardization committee focused on two main areas: the addition of several _numeric libraries_ and the development of some special-use, but highly innovative, new features, such as _variable-length arrays_ and there _strict pointer qualifier_.
 
-* In a few cases, features originally from C++, such as single-line
-comments, were also incorporated into C99.
-Because the standard for C++ was finalized before C99 was created, none of the
-C99 innovations are found in Standard C++.
+* In a few cases, features originally from C++, such as single-line comments, were also incorporated into C99.
 
-* **Portability** means that it is easy to adapt software written for one type of
-computer or operating system to another. For example, if you can easily convert
-a program written for UNIX so that it runs under Windows, that program is
-portable.
+* Because the standard for C++ was finalized before C99 was created, none of the C99 innovations are found in Standard C++.
 
-* A data type defines a set of values that a variable can store along with a set
-of operations that can be performed on that variable. Common data types are
-integer, character, and real.
+* **Portability** means that it is easy to adapt software written for one type of computer or operating system to another. For example, if you can easily convert a program written for UNIX so that it runs under Windows, that program is portable.
 
-* Although **C** has five basic built-in data types, it is not a strongly typed
-language, as are **Pascal** and **Ada**. C permits almost all type conversions.
-For example, you may freely intermix character and integer types in an
-expression.
+* A data type defines a set of values that a variable can store along with a set of operations that can be performed on that variable. Common data types are integer, character, and real.
 
-* Unlike a high-level language, C performs almost _no run-time error checking_. For
-example, no check is performed to ensure that array boundaries are not overrun.
-These types of checks are the responsibility of the programmer.
+* Although **C** has five basic built-in data types, it is not a strongly typed language, as are **Pascal** and **Ada**. C permits almost all type conversions.
 
-* C is special in that it allows the direct manipulation of bits, bytes, words,
-and pointers. This makes it well suited for system-level programming, where
-these operations are common.
+* For example, you may freely intermix character and integer types in an expression.
 
-* Another important aspect of C is that it has only a _few keywords_, which are the
-commands that make up the C language. For example, **C89** defines only **32** keywords,
-with **C99** adding just another **5**.
+* Unlike a high-level language, C performs almost _no run-time error checking_. For example, no check is performed to ensure that array boundaries are not overrun. These types of checks are the responsibility of the programmer.
 
-* C’s main structural component is the function - C’s stand-alone subroutine.
+* C is special in that it allows the direct manipulation of bits, bytes, words, and pointers. This makes it well suited for system-level programming, where these operations are common.
+
+* Another important aspect of C is that it has only a _few keywords_, which are the commands that make up the C language. For example, **C89** defines only **32** keywords, with **C99** adding just another **5**.
+
+* C's main structural component is the function - C's stand-alone subroutine.
 
 ### const
-------
 
-* Variables of type const may not be changed by your program. (A const variable
-can  be given an initial value, however.) The compiler is free to place
-variables of this type into read-only memory (ROM).
+* Variables of type const may not be changed by your program. (A const variable can be given an initial value, however.) The compiler is free to place variables of this type into read-only memory (ROM).
 
-* A const variable will receive its value either from an explicit initialization
-or by some hardware-dependent means.
+* A const variable will receive its value either from an explicit initialization or by some hardware-dependent means.
 
-* const char *str - can update the pointer but not the value pointed to by pointer
-str++ is allowed but *str = '-' is not allowed.
+* `const char *str` - can update the pointer but not the value pointed to by pointer, `str++` is allowed but *str = '-'` is not allowed.
 
 ### volatile
---------
 
-* The modifier `volatile` tells the compiler that a variable's value may be changed
-in ways not explicitly specified by the program.
+* The modifier `volatile` tells the compiler that a variable's value may be changed in ways not explicitly specified by the program.
 
-* C/C++ compilers automatically optimize certain expressions by assuming that a
-variable's content is unchanging if it does not occur on the left side of an
-assignment statement; thus, it might not be reexamined each time it is
-referenced. Also, some compilers change the order of evaluation of an expression
-during the compilation process. The volatile modifier _prevents these changes_.
+* C/C++ compilers automatically optimize certain expressions by assuming that a variable's content is unchanging if it does not occur on the left side of an assignment statement; thus, it might not be reexamined each time it is referenced. Also, some compilers change the order of evaluation of an expression during the compilation process. The volatile modifier _prevents these changes_.
 
-* if 0x30 is assumed to be the value of a port that is changed by external
-conditions only
+* if 0x30 is assumed to be the value of a port that is changed by external conditions only
 
 `const volatile char *port = (const volatile char *) 0x30;`
 
 ### Storage Class Specifiers
-----------------------------
 
     * extern
     * static
@@ -79,92 +50,64 @@ conditions only
     * auto
     * mutable -- only c++
 
-extern
--------
+#### extern
 
-* extern allows you to declare a variable without defining it. However,
-if you give that variable an initialization, then the extern declaration becomes
-a definition.
+* extern allows you to declare a variable without defining it. However, if you give that variable an initialization, then the extern declaration becomes a definition.
 
 ```c
 extern int outside_temp; // only declration
 extern int outside_temp = 10; // variable is defined here
 ```
 
-* The extern specifier tells the compiler that the variable types and names that
-follow it have been defined elsewhere
-extern can also be applied to a function declaration, but doing so is redundant.
+* The extern specifier tells the compiler that the variable types and names that follow it have been defined elsewhere extern can also be applied to a function declaration, but doing so is redundant.
 
-static variable
-----------------
+#### static variable
 
-* static variables are permanent variables within their own function or file.
-Unlike global variables, they are not known outside their function or file, but
-they maintain their values between calls.
+* static variables are permanent variables within their own function or file. Unlike global variables, they are not known outside their function or file, but they maintain their values between calls.
 
-* a static local variable is a local variable that retains its value between
-function calls.
+* a static local variable is a local variable that retains its value between function calls.
 
-* You can give a static local variable an initialization value. This value is
-assigned only once, at program start-up - not each time the block of code is
-entered, as with normal local variables.
+* You can give a static local variable an initialization value. This value is assigned only once, at program start-up - not each time the block of code is entered, as with normal local variables.
 
-static global variable
------------------------
+#### static global variable
 
-* Applying the specifier static to a global variable instructs the compiler to
-create a global variable that is known only to the file in which you declared it
+* Applying the specifier static to a global variable instructs the compiler to create a global variable that is known only to the file in which you declared it
 
 * static variables enable you to hide portions of your program from other portions
 
 static use in C++
 -----------------
 
-* In C++, the preceding use of staticis still supported, but deprecated. This means
-that it is not recommended for new code. Instead, you should use a namespace.
+* In C++, the preceding use of staticis still supported, but deprecated. This means that it is not recommended for new code. Instead, you should use a namespace.
 
 register variable
 -----------------
 
-* The `register` storage specifier originally applied only to variables of type `int`,
-`char`, or `pointer` types. However,register's definition has been broadened so that
-it applies to any type of variable.
+* The `register` storage specifier originally applied only to variables of type `int`, `char`, or `pointer` types. However,register's definition has been broadened so that it applies to any type of variable.
 
-* You can only apply the `register` specifier to local variables and to the formal
-parameters in a function. Global register variables are not allowed.
+* You can only apply the `register` specifier to local variables and to the formal parameters in a function. Global register variables are not allowed.
 
 * In C, you cannot find the address of a register variable using the & operator.
 
-* But this restriction does not apply to C++. However, taking the address of a
-register variable in C++ may prevent it from being fully optimized.
+* But this restriction does not apply to C++. However, taking the address of a register variable in C++ may prevent it from being fully optimized.
 
-* Global and static local variables are initialized only at the start of the
-program.
+* Global and static local variables are initialized only at the start of the program.
 
-wchar_t
+`wchar_t`
 -------
 
-* Both C and C++ define _wide characters_ (used mostly in non-English language
-environments), which are 16 bits long. To specify a wide character constant,
-precede the character with a L. For example,
+* Both C and C++ define _wide characters_ (used mostly in non-English language environments), which are 16 bits long. To specify a wide character constant, precede the character with a L. For example,
 
 ```cpp
   wchar_t wc;
   wc = L'A';
 ```
 
-* In C, `wchar_t` type is defined in a header file and is not a built-in type.
-In C++, `wchar_t` is built in.
+* In C, `wchar_t` type is defined in a header file and is not a built-in type. In C++, `wchar_t` is built in.
 
-* C allows you to define string constants, it does not formally have a string data
-type. C++ does define a string class, however.
+* C allows you to define string constants, it does not formally have a string data type. C++ does define a string class, however.
 
-* There is, a difference between the _prefix_ and _postfix_ forms when you use
-these operators in an expression. When an increment or decrement operator
-precedes its operand, the increment or decrement operation is performed before
-obtaining the value of the operand for use in the expression. If the operator
-follows its operand, the value of the operand is obtained before incrementing
-or decrementing it.
+* There is, a difference between the _prefix_ and _postfix_ forms when you use these operators in an expression. When an increment or decrement operator precedes its operand, the increment or decrement operation is performed before obtaining the value of the operand for use in the expression. If the operator follows its operand, the value of the operand is obtained before incrementing or decrementing it.
 
 ```cpp
 x = 10;
@@ -174,10 +117,7 @@ x = 10;
 y = x++;  // x is 11, y is 10
 ```
 
-* Most C/C++ compilers produce very fast, efficient object code for increment and
-decrement operations—code that is better than that generated by using the
-equivalent assignment statement.
-For this reason, you should use the increment and decrement operators when you can
+* Most C/C++ compilers produce very fast, efficient object code for increment and decrement operations—code that is better than that generated by using the equivalent assignment statement. For this reason, you should use the increment and decrement operators when you can
 
 * bitwise operations cannot be used on `float`, `double`,` long double`, `void`,
 `bool`, or other, more complex types.
@@ -191,15 +131,11 @@ The exclusive OR has the truth table shown here:
 | 1  |   1  |   0   |
 | 0  |   1  |   1   |
 
-* relational and logical operators always produce a result that is either
-true or false, whereas the similar bitwise operations may produce any arbitrary
-value in accordance with the specific operation.
+* relational and logical operators always produce a result that is either true or false, whereas the similar bitwise operations may produce any arbitrary value in accordance with the specific operation.
 
-* A shift right effectively divides a number by 2 and a shift left multiplies it
-by 2.
+* A shift right effectively divides a number by 2 and a shift left multiplies it by 2.
 
-* The one's complement operator, `~`, reverses the state of each bit in its operand.
-That is, all 1's are set to 0, and all 0's are set to 1.
+* The one's complement operator, `~`, reverses the state of each bit in its operand. That is, all 1's are set to 0, and all 0's are set to 1.
 
 The ? Operator
 --------------
@@ -220,8 +156,7 @@ pointers have three main functions in C/C++.
 The Compile-Time Operator `sizeof`
 ---------------------------------
 
-* sizeof is a unary compile-time operator that returns the length, in bytes, of
-the variable or parenthesized type-specifier that it precedes.
+* sizeof is a unary compile-time operator that returns the length, in bytes, of the variable or parenthesized type-specifier that it precedes.
 
 ```c
 double f;
@@ -229,40 +164,29 @@ printf("%d ", sizeof f);  // for variables parenthesis is not required
 printf("%d", sizeof(int));
 ```
 
-* to compute the size of a type, you must enclose the type name in parentheses.
-This is not necessary for variable names, although there is no harm done if you
-do so. `sizeof` is evaluated at compile time, and the value it produces is
-treated as a constant within your program.
+* to compute the size of a type, you must enclose the type name in parentheses. This is not necessary for variable names, although there is no harm done if you do so. `sizeof` is evaluated at compile time, and the value it produces is treated as a constant within your program.
 
 The Comma Operator
 ------------------
 
-* The comma operator strings together several expressions. The left side of the
-comma operator is always evaluated as void. This means that the expression on
-the right side becomes the value of the total comma-separated expression.
-For example,
+* The comma operator strings together several expressions. The left side of the comma operator is always evaluated as void. This means that the expression on the right side becomes the value of the total comma-separated expression. For example,
 
 ```c
 x = (y=3, y+1);
 ```
 
-first assigns y the value 3 and then assigns x the value 4. The parentheses are
-necessary because the comma operator has a lower precedence than the assignment
-operator.
+first assigns y the value 3 and then assigns x the value 4. The parentheses are necessary because the comma operator has a lower precedence than the assignment operator.
 
 The Dot (.) and Arrow (->) Operators
 ------------------------------------
 
-* The dot operator is used when working with a structure or union directly. The
-arrow operator is used when a pointer to a structure or union is used.
+* The dot operator is used when working with a structure or union directly. The arrow operator is used when a pointer to a structure or union is used.
 
 Order of Evaluation
 -------------------
 
-* Neither C nor C++ specifies the order in which the sub expressions of an
-expression are evaluated. This leaves the compiler free to rearrange an
-expression to produce more optimal code. However, it also means that your code
-should never rely upon the order in which subexpressions are evaluated.
+* Neither C nor C++ specifies the order in which the sub expressions of an expression are evaluated. This leaves the compiler free to rearrange an expression to produce more optimal code. However, it also means that your code should never rely upon the order in which subexpressions are evaluated.
+
 For example, the expression
 `x = f1() + f2();`
 does not ensure that f1( ) will be called before f2().
@@ -270,43 +194,30 @@ does not ensure that f1( ) will be called before f2().
 Casts
 ------
 
-* You can force an expression to be of a specific type by using a cast.
-The general form of a cast is
-(type) expression
+* You can force an expression to be of a specific type by using a cast. The general form of a cast is (type) expression
 
 True and False in C and C++
 ----------------------------
 
-* In C, a true value is any nonzero value, including negative numbers.
-A false value is 0.
-This approach to true and false allows a wide range of routines to be coded
-extremely efficiently.
+* In C, a true value is any nonzero value, including negative numbers. A false value is 0. This approach to true and false allows a wide range of routines to be coded extremely efficiently.
 
-* C++ also defines a Boolean data type called `bool`, which can have only the values
-true and false.
+* C++ also defines a Boolean data type called `bool`, which can have only the values true and false.
 
 * C99 has added a Boolean type called _Bool, but it is incompatible with C++.
 
-* The C language guarantees at least _15 levels of nesting_. In practice, most
-compilers allow substantially more. More importantly, Standard C++ suggests that
-at least _256 levels of nested_ ifs be allowed in a C++ program.
+* The C language guarantees at least _15 levels of nesting_. In practice, most compilers allow substantially more. More importantly, Standard C++ suggests that at least _256 levels of nested_ ifs be allowed in a C++ program.
 
 ```c
 /* print proper message */
 t ? f1(t) + f2() : printf("zero entered.\n");
 ```
 
-* Some C++ compilers rearrange the order of evaluation of an expression in an
-attempt to optimize the object code. This could cause functions that
-form the operands of the ? operator to execute in an unintended sequence.
+* Some C++ compilers rearrange the order of evaluation of an expression in an attempt to optimize the object code. This could cause functions that form the operands of the ? operator to execute in an unintended sequence.
 
 switch
 -------
 
-* C/C++ has a built-in multiple-branch selection statement, called `switch`, which
-successively tests the value of an expression against a list of integer or
-character constan. When a match is found, the statements associated with that
-constant are executed.
+* C/C++ has a built-in multiple-branch selection statement, called `switch`, which successively tests the value of an expression against a list of integer or character constan. When a match is found, the statements associated with that constant are executed.
 
 * Floating-point expressions are not allowed.
 /* gcc error */
@@ -314,44 +225,28 @@ error: switch quantity not an integer
 
 * Although case is a label statement, it cannot exist by itself, outside of switch
 
-* In C,  a switch can have at least _257 case statements_. Standard C++ recommends
-that at least _16,384 case statements_ be supported!!
+* In C, a switch can have at least _257 case statements_. Standard C++ recommends that at least _16,384 case statements_ be supported!!
 
 * There are three important things to know about the switch statement:
-    1. The switch differs from the if in that switch can only test for equality,
-    whereas if can evaluate any type of relational or logical expression.
+    1. The switch differs from the if in that switch can only test for equality, whereas if can evaluate any type of relational or logical expression.
 
-    1. No two case constants in the same switch can have identical values.
-    Of course, a switch statement enclosed by an outer switch may have case
-    constants that are the same.
+    1. No two case constants in the same switch can have identical values. Of course, a switch statement enclosed by an outer switch may have case constants that are the same.
 
-    1. If character constants are used in the switch statement, they are
-    automatically converted to integers.
+    1. If character constants are used in the switch statement, they are automatically converted to integers.
 
-* In C++ (but not C89), it is possible to declare a variable within the
-conditional expression of an if or switch, within the conditional expression of
-a while loop, or within the initialization portion of a for loop.
+* In C++ (but not C89), it is possible to declare a variable within the conditional expression of an if or switch, within the conditional expression of a while loop, or within the initialization portion of a for loop.
 
-* A variable declared in one of these places has its scope limited to the block of
-code controlled by that statement.
+* A variable declared in one of these places has its scope limited to the block of code controlled by that statement.
 
-* In C89, a non-void function does not technically have to return a value. If no
-return value is specified, a garbage value is returned. However, in C++
-(and in C99), a non-void function must return a value.
+* In C89, a non-void function does not technically have to return a value. If no return value is specified, a garbage value is returned. However, in C++ (and in C99), a non-void function must return a value.
 
-* Most programmers' chief concern about the goto is its tendency to render
-programs unreadable.
+* Most programmers' chief concern about the goto is its tendency to render programs unreadable.
 
-* You can generate a pointer to the first element of an array by simply specifying
-the array name, without any index.
+* You can generate a pointer to the first element of an array by simply specifying the array name, without any index.
 
-* In C/C++, you cannot pass an entire array as an argument to a function. You can,
-however, pass to the function a pointer to an array by specifying the array's
-name without an index.
+* In C/C++, you cannot pass an entire array as an argument to a function. You can, however, pass to the function a pointer to an array by specifying the array's name without an index.
 
-* If a function receives a single-dimension array, you may declare its formal
-parameter in one of three ways: as a pointer, as a sized array, or as an
-unsized array.
+* If a function receives a single-dimension array, you may declare its formal parameter in one of three ways: as a pointer, as a sized array, or as an unsized array.
 
 ```c
 void func1(int *x) /* pointer */
@@ -359,9 +254,7 @@ void func1(int x[10]) /* sized array */
 void func1(int x[]) /* unsized array */
 ```
 
-* When declaring a character array that will hold a null-terminated string, you
-need to declare it to be one character longer than the largest string that it
-is to hold (to accomodate null character).
+* When declaring a character array that will hold a null-terminated string, you need to declare it to be one character longer than the largest string that it is to hold (to accomodate null character).
 
 | Name  | Function |
 |-------|----------|
@@ -372,50 +265,36 @@ is to hold (to accomodate null character).
 | strchr(s1, ch) | Returns a pointer to the first occurrence of ch in s1. |
 | strstr(s1, s2) | Returns a pointer to the first occurrence of s2 in s1. |
 
-* When a two-dimensional array is used as an argument to a function, only a
-pointer to the first element is actually passed. However, the parameter
-receiving a two-dimensional array must define at least the size of the rightmost
-dimension. The rightmost dimension is needed because the compiler must know the
-length of each row if it is to index the array correctly.
+* When a two-dimensional array is used as an argument to a function, only a pointer to the first element is actually passed. However, the parameter receiving a two-dimensional array must define at least the size of the rightmost dimension. The rightmost dimension is needed because the compiler must know the length of each row if it is to index the array correctly.
 `void func1(int x[][10])`
 
-* To create an array of null-terminated strings, use a two-dimensional character
-array. The size of the left index determines the number of strings and the size
-of the right index specifies the maximum length of each string.
+* To create an array of null-terminated strings, use a two-dimensional character array. The size of the left index determines the number of strings and the size of the right index specifies the maximum length of each string.
 
-* The following code declares an array of 30 strings, each with a maximum length
-of 79 characters, plus the null terminator.
+* The following code declares an array of 30 strings, each with a maximum length of 79 characters, plus the null terminator.
 
 ```c
 char str_array[30][80];
 ```
 
-* It is easy to access an individual string: You simply specify only the left
-index.  gets(str_array[4])
+* It is easy to access an individual string: You simply specify only the left index. `gets(str_array[4])`
 
-* C/C++ allows arrays of more than two dimensions. The exact limit, if any, is
-determined by your compiler.
+* C/C++ allows arrays of more than two dimensions. The exact limit, if any, is determined by your compiler.
 
 /* gcc gives error for more than 11 dimensions */
 error: size of array 'array' is too large
 
-* Arrays of more than three dimensions are not often used because of the amount
-of memory they require.
+* Arrays of more than three dimensions are not often used because of the amount of memory they require.
 
-* In multidimensional arrays, it takes the computer time to compute each index.
-This means that accessing an element in a multidimensional array can be slower
-than accessing an element in a single-dimension array.
+* In multidimensional arrays, it takes the computer time to compute each index. This means that accessing an element in a multidimensional array can be slower than accessing an element in a single-dimension array.
 
-* When passing multidimensional arrays into functions, you must declare all but
-the leftmost dimension.
+* When passing multidimensional arrays into functions, you must declare all but the leftmost dimension.
 
 ```c
 int m[4][3][6][5];
 void func1(int d[][3][6][5])
 ```
 
-* When you use the string constant, the compiler automatically supplies the null
-terminator.
+* When you use the string constant, the compiler automatically supplies the null terminator.
 
 Pointers
 ---------
@@ -424,36 +303,22 @@ Pointers
     1. pointers support dynamic allocation.
     1. pointers can improve the efficiency of certain routines.
 
-* any type of pointer can point anywhere in memory. However, all pointer
-arithmetic is done relative to its base type, so it is important to declare the
-pointer correctly.
+* any type of pointer can point anywhere in memory. However, all pointer arithmetic is done relative to its base type, so it is important to declare the pointer correctly.
 
-* In C++, it is illegal to convert one type of pointer into another without the
-use of an explicit type cast. In C, casts should be used for most pointer
-conversions.
+* In C++, it is illegal to convert one type of pointer into another without the use of an explicit type cast. In C, casts should be used for most pointer conversions.
 
-* `%p` - causes `printf( )` to display an address in the format used by the
-host computer
+* `%p` - causes `printf( )` to display an address in the format used by the host computer
 
 Pointer Arithmetic
 -------------------
 
-* There are only two arithmetic operations that you may use on pointers:
-addition and subtraction. you may add or subtract integers to or from pointers.
+* There are only two arithmetic operations that you may use on pointers: addition and subtraction. you may add or subtract integers to or from pointers.
 
-* Besides addition and subtraction of a pointer and an integer, only one other
-arithmetic operation is allowed: You may subtract one pointer from another in
-order to find the number of objects of their base type that separate the two.
+* Besides addition and subtraction of a pointer and an integer, only one other arithmetic operation is allowed: You may subtract one pointer from another in order to find the number of objects of their base type that separate the two.
 
-* All other arithmetic operations are prohibited. Specifically, you may not
-multiply or divide pointers; you may not add two pointers; you may not apply the
-bitwise operators to them; and you may not add or subtract type float or double
-to or from pointers.
+* All other arithmetic operations are prohibited. Specifically, you may not multiply or divide pointers; you may not add two pointers; you may not apply the bitwise operators to them; and you may not add or subtract type float or double to or from pointers.
 
-* The following rules govern pointer arithmetic.
-Each time a pointer is incremented, it points to the memory location of the next
-element of its base type. Each time it is decremented, it points to the
-location of the previous element.
+* The following rules govern pointer arithmetic. Each time a pointer is incremented, it points to the memory location of the next element of its base type. Each time it is decremented, it points to the location of the previous element.
 
 * Global and static local pointers are automatically initialized to null.
 
@@ -461,34 +326,19 @@ location of the previous element.
 char *p = "hello world";
 ```
 
-* The reason this sort of initialization works is because of the way the compiler
-operates. All C/C++ compilers create what is called a string table, which is
-used to store the string constants used by the program. Therefore, the preceding
-declaration statement places the address of "*hello world*", as stored in the string
-table, into the pointer p.
+* The reason this sort of initialization works is because of the way the compiler operates. All C/C++ compilers create what is called a string table, which is used to store the string constants used by the program. Therefore, the preceding declaration statement places the address of "*hello world*", as stored in the string table, into the pointer p.
 
-* In Standard C++, the type of a string literal is technically `const char *`.
-But C++ provides an automatic conversion to `char *`.
+* In Standard C++, the type of a string literal is technically `const char *`. But C++ provides an automatic conversion to `char *`.
 
-* However, this automatic conversion is a deprecated feature, which means that you
-should not rely upon it for new code. For new programs, you should assume that
-string literals are indeed constants and the declaration of `p` in the preceding
-program should be written like this.
+* However, this automatic conversion is a deprecated feature, which means that you should not rely upon it for new code. For new programs, you should assume that string literals are indeed constants and the declaration of `p` in the preceding program should be written like this.
 `const char *p = "hello world";`
 
 Pointers to Functions
 ---------------------
 
-* A particularly confusing yet powerful feature of C++ is the function pointer.
-Even though a function is not a variable, it still has a physical location in
-memory that can be assigned to a pointer. This address is the entry point of the
-function and it is the address used when the function is called. Once a pointer
-points to a function, the function can be called through that pointer.
-Function pointers also allow functions to be passed as arguments to other
-functions. (callback function)
+* A particularly confusing yet powerful feature of C++ is the function pointer. Even though a function is not a variable, it still has a physical location in memory that can be assigned to a pointer. This address is the entry point of the function and it is the address used when the function is called. Once a pointer points to a function, the function can be called through that pointer. Function pointers also allow functions to be passed as arguments to other functions. (callback function)
 
-* You obtain the address of a function by using the function's name without any
-parentheses or arguments.
+* You obtain the address of a function by using the function's name without any parentheses or arguments.
 
 * Both of the following statements are same.
 
@@ -497,15 +347,9 @@ parentheses or arguments.
 cmp(a, b);
 ```
 
-* The reason that you will frequently see the first style is that it tips off
-anyone reading your code that a function is being called through a pointer.
-(That is, that cmp is a function pointer, not the name of a function.)
-Other than that, the two expressions are equivalent.
+* The reason that you will frequently see the first style is that it tips off anyone reading your code that a function is being called through a pointer. (That is, that cmp is a function pointer, not the name of a function.) Other than that, the two expressions are equivalent.
 
-* Dynamic allocation is the means by which a program can obtain memory while it is
-running. As you know, global variables are allocated storage at compile time.
-Local variables use the stack. However, neither global nor local variables can
-be added during program execution.
+* Dynamic allocation is the means by which a program can obtain memory while it is running. As you know, global variables are allocated storage at compile time. Local variables use the stack. However, neither global nor local variables can be added during program execution.
 
 ```c
 #include <stdlib.h>
@@ -1099,18 +943,17 @@ FILE *fopen(const char *filename, const char *mode);
 | a+b  |  Append or create a binary file for read/write. |
 
 
-Mode           File                 fopen()
------------------------------------------------------------------
-read (r)       does not exist       return error
-append (a)     does not exist       creat a new file
-append (a)     exist                all data will be appended at the end
-write (w)      does not exist       create a new file
-write (w)      exist                create a new file and contents of original
-                                    file will be destroyed
-r+             does not exist       not create a new file
-w+             does not exist       create a new file
-r+             exist                doesn't destroy content
-w+             exist                destroys its contents
+| Mode       |    File            |     fopen() |
+| -----------|--------------------|---------------------------------- |
+| read (r)   |    does not exist  |     return error |
+| append (a) |    does not exist  |     creat a new file |
+| append (a) |    exist           |     all data will be appended at the end |
+| write (w)  |    does not exist  |     create a new file |
+| write (w)  |    exist           |     create a new file and contents of original file will be destroyed |
+| r+         |    does not exist  |     not create a new file |
+| w+         |    does not exist  |     create a new file |
+| r+         |    exist           |     doesn't destroy content |
+| w+         |    exist           |     destroys its contents |
 
 int fclose(FILE *fp);
 fclose() also frees the file control block associated with the stream, making it
