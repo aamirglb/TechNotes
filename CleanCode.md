@@ -1,11 +1,11 @@
 # <font color="lime">Clean Code</font> <br><font color="yellow" size="3">By Robert C Martin</font>
 
 
-* *“Honesty in small things is not a small thing.”*
+* *"Honesty in small things is not a small thing."*
 
 * Old American saying: *"A place for everything, and everything in its place."*
 
-* LeBlanc’s law: *Later equals never*.
+* LeBlanc's law: *Later equals never*.
 
 * In 1951, Total Productive Maintenance (TPM) ***5S*** principles. 5S is a set of disciplines
     1) Seiri, or **organization** (think “sort” in English). Knowing where things are
