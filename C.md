@@ -199,7 +199,4 @@ Prototype Pattern: a model object that we can make copies of, customize those co
 In other programming languages, compiled binaries include not just executable code but plenty of metadata, and serialization
 is possible through a feature called reflection—so far unavailable in C++.
 
-The trouble with global static objects is that their initialization order
-in different compilation units is undefined. This can lead to nasty effects,
-like one global object referring to another when the latter hasn’t yet been
-initialized.
+The trouble with global static objects is that their initialization order in different compilation units is undefined. This can lead to nasty effects, like one global object referring to another when the latter hasn’t yet been initialized.
