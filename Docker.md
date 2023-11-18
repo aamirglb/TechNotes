@@ -297,10 +297,7 @@ docker run --rm \
 
 # Docker In Practice
 
-
-
-* **Docker Images**: An image is a collection of filesystem layers and some metadata.
-Taken together, they can be spun up as Docker containers.
+* **Docker Images**: An image is a collection of filesystem layers and some metadata. Taken together, they can be spun up as Docker containers.
 
 * **Layers**: A layer is a collection of changes to files.
 
