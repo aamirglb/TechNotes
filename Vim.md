@@ -451,6 +451,32 @@ Examples:
 
 * Registers in Vim are like a special clipboard where you can save multiple things at once.
 
+* To yank the current word into register `a`, run `"ayiw`. 
+
+Examples:
+
+| Example | Description |
+|---------|-------------|
+| `"ayiw` | yank the current word into register `a` |
+| `"bdd`  | cut the current line into register `b` |
+| `"ap`   | paste the word from register `a` |
+| `"bp`   | paste the line from register `b` |
+
+* In addition to Normal mode commands, Vim also provides Ex commands for delete, yank and put operations.
+
+| Ex command | Description |
+|---------|-------------|
+| `:delete c` | cut the current line into register `c` |
+| `:put c` | paste the content of register `c` below the current line |
+
+* The `x`, `s`, `d{motion}`, `c{motion}` and `y{motion}` commands (and their uppercase equivalents) all set the contents of unnamed register.
+
+### The Yank Register ("0)
+
+* When we use `y{motion}` command, the specified text is copied not only into unnamed register but also into the yank register, which is addressed by the `0` symblol.
+
+* When we address a named register with a lowercase letter, it _overwrites_ the specified register, whereas when we use an uppercase letter, it _appends_ to the specified register.
+
 | Register Name | Register | Description |
 |---------|-------------|--------------|
 | **unnamed register** | `""` | the default register, where you copy and cut stuff to when no explicit register is specified |
@@ -459,9 +485,11 @@ Examples:
 | **cut registers** | `"1-"9` | store the last 9 things cut by using either delete or the change command |
 | **black hole register** | `"_` | `"_d{motion}` |
 | **system clipboard** | `"+`  | When we want to copy some text from inside of Vim and paste into external program |
-| **selection register** | `"*` | X11 primary, used with middle mouse button. No primary clipboard in Windows and Mac OS X  |
+| **selection register** | `"*` | X11 primary, represent the most recently selected text, used with middle mouse button. No primary clipboard in Windows and Mac OS X  |
 | **named registers** | | let us save bits of texts for later pasting. |
 | **expression register** | `"=` | execute vim script expression |
+
+* Vim's plus register ("+) references the system clipboard and is address by the `+` symbol.
 
 Examples
 | Example | Description |
