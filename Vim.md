@@ -497,6 +497,7 @@ Examples
 | `"+p` | Paste text from system clipboard to vim |
 | `<C-r>+` | From INSERT mode |
 
+* Vim also provides `gp` and `gP` commands. These also put the text before or after the current line, but they leave the cursor positioned at the end of the pated text instead of at the beginning.
 
 `"{name of register}y{motion}`
 `"{name of register}d{motion}`
