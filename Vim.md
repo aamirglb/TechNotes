@@ -610,6 +610,14 @@ Using the surround operator we can operate on the surroundings (quotes, parenthe
 | `<leader><leader>T` | until character backwards |
 | `<leader><leader>s{char}` | search character everywhere |
 
+### Scrolling
+
+| Command | Description |
+|---------|---------|
+| `zz` | Move current line to the middle of the screen  |
+| `ZZ` | Save and exit  |
+| `zt` | Move current line to the top of the screen |
+| `zb` | Move current line to the bottom of the screen |
 
 ### Multi Cursor
 * Move the cursor on top of a word
@@ -618,6 +626,7 @@ Using the surround operator we can operate on the surroundings (quotes, parenthe
 * Perform an action (delete, change etc)
 
 ### Vim Macro
+* The `q` key functions both as the "record" button and the "stop" button
 * Type `q{register}` to start recording a macro (e.g. `qq` will start recording a macro to register `q`)
 * Perform the different actions you want to include in the macro
 * When you're done, type `q` to end the recording

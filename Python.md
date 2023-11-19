@@ -4,11 +4,9 @@
 
 * The single most important skill for a computer scientist is **problem solving**.
 
-* Two kinds of programs process high-level languages into low-level languages: **interpreters** and **compilers**. An interpreter reads a high-level program and executes it line by line. A compiler reads the program and translates it completely before the program starts run-
-ning.
+* Two kinds of programs process high-level languages into low-level languages: **interpreters** and **compilers**. An interpreter reads a high-level program and executes it line by line. A compiler reads the program and translates it completely before the program starts running.
 
-* When you have eliminated the impossible, whatever remains, however im-
-probable, must be the truth. - Sherlock Holmes
+* When you have eliminated the impossible, whatever remains, however improbable, must be the truth. - Sherlock Holmes
 
 ```python
 type(3.2)       # <type 'float'>
@@ -28,8 +26,7 @@ float(32)
 str(32)
 ```
 
-* A **module** is a file that contains a collection of related functions.
-Before we can use the module, we have to import it using `import math`.
+* A **module** is a file that contains a collection of related functions. Before we can use the module, we have to import it using `import math`.
 
 * `def` is a keyword that indicates that this is a function definition.
 ```python
@@ -84,31 +81,17 @@ $ sudo apt-get install python3-tk
     * XML and JSON parsers,
     * CSV file handlers, and more.
 
-* Python comes with a standard object-oriented
-interface to the Tk GUI API called tkinter (Tkinter in 2.X)
+* Python comes with a standard object-oriented interface to the Tk GUI API called tkinter (Tkinter in 2.X)
 
-* Higher-level toolkits such as **Dabo** are built on top of base APIs such as _wxPython_ and
-_tkinter_. With the proper library, you can also use GUI support in other toolkits in
-Python, such as Qt with PyQt, GTK with PyGTK, MFC with PyWin32, .NET with
-IronPython, and Swing with Jython (the Java version of Python, described in Chapter
-2) or JPype
+* Higher-level toolkits such as **Dabo** are built on top of base APIs such as _wxPython_ and _tkinter_. With the proper library, you can also use GUI support in other toolkits in Python, such as Qt with PyQt, GTK with PyGTK, MFC with PyWin32, .NET with IronPython, and Swing with Jython (the Java version of Python, described in Chapter 2) or JPype
 
-* integrating a C library into Python enables Python to
-test and launch the library’s components, and embedding Python in a product enables
-onsite customizations to be coded without having to recompile the entire product
+* integrating a C library into Python enables Python to test and launch the library’s components, and embedding Python in a product enables onsite customizations to be coded without having to recompile the entire product
 
-* The in-process _SQLite_ embedded SQL database engine
-is a standard part of Python itself since 2.5, supporting both prototyping and basic
-program storage needs.
+* The in-process _SQLite_ embedded SQL database engine is a standard part of Python itself since 2.5, supporting both prototyping and basic program storage needs.
 
-* Python’s standard _pickle_ module provides a simple object
-persistence system—it allows programs to easily save and restore entire Python objects
-to files and file-like objects.
+* Python’s standard _pickle_ module provides a simple object persistence system—it allows programs to easily save and restore entire Python objects to files and file-like objects.
 
-* _PyMongo_, an interface to **MongoDB**, a high-performance, non-SQL, open source
-JSON-style document database, which stores data in structures very similar to Python’s
-own lists and dictionaries, and whose text may be parsed and created with Python’s
-own standard library json module.
+* _PyMongo_, an interface to **MongoDB**, a high-performance, non-SQL, open source JSON-style document database, which stores data in structures very similar to Python's own lists and dictionaries, and whose text may be parsed and created with Python’s own standard library json module.
 
 * Image processing with PIL and its newer Pillow fork
 
@@ -126,20 +109,13 @@ own standard library json module.
 
 * In 3.2 and later, .pyc files are stored in __pycache__ directory.
 
-* byte code is saved in files only for files that are imported, not
-for the top-level files of a program that are only run as scripts
+* byte code is saved in files only for files that are imported, not for the top-level files of a program that are only run as scripts
 
-* Python Virtual Machine (PVM) is just a big code loop that iterates through
-your byte code instructions, one by one, to carry out their operations. The PVM is the
-runtime engine of Python;
+* Python Virtual Machine (PVM) is just a big code loop that iterates through your byte code instructions, one by one, to carry out their operations. The PVM is the runtime engine of Python;
 
-* there are at least five implementations
-of the Python language—CPython, Jython, IronPython, Stackless, and
-PyPy. Other potential candidates here include the Cython and Shed Skin systems
+* there are at least five implementations of the Python language—CPython, Jython, IronPython, Stackless, and PyPy. Other potential candidates here include the Cython and Shed Skin systems
 
-* Frozen binaries bundle together the byte code of your program files, along with the
-PVM (interpreter) and any Python support files your program needs, into a single
-package.
+* Frozen binaries bundle together the byte code of your program files, along with the PVM (interpreter) and any Python support files your program needs, into a single package.
 
 * In Python `*` means multiply for numbers but repeat for strings.
 
@@ -152,21 +128,15 @@ import sys
 print(sys.platform)
 ```
 
-* Scripts usually start with a line that begins with the
-characters #! (often called “hash bang” or “shebang”), followed by the path to the
-Python interpreter on your machine.
+* Scripts usually start with a line that begins with the characters #! (often called “hash bang” or “shebang”), followed by the path to the Python interpreter on your machine.
 
-* On some Unix systems, you can avoid hardcoding the path to the Python interpreter
-in your script file by writing the special first-line comment like this:
-`#!/usr/bin/env python`
+* On some Unix systems, you can avoid hardcoding the path to the Python interpreter in your script file by writing the special first-line comment like this: `#!/usr/bin/env python`
 
 * In simple terms, every file of Python source code whose name ends in a .py extension is a module. Other files can access the items a module defines by importing that module — import operations essentially load another file and grant access to that file’s contents
 
-* One of the modules is designated as the main or
-top-level file, or “script”—the file launched to start the entire program,
+* One of the modules is designated as the main or top-level file, or "script" - the file launched to start the entire program,
 
-* import operations _run_ the code in a file that is being
-loaded as a final step. Because of this, importing a file is yet another way to launch it.
+* import operations _run_ the code in a file that is being loaded as a final step. Because of this, importing a file is yet another way to launch it.
 
 * `import script1` This works, but only once per session by default. After the first import, later imports do nothing, even if you change and save the module’s source file again in another window. This is by design because import is an expensive operation.
 
@@ -178,8 +148,7 @@ reload(script1)
 
 DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
 ```
-* A module is mostly just a package of variable names, known as a
-_namespace_, and the names within that package are called _attributes_. An attribute is simply a variable name that is attached to a specific object (like a module).
+* A module is mostly just a package of variable names, known as a _namespace_, and the names within that package are called _attributes_. An attribute is simply a variable name that is attached to a specific object (like a module).
 
 ```python
 
@@ -203,16 +172,13 @@ for i, name in enumerate(dir(sys)):
 	print("{} => {}".format(i, name))
 ```
 
-* each module is a self-contained namespace: one module file
-cannot see the names defined in another file unless it explicitly imports that other file.
+* each module is a self-contained namespace: one module file cannot see the names defined in another file unless it explicitly imports that other file.
 
 * `from` statement in a sense defeats the namespace partitioning purpose of modules—because the from copies variables from one file to another,
 
-* the `exec(open('module.py').read())` built-in function
-call is another way to launch files from the interactive prompt without having to import and later reload.
+* the `exec(open('module.py').read())` built-in function call is another way to launch files from the interactive prompt without having to import and later reload.
 
-* Python searches for imported modules in every directory
-listed in `sys.path`; a Python list of directory name strings in the sys module, which is initialized from a `PYTHONPATH` environment variable, plus a set of standard directories.
+* Python searches for imported modules in every directory listed in `sys.path`; a Python list of directory name strings in the sys module, which is initialized from a `PYTHONPATH` environment variable, plus a set of standard directories.
 
 ```python
 for i, v in enumerate(sys.path):
@@ -243,8 +209,7 @@ Py_Initialize(); // This is C, not Python
 PyRun_SimpleString("x = 'brave ' + 'sir robin'"); // But it runs Python code
 ```
 
-* Python comes with a source code debugger named `pdb`, available as a module in Python’s standard library. `pdb` also includes a postmortem function (`pdb.pm()`) that you can run after an
-exception occurs, to get information from the time of the error.
+* Python comes with a source code debugger named `pdb`, available as a module in Python’s standard library. `pdb` also includes a postmortem function (`pdb.pm()`) that you can run after an exception occurs, to get information from the time of the error.
 
 * `python –i m.py` Python will enter into its interactive interpreter mode.
 
@@ -265,8 +230,7 @@ for you automatically instead of requiring declaration code, but it is also `str
 * Python’s core objects set includes: _integers_ that have no
 fractional part, _floating-point numbers_ that do, and more exotic types — _complex numbers_ with imaginary parts, _decimals_ with fixed precision, _rationals_ with numerator and denominator, and full-featured sets.
 
-* There are two ways to print every object in Python; an object’s
-as-code `repr`, and the second is its user-friendly `str`.
+* There are two ways to print every object in Python; an object's as-code `repr`, and the second is its user-friendly `str`.
 
 * In older Pythons, the floating-point `repr` sometimes displays more precision than you might expect
 
@@ -300,8 +264,7 @@ S[:]   # All of S as a top-level copy
 
 * Sequences also supprt _concatenation_ with plus (+) sign and _repetition_ (*).
 
-* Strings are `immutable` in Python — they cannot be changed
-in place after they are created.
+* Strings are `immutable` in Python — they cannot be changed in place after they are created.
 
 * `numbers`, `strings`, and `tuples` are immutable; `lists`, `dictionaries`, and `sets` are immutable and can be changed in place.
 
@@ -354,13 +317,9 @@ ord('\n')  # 10
 
 * Python also supports _raw_ string literal that turns off the backslash escape mechanism. `r'C:\text\new'`
 
-* `str` string handles Unicode text.
-  `bytes` string type represents raw byte values (including media and encoded text).
+* `str` string handles Unicode text. `bytes` string type represents raw byte values (including media and encoded text).
 
-  * the notion of bytes
-doesn’t apply to Unicode: some encodings include character code points too large for
-a byte, and even simple 7-bit ASCII text is not stored one byte per character under some
-encodings and memory storage schemes
+* the notion of bytes doesn't apply to Unicode: some encodings include character code points too large for a byte, and even simple 7-bit ASCII text is not stored one byte per character under some encodings and memory storage schemes
 
 ```python
 'spam'.encode('utf8') # Encoded to 4 bytes in UTF-8 in files
@@ -376,8 +335,7 @@ encodings and memory storage schemes
 'x'.encode() + b'y'  # b'xy'
 ```
 
-* text is _encoded_ to bytes when stored in a file, and _decoded_ into
-characters (a.k.a. code points) when read back into memory. Once it is loaded, we usually process text as strings in decoded form only.
+* text is _encoded_ to bytes when stored in a file, and _decoded_ into characters (a.k.a. code points) when read back into memory. Once it is loaded, we usually process text as strings in decoded form only.
 
 * This `re` module has analogous calls for searching, splitting, and replacement, but because we can use patterns to specify substrings, we can be much more.
 
@@ -444,8 +402,7 @@ bob1 = dict(name='Bob', job='dev', age=40)
 bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))
 ```
 
-* The dictionary `in` membership expression allows us
-to query the existence of a key
+* The dictionary `in` membership expression allows us to query the existence of a key
 
 ```python
 # print dictionary in sorted order
@@ -462,25 +419,19 @@ for key in sorted(D):
     print(key, '=>', D[key])
 ```
 
-* an object is iter_able if it is either a physically stored sequence in memory,
-or an object that generates one item at a time in the context of an iteration operation
+* an object is iter_able if it is either a physically stored sequence in memory, or an object that generates one item at a time in the context of an iteration operation
 
-* dictionaries
-are iterable objects, with a **next** that returns successive keys.
+* dictionaries are iterable objects, with a **next** that returns successive keys.
 
-* The list comprehension, and related functional programming tools like `map` and
-`filter` , will often run _faster_ than a for loop today on some types of code.
+* The list comprehension, and related functional programming tools like `map` and `filter` , will often run _faster_ than a for loop today on some types of code.
 
-* A major rule of thumb in Python is to code for simplicity and readability first and worry
-about performance later
+* A major rule of thumb in Python is to code for simplicity and readability first and worry about performance later
 
-* Python includes tools, including the `time` and `timeit` modules for timing the speed of
-alternatives, and the `profile` module for isolating bottlenecks.
+* Python includes tools, including the `time` and `timeit` modules for timing the speed of alternatives, and the `profile` module for isolating bottlenecks.
 
 * Tuples are sequences, like lists, but they are _immutable_, like strings. Syntactically, they are normally coded in _parentheses_ instead of _square_ brackets
 
-* one-item tuples require a trailing comma. `(2,)`. tuples provide a sort of integrity con-
-straint.
+* one-item tuples require a trailing comma. `(2,)`. tuples provide a sort of integrity constraint.
 
 * File objects are Python code’s main interface to external files on your computer.
 
@@ -491,10 +442,7 @@ for line in open('data.txt'):
     print(line)
 ```
 
-* _text files_ represent content as normal `str` strings and per-
-form Unicode encoding and decoding automatically when writing and reading data,
-while `binary files` represent content as a special `bytes` string and allow you to access file
-content unaltered.
+* _text files_ represent content as normal `str` strings and perform Unicode encoding and decoding automatically when writing and reading data, while `binary files` represent content as a special `bytes` string and allow you to access file content unaltered.
 
 * Python’s `struct` module can both create and unpack packed binary data - raw bytes that record values that are not Python objects — to be written to a file in binary mode.
 
@@ -513,8 +461,7 @@ raw.decode('utf-8')  # decode convert bytes to str
 text = open('unidata.txt', encoding='utf-8').read()
 ```
 
-* `Sets`, are a recent addition to the language that are neither _mappings_ nor _sequences_;
-rather, they are _unordered_ collections of unique and immutable objects.
+* `Sets`, are a recent addition to the language that are neither _mappings_ nor _sequences_; rather, they are _unordered_ collections of unique and immutable objects.
 
 ```python
 X = set('spam')
@@ -529,9 +476,7 @@ set('spam') == set('asmp')   # Order-neutral equality tests (== is False)
 True
 ```
 
-* Python recently grew a few new numeric types: _**decimal**_ numbers, which
-are fixed-precision floating-point numbers, and **_fraction_** numbers, which are rational
-numbers with both a numerator and a denominator.
+* Python recently grew a few new numeric types: _**decimal**_ numbers, which are fixed-precision floating-point numbers, and **_fraction_** numbers, which are rational numbers with both a numerator and a denominator.
 
 ```python
 import decimal
@@ -544,8 +489,7 @@ f + 1
 f + Fraction(1, 2)
 ```
 
-* The _type_ object, returned by the `type` built-in function, is an object that
-gives the type of another object.
+* The _type_ object, returned by the `type` built-in function, is an object that gives the type of another object.
 
 ```python
 type(L)
@@ -560,7 +504,7 @@ if isinstance(L, list):
     print('yes')
 ```
 
-* Floating-point numbers are implemented as C “doubles” in standard CPython, and therefore get as much precision as the C compiler used to build the Python interpreter gives to doubles.
+* Floating-point numbers are implemented as C "doubles" in standard CPython, and therefore get as much precision as the C compiler used to build the Python interpreter gives to doubles.
 
 * Hex 0x or 0X
   Octal 0o or 0O (zero and lower/uppercase letter o)
@@ -578,9 +522,7 @@ if isinstance(L, list):
  math.trunc(2.5)  # Truncate fractional part
  ```
 
- * The oct function converts decimal to octal, hex to hexadecimal, and bin to binary. To
-go the other way, the built-in int function converts a string of digits to an integer, and
-an optional second argument lets you specify the numeric base
+ * The oct function converts decimal to octal, hex to hexadecimal, and bin to binary. To go the other way, the built-in int function converts a string of digits to an integer, and an optional second argument lets you specify the numeric base
 
 * The `eval` function, treats strings as though they were Python code.
 
@@ -630,8 +572,7 @@ decimal.getcontext().prec = 4
 
 * `with` context manager statement
 
-* `{}` is still a dictionary in all Pythons. Empty sets must be created with the
-set built-in, and print the same way.
+* `{}` is still a dictionary in all Pythons. Empty sets must be created with the set built-in, and print the same way.
 
 * `sets` can only contain `immutable` (a.k.a. “hashable”) object types. Hence, _lists_ and _dictionaries_ cannot be embedded in sets, but _tuples_ can if you need to store compound values.
 
@@ -641,11 +582,9 @@ set built-in, and print the same way.
 
 * Sets can be used to _isolate differences_ in lists, strings, and other iterable objects.
 
-* Sets can also be used to keep track of where you’ve already been when traversing a
-graph or other cyclic structure.
+* Sets can also be used to keep track of where you’ve already been when traversing a graph or other cyclic structure.
 
-* Each object also has two standard header fields: a _type designator_ used to
-mark the type of the object, and a reference counter.
+* Each object also has two standard header fields: a _type designator_ used to mark the type of the object, and a reference counter.
 
 * a variable in Python is that it references a particular object at a particular point in time.
 
@@ -666,13 +605,11 @@ L is M    # same objects
 
 * `is` operator tests for ojbect _identity_, it return `True` only if both names point to the exact same object.
 
-* There are three string types: `str` is used for Unicode text (including
-ASCII), `bytes` is used for binary data (including encoded text), and `bytearray` is a mutable variant of `bytes`.
+* There are three string types: `str` is used for Unicode text (including ASCII), `bytes` is used for binary data (including encoded text), and `bytearray` is a mutable variant of `bytes`.
 
 * encoding => translation
 
-* Unlike in C, in Python, strings come with a powerful set of processing
-tools. Also unlike languages such as C, Python has no distinct type for individual characters; instead, you just use one-character strings.
+* Unlike in C, in Python, strings come with a powerful set of processing tools. Also unlike languages such as C, Python has no distinct type for individual characters; instead, you just use one-character strings.
 
 * In fact, Python 3.X defines `str` strings formally as sequences of Unicode code points, not `bytes`, to make this clear.
 
@@ -704,9 +641,7 @@ L.sort(key=str.lower)
 L.sort(key=str.lower, reverse=True)
 ```
 
-* sorting is also available in recent Pythons as a built-
-in function, which sorts any collection (not just lists) and returns a new list for the result
-(instead of in-place changes):
+* sorting is also available in recent Pythons as a builtin function, which sorts any collection (not just lists) and returns a new list for the result (instead of in-place changes):
 
 ```python
 sorted(L, key=str.lower, reverse=True)
@@ -803,13 +738,11 @@ E = pickle.load(F)
 E   # {'a': 1, 'b': 2}
 ```
 
-* The `pickle` module performs what is known as object _serialization_ convert-
-ing objects to and from strings of bytes.
+* The `pickle` module performs what is known as object _serialization_ converting objects to and from strings of bytes.
 
 * `shelve` is a tool that uses `pickle` to store Python objects in an access-by-key filesystem.
 
-* `JSON` is a newer and emerging data interchange format, which is both
-programming-language-neutral and supported by a variety of systems. `MongoDB`, for instance, stores data in a JSON document database (using a binary JSON format).
+* `JSON` is a newer and emerging data interchange format, which is both programming-language-neutral and supported by a variety of systems. `MongoDB`, for instance, stores data in a JSON document database (using a binary JSON format).
 
 * JSON is so close to Python dictionaries and lists in syntax, the translation to and from Python objects is trivial, and is automated by the `json` standard library module.
 
@@ -839,7 +772,7 @@ data = struct.pack('>i4sh', 7, b'spam', 8)
 
 ![format character](images/py/py_format_char.png)
 
-* File’s `with` **context manager** allows us to wrap file-processing code in a logic layer that ensures that the file will be closed.
+* File's `with` **context manager** allows us to wrap file-processing code in a logic layer that ensures that the file will be closed.
 
 ```python
 with open('data.txt') as myfile:
@@ -864,11 +797,9 @@ X = copy.deepcopy(Y)
 L = [None] * 100
 ```
 
-* `None` does not mean “undefined.” That is, None is something, not
-nothing (despite its name!)—it is a real object and a real piece of memory that is created and given a built-in name by Python itself.
+* `None` does not mean "undefined." That is, None is something, not nothing (despite its name!)-it is a real object and a real piece of memory that is created and given a built-in name by Python itself.
 
-* The types standard library module in Python 3.X provides additional type
-names for types that are not available as built-ins.
+* The types standard library module in Python 3.X provides additional type names for types that are not available as built-ins.
 
 ```python
 import types

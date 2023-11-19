@@ -74,10 +74,13 @@ $ git diff stash@{0} main        # top most stash and main branch
 
 ### Git Tags
 Tags are reference points in the repository. Tags are usually used as references for release versions.
+
 Tags are Git objects meaning that **they can be checkout out** like a branch or a commit.
+
 Git has the ability to tag specific points in a repository’s history as being important.
 
 Git supports two types of tags: **lightweight** and **annotated**.
+
 A *lightweight tag* is very much like a branch that doesn’t change; iit’s just a pointer to a specific commit.
 
 *Annotated tags*, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, email, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). It’s generally recommended that you create annotated tags so you can have all this information.
@@ -279,38 +282,21 @@ branch, or branch head, or just a branch.
 
 * Git is very fast: nearly all operations are performed locally, and are flexible
 
-* Version control is a system
-that records changes to a file or set of files over time so that you can recall specific versions later.
+* Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later.
 
-* One of the more popular VCS tools was a system called **RCS**, which is still
-distributed with many computers today. RCS
-works by keeping patch sets (that is, the differences between files) in a special
-format on disk; it can then re-create what any file looked like at any point in
-time by adding up all the patches.
+* One of the more popular VCS tools was a system called **RCS**, which is still distributed with many computers today. RCS works by keeping patch sets (that is, the differences between files) in a special format on disk; it can then re-create what any file looked like at any point in time by adding up all the patches.
 
 * Centralized Version Control Systems (CVCSs) such as _CVS_, _Subversion_, and _Perforce_, have a single server that contains all the versioned files, and a number of clients that check out files from that central place.
 
-* Distributed Version Control Systems (DVCSs) such as _Git_, _Mercurial_, _Bazaar_ or _Darcs_, clients don’t just check out the latest snapshot of the files: they fully mirror the repository. Every clone is really a full backup
-of all the data.
+* Distributed Version Control Systems (DVCSs) such as _Git_, _Mercurial_, _Bazaar_ or _Darcs_, clients don’t just check out the latest snapshot of the files: they fully mirror the repository. Every clone is really a full backup of all the data.
 
-* The major difference between Git and any other VCS  is the way Git thinks about its data.
-Most other systems store information as a **list of file-based changes**. These systems think of the information they keep as a set of
-files and the changes made to each file over time.
+* The major difference between Git and any other VCS  is the way Git thinks about its data. Most other systems store information as a **list of file-based changes**. These systems think of the information they keep as a set of files and the changes made to each file over time.
 
-* Git doesn’t think of or store its data this way. Instead, Git thinks of its data
-more like a set of snapshots of a miniature filesystem. Every time you commit,
-or save the state of your project in Git, it basically takes a picture of what all
-your files look like at that moment and stores a reference to that snapshot. To
-be efficient, if files have not changed, Git doesn’t store the file again, just a link
-to the previous identical file it has already stored. Git thinks about its data more
-like a stream of snapshots.
+* Git doesn’t think of or store its data this way. Instead, Git thinks of its data more like a set of snapshots of a miniature filesystem. Every time you commit, or save the state of your project in Git, it basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot. To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file it has already stored. Git thinks about its data more like a stream of snapshots.
 
-* Everything in Git is check-summed before it is stored and is then referred to by
-that checksum. The mechanism that Git uses for this checksumming is called a **SHA-1** hash.
-This is a 40-character string composed of hexadecimal characters and calculated based on the contents of a file or directory structure in Git.
+* Everything in Git is check-summed before it is stored and is then referred to by that checksum. The mechanism that Git uses for this checksumming is called a **SHA-1** hash. This is a 40-character string composed of hexadecimal characters and calculated based on the contents of a file or directory structure in Git.
 
-* Git stores everything in its database not by file name but by
-the hash value of its contents.
+* Git stores everything in its database not by file name but by the hash value of its contents.
 
 * Git has three main states that your files can reside in: **committed**, **modified**, and **staged**. This leads us to the three main sections of a Git project: the _Git directory_, the _working directory_, and the _staging area_.
 
@@ -357,8 +343,7 @@ $ git config user.email
 
 * Git has a number of different transfer protocols like `https://` protocol, and also `git://` or `user@server:path/to/repo.git`, which uses the SSH transfer protocol.
 
-* _Tracked files_ are files that were in the last snapshot; they can be _unmodified_, _modified_, or _staged_. Untracked files are every-
-thing else - any files in your working directory that were not in your last snapshot and are not in your staging area.
+* _Tracked files_ are files that were in the last snapshot; they can be _unmodified_, _modified_, or _staged_. Untracked files are every- thing else - any files in your working directory that were not in your last snapshot and are not in your staging area.
 
 * `git status` determine which files are in which state
 
@@ -382,7 +367,7 @@ MM Rakefile
 
 * There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree.
 
-* `.gitignore` class of files that you don’t want Git to automatically add or even show you as being untracked.
+* `.gitignore` class of files that you don't want Git to automatically add or even show you as being untracked.
 
 ```shell
 $ cat .gitignore
@@ -414,8 +399,7 @@ $ git diff --staged (or --cached)
 
 * `git commit -m "message"` - commit message inline
 
-* `git commit -a` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip
-the `git add` part
+* `git commit -a` command makes Git automatically stage every file that is already tracked before doing the commit, letting you skip the `git add` part
 
 ```shell
 $ git commit -a -m "new commit"
@@ -506,8 +490,7 @@ $ git commit --amend  # second commit replaces the results of the first.
 
 * `git checkout -- CONTRIBUTING.md` discard the changes made to the file
 
-* Anything that is committed in Git can almost always be recovered. Even commits that were on branches that were deleted or commits that
-were overwritten with an `--amend` commit can be recovered. However, anything you lose that was never committed is likely never to be seen again.
+* Anything that is committed in Git can almost always be recovered. Even commits that were on branches that were deleted or commits that were overwritten with an `--amend` commit can be recovered. However, anything you lose that was never committed is likely never to be seen again.
 
 ## Working with Remotes
 
@@ -517,8 +500,7 @@ were overwritten with an `--amend` commit can be recovered. However, anything yo
 
 * `git remote -v` shows the URLs that Git has stored for the shortname to be used when reading and writing to that remote.
 
-* `git remote add <shortname> <url>` add a new remote explicitly. To add a new remote Git repository as a shortname you can reference
-easily.
+* `git remote add <shortname> <url>` add a new remote explicitly. To add a new remote Git repository as a shortname you can reference easily.
 
 * `git remote add pb https://github.com/paulboone/ticgit`
 Now you can use the string `pb` on the command line in lieu of the whole URL
@@ -612,7 +594,7 @@ solved. Staging the file marks it as resolved in Git.
 
 * `git clone -o booyah` booyah instead of origin
 
-* If you don’t want to type your password every single time you push, you can set up a **"credential cache"**. The simplest is just to keep it in memory for a few minutes, which you can easily set up by running `git config --global credential.helper cache`.
+* If you don't want to type your password every single time you push, you can set up a **"credential cache"**. The simplest is just to keep it in memory for a few minutes, which you can easily set up by running `git config --global credential.helper cache`.
 
 ```shell
 $ git fetch origin
@@ -636,8 +618,7 @@ $ git checkout -b sf origin/serverfix
 
 * `git merge @{u}` instead of `git merge origin/master`
 
-* `git branch -vv` list out your local branches with more information including what each branch is tracking and if your local branch is
-ahead, behind or both.
+* `git branch -vv` list out your local branches with more information including what each branch is tracking and if your local branch is ahead, behind or both.
 
 * `git pull` is essentially a `git fetch` immediately followed by a `git merge` in most cases.
 
@@ -647,9 +628,7 @@ ahead, behind or both.
 
 * With the **rebase** command, you can take all the changes that were committed on one branch and replay them on another one.
 
-* rebasing makes for a cleaner history. If you examine
-the log of a rebased branch, it looks like a linear history: it appears that all the
-work happened in series, even when it originally happened in parallel.
+* rebasing makes for a cleaner history. If you examine the log of a rebased branch, it looks like a linear history: it appears that all the work happened in series, even when it originally happened in parallel.
 
 * A remote repository is generally a _bare repository_ – a Git repository that has no working directory.
 
