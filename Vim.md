@@ -631,6 +631,7 @@ Using the surround operator we can operate on the surroundings (quotes, parenthe
 * Perform the different actions you want to include in the macro
 * When you're done, type `q` to end the recording
 * Type `@{register}` (e.g. `@q`) to execute the macro that lives in a given `register`
+* In Macros, the symbol `^[` stands for the Escape key
 
 | Command | Move to |
 |---------|---------|
