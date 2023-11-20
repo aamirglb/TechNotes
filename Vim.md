@@ -322,6 +322,9 @@ vim plug is a neovim package manager.
 | `>` | Adds indentation |
 | `<` |  Removes indentation |
 
+* In command line mode, `<Ctrl-R> <Ctrl-W>` will insert the word under the cursor. `:help c_CTRL-R`
+
+* `<cword>` is the word under the cursor `:help <cword>` 
 Examples:
 
 | Command | Description |
