@@ -689,4 +689,36 @@ Deleteing in Insert Mode
 | `:set spell&` | turn off spell check |
 | `:help j` | get help for j key |
 
+### NerdTree
+
+* In Normal Mode, use `:NERDTreeToggle` to open the nerdtree window. For shortcut, add the ofllowing to vim config:
+`nnoremap <silent> <C-k><C-B> :NERDTreeToggle<CR>`
+
+* To create a child file or directory under a directory, move the cursor to the directory, press `m` (stands for menu), then press `a` to create a child node. To create a directory, append `/` behind the node name.
+
+* To exit the menu, press `<Esc>` or `<C-c>`
+
+* To show parent directory of the current node, press `u`
+
+* To change the root directory to where the cursor resides, press `C`
+
+* To open/close child directory of current directory recursively
+    * Open recursively: `O`
+    * Close recursively: `X`
+
+* Move to first ode of same level: `K`
+
+* Move to last node of the same level: `J`
+
+* Move to previous node of same level: `Ctrl-k`
+
+* Move to next node of same level: `Ctrl-j`
+
+* To open file in a new window in vertical direction, use `i`
+
+* To open file in a new window in horizontal direction, use `s`
+
+* To open a file in a new tab use `t`
+
+* To rename a file or directory, use `mm`
 
