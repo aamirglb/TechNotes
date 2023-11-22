@@ -457,3 +457,40 @@ which has type `T`, and that is placed in a part of memory, named "heap", differ
 from the static area and the stack.
 
 * The behavior and purpose of the `Box::new` function are to allocate an object in the heap that must be large enough to contain a copy of the received argument, copy the value of the received argument into such newly allocated object, and return the address of such object.
+
+# Hands on data structure and algorithm with Rust 
+
+* Rust doesn't have classes, methods, interfaces, inheritance and so on of a typical object orientated language.
+
+* Rust is a multi-paradigm language
+
+* In Rust, it's recommended to create traits to implement (shared) behavior. `Traits` have a lot in common with abstract classes in traditional languages.
+
+* Other than a typical class, where data fields and methods are in a single construct, Rust emphasizes the separation between those by declaring a `struct` for data and an `impl` part for the methods/functions.
+
+* Instead of `null`, Rust works with `Option` and `Result` types that let developer model success or failure.Also, there is no exception system in Rust, so any faied execution of a function should be indicated in the return type.
+
+* For immediate termination `panic!()` macro is provided.
+
+* `Option<T>` and `Result<T, E>` both encapsulate one or two values that can be returned to communicate an error or whether something was found or not.
+
+* Handling those return values is often doen with `match` or `if let` clauses in order to handle the cases of success or failure.
+
+* `Option<T>` and `Result<T, E>` are both enumerations that have generic type parameters,
+
+* Macros are expanded in Rust code before compilation, which gives them more power than a regular function. The generated code can create functions on the fly or implement traits for a structure.
+
+* **Procedural macros** operate differently and are often used to provide a default trait implementation.
+`#[derive(Clone, Debug)]` - implement `Clone` and `Debug` traits automatically.
+
+* Rust is famous for its memory management model, which replaces runtime garbage collection with compile-time checks for memory safety.
+
+```Rust
+fn foo() {
+	let x = 10;
+	bar(x);    // x ownership is moved to bar
+	let y = x; // x is now invalid!!
+}
+```
+
+* Some lifetimes are different and Rust denominates them with a `'`. Predefined lifetime `'static`
