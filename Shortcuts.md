@@ -35,7 +35,14 @@
 | **Ctrl+M+M** | Expand/Collapse a block of code  |
 | **Alt+Enter** | Open reshaper command |
 | **Ctrl+Space** | Suggest parameter names |
-
+| **Alt+W,L** or **Alt+-,L** | Close All Documents |
+| **Ctrl+F4** or **Alt+F,C** or **Alt+-,C | Close Current Documents |
+| **Alt+-,A** | Close All But This Document |
+| **Alt+-,O** | Open Containint Folder |
+| **Alt+-,U** | Copy Full path |
+| **Alt+W,P** or **Alt+-,P** | Pin Tab |
+| **Alt+W,F** or **Alt+-,F** | Float tab |
+| **Alt+W,F** or **Alt+-,F** | Auto Hide All Tab |
 
 ## Windows Terminal Shortcuts
 
