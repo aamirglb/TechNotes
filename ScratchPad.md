@@ -744,3 +744,111 @@ echo {01..15}
 ![cut-paste](./images/linux_cmd_line/8-3.cut-paste.png)
 
 ![history-command](./images/linux_cmd_line/8-5.history-command.png)
+
+a namespace is
+a declaration that provides scope for all the variables, types, and functions inside of its
+encapsulation.
+
+What makes
+inheritance even more powerful is the fact that we not only can adopt the functions of the
+inherited class, we can override them with our own implementations.
+
+The protectd 
+methods and variables are only available to the class itself and any classes derived.
+
+With
+virtual inheritance, we can make sure that a parent class only appears in any children
+classes once.
+
+```
+class Boss : public virtual Enemy {}
+class FlyingEnemy : public virtual Enemy {}
+class FlyingBoss : public Boss, public FlyingEnemy {}  // only one copy of Enemy class
+```
+
+polymorphism is the ability to use an object of a class as if it was part of another
+class.
+
+By default, const objects
+cannot call non const functions. However, non non objects can still call const functions.
+
+the list container does not store
+all its elements in one large contiguous block of memory. Instead, it stores its elements as
+nodes in a doubly linked list.
+
+Unlike sequence containers, associative containers do not preserve the relative positions of
+the elements in them. Instead associative containers are built for speed, more specifically
+element lookup speed.
+
+As of the C++14 standard, there are now three
+types of templates that can be used: class templates, function templates, and variable
+templates.
+
+The first potential drawback is that all templates must have their
+entire implementation in the same file, usually the header.
+
+Another drawback of templates is that
+they are notorious for being hard to debug. Compilers tend to give cryptic errors when the
+issue resides inside of the templated code.
+
+The auto keyword has a helper keyword, decltype, which extracts the type from a
+variable. So where auto is used to let the compiler infer what the variable type is, the
+decltype is utilized to determine what a variable's type is.
+
+Run-time type information
+(RTTI), which is the concept of determining the type of a variable at runtime.
+
+A somewhat more
+ideal solution would be to have an EventHandler class that would handle the registration,
+storage, and polymorphic functions for all events.
+
+```
+cl /c hello.cpp
+lib /out:MyLib.lib hello.obj
+cl main.cpp /link MyLib.lib
+
+// using gcc on Linux/MacOS
+gcc -c hello.cpp
+ar rvs MyLib.a hello.o
+g++ main.cpp MyLib.a -o main
+```
+
+Dynamic or shared libraries are libraries that have their code implementations linked at
+runtime.
+
+For dynamic or shared libraries, we have to make a few modifications and follow slightly different steps for compilation and linking. To begin with, we will have to change our library file to let the compiler know that we would like to share certain parts with other programs. We do this, on the Microsoft platform, with `__declspec` or declaration specification. Passing the `dllexport` parameter to `__declspec` lets the compiler know that this function or even classes should be exported as part of the dynamic linked library. On the OS X platform, we also use a type of declaration to let the compiler know that the classes or functions are to be exported. Here we use `__attribute__((visibility("default")))` in place of `__declspec`
+
+For creating dynamic link library on Windows
+
+```
+cl /LD /FeMyDynamicLib.dll hello.cpp
+```
+
+`/LD` - Create dynamically linked library
+
+The `.lib` of a dynamic library acts as a pointer to the actual implementation in the `.dll` file
+
+In **Linker** select **Input**. At the top of the dialog on the **Additional Dependencies** property, click on the drop down and select **Edit**. we specify the libraries we wish to include at compile time. We include `.lib` file regardless of whether it is a dynamic library or static library.
+
+Macros:
+`$(SolutionDir)` This is the top solution directory
+`$(SourceDir)` This is the directory of the source for the project
+`$(Platform)` This is the platform that is selected (Win32, x64, ARM)
+`$(Configuration)` This is the configuration that is selected (Debug/Release)
+
+* OpenGL (https://www.opengl.org/): The **Open Graphics Library (OGL)** is an open cross-language, cross-platform application programming interface, or API, used for rendering 2D and 3D graphics. The API provides low-level access to the **Graphics Processing Unit (GPU)**.
+SDL (https://www.libsdl.org/): The **Simple DirectMedia Layer (SDL)** is a cross-platform software development library designed to deliver a low-level hardware abstraction layer to multimedia hardware components. While it does provide its own mechanism for rendering, SDL can use **OGL** to provide full 3D rendering support.
+
+An OGL context can be thought of as a set
+of states that describes all the details related to the rendering of the application. The OGL
+context must be set before any drawing can be done.
+
+FFmpeg implements almost all the common data encapsulation formats, multimedia transmission protocol and audio and video codecs.
+
+FFmpeg is functionally divided into several modules:
+	* **libutils** - core tools
+	* **libavformat** - media formats
+	* **libavcodec** - codecs
+	* **libavdevice** - devices
+	* **libavfilter**, **libswscale**, **libpostproc** - post-processing
+
