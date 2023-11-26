@@ -341,3 +341,18 @@ state size of 19937 bits.
 Video encoder : take video signal (upto 3 gigabit/sec for HD) 1 Mbps.
 Compression standard: H.264 (1000/1)
 HVAC h.265 standard (twice as effective)
+
+
+Shader Languages
+* C for graphics (Cg): developed by Nvidia graphics company. Cg compilers can output shader programs supported by both DirectX and OpenGL
+
+* High Level Shading Lanaguage (HLSL): developed by Microsoft Corporation for use with DirectX graphics API. Since the release, DirectX 12 the HLSL language supports even lower level hardware control and has seen dramatic performance improvements.
+
+* OpenGL Shading Language (GLSL) is a shading language based on C. It was created by **OpenGL Architecture Review Board** (OpenGL ARB) to give developers more direct control of the graphics pipeline without having to use ARB assmbly language or other hardware specific languages.
+
+* Most modern shader programs are composed of up to five different types of sharder files:
+    * fragment or pixel shaders
+    * vertex shaders
+    * geometry shaders
+    * compute shaders
+    * tessellation shaders
