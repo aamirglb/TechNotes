@@ -1,3 +1,4 @@
+
 # The Rust Programming Language
 
 * `rustup`, is a command line tool for managing Rust versions and associated tools.
@@ -494,3 +495,95 @@ fn foo() {
 ```
 
 * Some lifetimes are different and Rust denominates them with a `'`. Predefined lifetime `'static`
+
+# Hands on Data Structures and Algorithms with Rust
+
+* Rust uses traits to implements (shared) behavior instead of inheritance. Traits have a lot in common with abstract classes in traditional languages, yet any `struct` in Rust can implement several of those traits.
+
+* Rust emphasizes separation between data fields and methods by declaring a `struct` for data and an `impl` part for methods/functions. `traits` name and encapsulate behaviors so they can easily be imported, shared and reused.
+
+* Because of Rust different memory management model, there is no need for `null` pointer/reference.
+
+* Instead of `null` Rust uses `Option` and `Result` types to model success or failure. Rust doesn't have exception system.
+
+* `Option<T>` and `Result<T, E>` both encapsulate one or two values that can be returned to communicate an error or whether something was found or not.
+
+```Rust
+fn find(needle: u16, haystack: Vec<u16>) -> Option<usize> {
+	// find the needle in the haystack
+}
+
+fn read_file(path: &str) -> Result<String, io::Error> {
+	// open the path as a file and read it
+}
+
+match find(2, vec![1, 3, 4, 6]) {
+	Some(_) => println!("Found!!"),
+	None => println!("Not found :(")
+}
+
+if let Some(result) = find(2, vec![1, 2, 3, 4]) {
+    println!("Found!!");
+}
+
+// For Result<T, E>
+match read_file("/tmp/file") {
+    Ok(content) => println!(content),
+    Err(error) => println!("Error occured")
+}
+```
+
+* Rust Macors are expanded before compilation, which gives them more power than a regular function.
+
+* `unsafe` is a keyword in Rust and declares a section of code that can do most of the things the C programming language would let us do.
+
+* Rust is famous for its memory management model, which replaces runtime garbage collection with _compile-time_ checks for memory safety. This is possible because of borrowing and ownership.
+
+* The **rules of ownership** in Rust are as follows:
+    * The owner of a value is a variable
+    * At any time, only a single owner is allowed
+    * The value is lost once the owner goes out of scope
+
+* ```Rust
+fn func() {
+    let x = 10;
+    do_work(x); // ownership is moved here
+    let y = x;  // x is now invalid!!
+}
+```
+
+* Rules for **borrowing**
+    * Owners can have immutable or mutable references, but not both
+    * There can be muliple immutable references, but only one mutable reference
+    * References cannot be invalid
+
+* ```Rust
+fn func() {
+    let x = 10;
+    do_work(&x); // pass a reference to x
+    let y = x;  // x is still valid
+}
+```
+
+* Some lifetimes are different and Rust denominates them with a `'`, like `'static`
+
+* A reference counter (`std::rc::Rc<T>`) encapsulates a variable of type T allocated on the heap and return an **immutable** reference when created.
+
+* Boxed variables (`Box`, `Rc` and so on) are an immutable reference to the heap and they contain the actual value.
+
+* `RefCell` maintains single ownership of a value but allows mutable borrowing **checked at runtime**. 
+
+* A package can contain multiple binary crates and optionall one library crate.
+
+* Packatges: A cargo feature that lets you build, test and share crates
+* Crates: A tree of modules that produces a library or executable
+* Modles and use: Let you control the organization, scope and privacy of paths
+* Paths: A way of naming an item, such as a struct, function or module
+
+* A package contains a `Cargo.toml` file that describes how to build the creates.
+
+* src/main.rs -- binary create
+* src/bin => put mutliple files to create multiple binary crates
+* src/lib.rs -- library crate
+
+

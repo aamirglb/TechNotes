@@ -356,3 +356,17 @@ Shader Languages
     * geometry shaders
     * compute shaders
     * tessellation shaders
+
+* There are 10 types of primitives in OpenGL
+```
+    * GL_POINTS
+    * GL_LINES 
+    * GL_LINE_STRIP 
+    * GL_LINE_LOOP 
+    * GL_TRIANGLES 
+    * GL_TRIANGLE_STRIP 
+    * GL_TRIANGLE_FAN 
+    * GL_QUADS 
+    * GL_QUAD_STRIP 
+    * GL_POLYGON 
+```
