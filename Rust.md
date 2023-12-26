@@ -586,4 +586,17 @@ fn func() {
 * src/bin => put mutliple files to create multiple binary crates
 * src/lib.rs -- library crate
 
+* The `?` operator placed after a `Result` value is defined to work in almost the same way as the `match` expressions. If the value of the `Result` is an `Ok`, the value inside the `Ok` will get returned from the expression. If the value is an `Err` the `Err` will be returned from the whole function as if we had used the `return` keyword so the error value gets propagated to the calling code.
 
+* The `Box<dyn Error>` type is a _trait object_, and it means "any kind of error"
+
+* `Lifetime` annotations don't change how long any of the references live. Rather, they describe the relationships of the lifetime of multiple references to each other without affecting the lifetimes.
+
+```
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+}
+```
+
+* The signature express following constraint: **the returned reference will be valid as long as both the parameters are valid**
+
+* A test in Rust is a function that's annotated with the `test` attribute. **Attributes** are metadata about pieces of Rust code; one example is the `derive` attribute.
