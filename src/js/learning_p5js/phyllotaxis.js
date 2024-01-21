@@ -1,11 +1,13 @@
 let n = 0;
 let c = 4;
+let p;
 
 function setup() {
     createCanvas(400, 400);
     angleMode(DEGREES);
     colorMode(HSB)
     background(0);
+    p = createP('');
 }
 
 function draw() {
@@ -20,4 +22,6 @@ function draw() {
     noStroke();
     ellipse(x, y, 4, 4);
     ++n;
+
+    p.html(floor(frameRate()));
 }
