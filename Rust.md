@@ -600,3 +600,9 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 * The signature express following constraint: **the returned reference will be valid as long as both the parameters are valid**
 
 * A test in Rust is a function that's annotated with the `test` attribute. **Attributes** are metadata about pieces of Rust code; one example is the `derive` attribute.
+
+* Programming in functional style often includes using functions as values by passing them in arguments, returning them from other functions, assigning them to variables for later execution etc.
+
+* Unlike functions, closures can capture values from the scope i which they're defined.
+
+* 
