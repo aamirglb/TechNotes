@@ -1,6 +1,6 @@
 // Visualizing Cellular Automata
 let cells = [];
-let ruleValue = 3;
+let ruleValue = 30;
 let ruleSet;
 let cellWidth = 4;
 let y = 0;
@@ -24,6 +24,11 @@ function draw() {
       let x = i * cellWidth;
       // stroke(0);
       noStroke();
+      // if( cells[i] == 1) {
+      //   fill([floor(random(255)), floor(random(255), floor(random(255))), 100]);
+      // } else {
+      //   fill(0);
+      // }
       fill(255 - cells[i] * 255);
       square(x, y, cellWidth);
     }
