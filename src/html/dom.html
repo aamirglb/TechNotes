@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="container">
+            <p id="message">
+                Hello, HTML
+                <br/>
+            </p>
+            <button id="changeText">Change Text</button>
+        </div>
+        <!-- javascript code goes here -->
+        <script>
+            let msgElement = document.getElementById("message");
+            let click = true;
+            document
+                .getElementById("changeText")
+                .addEventListener("click", () => {
+                    msgElement.textContent = "Text Changed From JS!";
+                    if(click == true) {
+                        msgElement.style.backgroundColor = "red";
+
+                        let a = document.getElementsByTagName('div')[0];
+                        let d = document.createElement('div');
+                        d.innerHTML = '<h2>Clicked... (appended...)</h2>';
+                        a.appendChild(d);
+                        //a.innerHTML = a.innerHTML + '<h2>Clicked..</h2>';
+                    } else {
+                        msgElement.style.backgroundColor = "white";
+                    }
+                    click = !click;
+                });
+
+        </script>
+    </body>
+</html>
