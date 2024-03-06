@@ -29,6 +29,7 @@ src/cpp/so/
 src/wx/**/build/
 src/boost/**/build-mingw/
 src/boost/**/build-msvc/
+src/boost/**/build/
 src/catch2/build-mingw/
 src/catch2/build-msvc/
 src/cpp/**/build-msvc/
