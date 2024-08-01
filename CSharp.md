@@ -891,3 +891,44 @@ var note = new Note { Pitch = 50 };
 * **Partial types** allow a type definition to be split, typically across multiple files.
 
 * The `nameof` operator returns the name of any symbol (type, member, variable) as a string.
+
+
+# C# 12 in a Nutshell
+
+For cross-platform desktop applications, a third-party library
+called **Avalonia** offers an alternative to MAUI. Avalonia also
+runs on Linux and is architecturally simpler than MAUI (as it
+operates without the Catalyst/WinUI indirection layer).
+
+* When you target .NET Framework 4.8, you can use the features
+of C# 7.3 and earlier.
+
+* **Primary Constructor**
+From C# 12, you can include a parameter list directly after a class (or struct ) declaration:
+This instructs the compiler to automatically build a primary constructor,
+
+```cs
+class Person (string firstName, string lastName)
+{
+    public void Print() => Console.WriteLine (firstName + " " + lastName);
+}
+```
+
+* `namespace MyNamespace;` // Applies to everything that follows in the file.
+
+```cs
+if (s == null) s = "Hello, world";
+s ??= "Hello, World!"; // Null-coalescing assignment
+```
+
+* nullable reference type
+
+```cs
+#nullable enable // Enable nullable reference types from this point on
+
+string s1 = null; // Generates a compiler warning! (s1 is non-nullable)
+string? s2 = null; // OK: s2 is nullable reference type
+
+void Foo (string? s) => Console.Write (s.Length); // Warning (.Length)
+void Foo (string? s) => Console.Write (s!.Length); // use the null-forgiving operator (!)
+```
