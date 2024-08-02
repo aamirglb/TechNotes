@@ -1,5 +1,8 @@
 .vscode
 __pycache__
+src/asp.net/**/
+src/asp.net/**/bin/
+src/asp.net/**/obj/
 src/python/notebooks/.ipynb_checkpoints/*
 src/rust/**/Cargo.lock
 src/rust/**/debug/
