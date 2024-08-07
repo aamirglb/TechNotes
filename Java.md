@@ -418,7 +418,14 @@ statement
 * The code in the finally clause executes whether or not an exception was
 caught.
 
+* Assertions are a commonly used idiom of defensive programming. The assertion mechanism allows you to put in checks during testing and to have
+them automatically removed in the production code.
 
+* By default, assertions are disabled. Enable them by running the program with the
+`-enableassertions` or `-ea` option
+
+* The introduction of generics in Java 5 constitutes the most significant change in
+the Java programming language since its initial release
 
 
 
