@@ -101,3 +101,45 @@ record syntax to define value types by simply writing _record struct_ rather
 than just record. Somewhat surprisingly, _record structs_ are **mutable**, and
 you have to declare your struct as _readonly record struct_ if you want it to be
 **immutable**.
+
+* FP differs from object-oriented programming (OOP) by focusing on functions
+rather than objects, and on data transformations rather than state mutations.
+
+up the ante
+
+* higher-order functions (HOFs) raise the level of abstraction in our programs,
+allowing us to do more with less code.
+
+* Delegates are type-safe function pointers. Type-safe here means that a delegate
+is strongly typed.
+
+* `Func<R>` - Represents a function that takes no arguments and returns a result of type R
+* `Func<T1,R>` - Represents a function that takes an argument of type T1 and
+returns a result of type R
+
+* There's a similar delegate family to represent **actions**, _functions that have no return value_, such as void methods:
+* `Action` - Represents an action with no input arguments
+* `Action<T1>` - Represents an action with an input argument of type T1
+* `Action<T1,T2>` - and so on - Represent an action with several input arguments
+
+* Arity is a funny word that refers to the number of arguments that a function accepts. For instance
+* A **nullary** function takes no arguments.
+* A **unary** function takes one argument.
+* A **binary** function takes two arguments.
+* A **ternary** function takes three arguments.
+
+* Lambda expressions, called lambdas for short, are used to declare a function
+inline.
+
+* The fact that functions can be represented with dictionaries also makes it
+possible to optimize computationally expensive functions by storing their
+computed results in a dictionary instead of recomputing them every time. This
+technique is called memoization.
+
+* higher-order functions (HOFs) are functions that take other functions as inputs or return a function as
+output or both.
+
+* The code uses `Dapper` (https://github.com/StackExchange/dapper-dot-net), a thin layer on top of
+ADO.NET, allowing you to interact with the database through a simple API: 
+Query,
+Execute
