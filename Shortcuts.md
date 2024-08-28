@@ -92,3 +92,18 @@
 | Ctrl+p | Open File |
 | Ctrl+Shift+p | Open command palette |
 | Ctrl+Tab | Switch between open tabs |
+
+## Use Arguments from previous command (bash)
+
+|  Command  |           Description             |
+|-----------|-----------------------------------|
+| `!^`      |  first argument                   |
+| `!$`      |  last argument                    |
+| `!*`      |  all arguments                    |
+| `!:2`     |  second argument                  |
+| `!:2-3`   |  second to third arguments        |
+| `!:2-$`   |  second to last arguments         |
+| `!:2*`    |  second to last arguments         |
+| `!:2-`    |  second to next to last arguments |
+| `!:0`     |  the command                      |
+| `!!`      |  repeat the previous line         |
