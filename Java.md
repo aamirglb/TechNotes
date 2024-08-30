@@ -456,3 +456,119 @@ the Java programming language since its initial release
 subpackages such as `java.util.concurrent` and `java.util.function`.
 
 * Code should be reused rather than copied
+
+
+
+
+
+# Jave - The Complete Reference 13th Ed
+
+* Some address perceived weaknesses of Java in novel ways. These
+newer languages include Kotlin, which uses the same bytecode
+representation but aims to be simpler and easier to learn, and Ruby, a
+dynamically interpreted language with a straightforward syntax to allow
+applications to be developed quickly.
+
+* An _applet_ is a special kind of Java program that is designed to be
+transmitted over the Internet and automatically executed inside a Javacompatible
+web browser.
+
+* applet support being removed by JDK 11
+
+* **Bytecode** is a highly optimized set
+of instructions designed to be executed by what is called the **Java Virtual
+Machine** (JVM), which is part of the **Java Runtime Environment** (JRE).
+
+* HotSpot technology provides a just-in-time (JIT) compiler for bytecode.
+
+* Today, major releases occur every six months
+
+* A **servlet** is a small program
+that executes on the server.
+
+* One of the most important was the new **stream API**, which is
+packaged in `java.util.stream`. The stream API supports _pipeline operations_
+on data and is optimized for lambda expressions. Another new package was
+`java.util.function`. It defines a number of functional interfaces, which
+provide additional support for lambda expressions
+
+* Another key change in JDK 11 is that **JavaFX** was no longer included in the
+JDK. Instead, this GUI framework has become a separate open-source project.
+
+* Humans manage complexity through abstraction.
+
+* The Java
+compiler requires that a source file use the .java filename extension. By convention, the name of the main class
+should match the name of the file that holds the program.
+
+* To actually run the program, you must use the Java application launcher
+called **java**.
+
+* There are 68 keywords currently defined in the Java language 
+
+* The Java language limits the uses of its keywords and divides them into two categories: 51
+_reserved words_ and 17 _contextual keywords_.
+
+![Java Keywords](./images/java/java_keywords.png)
+
+* Because of Java’s portability requirement, all
+data types have a strictly defined range. For example, an int is always 32
+bits, regardless of the particular platform
+
+* Java does not support unsigned,
+positive-only integers
+
+* Java manages the
+meaning of the high-order bit differently, by adding a special "unsigned
+right shift" operator. Thus, the need for an unsigned integer type was
+eliminated.
+
+* beginning with JDK 15, Java added a feature called
+a text block, which gives you more control and flexibility when multiple
+lines of text are needed
+
+* Although blocks can be nested, you cannot declare a
+variable to have the same name as one in an outer scope.
+
+```java
+int a = 10;
+{
+    int a = 20; // compile time error, a already defined
+}
+```
+
+* in Java all arrays are dynamically allocated
+
+```java
+int a1[] = new int[3];
+int[] a2 = new int[3]; // same as above
+```
+
+* Beginning with JDK 10, it is now possible to let the compiler infer the
+type of a local variable based on the type of its initializer, thus avoiding the
+need to explicitly specify the type.
+
+* To support local variable type inference, the contextsensitive
+keyword var was added
+
+* For each shift left (<<), the high-order
+bit is shifted out (and lost), and a zero is brought in on the right.
+
+* When you are shifting right, the top (leftmost) bits exposed by the right
+shift are filled in with the previous contents of the top bit. This is called
+**sign extension** and serves to preserve the sign of negative numbers when
+you shift them right.
+
+```
+11111000 => -8
+>> 1
+11111100 => -4
+```
+
+* you will generally want to shift a zero into the high-order bit no matter what its
+initial value was. This is known as an **unsigned shift** (>>>).
+
+* shift-right operator, >>>, always shifts zeros into the high-order bit.
+
+* **break** statement can also be employed by itself to provide a “civilized” form of
+the goto statement.
