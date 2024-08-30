@@ -3,6 +3,7 @@ __pycache__
 src/asp.net/**/
 src/asp.net/**/bin/
 src/asp.net/**/obj/
+src/dotnet/cs12dotnet8/**/
 src/python/notebooks/.ipynb_checkpoints/*
 src/rust/**/Cargo.lock
 src/rust/**/debug/
@@ -40,3 +41,4 @@ src/cpp/sfml/maze-gen/build/
 src/opengl/setup/build/
 src/sdl/build/
 src/opengl/learn_opengl/build/
+src/java/corejava/**/*.class
