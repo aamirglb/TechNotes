@@ -1,5 +1,7 @@
 # Perl
 
+https://www.learning-perl.com/2016/06/watch-regexes-with-regexpdebugger/
+
 * CPAN (The Comprehensive Perl Archive Network). 
 *  To start interactive session use
 ```
@@ -98,3 +100,65 @@ my %data = (name => 'Aamir',
 | `map`    |             |
 
 * Perl has a special **undefined** value, often written **undef**
+
+# Modern Perl
+
+* The `perldoc` utility is part of every complete Perl installation.
+
+```
+$ perldoc List::Util
+$ perldoc perltoc
+$ perldoc Moose::Manual
+```
+
+* http://perldoc.perl.org/    http://search.cpan.org/   
+
+* Perl uses context to express how to treat a piece of data.
+
+* The _default scalar variable_ (or _topic variable_), `$_`, is most notable in its absence.
+
+```perl
+chomp $_; # same as chomp;
+print;    # prints $_
+say;      # prints $_
+```
+
+
+# Learning Perl 
+
+* Perl is sometimes called the **Practical Extraction and Report Language**
+
+* Companies such as **ActiveState** provide pre-built and enhanced distributions for several platforms,
+including _Windows_. You can also get **Strawberry Perl** for Windows, which
+comes with all the same stuff as regular Perl plus extra tools to compile and install
+third-party modules.
+
+* ActivePerl from ActiveState has PPM (Perl Package Manager)
+
+* Perl doesn’t require any special kind of filename or extension
+
+* `say` (added in v5.10) adds the newline for us
+
+pragmas
+```
+use utf8;
+use warnings;
+perl -w program.pl
+#!/usr/bin/perl -w
+```
+
+string operators
+`.`: concatenation operator
+`x`: repeat operator
+
+* A **scalar** variable holds a single scalar value. Scalar variable names begin with a dollar sign ($), called the sigil, followed by a Perl identifier.
+
+* Perl v5.10 adds a slightly better print that it calls say. It automatically puts a newline
+on the end
+
+* When a string literal is double-quoted, it is subject to variable interpolation (besides being checked for backslash escapes)
+
+* line-input operator, `<STDIN>`.
+
+* To tell whether a value is `undef` and not the empty string, use the
+`defined` function, which returns false for undef, and true for everything else
