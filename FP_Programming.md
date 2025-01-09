@@ -5,6 +5,23 @@
     * Safety
     * Clarity
 
+* **Lambda Calculus** is a mathematical system that defines functions and the application of functions. It's _simple_, _stateless_, yet _powerful_.
+
+* functions take two or three arguments, but in reality, they take only one argument and return another function that takes another argument. This is called **Currying**.
+
+* Any function that takes n arguments can be turned into a sequenc of functions that take only one argument.
+
+```js
+function add(a, b) { return a+b; }
+function curriedAdd(a) {
+    function function(b) { return a + b; }
+}
+
+add(1, 2);
+curriedAdd(1)(2);
+```
+
+
 * Changing the way you think is the hard part; once that's
 achieved, learning the syntax of any particular language is relatively easy.
 

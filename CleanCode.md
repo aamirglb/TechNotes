@@ -23,3 +23,14 @@
 * The name of a variable, function, or class, should answer all the big questions.
 
 Page-54
+
+# Code That Fits In Your Head
+
+* Only unsuccessful software ends. Successful software endures.
+
+* LaTex software released in 1984.
+
+* Growing a Garden metaphore on software development sees software as a living organism that must be tended, coaxed, and pruned. A code base has a life of its own :)-
+
+* I was following heuristics when I programmed - rules of thumb and guidelines that can be
+taught.
