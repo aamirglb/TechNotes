@@ -139,3 +139,7 @@ representations of a buffer and return an object of either the `asio::mutable_bu
 
 * The `read_until()` function has several overloads, which provide
 more sophisticated ways to specify termination conditions, such as `string delimiters`, `regular expressions`, or `functors`
+
+* Boost.Asio defines a callback as a `concept`, which can be a function or a functor, that accepts two arguments.
+
+* free function `asio::async_write()`

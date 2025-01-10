@@ -325,3 +325,79 @@ Page-120
     * subdirectory, 
     * exported build directories, and 
     * importing prebuilt package which is already installed. 
+
+# Professional CMake 
+
+* CMake also creates a special file called CMakeCache.txt in the build
+directory to store various information for reuse on subsequent runs.
+
+* There are essentially two approaches: _in-source_ and _out-of-source_ builds
+
+* Some generators produce projects which support multiple configurations (Debug, Release, and so
+on).
+
+```
+mkdir build
+cd build
+cmake -G "Ninja" ../source
+cmake --build build --config Debug --target MyApp
+```
+
+* If the -G option is omitted, CMake will choose a default generator type based on the host platform.
+
+* If using CMake 3.15 or later, this default can be overridden by setting the `CMAKE_GENERATOR` environment variable to the desired default instead.
+
+* project file creation actually involves two steps; configuring and generating.
+
+* With CMake 3.15 or later, multiple targets can be listed after the --target option, separated by spaces.
+
+* The Ninja generator is an excellent choice for the latter, since it has the broadest
+platform support of all the generators, and it also creates very efficient builds 
+
+* CMake defines its own language which has many things a programmer would be familiar with, such as variables, functions, macros, conditional logic, looping, code comments, and so on.
+
+* Command names are also case-insensitive
+
+```
+cmake_minimum_required(VERSION major.minor[.patch[.tweak]])
+
+project(projectName
+        [VERSION major[.minor[.patch[.tweak]]]]
+        [LANGUAGES languageName ...]
+)
+
+add_executable(targetName source1 [source2 ...])
+
+add_executable(targetName [WIN32] [MACOSX_BUNDLE]
+[EXCLUDE_FROM_ALL]
+source1 [source2 ...]
+)
+
+target_link_libraries(targetName
+<PRIVATE|PUBLIC|INTERFACE> item1 [item2 ...]
+[<PRIVATE|PUBLIC|INTERFACE> item3 [item4 ...]]
+...
+)
+```
+
+* Any line beginning with a # character is treated as a comment.
+
+* CMake supports a few different kinds of libraries, including static, shared, modules and frameworks
+
+* | Operating System | Library Type | Name |
+  |------------------|--------------|------|
+  | Windows          | STATIC | targetName.lib |
+  | Unix | STATIC | libtargetName.a |
+  | Windows | SHARED | targetName.dll |
+  | Apple | SHARED | libtargetName.dylib |
+  | Unix | SHARED | libtargetName.so |
+
+  `cmake -DBUILD_SHARED_LIBS=YES /path/to/source`
+
+  * Dependency Relationships
+
+  PRIVATE: lib A uses lib B in its own internal implementation
+  PUBLIC: not only does lib A use lib B internally, it also uses B in its interface
+  INTERFACE: in order to use lib A, parts of lib B must also be used (lib A uses lib B only in its interface)
+
+
