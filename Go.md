@@ -51,3 +51,36 @@
 * The built-in function `make` creates a new empty map; it has other uses too.
 
 * Each call to `input.Scan()` reads the next line and removes the newline character from the end; the result can be retrieved by calling `input.Text()`.
+
+# Learning Go
+
+* Go remains a small language with a small feature set. It still lacks
+    * inheritance,
+    * aspect-oriented programming,
+    * function overloading,
+    * operator overloading,
+    * Pattern matching,
+    * named parameters,
+    * Exceptions
+And many additional features 
+
+* Distroless or scratch for Go apps? – [baeke.info](https://blog.baeke.info/2021/03/28/distroless-or-scratch-for-go-apps/)
+
+* All of the Go development tools are accessed via the go command 
+    * compiler (go build),  
+    * code formatter (go fmt),  
+    * Dependency manager (go mod),  
+    * test runner (go test),  
+    * a tool that scans for common coding mistakes (go vet), 
+
+* Inside the directory, run the go mod init command to mark this directory as a Go module 
+
+* A Go project is called a module 
+
+* Unlike other languages, Go imports only whole packages. 
+
+* [Makefile Tutorial By Example](https://makefiletutorial.com/)
+
+* As a language that values clarity of intent and read ability, Go doesn’t allow automatic type promotion between variables. 
+
+* Idiomatic Go values comprehensibility over conciseness 
