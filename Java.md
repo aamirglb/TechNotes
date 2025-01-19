@@ -1,3 +1,8 @@
+
+# Java Road Map
+
+![roadmap](./images/java/java-roadmap.png)
+
 # Core Java - Volume I - Fundamentals
 
 * Java is a whole platform, with a huge library, containing lots of reusable
