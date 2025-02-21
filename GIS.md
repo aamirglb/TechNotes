@@ -262,6 +262,17 @@ http://nominatim.openstreetmap.org/search?format=json&q="Coit Tower, San Francis
 
 * **Geographic Names Information System (GNIS)** is the US equivalent of the GEOnet Names Server containing name information for the United States.
 
+* [Lonboard](https://github.com/developmentseed/lonboard) is a Python library for fast, interfactive geospatial vector data visualization in Jupyter.
+
+* **datum** is a mathematical model of the earth's shape, while a **projection** is a way of translating points on the earth's surface into points on a two dimensional map.
+
+* www.webgis.com provides shapefiles describing land use and land cover, called **LULC** data files.
 
 
 
+
+
+
+## Websites
+
+https://mygeodata.cloud/  - GeoJSON to SHP file
