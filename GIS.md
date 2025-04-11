@@ -268,11 +268,36 @@ http://nominatim.openstreetmap.org/search?format=json&q="Coit Tower, San Francis
 
 * www.webgis.com provides shapefiles describing land use and land cover, called **LULC** data files.
 
+* Core Based Statistical Areas (CBSAs) shapefiles
 
+* Equal-Earth projection for visualization
 
+* GPW (Gridded Population of the World) - NASA SEDAC - 1 km grid cells
 
+* GHSL (Global Human Settelments Layer) - 250m grid cells
 
+* WorldPop - 100m grid cells
+
+* SRTM (Shuttle Radar Topography Mission) is a near-global elevation dataset that covers from -60 to 60 degrees latitude.
+
+* `gdal_translate`: Creation option, -co COMPRESS=DEFLATE
+
+* `gdal_tranlsate -of GTiff merged.vrt merged.tiff -co COMPRESS=DEFLATE`
+
+* `gdal_translate merged.vrt merged.tif -co COMPRESS=DEFLATE -co TILED=YES -co=PREDICTOR=2`
+
+* Cloud Optimized GeoTiff: Backward compatible
+
+Night time light:
+
+https://storage.googleapis.com/spatialthoughts-public-data/ntl/viirs/viirs_ntl_2021_global.tif
+
+* gdaldem - working with Elevation data (DEM)
+
+ gdalbuildvrt -input_file_list filelist.txt naip.vrt
 
 ## Websites
 
 https://mygeodata.cloud/  - GeoJSON to SHP file
+https://courses.spatialthoughts.com/
+https://www.interline.io/osm/extracts
