@@ -32,5 +32,8 @@ Page-54
 
 * Growing a Garden metaphore on software development sees software as a living organism that must be tended, coaxed, and pruned. A code base has a life of its own :)-
 
-* I was following heuristics when I programmed - rules of thumb and guidelines that can be
-taught.
+* I was following heuristics when I programmed - rules of thumb and guidelines that can be taught.
+
+* `git commit --allow-empty -m "Initial commit"`
+
+* A **Walking Skeleton** is an implementation of the thinnest possible slice of real functionality that you can automatically build, deploy, and test end-to-end
