@@ -68,3 +68,5 @@ private:
 * There is a cost that cannot be ignored, though, which is that these default values are exposed in a class declaration that is likely to be a dependency of other source files. Making a change to any of these values may require _recompilation of an unknown number of files_.
 
 * A **class invariant** is a condition that must hold for all valid instances of a class. It is established at construction and maintained between calls to public member functions.
+
+* A **pure function** is one that does not refer to _state outside of its scope_. This makes them _parallelizable_, easy to reason about, more amenable to optimization, and likely to be short and simple.
