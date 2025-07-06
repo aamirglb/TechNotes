@@ -256,6 +256,18 @@ http://nominatim.openstreetmap.org/search?format=json&q="Coit Tower, San Francis
 
 ![GLOBE-TILES](./images/gis/GLOBE-elevaton-tiles.png)
 
+* The **Digital Terrain Elevation Data (DTED)** format is a map format for terrain elevations published by the U.S. National Imagery and Mapping Agency (NIMA). 
+
+* The DTED files contain digital terrain models as rasters. A _raster_ is a _georeferenced grid_ containing a value in each one of its cells. 
+
+* In the case of DTED (and digital terrain models in general) the value indicates the average elevation in the cell. However, this value can indicate any other attribute: surface temperature, surface pressure, nitrogen rating of the soil, and so on.
+
+* A DTED file contains a digital terrain model raster that covers a zone of one degree by one degree. The _cell size_ of the raster depends on the DTED level:
+
+    * **DTED0**: provides raw data (approximately 30 to 40 Kb for a file).
+    * **DTED1**: provides data that is more detailed.
+    * **DTED2**: is the most precise level. It has surface cells that are nine times smaller than those of DTED1. At this degree of precision, a DTED file is enormous (several megabytes).
+
 * The **National Elevation Dataset (NED)** is a high-resolution digital elevation model, which covers the continental United States, Alaska, Hawaii and other US territories. Most of US is covered by elevation data at a resolution of either 30 or 10 meters per cell.
 
 * The **GEOnet Names Server** (geonames) provides a large database of place names. It is an official repository of non-American place names. Geonames database contains approximately 6 million features and 10 million names.
@@ -265,6 +277,57 @@ http://nominatim.openstreetmap.org/search?format=json&q="Coit Tower, San Francis
 * [Lonboard](https://github.com/developmentseed/lonboard) is a Python library for fast, interfactive geospatial vector data visualization in Jupyter.
 
 * **datum** is a mathematical model of the earth's shape, while a **projection** is a way of translating points on the earth's surface into points on a two dimensional map.
+
+* The Environmental Systems Research Institude (ESRI) was developed at Harvard University in the Laboratory of Computer Graphics and Spatial Analysis in 1960s and 1970s.
+
+* Open Geospatial Consortium (OGC) 
+
+* GIS Softwares
+    * ArcGIS
+    * QGIS
+    * GeoMedia (Hexagon Geospatial)
+    * Idrisi (Now called TerrSet)
+    * GRASS (Geographic Resource Analysis Support System), free, open source GIS that runs on many platforms, originally developed by US Army Construction Engineering Research Laboratory. Provides broad array of raster and vector operations
+    * R is an open-source software project with many spatial packages which support a rich set of spatial operations.
+    * Python several spatial libraries, Shapely, Geopandas and pySAL.
+    * GDAL is a standard set of spatial input/output and data processing functions
+    * Maptitude GIS, White-box GAT, MicroImages, Smallworld, Manifold GIS, ILWIS, Map Window, PCI and gvSIG.
+
+* Distance spanned by a degree of longitude varies fro approximately 111.3 kilometers at the Equator to 0 kilometers at the poles.
+
+* In contrast, the ground distance for a degree of latitude varies only slightly, from 110.6 km at the Equator to 111.7 km at the poles.
+
+* Treating spherical coordinates (latitude/longitude) as Cartesian coordiantes creates an inherently distored map.
+
+* **Coordinates on a Sphere**: _Geographic Coordinate System_ uses two angles of rotation, the longitude and latitude and a radius, to specify location on Earth.
+
+* Geographic coordinates do not form a Cartesian system because the meridians converge. A Cartesian system defines lines on a right-angle, plannar grid. Geographic coordinates occur on a curved surface and longitudinal lines cross at the poles.
+
+* DMS to DD conversion: DD = D + M / 60 + S/3600
+  For Ex: DMS = 32deg, 45min, 28sec DD = 32 + 45/60 + 28/3600
+
+* DD to DMS conversion: D = integer part, M = integer of decimal part x 60, S = 2nd decimal x 60
+  For Ex: DD = 24.93547 D = 24, M = integer of first decimal x 60 => 0.93547 * 60 =  56.1282, Integer of 56.1282 = 56, S = 2nd decimal (1282) x 60 => 0.1282 * 60 = 7.692 So DMS is 24deg, 56min, 7.692sec
+
+* _Magnetic North_ is the location towards which a compass points. The _Geographic North Pole_ is the average northern location of the Earth's axis of rotation.
+
+* _Magnetic Declination_ is the angular difference between magnetic north and geographic north and it varies across the globe and varied through time as Magnetic north wanders. Since Magnetic North wanders it has been used historically for in-field navigation rather than as a reference against which coordinates are defined.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* https://github.com/airsoftnorge/DTED0-World : World Digital Terrain Elevation (low resolution)
 
 * www.webgis.com provides shapefiles describing land use and land cover, called **LULC** data files.
 
