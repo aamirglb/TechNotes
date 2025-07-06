@@ -602,3 +602,12 @@ lite-server
 * Babel
 
 * Prettier VS code extension
+
+* libuv, a library that offers a unified interface for asynchronous networking on Linux, OSX and Windows.
+
+* MEAN Stack: MongoDB, Express.js, AngularJS and Node.js
+* **Babel** originally named 6to5, Babel.js is a Javascript compiler that allows developers to write modern Javascript and make it backwards-compatible for older browsers and engines.
+
+* **GraphQL** facebook began development on GraphQL in 2012 as a data query language that can be used declaratively. GraphQL offered a new way to access and mutate data, with fewer trips to the server and strong typing.
+
+
