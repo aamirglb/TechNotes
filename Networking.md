@@ -386,3 +386,61 @@ at least theoretically, be routed through the Internet as a single datagram unti
 | 0919   | various types of broadcasts for IPv4 |
 | 1812   | Support for directed broadcast |
 | 2644   | Disable forwarding of directed broadcast |
+
+## Effective TCP-IP
+
+* TCP uses simple connectionless service (IP) to provide a reliable connection-oriented service.
+
+* TCP packets are called _segments_
+
+* To provide reliability, TCP adds three things to IP service:
+    * checksum of the data in TCP segment
+    * assigns a sequence number to each byte
+    * provides acknowledgment and retransmit mechanism
+
+
+RFC 793
+RFC 1122
+RFC 813
+
+* UDP adds only two things to the underlying IP protocol:
+    * provides an optional checksum
+    * notion of ports - prots provide a way of demultiplexing the data to the correct destination application
+
+* With TCP the connection is entirely notional. It consists of remembered state at the end points.
+
+classfull addressing
+
+class A - 0 leading 1 bits  - 8 bit network ID, 24 bit host ID
+ckass B - 1 leading 1 bit   - 16 bit network ID, 16 bit host ID
+class C - 2 leading 1 bits  - 24 bit network ID, 8 bit host ID
+class D - 3 leading 1 bits => multicasting addressing
+class E - 4 leading 1 bits => reserved for future use
+
+* The class of an address is identified by the number of leading 1 bits.
+
+| class  |  Networks | Hosts       | Address Range |
+|--------|-----------|-------------|---------------|
+|  A     |      127  | 16,777,214  |   0.0.0.1 to 127.255.255.255 |
+|  B     |   16,384  |     655434  | 128.0.0.0 to 191.255.255.255 |
+|  C     | 2,097,252 |        254  | 192.0.0.0 to 223.255.255.255 |
+
+* With ARP (Address Resolution Protocol), a host wanting to map an IP address to a physical address broadcasts a message asking the host with the desired IP address to send back its physical address. The APR request is received by all hosts on the network, of course, but only the host with proper IP address responds.
+
+* With proxy ARP, a router replys with its own physical address when a host request physical address of another host which is not on the same network. Then the router will forwards the received data to the host on other network.
+
+* External hosts use only the _network ID_ portion of an IP address to make routing decisions, the allocation of _host ID_ can be made in any way the system admin finds convenient.
+
+* By ANDing a subnet mask with IP address, we can get network portion of the address
+
+* There are four different types of broadcast addresses:
+    * limited broadcast
+    * network-direct broadcast
+    * subnetwork-direct broadcast
+    * all subnetwork-direct broadcast
+
+* limited broadcast address (255.255.255.255) datagrams are never forwarded by routers. They are limited to the local cable.
+
+* Classless Interdomain Routing (CIDR) turns subnetting "inside out", instead of making the network ID protion of an IP address longer, as in subnetting, it makes it shorter.
+
+-
