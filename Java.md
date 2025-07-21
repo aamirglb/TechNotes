@@ -265,56 +265,40 @@ java abstractClasses.PersonTest
 
 * In Java, a protected field is accessible by any class in the same package.
 
-* the default hashCode method in the Object
-class derives the hash code from the object’s memory address.
+* the default `hashCode` method in the `Object` class derives the hash code from the object's memory address.
 
-* Whenever an
-object is concatenated with a string by the “+” operator, the Java compiler
-automatically invokes the toString method to obtain a string representation
-of the object.
+* Whenever an object is concatenated with a string by the "+" operator, the Java compiler automatically invokes the `toString` method to obtain a string representation of the object.
 
-* The Object class defines the toString method to print the class name and
-the hash code of the object.
+* The Object class defines the `toString` method to print the class name and the hash code of the object.
 
-* In Java, you can set the size of an array at
-runtime.
+* In Java, you can set the size of an array at runtime.
 
-* The `ArrayList` class is similar to an array,
-but it automatically adjusts its capacity as you add and remove elements, without
-any additional code.
+* The `ArrayList` class is similar to an array, but it automatically adjusts its capacity as you add and remove elements, without any additional code.
 
 * All primitive types have class counterparts. int -> Integer
 
-* the type parameter inside the angle brackets cannot be a **primitive type**. It is not possible to form an
-`ArrayList<int>`. Here, the `Integer` wrapper class
+* the type parameter inside the angle brackets cannot be a **primitive type**. It is not possible to form an `ArrayList<int>`. Here, the `Integer` wrapper class
 
-* The designers of Java found the wrappers a convenient place to put certain basic methods, such as
-those for converting strings of digits to numbers.
+* The designers of Java found the wrappers a convenient place to put certain basic methods, such as those for converting strings of digits to numbers.
 
-* All enumerated types are subclasses of the class Enum
+* All enumerated types are subclasses of the class `Enum`
 
 * A program that can analyze the capabilities of classes is called reflective
 
-* Just as methods in an interface are automatically public, fields are always
-public static final.
+* Just as methods in an interface are automatically public, fields are always public static final.
 
-* the Java programming language has an important
-interface built into it, called Cloneable.
+* the Java programming language has an important interface built into it, called Cloneable.
 
 * As of Java 8, you are allowed to add static methods to interfaces.
 
-* You can supply a lambda expression whenever an object of an interface with a
-single abstract method is expected. Such an interface is called a _functional interface_.
+* You can supply a lambda expression whenever an object of an interface with a single abstract method is expected. Such an interface is called a _functional interface_.
 
-* In fact, conversion to a functional interface is the only thing that you can do with
-a lambda expression in Java.
+* In fact, conversion to a functional interface is the only thing that you can do with a lambda expression in Java.
 
 * The Java API defines a number of very generic functional interfaces in the
 `java.util.function` package like `Predicate` and `Supplier<T>` 
 
-* The expression `System.out::println` is a method reference. It directs the
-compiler to produce an instance of a _functional interface_, overriding the single
-abstract method of the interface to call the given method
+* The expression `System.out::println` is a method reference. It directs the compiler to produce an instance of a _functional interface_, overriding the single abstract method of the interface to call the given method
 
 * Common Functional Interfaces
 
@@ -332,27 +316,15 @@ abstract method of the interface to call the given method
 | `BiPredicate<T, U>` | T, U | boolean | `test` | A boolean valued function with two arguments | and, or, negate |
 
 
-* If you design your own interface with a single abstract method, you can
-tag it with the `@FunctionalInterface` annotation. This has two
-advantages. The compiler gives an error message if you accidentally add
-another abstract method. And the javadoc page includes a statement that
-your interface is a **functional interface**.
+* If you design your own interface with a single abstract method, you can tag it with the `@FunctionalInterface` annotation. This has two advantages. The compiler gives an error message if you accidentally add another abstract method. And the javadoc page includes a statement that your interface is a **functional interface**.
 
-* In the Java programming language, an exception object is always an instance of
-a class derived from `Throwable`.
+* In the Java programming language, an exception object is always an instance of a class derived from `Throwable`.
 
-* A `RuntimeException` happens because you made a programming error. Any
-other exception occurs because a bad thing, such as an I/O error, happened to
-your otherwise good program.
+* A `RuntimeException` happens because you made a programming error. Any other exception occurs because a bad thing, such as an I/O error, happened to your otherwise good program.
 
-* In summary, a method must declare all the checked exceptions that it might
-throw. Unchecked exceptions are either beyond your control (Error) or result
-from conditions that you should not have allowed in the first place
-(RuntimeException).
+* In summary, a method must declare all the checked exceptions that it might throw. Unchecked exceptions are either beyond your control (Error) or result from conditions that you should not have allowed in the first place (RuntimeException).
 
-* in C++, a function may throw any exception if no throw
-specification is given. In Java, a method without a throws specifier
-may not throw any checked exceptions at all.
+* in C++, a function may throw any exception if no throw specification is given. In Java, a method without a throws specifier may not throw any checked exceptions at all.
 
 * As of Java 7, you can catch multiple exception types in the same catch clause.
 
@@ -366,20 +338,15 @@ try
 }
 ```
 
-* Since Java 7, there is a more elegant solution, the try-with-resources
-statement
+* Since Java 7, there is a more elegant solution, the try-with-resources statement
 
-* The code in the finally clause executes whether or not an exception was
-caught.
+* The code in the finally clause executes whether or not an exception was caught.
 
-* Assertions are a commonly used idiom of defensive programming. The assertion mechanism allows you to put in checks during testing and to have
-them automatically removed in the production code.
+* Assertions are a commonly used idiom of defensive programming. The assertion mechanism allows you to put in checks during testing and to have them automatically removed in the production code.
 
-* By default, assertions are disabled. Enable them by running the program with the
-`-enableassertions` or `-ea` option
+* By default, assertions are disabled. Enable them by running the program with the `-enableassertions` or `-ea` option
 
-* The introduction of generics in Java 5 constitutes the most significant change in
-the Java programming language since its initial release
+* The introduction of generics in Java 5 constitutes the most significant change in the Java programming language since its initial release
 
 
 
