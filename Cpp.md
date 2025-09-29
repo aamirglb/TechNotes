@@ -23,6 +23,28 @@ namespace MyFTP = NetLib::Networking::FTP; // namespace alias
 0x3.ABCp-10; 0Xb.cp121
 ```
 
+* Convert floating point value to hex floating point literal
+
+```cpp
+double d = 333.3335;
+
+Convert 333 to binary = 101001101
+Multiply fraction part 0.3335 by 2
+
+0.3335 × 2 = 0.667  → 0
+0.667 × 2 = 1.334   → 1
+0.334 × 2 = 0.668   → 0
+0.668 × 2 = 1.336   → 1
+0.336 × 2 = 0.672   → 0
+0.672 × 2 = 1.344   → 1
+0.344 × 2 = 0.688   → 0
+0.688 × 2 = 1.376   → 1
+0.01010101... (approximate repeating pattern)
+
+333.3335 ≈ 101001101.01010101...
+Normalize binary form: 1.0100110101010101... × 2^8
+```
+
 * How to convert hex floating point literal to floating point value
 
 ```cpp
