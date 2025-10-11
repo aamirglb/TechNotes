@@ -79,6 +79,11 @@ function rowWiseFill() {
 }
 
 function draw() {
+    const fr = document.getElementById('frame-rate');
+    frameRate(30);
+    let frate = Math.floor(frameRate());
+    fr.innerHTML = `Frame Rate: ${frate}`
+
     count += 1;
     // let row = 0;
     // let col = 0;
