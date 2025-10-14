@@ -6,21 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>p5.js example</title>
   <style>
-    body {
-      padding: 0;
-      margin: 0;
-      background-color: #1b1b1b;
+    .layout-container {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+    }
+    header {
+      margin-bottom: 32px;
+    }
+    header h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: white;
+      border-bottom: 4px solid #4f46e5;
+      padding-bottom: 8px;
     }
   </style>
   <script src="p5/p5.min.js" type="text/javascript"></script>
   <script src="follow_target.js" type="text/javascript"></script>
   <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <main>
-  </main>
+    <h1>Follow Targets</h1>
+    <div class="layout-container">
+        <div id="p5-container"></div>
+        <div id="text-container">
+            <h2>Steps to target</h2>
+        </div>
+    </div>
 </body>
 
 </html>
