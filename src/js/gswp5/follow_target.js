@@ -11,6 +11,8 @@ let currTarget = null;
 let targetColors = ["red", "maroon", "purple", "fuchsia", "green", "lime", "yellow", "blue","teal", "aqua"];
 let colorIdx = 0;
 let numOfSteps = 0;
+let startTime = 0.0;
+let endTime = 0.0;
 
 function setup() {
   canvas = createCanvas(800, 800);
@@ -19,11 +21,14 @@ function setup() {
 }
 
 function mouseClicked() {
-  // let colr = targetColors[Math.floor(Math.random() * targetColors.length)];
-  let colr = targetColors[colorIdx % targetColors.length];
-  colorIdx += 1;
-  targets.push({x: mouseX, y: mouseY, color: colr});
+  if(mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+    // let colr = targetColors[Math.floor(Math.random() * targetColors.length)];
+    let colr = targetColors[colorIdx % targetColors.length];
+    colorIdx += 1;
+    targets.push({x: mouseX, y: mouseY, color: colr});
+  }
 }
+
 function draw() {
   background(0);
   
@@ -33,6 +38,7 @@ function draw() {
     startY = y;
 
     console.log("target: ", currTarget);
+    startTime = millis();
   }
   
   if(targets.length > 0) {
@@ -50,9 +56,11 @@ function draw() {
       
       // console.log("d = ", d, " pct = ", pct, "x-delta = ", (stopX - startX) * pct);
     } else {
+      endTime = millis();
+
        const t = document.getElementById('text-container');
        const p = document.createElement('p');
-       p.innerHTML = `no of steps to reach target: ${numOfSteps}`;
+       p.innerHTML = `Time To Target: ${(endTime - startTime).toFixed(1)} ms`;
        t.appendChild(p);
 
       // remove the current target
