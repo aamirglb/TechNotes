@@ -29,16 +29,24 @@
             flex-direction: row;
             gap: 32px;
         }
+        .column-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
     </style>
 </head>
 <body>
     <h1>2D-Grid</h1>
     <div class="layout-container">
         <div id="p5-container"></div>
-        <div id="text-container">
-            <h2>Grid Cell allocation description</h2>
+        <div class="column-layout">
+            <div id="frame-rate"></div>
+            <div id="cell-remaining"></div>
+            <div id="text-container">
+                <h2>Grid Cell allocation description</h2>
+            </div>
         </div>
-        <div id="frame-rate"></div>
     </div>
 </body>
 </html>

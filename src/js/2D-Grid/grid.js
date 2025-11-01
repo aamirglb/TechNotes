@@ -78,12 +78,33 @@ function rowWiseFill() {
     }
 }
 
+function getEmptyCellCount() {
+  let count = 0;
+  for(let row of grid) {
+    for(let cell of row) {
+      if( cell === 0 ) {
+        count += 1;
+      }
+    }
+  }
+  // for(let r = 0; r < rows; ++r) {
+  //     for(let c = 0; c < columns; ++c) {
+  //         if( grid[r][c] === 0) {
+  //           count += 1;
+  //         }
+  //     }
+  // }
+  return count;
+}
+
 function draw() {
     const fr = document.getElementById('frame-rate');
     frameRate(30);
     let frate = Math.floor(frameRate());
     fr.innerHTML = `Frame Rate: ${frate}`
 
+  const cr = document.getElementById('cell-remaining');
+  cr.innerHTML = `Empty Cells: ${getEmptyCellCount()}`
     count += 1;
     // let row = 0;
     // let col = 0;
