@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Walker</title>
+    <script language="javascript" type="text/javascript" src="p5/p5.min.js"></script>
+    <script type="text/javascript" src="walker.js"></script>
+
+    <style>
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        header {
+            margin-bottom: 32px;
+        }
+        header h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #1f2937;
+            border-bottom: 4px solid #4f46e5;
+            padding-bottom: 8px;
+        }
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+        }
+        .column-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Walker</h1>
+    <div class="layout-container">
+        <div id="p5-container"></div>
+        <div class="column-layout">
+            <div id="visited"></div>
+            <div id="unvisited"></div>
+        </div>
+    </div>
+</body>
+</html>
