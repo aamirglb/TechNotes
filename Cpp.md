@@ -6,6 +6,113 @@
 1. [C++17](#-c++17)
 1. [C++ Libraries](#c++-libraries)
 
+# C++ 23
+
+* If you include C headers like `<cmath>`, `<cstddef>`, some implementations make the C Standard Library names available both in the global namespace (optional) and in the std namespace (required). They do this to ease the porting of C code.
+
+* Unlike `std`, `std.compat` exports all C library facilities in both the global namespace and the std namespace.
+
+* Prior to C++23, the standard only required compilers to support letters a to z or A to Z and digits 0 to 9 in identifier names.
+
+* A template is a recipe that you create to be used by the compiler to generate code automatically for a function or class customized for a particular type or types.
+
+* The great thing about the two's complement representation of negative numbers is that it makes arithmetic - and not just addition, very easy for your computer.
+
+* single precision floating point number (1 sign bit,  8 exponent bits and 23 significand bits) (1+8+23=32)
+
+* double precision floating point number (1 sign bit, 11 exponent bits and 52 significand bits) (1+11+52=64)
+
+* It is important to realize that a code point is not the same as an encoding. A code point is an integer; an encoding specify how to represent a given code point as a series of bytes or words.
+
+* In C++, you have four types designed to store Unicode characters: `wchar_t`, `char8_t`, `char16_t`, and `char32_t`. Because `char8_t` was only introduced in C++20, though, many legacy applications and APIs will still use char to represent UTF-8–encoded strings as well.
+
+* The signed modifier is mostly optional; if omitted, your type will be signed by default. The only exception to this rule is char.
+
+* Modern C++ offers three more keywords that sound related to const:
+    * constexpr, 
+    * consteval, and 
+    * constinit
+
+* Since C++14, you can use the single quote character, ', to make numeric literals more readable `22'333` `-1'234LL`
+
+* Binary literals were introduced by the C++14 standard (0b or 0B)
+
+* `std::bfloat16_t` (Brain Floating Point) which follows a floating-point scheme developed by Google Brain, an artificial intelligence research group at Google.
+
+* The `<limits>` module of the Standard Library gives the upper and lower limits for various types.
+
+* With `import std;`, the name `size_t` should normally only be made available in the std namespace.
+
+* importing the `std.compat` module does the same as importing the `std` module except that it makes functionality from the C Standard Library available in both the `std` and the **global namespace**.
+
+* The equivalent of the modulo operator % for floating-point calculations is `std::fmod()`. `std::fmod(7.4, 3.1) = 1.2`
+
+* The outcome of over- and underflow is only defined for _unsigned intergers_. With signed integer,  the outcome of going beyond the bounds of what their type can represent is **undefined** and it depends  on the compiler and target computer architecture.
+
+* you can use braced initialization to initialize any variable with a single value, provided you do not combine it with an assignment
+
+```cpp
+auto m = {10}; // m has type std::initializer_list<int>
+```
+
+```cpp
+double d = 3.142345;
+// 3.1 (total number of significant digits, counting digits both before and after decimal point)
+std::println("{:.2}", d);
+std::println("{:.2f}", d); // fixed-point formatting; 3.14
+```
+
+* By default numbers (int/double) are aligned **right** and string and char are aligned **left**.
+
+* `[[fill]align][sign][#][0][width][.precision][type]`
+
+* "type" option for formatting floats
+    * "f" (fixed-point formatting)
+    * "e" (scientific formatting)
+    * "g" (general formatting)
+    * "a" (hexadecimal formatting)
+
+* As of C++23, compilers optionally also support more specialized floating-point types, such as `std::float16_t` and `std::float128_t`.
+
+* Types `char8_t`, `char16_t`, and `char32_t` may be better for handling Unicode characters cross-platform.
+
+* As of C++23, the recommended way to convert an enumeration type to its underlying integer type is the `std::to_underlying()` function. template `std::to_underlying()` ensures the conversion is safe, even if the underlying type changes.
+
+* using enum or using declaration
+
+```cpp
+using enum Day;
+using Punctuation::Comma;
+```
+
+* You can eliminate the need to qualify a specific name with the namespace in a source file with **using declaration**.
+```cpp
+using std::println;
+```
+
+* **using directive** imports all the names from a namespace
+
+* In C++20 a new operator was added to the language to compare values: the **threeway
+comparison operator**, denoted `<=>`. `<=>` behaves as `<`, `==`, and `>` all squished into one.
+
+* by defining single `<=>` operator you can make one of your own data types support
+multiple comparison operators (<, >, <=, and >=) all at once.
+
+```cpp
+std::is_lt(), std::is_gt(), std::is_eq() - named comparison functions.
+std::is_neq(), std::is_gteq(), std::islteq()
+```
+
+* Then you can use the expression `std::size(array)` to obtain the array’s size.
+
+* the behavior of integer overflow is only defined for unsigned integer types.
+
+* use C++20’s `std::ssize()` instead of `std::size()`. This function (`signed size`), returns the same number as `std::size()`, but then as a signed instead of an unsigned integer.
+
+
+
+
+
 # Professional C++
 
 * using namespace std; // using directive
