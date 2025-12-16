@@ -109,6 +109,30 @@ std::is_neq(), std::is_gteq(), std::islteq()
 
 * use C++20’s `std::ssize()` instead of `std::size()`. This function (`signed size`), returns the same number as `std::size()`, but then as a signed instead of an unsigned integer.
 
+* you can optionally supply a third argument to the getline() function.
+This specifies an alternative to '\n' to indicate the end of the input.
+
+```cpp
+std::cin.getline(text, maxLen, '*');
+```
+
+* The C++ standard does not permit an array dimension to be specified at runtime (aka: variable-length array). The array dimension must be a constant expression that can be evaluated by the compiler. But the C standard permits this.
+
+* If you create an `array<>` container without specifying initial values, it will contain _garbage values_ just like plain array.
+
+* As of C++17, the compiler is capable of deducing the template arguments from a given initializer list.
+
+* Comparison of C-style array types using <, >, <=, >=, ==, or != is deprecated as of C++20.
+
+* When you use curly braces to initialize a `vector<>`, the compiler always interprets it as a sequence of initial values.
+
+* A `vector<>` does not have a `fill()` member, it offers `assign()` functions that can be used to reinitialize the contents of a vector<>,
+
+* As of C++23, the `std::format()` and `std::print()` functions can format containers such as `std::array<>` or `std::vector<>` directly.
+
+* A variable declared with `auto*` can be initialized only with a pointer value. Initializing it with a value of any other type will result in a compiler error.
+
+
 
 
 
