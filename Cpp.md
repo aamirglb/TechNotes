@@ -132,6 +132,58 @@ std::cin.getline(text, maxLen, '*');
 
 * A variable declared with `auto*` can be initialized only with a pointer value. Initializing it with a value of any other type will result in a compiler error.
 
+* A variable of type "pointer to char" has the interesting property that it can be initialized with a string literal.
+MSVC gives the following error when you try to initialize string literal with char* pointer:
+a value of type "const char*" cannot be used to initialize an entity of type "char*"
+
+* string literals only became constants with the release of the first C++ standard and legacy C uses char* for string literals. 
+
+* The C++ language therefore prescribes that subtracting two pointers results in a value of type `std::ptrdiff_t`, a platform-specific type alias for signed integer type
+
+* As of C++20, you can use `std::make_unique_for_overwrite<T>()` or
+`make_unique_for_overwrite<T[]>(n)` in cases if values 
+will always be overwritten anyway before they are ever read
+
+```cpp
+const char* constCStr = str.c_str();
+char* data = str.data(); // non-const pointer
+
+// initialize using single character
+std::string s{'v'};  // OK, this uses initalizer list
+std::string s('v');  // Error
+std::string s(6, 'z'); // zzzzzz
+std::string s{6, 'z'}; // Not same as above 
+```
+
+* `std::string::copy()` copies a substring of a C++ `std::string` to a C-style string.
+
+```cpp
+char buffer[100]{};
+str.copy(buffer, 4); // 4 - max char to copy
+str.copy(buffer, 8, 5) // second argument is the index into str
+```
+
+* The type of `s1 <=> s2` is `std::strong_ordering`, a class type that purposely does not convert to a Boolean
+
+* A `string_view` object only allows you to view a string's characters (hence the name), not to alter, add, or remove them
+
+* C++20 introduced two useful member functions `starts_with()` and `ends_with()`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
