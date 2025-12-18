@@ -169,7 +169,120 @@ str.copy(buffer, 8, 5) // second argument is the index into str
 
 * C++20 introduced two useful member functions `starts_with()` and `ends_with()`
 
+* C++23 defines `contains()` method for std::string to check if a string contains a given substring or character.
 
+* C++ style substring marking rule: first argument is **index** and the second is the **length**
+
+* In C++20 or later, you can easily remove all occurrences of a given character using the nonmember `std::erase()` function
+
+* You can output wide string directly using `std::print()` or `std::println()`, but only if the format string is a wide string as well. `std::println(L"{}", aphorism);`
+
+* Objects of type `std::u8string` / `u16string` / `u32string` store strings of characters of type `char8_t` / `char16_t` / `char32_t` respectively.
+
+```cpp
+std::u8string quote{u8"Character is the real foundation of success."}; // char8_t
+std::u16string question{u"How are you"};  // char16_t
+std::u32string sentence{U"This is a sentence."}; // char32_t
+```
+
+* the types `char8_t` and `std::u8string` were only introduced in C++20.
+
+* If producing and manipulating _portable_ Unicode-encoded text is important for your application, you
+are much better off using a third-party library. Viable candidates include the **ICU library**, the
+**Boost.Locale** library, and Qt's **QString**.
+
+```cpp
+// raw string literals
+R"()"
+u8R"()"
+R"xml()xml"
+R"*()*"
+```
+
+* `std::span<double, 10>` allows us to write functions that work efficiently for inputs of both C-Style arrays of size 10 and std::array<T, 10> objects.
+
+```cpp
+void print(const double& it);
+
+int32_t i{};
+print(i); // compiler convert i into a temporary double and then pass a reference to temporary to function
+// Such implicit conversions are only supported for reference-to-const parameters
+```
+
+* The creation of temporaries is never allowed for reference-to-non-const parameters.
+
+* `std::string_view` parameters are preferred over _reference-to-const-string_ parameters because they avoid the **creation of temporary string objects** when passing string literals as arguments.
+
+* `auto` always deduces to a value type, never to a reference type.
+
+* A _non-const_ variable is never a constant expression. Not even if the variable’s current value is trivially deducible.
+`std::size_t variable{ 5 };`
+
+* const non-integers are not constant expressions; `const double dc{6};` // not a const expression but `constexpr double dc{6};` is a const expression.
+
+* Removing `constexpr` should be treated as a breaking API change.
+
+* Use `consteval` for functions that can only be evaluated at compile time - also known as _immediate functions_.
+
+* consteval - only for functions definitions
+  constinit - only for variable definitions
+
+* `const` relates to immutability; `constexpr`, `consteval`, and `constinit` relate to compile-time evaluation.
+
+* You use `consteval if` statements (with syntax `if consteval` or `if !consteval`) to create functions that behave
+differently depending on whether they are evaluated for a _constant expression_, or at _runtime_. During the evaluation of a
+constant expression, the if branch of `if consteval` statements is evaluated; at runtime the (optional) else branch. For
+if !consteval statements, it’s the other way around.
+
+* use the C++20 library function `std::is_constant_evaluated()` in a plain if statement if `constexpr if` is still not supported.
+
+* C++23 added `std::expected<T,E>`, a vocabulary type very similar to `std::optional<T>`.
+
+* you cannot create a `std::expected<T,E>` directly from a value of type `E`. The recommended way to create a `std::expected<T,E>` holding an error is by creating a value of type `std::unexpected<E>`
+
+```cpp
+void find_words(const std::string& sep);
+
+// call find_words
+find_words(",;:!?");   
+// compiler will convert the string literal to a temporary std::string object and copy the string literal to the temporary and then pass a reference to this temporary to the function.
+```
+
+* std::string_view is same as const std::string, only with one difference: creating a string_view never involves copying any characters. Not even when crated from a string literal.
+
+* An implicit conversion of `std::string_view` to `std::string` is not allowed. The rationale behind this deliberate restriction is that normally `string_view` is use to avoid string copy operations and converting a `string_view` back to `std::string` always involves copying the underlying character array.
+
+* `std::string_view` does not provide `c_str()` function to convert it to `const char*` but it doesn provide `data()` function.
+
+* C++20's `std::span<T>` class template allows you to refer to any contiguous sequence of T values - be it a `std::vector<T>`, `std::array<T,N>`, or `C-style array` - without specifying the concrete array or container type.
+
+* A `span<T>`, unlike a `string_view`, allows you to reassign or change the elements of the underlying array. Span does not allow you to add or remove any elements.
+
+* Use `span<const T>` for const array/vector
+
+* C++23 vocabulary types
+  * std::optional<T>
+  * std::expected<T, E>
+  * std::span<T>
+  * std::variant<>
+  * std::any
+  
+* The definition of a templat specialization must come after a declaration or definition of the original template.
+
+```cpp
+// template specialization
+template <>
+const int* larger(const int* a, const int* b) { return *a > *b ? a : b; }
+```
+
+* Using `auto` as the return type of a function implies this return type will always deduce to a **value type**.
+
+* `decltype(auto)` placeholder type when used as the return type of a function, this placeholder evaluates to the exact type
+of the expression(s) in the return statement(s).
+
+* abbreviated function template: `auto sqr(auto x) { return x * x; }`
+
+* 
 
 
 
