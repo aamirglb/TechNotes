@@ -282,16 +282,191 @@ of the expression(s) in the return statement(s).
 
 * abbreviated function template: `auto sqr(auto x) { return x * x; }`
 
-* 
+* MSVC 2022/2026 uses .ixx extension for C++ module interface file.
+
+* By using the `explicit` keyword with constructors that have a single parameter, you prevent implicit conversions from
+the parameter type to the class type.
+
+* C++23 introduces a new syntax that allows you to name the implicit this pointer as an explicit parameter as a reference.
+
+```cpp
+double Box::volumne(this Box& self) {
+    return self.getLength() * self.getWidth() * self.getHeight();
+  }
+```
 
 
 
 
 
 
+# Professional C++ (6th Edition)
 
+* using directive - to avoid prepending of namespaces, specify to the compiler that the code is making use of names in the specified namespace: `using namespace std;`
 
+* using declaration - used to refer to a particular item within a namespace `using std::print`
 
+```cpp
+using enum PieceType; // using directive
+using PieceType::King; // using declaration
+``` 
+
+* namespace alias is used to give a new and possibly shorter name to another namespace `namespace fs = std::filesystem;`
+
+* C++17 `<cstddef>` provides `std::byte` type representing a single byte. **byte** represent a single byte of memory. 
+
+* for floating-point types, the _minimum value_ is the **smallest** positive value that can be represented, while the __lowest__ value is the most **negative** value representable, which equals -max().
+
+* three-way comparison operator returns an enumeration-like type defined in `<compare>` in std namespace.
+
+```cpp
+```
+	strong_ordering, partial_ordering, weak_ordering
+
+* <compare> provides named comparison functions to interpret the result of an
+ordering. These functions are std::is_eq(), is_neq(), is_lt(), is_lteq(), is_gt(), and
+is_gteq() returning true if an ordering represents ==, !=, <, <=, >, or >= respectively, false otherwise.
+
+* Every function has a local predefined variable __func__ containing the name of the current function.
+
+* Attributes are a mechanism to add optional and/or vendor-specific information into source code.
+
+[[nodiscard]]
+[[maybe_unused]]
+[[noreturn]]
+[[deprecated]] [[deprecated("Unsafe function, please use alternate function")]] void func();
+[[likely]] and [[unlikely]]
+[[assume]] C++23
+
+* To get the size of a stack-based C-style array, you can use the std::size() function, defined in `<array>`.
+
+* C++23 introduces a literal suffix `uz` for type `std::size_t`, for example, `42uz`.
+
+* **Class Template Argument Deduction (CTAD)**: An initializer is required for CTAD to work.
+
+* If you call value() on an empty optional, an `std::bad_optional_access` exception is thrown
+
+* You cannot store a reference in an optional, so `optional<T&>` does not work. Instead, you can store a pointer in an optional.
+
+* steps for compiling and use custom modules
+
+```
+// compile the airlineticket module, if this module contains all the definitions then use airlineticket.o in the next line
+g++-15 -Wall -std=c++23 -fmodules -c airlineticket.cppm
+g++-15 -Wall -std=c++23 -fmodules main.cpp airlineticket.cpp
+g++ -std=gnu++26 -fmodules -fsearch-include-path bits/std.cc
+```
+
+* **Guidelines Support Library (GSL)**: `gsl::narrow_cast()` function for narrowing cast
+
+* Designated Initializers: Designated initializers must be in the same order as the declaration order of the data members.
+
+* Dereferencing a null pointer or an uninitialized pointer causes undefined behaviour.
+
+* The arrow operator (->) lets us perform both the dereference and the field access in one step.
+
+* You cannot get access to NULL constant defined in `<cstddef>` header using import declaration.
+
+* `const int* p;` // prevent the pointed-to value from being modified
+* `int* const p;` // p itself cannot be changed and must be initialized when declared
+
+* const member functions: `const` must be added to both member function declaration and its definition.
+
+* The const-member functions are also called **inspectors**, compared to **mutators** for non-const member functions.
+
+* you can't create a reference to a reference, so there is usually only one level of indirection with references. The only way to get multiple
+levels of indirection is to create a reference to a pointer.
+
+* You cannot create a reference to an unnamed value, such as an integer literal, unless the reference is to a const value.  
+
+```cpp
+int& unnamedRef1{5}; // Error
+const int& unnamedRef2{5}; // OK
+```
+
+* You cannot create a reference-to-non-const to a temporary object, but a reference-to-const is fine.
+```cpp
+string getString() { return "Hello"; }
+
+string& s1{ getString()}; // Error
+const string& s2{getString()}; // OK, this keeps the temporary string object alive until reference goes out of scope
+```
+
+* reference data members cannot be initialized inside the body of a class constructor, but they must be initialized in the constructor initializer.
+
+* 5 types of cast:
+	* const_cast()
+	* static_cast()
+	* reinterpret_cast()
+	* dynamic_cast()
+	* std::bit_cast()
+
+* Always keep in mind that auto strips away reference and const qualifiers and thus creates a copy! If you do not want a copy, use auto& or const auto&.
+
+* Copy list initializtion: T obj = {arg1, arg2, ...};
+* Direct list initalization: T obj {arg1, arg2, ...};
+
+```cpp
+// copy list initialization
+auto a = {11}; // initializer_list<int>
+auto b = {11, 22}; // initializer_list<int>
+
+// direct list initialization
+auto c {11}; // int
+auto d {11, 22}; // Error
+```
+
+* The difference between `auto` and `decltype` is that `decltype` _does not strip reference and const qualifiers_.
+
+* The strlen() function
+returns the length of the string, not the amount of memory needed to hold it.
+
+* Raw string literal: R"d-char-sequence(r-char-sequence)d-char-sequence"
+
+* The C++ `string` class additionally provides a `compare()` member function that
+behaves like strcmp() and has a similar return type.
+
+* `string` class also provide a `data()` member function that, up until C++14, always returned a `const char*` just as `c_str()`. Starting with C++17, however, `data()` returns a `char*` when called on a non-const string.
+
+* string methods
+	* `substr(pos, len)`
+	* `find(str)`
+	* `replace(pos, len, str)`
+	* `starts_with(str)`
+	* `ends_with(str)`
+	* `contains(str)/contains(ch)` C++23
+
+* Before C++23, it was possible to construct a string object by passing
+nullptr to its constructor. This would then result in undefined behavior at
+run time. Starting with C++23, trying to construct a string from nullptr
+results in a compilation error.
+
+* `auto str2 { "Hello"s };` // str2 is std::string
+
+* The standard literal `s` is defined in the `std::literals::string_literals` namespace. However, both the `string_literals` and `literals` namespaces are **inline namespaces**. Everything that is declared in an **inline namespace** is automatically available in the parent namespace.
+
+```cpp
+namespace std {
+	inline namespace literals {
+		inline namespace string_literals {
+		}
+	}
+}
+```
+
+* designed for perfect **round-tripping**, which means that
+serializing a numerical value to a string representation followed by
+deserializing the resulting string back to a numerical value results in the
+exact same value as the original one
+
+* If a function takes `const string&` parameter and if you pass a string literal, the compiler silently create a temporary string object that contained a copy of the string literal and pass a reference to that object, which has a bit of overhead.
+
+* A `string_view` should not be used to store a view of a temporary string.
+
+```cpp
+std::string s{"Hello"};
+std::string_view sv{ s + " World!"}; // temporary string, not good, undefined behaviour
+```
 
 
 
@@ -996,7 +1171,7 @@ SpreadsheetCell& SpreadsheetCell::operator+=(const SpreadsheetCell& rhs) {
 
 * Once your class has an overload for `operator==` and <=> , C++20 automatically provides support for all six comparison operators
 
-* Full support for all six comparison operators with one declaraton:
+* Full support for all six comparison operators with one declaration:
 
 * To implement support for the full suite of comparison operators, in C++20 you just need to implement one additional overloaded operator, `operator<=>`.
 
