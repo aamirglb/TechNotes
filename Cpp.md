@@ -26,7 +26,7 @@
 
 * In C++, you have four types designed to store Unicode characters: `wchar_t`, `char8_t`, `char16_t`, and `char32_t`. Because `char8_t` was only introduced in C++20, though, many legacy applications and APIs will still use char to represent UTF-8–encoded strings as well.
 
-* The signed modifier is mostly optional; if omitted, your type will be signed by default. The only exception to this rule is char.
+* The signed modifier is mostly optional; if omitted, your type will be signed by default. The only exception to this rule is **char** type.
 
 * Modern C++ offers three more keywords that sound related to const:
     * constexpr, 
@@ -57,12 +57,11 @@ auto m = {10}; // m has type std::initializer_list<int>
 
 ```cpp
 double d = 3.142345;
-// 3.1 (total number of significant digits, counting digits both before and after decimal point)
-std::println("{:.2}", d);
+std::println("{:.2}", d); // 3.1 (total number of significant digits, counting digits both before and after decimal point)
 std::println("{:.2f}", d); // fixed-point formatting; 3.14
 ```
 
-* By default numbers (int/double) are aligned **right** and string and char are aligned **left**.
+* By default, numbers (int/double) are aligned **right** and string and char are aligned **left**.
 
 * `[[fill]align][sign][#][0][width][.precision][type]`
 
@@ -211,9 +210,9 @@ print(i); // compiler convert i into a temporary double and then pass a referenc
 
 * The creation of temporaries is never allowed for reference-to-non-const parameters.
 
-* `std::string_view` parameters are preferred over _reference-to-const-string_ parameters because they avoid the **creation of temporary string objects** when passing string literals as arguments.
+* `std::string_view` parameters are preferred over _reference-to-const-string_ parameters because they avoid the **creation of temporary string objects** when passing **string literals** as arguments.
 
-* `auto` always deduces to a value type, never to a reference type.
+* `auto` always deduces to a value type, never to a _reference_ type.
 
 * A _non-const_ variable is never a constant expression. Not even if the variable’s current value is trivially deducible.
 `std::size_t variable{ 5 };`
@@ -248,7 +247,7 @@ find_words(",;:!?");
 // compiler will convert the string literal to a temporary std::string object and copy the string literal to the temporary and then pass a reference to this temporary to the function.
 ```
 
-* std::string_view is same as const std::string, only with one difference: creating a string_view never involves copying any characters. Not even when crated from a string literal.
+* std::string_view is same as const std::string, only with one difference: creating a string_view never involves copying any characters. Not even when created from a string literal.
 
 * An implicit conversion of `std::string_view` to `std::string` is not allowed. The rationale behind this deliberate restriction is that normally `string_view` is use to avoid string copy operations and converting a `string_view` back to `std::string` always involves copying the underlying character array.
 
@@ -267,7 +266,7 @@ find_words(",;:!?");
   * std::variant<>
   * std::any
   
-* The definition of a templat specialization must come after a declaration or definition of the original template.
+* The definition of a template specialization must come after a declaration or definition of the original template.
 
 ```cpp
 // template specialization
