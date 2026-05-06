@@ -16,7 +16,7 @@
 
 * A template is a recipe that you create to be used by the compiler to generate code automatically for a function or class customized for a particular type or types.
 
-* The great thing about the two's complement representation of negative numbers is that it makes arithmetic - and not just addition, very easy for your computer.
+* The great thing about the two's complement representation of negative numbers is that it makes arithmetic - and not just addition, very easy for the computer.
 
 * single precision floating point number (1 sign bit,  8 exponent bits and 23 significand bits) (1+8+23=32)
 
@@ -24,14 +24,14 @@
 
 * It is important to realize that a code point is not the same as an encoding. A code point is an integer; an encoding specify how to represent a given code point as a series of bytes or words.
 
-* In C++, you have four types designed to store Unicode characters: `wchar_t`, `char8_t`, `char16_t`, and `char32_t`. Because `char8_t` was only introduced in C++20, though, many legacy applications and APIs will still use char to represent UTF-8–encoded strings as well.
+* In C++, you have four types designed to store Unicode characters: `wchar_t`, `char8_t`, `char16_t`, and `char32_t`. Because `char8_t` was only introduced in C++20, though, many legacy applications and APIs will still use `char` to represent UTF8 encoded strings as well.
 
-* The signed modifier is mostly optional; if omitted, your type will be signed by default. The only exception to this rule is **char** type.
+* The signed modifier is mostly optional; if omitted, the type will be signed by default. The only exception to this rule is **char** type.
 
 * Modern C++ offers three more keywords that sound related to const:
-    * constexpr, 
-    * consteval, and 
-    * constinit
+    * `constexpr`, 
+    * `consteval`, and 
+    * `constinit`
 
 * Since C++14, you can use the single quote character, ', to make numeric literals more readable `22'333` `-1'234LL`
 
@@ -45,9 +45,9 @@
 
 * importing the `std.compat` module does the same as importing the `std` module except that it makes functionality from the C Standard Library available in both the `std` and the **global namespace**.
 
-* The equivalent of the modulo operator % for floating-point calculations is `std::fmod()`. `std::fmod(7.4, 3.1) = 1.2`
+* The equivalent of the modulo operator `%` for floating-point calculations is `std::fmod()`. `std::fmod(7.4, 3.1) = 1.2`
 
-* The outcome of over- and underflow is only defined for _unsigned intergers_. With signed integer,  the outcome of going beyond the bounds of what their type can represent is **undefined** and it depends  on the compiler and target computer architecture.
+* The outcome of over and underflow is only defined for **unsigned intergers**. With signed integer, the outcome of going beyond the bounds of what their type can represent is **undefined** and it depends  on the compiler and target computer architecture.
 
 * you can use braced initialization to initialize any variable with a single value, provided you do not combine it with an assignment
 
@@ -61,15 +61,15 @@ std::println("{:.2}", d); // 3.1 (total number of significant digits, counting d
 std::println("{:.2f}", d); // fixed-point formatting; 3.14
 ```
 
-* By default, numbers (int/double) are aligned **right** and string and char are aligned **left**.
+* By default, numbers (`int`/`double`) are aligned **right** and `string` and `char` are aligned **left**.
 
 * `[[fill]align][sign][#][0][width][.precision][type]`
 
 * "type" option for formatting floats
-    * "f" (fixed-point formatting)
-    * "e" (scientific formatting)
-    * "g" (general formatting)
-    * "a" (hexadecimal formatting)
+    * `f` (fixed-point formatting)
+    * `e` (scientific formatting)
+    * `g` (general formatting)
+    * `a` (hexadecimal formatting)
 
 * As of C++23, compilers optionally also support more specialized floating-point types, such as `std::float16_t` and `std::float128_t`.
 
@@ -98,11 +98,11 @@ comparison operator**, denoted `<=>`. `<=>` behaves as `<`, `==`, and `>` all sq
 multiple comparison operators (<, >, <=, and >=) all at once.
 
 ```cpp
-std::is_lt(), std::is_gt(), std::is_eq() - named comparison functions.
+std::is_lt(), std::is_gt(), std::is_eq() // named comparison functions.
 std::is_neq(), std::is_gteq(), std::islteq()
 ```
 
-* Then you can use the expression `std::size(array)` to obtain the array’s size.
+* use the expression `std::size(array)` to obtain the array's size.
 
 * the behavior of integer overflow is only defined for unsigned integer types.
 
@@ -125,19 +125,23 @@ std::cin.getline(text, maxLen, '*');
 
 * When you use curly braces to initialize a `vector<>`, the compiler always interprets it as a sequence of initial values.
 
-* A `vector<>` does not have a `fill()` member, it offers `assign()` functions that can be used to reinitialize the contents of a vector<>,
+* A `vector<>` does not have a `fill()` member, it offers `assign()` functions that can be used to reinitialize the contents of a `vector<>`,
 
 * As of C++23, the `std::format()` and `std::print()` functions can format containers such as `std::array<>` or `std::vector<>` directly.
 
 * A variable declared with `auto*` can be initialized only with a pointer value. Initializing it with a value of any other type will result in a compiler error.
 
 * A variable of type "pointer to char" has the interesting property that it can be initialized with a string literal.
-MSVC gives the following error when you try to initialize string literal with char* pointer:
+
+* MSVC gives the following error when you try to initialize string literal with `char*` pointer:
+
+```
 a value of type "const char*" cannot be used to initialize an entity of type "char*"
+```
 
-* string literals only became constants with the release of the first C++ standard and legacy C uses char* for string literals. 
+* string literals only became constants with the release of the **first C++ standard** and **legacy C** uses `char*` for string literals. 
 
-* The C++ language therefore prescribes that subtracting two pointers results in a value of type `std::ptrdiff_t`, a platform-specific type alias for signed integer type
+* The C++ language therefore prescribes that subtracting two pointers results in a value of type `std::ptrdiff_t`, a platform-specific type alias for signed integer type.
 
 * As of C++20, you can use `std::make_unique_for_overwrite<T>()` or
 `make_unique_for_overwrite<T[]>(n)` in cases if values 
@@ -147,19 +151,29 @@ will always be overwritten anyway before they are ever read
 const char* constCStr = str.c_str();
 char* data = str.data(); // non-const pointer
 
+// Since C++17 there is a non-const overload for .data()
+std::string mutable_s{"hello"};
+auto* p = mutable_s.data(); // return char*
+
+const std::string s{"world"};
+auto *p2 = s.data(); // return const char*
+
 // initialize using single character
 std::string s{'v'};  // OK, this uses initalizer list
 std::string s('v');  // Error
 std::string s(6, 'z'); // zzzzzz
-std::string s{6, 'z'}; // Not same as above 
+std::string s{6, 'z'}; // Not same as above, two elements 6 and z
 ```
 
 * `std::string::copy()` copies a substring of a C++ `std::string` to a C-style string.
 
 ```cpp
+size_type copy( CharT* dest, size_type count, size_type pos = 0 ) const; // since C++20
+
+std::string str{"hello world"};
 char buffer[100]{};
-str.copy(buffer, 4); // 4 - max char to copy
-str.copy(buffer, 8, 5) // second argument is the index into str
+str.copy(buffer, 4); // 4 - max char to copy, "hell"
+str.copy(buffer, 8, 5); // max 8 char from 5th position, " world"
 ```
 
 * The type of `s1 <=> s2` is `std::strong_ordering`, a class type that purposely does not convert to a Boolean
@@ -168,7 +182,7 @@ str.copy(buffer, 8, 5) // second argument is the index into str
 
 * C++20 introduced two useful member functions `starts_with()` and `ends_with()`
 
-* C++23 defines `contains()` method for std::string to check if a string contains a given substring or character.
+* C++23 defines `contains()` method for `std::string` to check if a string contains a given substring or character.
 
 * C++ style substring marking rule: first argument is **index** and the second is the **length**
 
@@ -198,14 +212,14 @@ R"xml()xml"
 R"*()*"
 ```
 
-* `std::span<double, 10>` allows us to write functions that work efficiently for inputs of both C-Style arrays of size 10 and std::array<T, 10> objects.
+* `std::span<double, 10>` allows us to write functions that work efficiently for inputs of both C-Style arrays of size 10 and `std::array<T, 10>` objects.
 
 ```cpp
 void print(const double& it);
 
 int32_t i{};
 print(i); // compiler convert i into a temporary double and then pass a reference to temporary to function
-// Such implicit conversions are only supported for reference-to-const parameters
+          // Such implicit conversions are only supported for reference-to-const parameters
 ```
 
 * The creation of temporaries is never allowed for reference-to-non-const parameters.
@@ -217,21 +231,24 @@ print(i); // compiler convert i into a temporary double and then pass a referenc
 * A _non-const_ variable is never a constant expression. Not even if the variable’s current value is trivially deducible.
 `std::size_t variable{ 5 };`
 
-* const non-integers are not constant expressions; `const double dc{6};` // not a const expression but `constexpr double dc{6};` is a const expression.
+* const non-integers are not constant expressions;
+```cpp
+const double dc{6}; // not a const expression
+constexpr double dc{6}; // is a const expression.
+```
 
 * Removing `constexpr` should be treated as a breaking API change.
 
 * Use `consteval` for functions that can only be evaluated at compile time - also known as _immediate functions_.
 
-* consteval - only for functions definitions
-  constinit - only for variable definitions
+*    `consteval` - only for functions definitions
+
+     `constinit` - only for variable definitions
 
 * `const` relates to immutability; `constexpr`, `consteval`, and `constinit` relate to compile-time evaluation.
 
-* You use `consteval if` statements (with syntax `if consteval` or `if !consteval`) to create functions that behave
-differently depending on whether they are evaluated for a _constant expression_, or at _runtime_. During the evaluation of a
-constant expression, the if branch of `if consteval` statements is evaluated; at runtime the (optional) else branch. For
-if !consteval statements, it’s the other way around.
+* You use `consteval if` statements (with syntax `if consteval` or `if !consteval`) to create functions that behave differently depending on whether they are evaluated for a _constant expression_, or at _runtime_. During the evaluation of a constant expression, the if branch of `if consteval` statements is evaluated; at runtime the (optional) else branch. For
+`if !consteval` statements, it's the other way around.
 
 * use the C++20 library function `std::is_constant_evaluated()` in a plain if statement if `constexpr if` is still not supported.
 
@@ -244,18 +261,18 @@ void find_words(const std::string& sep);
 
 // call find_words
 find_words(",;:!?");   
-// compiler will convert the string literal to a temporary std::string object and copy the string literal to the temporary and then pass a reference to this temporary to the function.
+// compiler will convert the string literal to a temporary std::string object and copy the string literal to the temporary and then pass a reference to this temporary to the function. This copy can be avoided if we use std::string_view as function parameter type
 ```
 
-* std::string_view is same as const std::string, only with one difference: creating a string_view never involves copying any characters. Not even when created from a string literal.
+* `std::string_view` is same as `const std::string`, only with one difference: creating a `string_view` never involves copying any characters. Not even when created from a string literal.
 
 * An implicit conversion of `std::string_view` to `std::string` is not allowed. The rationale behind this deliberate restriction is that normally `string_view` is use to avoid string copy operations and converting a `string_view` back to `std::string` always involves copying the underlying character array.
 
-* `std::string_view` does not provide `c_str()` function to convert it to `const char*` but it doesn provide `data()` function.
+* `std::string_view` does not provide `c_str()` function to convert it to `const char*` but it does provide `data()` function.
 
 * C++20's `std::span<T>` class template allows you to refer to any contiguous sequence of T values - be it a `std::vector<T>`, `std::array<T,N>`, or `C-style array` - without specifying the concrete array or container type.
 
-* A `span<T>`, unlike a `string_view`, allows you to reassign or change the elements of the underlying array. Span does not allow you to add or remove any elements.
+* A `span<T>`, unlike a `string_view`, allows you to reassign or change the elements of the underlying array. Span does not allow you to **add** or **remove** any elements.
 
 * Use `span<const T>` for const array/vector
 
