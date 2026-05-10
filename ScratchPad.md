@@ -1,62 +1,69 @@
-Pragmatic: Concerned with practical matters
-           Guided by practical experience and observation rather than theory
-
 # The Pragmatic Programmer
 
-Tip-1: Care About Your Craft
-Tip-2: Think! About your work
-Tip-3: You have agency - You can change your organization or change your organization
-Tip-4: Provide options, don't make lame excuses
-Tip-5: Don’t Live with Broken Windows - Don’t leave "broken windows" (bad designs, wrong decisions, or poor code) unrepaired.
-Tip-6: Be a Catalyst for Change
-Tip-7: Remember the Big Picture
-Tip-8: Make Quality a Requirements Issue
-Tip-9: Invest Regularly in Your Knowledge Portfolio
-Tip-10: Critically Analyze What You Read and Hear
-Tip-11: English is Just Another Programming Language
-Tip-12: It's Both What You Say and the Way You Say It
-Tip-13: Build Documentation In, Don’t Bolt It On
-Tip-14: Good Design Is Easier to Change Than Bad Design
-Tip-15: DRY - Don't Repeat Yourself
-Tip-16: Make It Easy to Reuse
-Tip-17: Eliminate Effects Between Unrelated Things
-Tip-18: There Are No Final Decisions
-Tip-19: Forgo Following Fads
-Tip-20: Use Tracer Bullets to Find the Target
-Tip-21: Prototype to Learn
-Tip-22: Program Close to the Problem Domain
-Tip-23: Estimate to Avoid Surprises
-Tip-24: Iterate the Schedule with the Code
-Tip-25: Keep Knowledge in Plain Text (HTML, JSON, YAML, HTTP, SMTP, IMAP) 
-Tip-26: Use the Power of Command Shells
-Tip-27: Achieve Editor Fluency 
-Tip-28: Always Use Version Control
-Tip-29: Fix the Problem, Not the Blame 
-Tip-30: Don't Panic
-Tip-31: Failing Test Before Fixing Code
-Tip-32: Read the Damn Error Message
-Tip-33: "select" Isn't Broken
-Tip-34: Don't Assume It - Prove It
-Tip-35: Learn a Text Manipulation Language [sed, awk, perl]
-Tip-36: You Can't Write Perfect Software
-Tip-37**: Design with Contracts (DBC)
-Tip-38: Crash Early
-Tip-39: Use Assertions to Prevent the Impossible
-Tip-40: Finish What You Start (Deallocate resource)
-Tip-41: Act Locally
-Tip-42: Take Small Steps - Always
-Tip-43: Avoid Foutune-Telling
-Tip-44: Decoupled Code Is Easier to Change
-Tip-45: Tell, Don't Ask
-Tip-46: Don't Chain Method Calls
-Tip-47: Avoid Global Data
-Tip-48: If It's Important Enough to Be Global, Wrap It in an API
-Tip-49: Programming Is About Code, But Programs Are About Data
-Tip-50: Don't Hoard State, Pass It Around
-Tip-51: Don't Pay Inheritance Tax
-Tip-52: Prefer Interfaces to Express Polymorphism
-Tip-53: Delegate to Services: Has-A Trumps Is-A
-Tip-54: Use Mixins to Share Functionality
+**Pragmatic**: Concerned with practical matters; Guided by practical experience and observation rather than theory
+
+Pragmatic Programmer:
+* Early adopter/fast adapter
+* Inquisitive: Tend to ask questions
+* Critical thinker
+* Realistic
+* Jack of all trades
+
+  
+* Tip-1: Care About Your Craft
+* Tip-2: Think! About your work
+* Tip-3: You have agency - You can change your organization or change your organization
+* Tip-4: Provide options, don't make lame excuses
+* Tip-5: Don’t Live with Broken Windows - Don’t leave "broken windows" (bad designs, wrong decisions, or poor code) unrepaired.
+* Tip-6: Be a Catalyst for Change
+* Tip-7: Remember the Big Picture
+* Tip-8: Make Quality a Requirements Issue
+* Tip-9: Invest Regularly in Your Knowledge Portfolio
+* Tip-10: Critically Analyze What You Read and Hear
+* Tip-11: English is Just Another Programming Language
+* Tip-12: It's Both What You Say and the Way You Say It
+* Tip-13: Build Documentation In, Don’t Bolt It On
+* Tip-14: Good Design Is Easier to Change Than Bad Design
+* Tip-15: DRY - Don't Repeat Yourself
+* Tip-16: Make It Easy to Reuse
+* Tip-17: Eliminate Effects Between Unrelated Things
+* Tip-18: There Are No Final Decisions
+* Tip-19: Forgo Following Fads
+* Tip-20: Use Tracer Bullets to Find the Target
+* Tip-21: Prototype to Learn
+* Tip-22: Program Close to the Problem Domain
+* Tip-23: Estimate to Avoid Surprises
+* Tip-24: Iterate the Schedule with the Code
+* Tip-25: Keep Knowledge in Plain Text (HTML, JSON, YAML, HTTP, SMTP, IMAP) 
+* Tip-26: Use the Power of Command Shells
+* Tip-27: Achieve Editor Fluency 
+* Tip-28: Always Use Version Control
+* Tip-29: Fix the Problem, Not the Blame 
+* Tip-30: Don't Panic
+* Tip-31: Failing Test Before Fixing Code
+* Tip-32: Read the Damn Error Message
+* Tip-33: "select" Isn't Broken
+* Tip-34: Don't Assume It - Prove It
+* Tip-35: Learn a Text Manipulation Language [sed, awk, perl]
+* Tip-36: You Can't Write Perfect Software
+* Tip-37**: Design with Contracts (DBC)
+* Tip-38: Crash Early
+* Tip-39: Use Assertions to Prevent the Impossible
+* Tip-40: Finish What You Start (Deallocate resource)
+* Tip-41: Act Locally
+* Tip-42: Take Small Steps - Always
+* Tip-43: Avoid Fortune-Telling
+* Tip-44: Decoupled Code Is Easier to Change
+* Tip-45: Tell, Don't Ask
+* Tip-46: Don't Chain Method Calls
+* Tip-47: Avoid Global Data
+* Tip-48: If It's Important Enough to Be Global, Wrap It in an API
+* Tip-49: Programming Is About Code, But Programs Are About Data
+* Tip-50: Don't Hoard State, Pass It Around
+* Tip-51: Don't Pay Inheritance Tax
+* Tip-52: Prefer Interfaces to Express Polymorphism
+* Tip-53: Delegate to Services: Has-A Trumps Is-A
+* Tip-54: Use Mixins to Share Functionality
 Tip-xx: 
 
 * The greatest of all weaknesses is the fear of apprearing weak.
